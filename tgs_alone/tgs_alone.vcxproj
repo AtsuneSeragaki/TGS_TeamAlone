@@ -153,15 +153,29 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Object\Player.cpp" />
+    <ClCompile Include="Object\RankingData.cpp" />
+    <ClCompile Include="Scene\EndScene.cpp" />
     <ClCompile Include="Scene\GameMainScene.cpp" />
+    <ClCompile Include="Scene\HelpScene.cpp" />
+    <ClCompile Include="Scene\InputRankingScene.cpp" />
+    <ClCompile Include="Scene\RankingScene.cpp" />
+    <ClCompile Include="Scene\ResultScene.cpp" />
     <ClCompile Include="Scene\SceneManager.cpp" />
+    <ClCompile Include="Scene\TitleScene.cpp" />
     <ClCompile Include="Utility\InputControl.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Object\Player.h" />
+    <ClInclude Include="Object\RankingData.h" />
+    <ClInclude Include="Scene\EndScene.h" />
     <ClInclude Include="Scene\GameMainScene.h" />
+    <ClInclude Include="Scene\HelpScene.h" />
+    <ClInclude Include="Scene\InputRankingScene.h" />
+    <ClInclude Include="Scene\RankingScene.h" />
+    <ClInclude Include="Scene\ResultScene.h" />
     <ClInclude Include="Scene\SceneBase.h" />
     <ClInclude Include="Scene\SceneManager.h" />
+    <ClInclude Include="Scene\TitleScene.h" />
     <ClInclude Include="Utility\InputControl.h" />
     <ClInclude Include="Utility\Vector2D.h" />
   </ItemGroup>

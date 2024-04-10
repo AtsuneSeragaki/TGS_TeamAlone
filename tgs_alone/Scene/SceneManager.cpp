@@ -1,7 +1,13 @@
 #include "SceneManager.h"
 #include "../Utility/InputControl.h"
 #include "DxLib.h"
+#include "TitleScene.h"
 #include "GameMainScene.h"
+#include "HelpScene.h"
+#include "ResultScene.h"
+#include "RankingScene.h"
+#include "InputRankingScene.h"
+#include "EndScene.h"
 
 SceneManager::SceneManager() : current_scene(nullptr)
 {
@@ -17,7 +23,7 @@ SceneManager::~SceneManager()
 void SceneManager::Initialize()
 {
 	// ウィンドウのタイトルを設定
-	SetMainWindowText("爆撃ハンター");
+	SetMainWindowText("Botton Attack");
 
 	// ウィンドウモードで起動
 	if (ChangeWindowMode(TRUE) != DX_CHANGESCREEN_OK)
@@ -25,7 +31,7 @@ void SceneManager::Initialize()
 		throw("ウィンドウモードで起動できませんでした\n");
 	}
 
-	SetGraphMode(960, 720, 32);
+	SetGraphMode(1280, 720, 32);
 
 	// DXライブラリの初期化
 	if (DxLib_Init() == -1)
@@ -40,7 +46,7 @@ void SceneManager::Initialize()
 	}
 
 	// タイトルシーンから始める
-	ChangeScene(eSceneType::E_MAIN);
+	ChangeScene(eSceneType::E_TITLE);
 }
 
 // シーンマネージャー機能：更新処理
@@ -151,8 +157,20 @@ SceneBase* SceneManager::CreateScene(eSceneType scene_type)
 	// 引数(シーンタイプ)によって、生成するシーンを決定する
 	switch (scene_type)
 	{
+	case eSceneType::E_TITLE:
+		return new TitleScene;
 	case eSceneType::E_MAIN:
 		return new GameMainScene;
+	case eSceneType::E_HELP:
+		return new HelpScene;
+	case eSceneType::E_RANKING:
+		return new RankingScene;
+	case eSceneType::E_INPUT_RANKING:
+		return new InputRankingScene;
+	case eSceneType::E_RESULT:
+		return new ResultScene;
+	case eSceneType::E_END:
+		return new EndScene;
 	default:
 		return nullptr;
 	}

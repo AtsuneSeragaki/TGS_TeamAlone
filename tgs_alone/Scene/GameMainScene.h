@@ -7,7 +7,6 @@ class GameMainScene : public SceneBase
 {
 private:
 	int back_img;    // ”wŒi‰æ‘œ 
-	Player* player;  // ƒvƒŒƒCƒ„[
 
 public:
 	GameMainScene();
