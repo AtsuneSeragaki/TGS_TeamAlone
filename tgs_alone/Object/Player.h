@@ -3,7 +3,6 @@
 class Player
 {
 private:
-	int image[4];      // 画僧データ
 	int sound;         // 音データ
 
 public:
