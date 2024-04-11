@@ -6,7 +6,13 @@
 class GameMainScene : public SceneBase
 {
 private:
-	int back_img;    // ”wŒi‰æ‘œ 
+	int back_img;  // ”wŒi‰æ‘œ
+	int theme_img[4]; // ‚¨‘è‰æ‘œ
+	int bgm;
+	int se;
+	float time;    // §ŒÀŠÔ
+	Player player;
+
 
 public:
 	GameMainScene();
