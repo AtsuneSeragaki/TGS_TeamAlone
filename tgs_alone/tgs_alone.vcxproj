@@ -154,6 +154,8 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Object\Player.cpp" />
     <ClCompile Include="Object\RankingData.cpp" />
+    <ClCompile Include="Object\Theme.cpp" />
+    <ClCompile Include="Object\Time.cpp" />
     <ClCompile Include="Scene\EndScene.cpp" />
     <ClCompile Include="Scene\GameMainScene.cpp" />
     <ClCompile Include="Scene\HelpScene.cpp" />
@@ -167,6 +169,8 @@
   <ItemGroup>
     <ClInclude Include="Object\Player.h" />
     <ClInclude Include="Object\RankingData.h" />
+    <ClInclude Include="Object\Theme.h" />
+    <ClInclude Include="Object\Time.h" />
     <ClInclude Include="Scene\EndScene.h" />
     <ClInclude Include="Scene\GameMainScene.h" />
     <ClInclude Include="Scene\HelpScene.h" />

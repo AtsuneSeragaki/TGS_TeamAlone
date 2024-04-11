@@ -1,7 +1,7 @@
 #include "GameMainScene.h"
 #include "DxLib.h"
 
-GameMainScene::GameMainScene() :back_img(0), theme_img{ 0 }, bgm(0), se(0), time(0.0f),time_cnt(0),theme{0}, theme_flg(true), theme_num(3)
+GameMainScene::GameMainScene() :back_img(0),bgm(0), se(0), player(nullptr), time(nullptr),theme(nullptr)
 {
 }
 
@@ -11,35 +11,22 @@ GameMainScene::~GameMainScene()
 
 void GameMainScene::Initialize()
 {
-	time = 60.0f;
+	// オブジェクトの生成
+	player = new Player;
+	time = new Time;
+	theme = new Theme;
+
+	// オブジェクトの初期化
+	player->Initialize();
+	time->Initialize();
+	theme->Initialize();
 }
 
 eSceneType GameMainScene::Update()
 {
-	// お題の設定
-	if (theme_flg == true)
-	{
-		SetTheme();
-	}
-	else
-	{
-		// 制限時間
-		time_cnt++;
-
-		if (time_cnt > 60)
-		{
-			if (time > 0)
-			{
-				time -= 1.0f;
-			}
-			else
-			{
-				time = 0.0f;
-			}
-
-			time_cnt = 0;
-		}
-	}
+	theme->Update();
+	time->Update();
+	player->Update();
 
 	return GetNowScene();
 }
@@ -51,15 +38,11 @@ void GameMainScene::Draw() const
 
 #endif // _DEBUG
 
-	// 制限時間表示
-	DrawFormatString(600, 10, 0xffffff, "%f", time);
+	time->Draw();
 
-	// お題表示
-	for (int i = 0; i < theme_num; i++)
-	{
-		//DrawGraph(100 + i * 20, 300, theme_img[theme[i]], TRUE);
-		DrawFormatString(100 + i * 20, 300, 0xffffff, "%d", theme[i]);
-	}
+	theme->Draw();
+
+	player->Draw();
 }
 
 void GameMainScene::Finalize()
@@ -69,14 +52,4 @@ void GameMainScene::Finalize()
 eSceneType GameMainScene::GetNowScene() const
 {
 	return eSceneType::E_MAIN;
-}
-
-void GameMainScene::SetTheme(void)
-{
-	for (int i = 0; i < theme_num; i++)
-	{
-		theme[i] = GetRand(3);
-	}
-
-	theme_flg = false;
 }
