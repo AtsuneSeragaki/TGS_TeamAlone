@@ -6,9 +6,11 @@ class Theme
 {
 private:
 	int theme_img[4]; // お題画像
-	int theme[THEME_MAX];  // お題 
-	bool theme_flg;   // お題を出すか出さないかフラグ
+	bool theme_flg;   // お題の生成フラグ
 	int theme_num;    // お題の数
+
+public:
+	int theme[THEME_MAX];  // お題 
 
 public:
 	Theme();
@@ -18,4 +20,9 @@ public:
 	void Update();      // 更新処理
 	void Draw();        // 描画処理
 	void Finalize();    // 終了時処理
+
+	int GetTheme(int num) { return theme[num]; } // お題のデータを返す
+	int GetThemeNum() { return theme_num; } // お題の数を返す
+	void SetThemeNum() { theme_num++; } // お題の数を増やす
+	void SetThemeFlg(bool flg) { theme_flg = flg; }  // お題の生成フラグを設定
 };

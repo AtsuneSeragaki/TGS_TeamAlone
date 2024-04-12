@@ -1,7 +1,7 @@
 ﻿#include "Theme.h"
 #include "DxLib.h"
 
-Theme::Theme() : theme_img{0},theme{0},theme_flg(false),theme_num(0)
+Theme::Theme() : theme_img{0},theme{-1},theme_flg(false),theme_num(0)
 {
 }
 
@@ -41,7 +41,8 @@ void Theme::Draw()
 	for (int i = 0; i < theme_num; i++)
 	{
 		//DrawGraph(100 + i * 20, 300, theme_img[theme[i]], TRUE);
-		DrawFormatString(100 + i * 20, 300, 0xffffff, "%d", theme[i]);
+		SetFontSize(40);
+		DrawFormatString((650 - 30 * theme_num) + i * 100, 300, 0xffffff, "%d", theme[i]);
 	}
 }
 

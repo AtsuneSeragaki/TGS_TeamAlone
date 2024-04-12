@@ -11,6 +11,8 @@ private:
 	int back_img;     // 背景画像
 	int bgm;
 	int se;
+	int player_input[15]; // プレイヤーが入力したものが当たっていた時保存
+	int correct_num;  // プレイヤーが正解した数    
 	Player* player;   // プレイヤー
 	Time* time;       // 制限時間
 	Theme* theme;     // お題
@@ -25,4 +27,7 @@ public:
 	virtual void Finalize() override;
 
 	virtual eSceneType GetNowScene() const override;
+
+private:
+	void Comparison(); // お題とプレイヤーの入力を比較
 };
