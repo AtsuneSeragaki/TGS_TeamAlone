@@ -1,4 +1,4 @@
-#include "EndScene.h"
+﻿#include "EndScene.h"
 
 EndScene::EndScene():back_img(0)
 {
