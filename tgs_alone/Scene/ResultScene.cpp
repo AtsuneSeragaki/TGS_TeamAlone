@@ -1,4 +1,4 @@
-#include "ResultScene.h"
+﻿#include "ResultScene.h"
 
 ResultScene::ResultScene():back_img(0)
 {

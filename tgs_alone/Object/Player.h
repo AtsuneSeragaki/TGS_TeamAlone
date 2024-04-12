@@ -1,16 +1,16 @@
-#pragma once
+ï»¿#pragma once
 
 class Player
 {
 private:
-	int sound;         // ‰¹ƒf[ƒ^
+	int sound;         // éŸ³ãƒ‡ãƒ¼ã‚¿
 
 public:
 	Player();
 	~Player();
 
-	void Initialize();  // ‰Šú‰»ˆ—
-	void Update();      // XVˆ—
-	void Draw();        // •`‰æˆ—
-	void Finalize();    // I—¹ˆ—
+	void Initialize();  // åˆæœŸåŒ–å‡¦ç†
+	void Update();      // æ›´æ–°å‡¦ç†
+	void Draw();        // æç”»å‡¦ç†
+	void Finalize();    // çµ‚äº†æ™‚å‡¦ç†
 };

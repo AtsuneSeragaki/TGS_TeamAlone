@@ -1,28 +1,28 @@
-#pragma once
+ï»¿#pragma once
 
 #include "SceneBase.h"
 
-// ŒÅ’è‰»‚·‚éƒtƒŒ[ƒ€ƒŒ[ƒg’l
+// å›ºå®šåŒ–ã™ã‚‹ãƒ•ãƒ¬ãƒ¼ãƒ ãƒ¬ãƒ¼ãƒˆå€¤
 #define TARGET_FREAM_RATE (60)
-// 1ƒtƒŒ[ƒ€“–‚½‚è‚ÌŠÔ(ƒ}ƒCƒNƒ•b)
+// 1ãƒ•ãƒ¬ãƒ¼ãƒ å½“ãŸã‚Šã®æ™‚é–“(ãƒã‚¤ã‚¯ãƒ­ç§’)
 #define DELTA_SECOND (1000000 / TARGET_FREAM_RATE)
 
-// ƒV[ƒ“ƒ}ƒl[ƒWƒƒ[ƒNƒ‰ƒX
+// ã‚·ãƒ¼ãƒ³ãƒãƒãƒ¼ã‚¸ãƒ£ãƒ¼ã‚¯ãƒ©ã‚¹
 class SceneManager
 {
 private:
-	SceneBase* current_scene;  // Œ»İ‚ÌƒV[ƒ“î•ñ
+	SceneBase* current_scene;  // ç¾åœ¨ã®ã‚·ãƒ¼ãƒ³æƒ…å ±
 
 public:
 	SceneManager();
 	~SceneManager();
 
-	void Initialize();  // ‰Šú‰»ˆ—
-	void Update();     // XVˆ—
-	void Finalize();   // I—¹ˆ—
+	void Initialize();  // åˆæœŸåŒ–å‡¦ç†
+	void Update();     // æ›´æ–°å‡¦ç†
+	void Finalize();   // çµ‚äº†æ™‚å‡¦ç†
 
 private:
-	void Draw() const;  // •`‰æˆ—
-	void ChangeScene(eSceneType scene_type);        // ƒV[ƒ“‚ÌØ‚è‘Ö‚¦ˆ—
-	SceneBase* CreateScene(eSceneType scene_type);  // ƒV[ƒ“¶¬ˆ—
+	void Draw() const;  // æç”»å‡¦ç†
+	void ChangeScene(eSceneType scene_type);        // ã‚·ãƒ¼ãƒ³ã®åˆ‡ã‚Šæ›¿ãˆå‡¦ç†
+	SceneBase* CreateScene(eSceneType scene_type);  // ã‚·ãƒ¼ãƒ³ç”Ÿæˆå‡¦ç†
 };

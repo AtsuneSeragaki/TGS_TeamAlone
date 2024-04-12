@@ -1,17 +1,17 @@
-#pragma once
+ï»¿#pragma once
 
 class Time
 {
 private:
-	float time;       // §ŒÀŠÔ
-	int time_cnt;     // 1•bŒ¸‚ç‚·ƒ^ƒCƒ~ƒ“ƒO‚ğƒJƒEƒ“ƒg
+	float time;       // åˆ¶é™æ™‚é–“
+	int time_cnt;     // 1ç§’æ¸›ã‚‰ã™ã‚¿ã‚¤ãƒŸãƒ³ã‚°ã‚’ã‚«ã‚¦ãƒ³ãƒˆ
 
 public:
 	Time();
 	~Time();
 
-	void Initialize();  // ‰Šú‰»ˆ—
-	void Update();      // XVˆ—
-	void Draw();        // •`‰æˆ—
-	void Finalize();    // I—¹ˆ—
+	void Initialize();  // åˆæœŸåŒ–å‡¦ç†
+	void Update();      // æ›´æ–°å‡¦ç†
+	void Draw();        // æç”»å‡¦ç†
+	void Finalize();    // çµ‚äº†æ™‚å‡¦ç†
 };

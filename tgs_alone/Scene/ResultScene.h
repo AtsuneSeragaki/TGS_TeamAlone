@@ -1,11 +1,11 @@
-#pragma once
+﻿#pragma once
 
 #include "SceneBase.h"
 
 class ResultScene : public SceneBase
 {
 private:
-	int back_img;    // �w�i�摜 
+	int back_img;    // 背景画像 
 
 public:
 	ResultScene();

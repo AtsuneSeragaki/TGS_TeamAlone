@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 #include "SceneBase.h"
 #include "../Object/Player.h"
@@ -8,12 +8,12 @@
 class GameMainScene : public SceneBase
 {
 private:
-	int back_img;     // ”wŒi‰æ‘œ
+	int back_img;     // èƒŒæ™¯ç”»åƒ
 	int bgm;
 	int se;
-	Player* player;   // ƒvƒŒƒCƒ„[
-	Time* time;       // §ŒÀŠÔ
-	Theme* theme;     // ‚¨‘è
+	Player* player;   // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼
+	Time* time;       // åˆ¶é™æ™‚é–“
+	Theme* theme;     // ãŠé¡Œ
 
 public:
 	GameMainScene();

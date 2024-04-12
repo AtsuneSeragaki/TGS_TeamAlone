@@ -1,4 +1,4 @@
-#include "HelpScene.h"
+﻿#include "HelpScene.h"
 
 HelpScene::HelpScene():back_img(0)
 {

@@ -1,21 +1,21 @@
-#pragma once
+ï»¿#pragma once
 
 #define THEME_MAX 15
 
 class Theme
 {
 private:
-	int theme_img[4]; // ‚¨‘è‰æ‘œ
-	int theme[THEME_MAX];  // ‚¨‘è 
-	bool theme_flg;   // ‚¨‘è‚ğo‚·‚©o‚³‚È‚¢‚©ƒtƒ‰ƒO
-	int theme_num;    // ‚¨‘è‚Ì”
+	int theme_img[4]; // ãŠé¡Œç”»åƒ
+	int theme[THEME_MAX];  // ãŠé¡Œ 
+	bool theme_flg;   // ãŠé¡Œã‚’å‡ºã™ã‹å‡ºã•ãªã„ã‹ãƒ•ãƒ©ã‚°
+	int theme_num;    // ãŠé¡Œã®æ•°
 
 public:
 	Theme();
 	~Theme();
 
-	void Initialize();  // ‰Šú‰»ˆ—
-	void Update();      // XVˆ—
-	void Draw();        // •`‰æˆ—
-	void Finalize();    // I—¹ˆ—
+	void Initialize();  // åˆæœŸåŒ–å‡¦ç†
+	void Update();      // æ›´æ–°å‡¦ç†
+	void Draw();        // æç”»å‡¦ç†
+	void Finalize();    // çµ‚äº†æ™‚å‡¦ç†
 };

@@ -1,6 +1,6 @@
-#pragma once
+ï»¿#pragma once
 
-// ƒV[ƒ“î•ñ
+// ã‚·ãƒ¼ãƒ³æƒ…å ±
 enum eSceneType
 {
 	E_TITLE,
@@ -12,25 +12,25 @@ enum eSceneType
 	E_END
 };
 
-// Šî’êƒV[ƒ“ƒNƒ‰ƒX
+// åŸºåº•ã‚·ãƒ¼ãƒ³ã‚¯ãƒ©ã‚¹
 class SceneBase
 {
 public:
 	SceneBase() {}
 	virtual ~SceneBase() {}
 
-	// ‰Šú‰»ˆ—
+	// åˆæœŸåŒ–å‡¦ç†
 	virtual void Initialize() {}
-	// XVˆ—
+	// æ›´æ–°å‡¦ç†
 	virtual eSceneType Update()
 	{
 		return GetNowScene();
 	}
-	// •`‰æˆ—
+	// æç”»å‡¦ç†
 	virtual void Draw() const {}
-	// I—¹ˆ—
+	// çµ‚äº†æ™‚å‡¦ç†
 	virtual void Finalize() {}
 
-	// Œ»İ‚ÌƒV[ƒ“î•ñ‚ğæ“¾
+	// ç¾åœ¨ã®ã‚·ãƒ¼ãƒ³æƒ…å ±ã‚’å–å¾—
 	virtual eSceneType GetNowScene() const = 0;
 };

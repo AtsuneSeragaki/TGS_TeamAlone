@@ -1,4 +1,4 @@
-#include "RankingScene.h"
+﻿#include "RankingScene.h"
 
 RankingScene::RankingScene():back_img(0)
 {

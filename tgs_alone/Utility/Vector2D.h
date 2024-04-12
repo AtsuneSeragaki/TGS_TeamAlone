@@ -1,6 +1,6 @@
-#pragma once
+ï»¿#pragma once
 
-// 2ŽŸŒ³ƒxƒNƒgƒ‹ƒNƒ‰ƒX
+// 2æ¬¡å…ƒãƒ™ã‚¯ãƒˆãƒ«ã‚¯ãƒ©ã‚¹
 class Vector2D
 {
 public:
@@ -22,7 +22,7 @@ public:
 	}
 
 public:
-	// ‰‰ŽZŽq‚ÌƒI[ƒo[ƒ[ƒh
+	// æ¼”ç®—å­ã®ã‚ªãƒ¼ãƒãƒ¼ãƒ­ãƒ¼ãƒ‰
 	Vector2D& operator = (const Vector2D& location)
 	{
 		this->x = location.x;

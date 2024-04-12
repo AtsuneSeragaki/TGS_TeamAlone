@@ -1,31 +1,31 @@
-#include "InputControl.h"
+ï»¿#include "InputControl.h"
 #include "DxLib.h"
 
-// Ã“Iƒƒ“ƒo•Ï”’è‹`
+// é™çš„ãƒ¡ãƒ³ãƒå¤‰æ•°å®šç¾©
 bool InputControl::now_button[16] = {};
 bool InputControl::old_button[16] = {};
 float InputControl::trigger[2] = {};
 Vector2D InputControl::stick[2] = {};
 
-// “ü—Í‹@”\FXVˆ—
+// å…¥åŠ›æ©Ÿèƒ½ï¼šæ›´æ–°å‡¦ç†
 void InputControl::Update()
 {
-	// XInputƒRƒ“ƒgƒ[ƒ‰[‚Ì“ü—Í’l‚ğæ“¾‚·‚é
+	// XInputã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ©ãƒ¼ã®å…¥åŠ›å€¤ã‚’å–å¾—ã™ã‚‹
 	XINPUT_STATE input_state = {};
 	GetJoypadXInputState(DX_INPUT_PAD1, &input_state);
 
-	// ƒ{ƒ^ƒ““ü—Í’l‚ÌXV
+	// ãƒœã‚¿ãƒ³å…¥åŠ›å€¤ã®æ›´æ–°
 	for (int i = 0; i < 16; i++)
 	{
 		old_button[i] = now_button[i];
 		now_button[i] = (bool)input_state.Buttons[i];
 	}
 
-	// ƒgƒŠƒK[“ü—Í’l‚ÌXV(0.0f`1.0f‚É”ÍˆÍ‚ğ§ŒÀ‚·‚é)
+	// ãƒˆãƒªã‚¬ãƒ¼å…¥åŠ›å€¤ã®æ›´æ–°(0.0fï½1.0fã«ç¯„å›²ã‚’åˆ¶é™ã™ã‚‹)
 	trigger[0] = (float)input_state.LeftTrigger / (float)UCHAR_MAX;
 	trigger[1] = (float)input_state.RightTrigger / (float)UCHAR_MAX;
 
-	// ¶ƒXƒeƒBƒbƒN“ü—Í’l‚ÌXV(-1.0f`1.0f‚É”ÍˆÍ‚ğ§ŒÀ‚·‚é)
+	// å·¦ã‚¹ãƒ†ã‚£ãƒƒã‚¯å…¥åŠ›å€¤ã®æ›´æ–°(-1.0fï½1.0fã«ç¯„å›²ã‚’åˆ¶é™ã™ã‚‹)
 	if (input_state.ThumbLX > 0.0f)
 	{
 		stick[0].x = (float)input_state.ThumbLX / (float)SHRT_MAX;
@@ -43,7 +43,7 @@ void InputControl::Update()
 		stick[0].y = -((float)input_state.ThumbLY / (float)SHRT_MIN);
 	}
 
-	// ‰EƒXƒeƒBƒbƒN“ü—Í’l‚ÌXV(-1.0f`1.0f‚É”ÍˆÍ‚ğ§ŒÀ‚·‚é)
+	// å³ã‚¹ãƒ†ã‚£ãƒƒã‚¯å…¥åŠ›å€¤ã®æ›´æ–°(-1.0fï½1.0fã«ç¯„å›²ã‚’åˆ¶é™ã™ã‚‹)
 	if (input_state.ThumbRX > 0.0f)
 	{
 		stick[1].x = (float)input_state.ThumbRX / (float)SHRT_MAX;
@@ -62,49 +62,49 @@ void InputControl::Update()
 	}
 }
 
-// ƒ{ƒ^ƒ“æ“¾F‰Ÿ‚µ‚Ä‚éŠÔ
+// ãƒœã‚¿ãƒ³å–å¾—ï¼šæŠ¼ã—ã¦ã‚‹é–“
 bool InputControl::GetButton(int button)
 {
 	return CheckButtonRange(button) && (now_button[button] && old_button[button]);
 }
 
-// ƒ{ƒ^ƒ“æ“¾F‰Ÿ‚µ‚½uŠÔ
+// ãƒœã‚¿ãƒ³å–å¾—ï¼šæŠ¼ã—ãŸç¬é–“
 bool InputControl::GetButtonDown(int button)
 {
 	return CheckButtonRange(button) && (now_button[button] && !old_button[button]);
 }
 
-// ƒ{ƒ^ƒ“æ“¾F—£‚µ‚½uŠÔ
+// ãƒœã‚¿ãƒ³å–å¾—ï¼šé›¢ã—ãŸç¬é–“
 bool InputControl::GetButtonUp(int button)
 {
 	return CheckButtonRange(button) && (!now_button[button] && old_button[button]);
 }
 
-// ¶ƒgƒŠƒK[æ“¾
+// å·¦ãƒˆãƒªã‚¬ãƒ¼å–å¾—
 float InputControl::GetLeftTrigger()
 {
 	return trigger[0];
 }
 
-// ‰EƒgƒŠƒK[æ“¾
+// å³ãƒˆãƒªã‚¬ãƒ¼å–å¾—
 float InputControl::GetRightTrigger()
 {
 	return trigger[1];
 }
 
-// ¶ƒXƒeƒBƒbƒNæ“¾
+// å·¦ã‚¹ãƒ†ã‚£ãƒƒã‚¯å–å¾—
 Vector2D InputControl::GetLeftStick()
 {
 	return stick[0];
 }
 
-// ‰EƒXƒeƒBƒbƒNæ“¾
+// å³ã‚¹ãƒ†ã‚£ãƒƒã‚¯å–å¾—
 Vector2D InputControl::GetRightStick()
 {
 	return stick[1];
 }
 
-// ƒ{ƒ^ƒ“”z—ñ”ÍˆÍƒ`ƒFƒbƒN
+// ãƒœã‚¿ãƒ³é…åˆ—ç¯„å›²ãƒã‚§ãƒƒã‚¯
 bool InputControl::CheckButtonRange(int button)
 {
 	return (0 <= button && button < 16);

@@ -1,4 +1,4 @@
-#include "Theme.h"
+ï»¿#include "Theme.h"
 #include "DxLib.h"
 
 Theme::Theme() : theme_img{0},theme{0},theme_flg(false),theme_num(0)
@@ -11,7 +11,7 @@ Theme::~Theme()
 
 void Theme::Initialize()
 {
-	// ‰æ‘œ‚Ì“Ç‚İ‚İ
+	// ç”»åƒã®èª­ã¿è¾¼ã¿
 	/*theme_img[0] = LoadGraph("Resource/images/");
 	theme_img[1] = LoadGraph("Resource/images/");
 	theme_img[2] = LoadGraph("Resource/images/");
@@ -37,7 +37,7 @@ void Theme::Update()
 
 void Theme::Draw()
 {
-	// ‚¨‘è•\¦
+	// ãŠé¡Œè¡¨ç¤º
 	for (int i = 0; i < theme_num; i++)
 	{
 		//DrawGraph(100 + i * 20, 300, theme_img[theme[i]], TRUE);

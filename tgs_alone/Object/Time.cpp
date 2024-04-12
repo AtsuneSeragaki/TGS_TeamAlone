@@ -1,4 +1,4 @@
-#include "Time.h"
+ï»¿#include "Time.h"
 #include "DxLib.h"
 
 Time::Time() :time(0.0f),time_cnt(0)
@@ -11,13 +11,13 @@ Time::~Time()
 
 void Time::Initialize()
 {
-	// §ŒÀŠÔ‚Ì‰Šú‰»
+	// åˆ¶é™æ™‚é–“ã®åˆæœŸåŒ–
 	time = 60.0f;
 }
 
 void Time::Update()
 {
-	// §ŒÀŠÔ
+	// åˆ¶é™æ™‚é–“
 	time_cnt++;
 
 	if (time_cnt > 60)
@@ -37,7 +37,7 @@ void Time::Update()
 
 void Time::Draw()
 {
-	// §ŒÀŠÔ•\¦
+	// åˆ¶é™æ™‚é–“è¡¨ç¤º
 	DrawFormatString(600, 10, 0xffffff, "%f", time);
 }
 

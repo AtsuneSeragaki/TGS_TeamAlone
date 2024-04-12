@@ -1,4 +1,4 @@
-#include "GameMainScene.h"
+ï»¿#include "GameMainScene.h"
 #include "DxLib.h"
 
 GameMainScene::GameMainScene() :back_img(0),bgm(0), se(0), player(nullptr), time(nullptr),theme(nullptr)
@@ -11,12 +11,12 @@ GameMainScene::~GameMainScene()
 
 void GameMainScene::Initialize()
 {
-	// ƒIƒuƒWƒFƒNƒg‚Ì¶¬
+	// ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ç”Ÿæˆ
 	player = new Player;
 	time = new Time;
 	theme = new Theme;
 
-	// ƒIƒuƒWƒFƒNƒg‚Ì‰Šú‰»
+	// ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®åˆæœŸåŒ–
 	player->Initialize();
 	time->Initialize();
 	theme->Initialize();

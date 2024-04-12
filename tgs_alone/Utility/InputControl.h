@@ -1,34 +1,34 @@
-#pragma once
+ï»¿#pragma once
 
 #include "Vector2D.h"
 
-// “ü—ÍŠÇ—‹@”\
+// å…¥åŠ›ç®¡ç†æ©Ÿèƒ½
 class InputControl
 {
 private:
-	static bool now_button[16]; // Œ»İ‚ÌƒtƒŒ[ƒ€“ü—Í’l
-	static bool old_button[16]; // ‰ß‹‚ÌƒtƒŒ[ƒ€“ü—Í’l
-	static float trigger[2];    // ¶‰EƒgƒŠƒK[‚Ì“ü—Í’l
-	static Vector2D stick[2];   // ¶‰EƒXƒeƒBƒbƒN‚Ì“ü—Í’l
+	static bool now_button[16]; // ç¾åœ¨ã®ãƒ•ãƒ¬ãƒ¼ãƒ å…¥åŠ›å€¤
+	static bool old_button[16]; // éå»ã®ãƒ•ãƒ¬ãƒ¼ãƒ å…¥åŠ›å€¤
+	static float trigger[2];    // å·¦å³ãƒˆãƒªã‚¬ãƒ¼ã®å…¥åŠ›å€¤
+	static Vector2D stick[2];   // å·¦å³ã‚¹ãƒ†ã‚£ãƒƒã‚¯ã®å…¥åŠ›å€¤
 
 public:
-	static void Update();       // XVˆ—
+	static void Update();       // æ›´æ–°å‡¦ç†
 
-	// ƒ{ƒ^ƒ“‚Ì“ü—Íæ“¾ˆ—
-	static bool GetButton(int button);     // ‰Ÿ‚µ‘±‚¯‚Ä‚¢‚éŠÔ
-	static bool GetButtonDown(int button); // ‰Ÿ‚µ‚½uŠÔ
-	static bool GetButtonUp(int button);   // —£‚µ‚½uŠÔ
+	// ãƒœã‚¿ãƒ³ã®å…¥åŠ›å–å¾—å‡¦ç†
+	static bool GetButton(int button);     // æŠ¼ã—ç¶šã‘ã¦ã„ã‚‹é–“
+	static bool GetButtonDown(int button); // æŠ¼ã—ãŸç¬é–“
+	static bool GetButtonUp(int button);   // é›¢ã—ãŸç¬é–“
 
-	// ƒgƒŠƒK[“ü—Íæ“¾ˆ—
-	static float GetLeftTrigger();  // ¶ƒgƒŠƒK[
-	static float GetRightTrigger(); // ‰EƒgƒŠƒK[
+	// ãƒˆãƒªã‚¬ãƒ¼å…¥åŠ›å–å¾—å‡¦ç†
+	static float GetLeftTrigger();  // å·¦ãƒˆãƒªã‚¬ãƒ¼
+	static float GetRightTrigger(); // å³ãƒˆãƒªã‚¬ãƒ¼
 
-	// ƒXƒeƒBƒbƒN“ü—Íæ“¾ˆ—
-	static Vector2D GetLeftStick();  // ¶ƒXƒeƒBƒbƒN
-	static Vector2D GetRightStick(); // ‰EƒXƒeƒBƒbƒN
+	// ã‚¹ãƒ†ã‚£ãƒƒã‚¯å…¥åŠ›å–å¾—å‡¦ç†
+	static Vector2D GetLeftStick();  // å·¦ã‚¹ãƒ†ã‚£ãƒƒã‚¯
+	static Vector2D GetRightStick(); // å³ã‚¹ãƒ†ã‚£ãƒƒã‚¯
 
 private:
-	// ƒ{ƒ^ƒ“”z—ñ”ÍˆÍƒ`ƒFƒbƒN
+	// ãƒœã‚¿ãƒ³é…åˆ—ç¯„å›²ãƒã‚§ãƒƒã‚¯
 	static bool CheckButtonRange(int button);
 
 };

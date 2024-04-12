@@ -1,33 +1,33 @@
-#include "DxLib.h"
+ï»¿#include "DxLib.h"
 #include "Scene/SceneManager.h"
 
-// ƒƒCƒ“ŠÖ”(ƒvƒƒOƒ‰ƒ€‚Í‚±‚±‚©‚çŽn‚Ü‚è‚Ü‚·B)
+// ãƒ¡ã‚¤ãƒ³é–¢æ•°(ãƒ—ãƒ­ã‚°ãƒ©ãƒ ã¯ã“ã“ã‹ã‚‰å§‹ã¾ã‚Šã¾ã™ã€‚)
 int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ LPSTR lpCmdLine, _In_ int nCmdShow)
 {
-	// —áŠOˆ—(ˆÙí‚ª”­¶‚µ‚½‚çAcatch•¶‚É”ò‚Ñ‚Ü‚·)
+	// ä¾‹å¤–å‡¦ç†(ç•°å¸¸ãŒç™ºç”Ÿã—ãŸã‚‰ã€catchæ–‡ã«é£›ã³ã¾ã™)
 	try
 	{
-		// ƒV[ƒ“ƒ}ƒl[ƒWƒƒ[‹@”\‚Ì¶¬
+		// ã‚·ãƒ¼ãƒ³ãƒžãƒãƒ¼ã‚¸ãƒ£ãƒ¼æ©Ÿèƒ½ã®ç”Ÿæˆ
 		SceneManager manager;
 
-		// ƒV[ƒ“ƒ}ƒl[ƒWƒƒ[‹@”\‚Ì‰Šú‰»ˆ—
+		// ã‚·ãƒ¼ãƒ³ãƒžãƒãƒ¼ã‚¸ãƒ£ãƒ¼æ©Ÿèƒ½ã®åˆæœŸåŒ–å‡¦ç†
 		manager.Initialize();
 
-		// ƒV[ƒ“ƒ}ƒl[ƒWƒƒ[‹@”\‚ÌXVˆ—
+		// ã‚·ãƒ¼ãƒ³ãƒžãƒãƒ¼ã‚¸ãƒ£ãƒ¼æ©Ÿèƒ½ã®æ›´æ–°å‡¦ç†
 		manager.Update();
 
-		// ƒV[ƒ“ƒ}ƒl[ƒWƒƒ[‹@”\‚ÌI—¹Žžˆ—
+		// ã‚·ãƒ¼ãƒ³ãƒžãƒãƒ¼ã‚¸ãƒ£ãƒ¼æ©Ÿèƒ½ã®çµ‚äº†æ™‚å‡¦ç†
 		manager.Finalize();
 	}
 	catch (const char* err_log)
 	{
-		// ƒGƒ‰[”­¶“à—e‚Ìo—Í
+		// ã‚¨ãƒ©ãƒ¼ç™ºç”Ÿå†…å®¹ã®å‡ºåŠ›
 		OutputDebugString(err_log);
 
-		// ƒGƒ‰[I—¹‚ð’Ç‰Á
+		// ã‚¨ãƒ©ãƒ¼çµ‚äº†ã‚’è¿½åŠ 
 		return -1;
 	}
 
-	// ³íI—¹‚ð’Ç‰Á
+	// æ­£å¸¸çµ‚äº†ã‚’è¿½åŠ 
 	return 0;
 }
