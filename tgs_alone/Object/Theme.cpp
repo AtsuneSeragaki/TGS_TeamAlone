@@ -42,7 +42,7 @@ void Theme::Draw()
 	{
 		//DrawGraph(100 + i * 20, 300, theme_img[theme[i]], TRUE);
 		SetFontSize(40);
-		DrawFormatString((650 - 30 * theme_num) + i * 100, 300, 0xffffff, "%d", theme[i]);
+		DrawFormatString((650 - 30 * theme_num) + i * 60, 300, 0xffffff, "%d", theme[i]);
 	}
 }
 
