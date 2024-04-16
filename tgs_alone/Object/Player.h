@@ -1,6 +1,6 @@
 ﻿#pragma once
 
-#define INPUT_MAX 15
+#define INPUT_MAX 10
 
 class Player
 {

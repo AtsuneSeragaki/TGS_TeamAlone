@@ -11,7 +11,7 @@ private:
 	int back_img;     // 背景画像
 	int bgm;
 	int se;
-	int player_input[15]; // プレイヤーが入力したものが当たっていた時保存
+	int player_input[10]; // プレイヤーが入力したものが当たっていた時保存
 	int correct_num;  // プレイヤーが正解した数    
 	Player* player;   // プレイヤー
 	Time* time;       // 制限時間

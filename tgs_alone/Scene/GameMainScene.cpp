@@ -31,12 +31,12 @@ eSceneType GameMainScene::Update()
 	time->Update();
 	player->Update();
 
-	if (player->GetPlayerInput()== true)
+	if (player->GetPlayerInput()== true && correct_num < THEME_MAX)
 	{
 		Comparison();
 	}
 
-	if (correct_num == theme->GetThemeNum() && theme->GetThemeNum() <= THEME_MAX && time->GetTime() > 0.0f)
+	if (correct_num == theme->GetThemeNum() && theme->GetThemeNum() < THEME_MAX && time->GetTime() > 0.0f)
 	{
 		//time->SetTimeFlg(false);
 		for (int i = 0; i < INPUT_MAX; i++)
@@ -53,10 +53,12 @@ eSceneType GameMainScene::Update()
 	//	return eSceneType::E_RESULT;
 	//}
 
-	//if (theme->GetThemeNum() > THEME_MAX)
-	//{
-	//	return eSceneType::E_RESULT;
-	//}
+	// 全てクリアしたら時間を止める
+	if (correct_num == THEME_MAX)
+	{
+		time->SetTimeFlg(false);
+		//return eSceneType::E_RESULT;
+	}
 
 	/*if (theme->GetThemeFlg() == false)
 	{
@@ -82,7 +84,11 @@ void GameMainScene::Draw() const
 		DrawString(0, 200, "MAX", 0xffffff);
 	}
 
+	DrawBox(0, 0, 1280, 720, 0x7d7d7d, TRUE);
+
 #endif // _DEBUG
+
+	DrawBox(0, 0, 1280, 720, 0x7d7d7d, TRUE);
 
 	time->Draw();
 

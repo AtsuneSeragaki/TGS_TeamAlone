@@ -90,6 +90,14 @@ void Player::Draw()
 	}
 
 #endif // _DEBUG
+
+	// お題表示
+	for (int i = 0; i < INPUT_MAX; i++)
+	{
+		//DrawGraph(100 + i * 20, 300, theme_img[theme[i]], TRUE);
+		SetFontSize(20);
+		DrawFormatString(0 + i * 30, 500, 0xffffff, "%d", input[i]);
+	}
 }
 
 void Player::Finalize()

@@ -12,7 +12,7 @@ Time::~Time()
 void Time::Initialize()
 {
 	// 制限時間の初期化
-	time = 10.0f;
+	time = 60.0f;
 	time_flg = true;
 }
 

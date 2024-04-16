@@ -1,6 +1,6 @@
 ﻿#pragma once
 
-#define THEME_MAX 15
+#define THEME_MAX 10
 
 class Theme
 {
