@@ -12,7 +12,7 @@ Time::~Time()
 void Time::Initialize()
 {
 	// 制限時間の初期化
-	time = 60.0f;
+	time = 10.0f;
 	time_flg = true;
 }
 
@@ -21,7 +21,7 @@ void Time::Update()
 	if (time_flg == true)
 	{
 		// 1フレーム0.016ずつマイナス
-		if (time > 0)
+		if (time > 0.016f)
 		{
 			time -= 0.016f;
 		}

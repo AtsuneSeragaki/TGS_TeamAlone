@@ -30,4 +30,5 @@ public:
 
 private:
 	void Comparison(); // お題とプレイヤーの入力を比較
+	void TimeupAnim(); // タイムアップアニメーション
 };

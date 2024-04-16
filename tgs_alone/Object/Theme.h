@@ -23,6 +23,7 @@ public:
 
 	int GetTheme(int num) { return theme[num]; } // お題のデータを返す
 	int GetThemeNum() { return theme_num; } // お題の数を返す
+	bool GetThemeFlg() { return theme_flg; } // お題設定中かどうか
 	void SetThemeNum() { theme_num++; } // お題の数を増やす
 	void SetThemeFlg(bool flg) { theme_flg = flg; }  // お題の生成フラグを設定
 };

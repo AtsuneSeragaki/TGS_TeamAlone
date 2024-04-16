@@ -3,8 +3,10 @@
 class Time
 {
 private:
-	float time;       // 制限時間
 	bool time_flg;     // 1秒減らすタイミングをカウント
+
+public:
+	float time;       // 制限時間
 
 public:
 	Time();
@@ -16,4 +18,5 @@ public:
 	void Finalize();    // 終了時処理
 
 	void SetTimeFlg(bool flg); // 制限時間を止めたり再開したりするフラグの設定
+	float GetTime() { return time; } // 制限時間を返す
 };

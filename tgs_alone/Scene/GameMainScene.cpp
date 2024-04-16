@@ -7,6 +7,9 @@ GameMainScene::GameMainScene() :back_img(0), bgm(0), se(0), player_input{ -1 }, 
 
 GameMainScene::~GameMainScene()
 {
+	delete player;
+	delete time;
+	delete theme;
 }
 
 void GameMainScene::Initialize()
@@ -33,8 +36,9 @@ eSceneType GameMainScene::Update()
 		Comparison();
 	}
 
-	if (correct_num == theme->GetThemeNum())
+	if (correct_num == theme->GetThemeNum() && theme->GetThemeNum() <= THEME_MAX && time->GetTime() > 0.0f)
 	{
+		//time->SetTimeFlg(false);
 		for (int i = 0; i < INPUT_MAX; i++)
 		{
 			player->ResetPlayerInput(i);
@@ -44,6 +48,21 @@ eSceneType GameMainScene::Update()
 		theme->SetThemeFlg(true);
 	}
 
+	//if (time->GetTime() <= 0.0f)
+	//{
+	//	return eSceneType::E_RESULT;
+	//}
+
+	//if (theme->GetThemeNum() > THEME_MAX)
+	//{
+	//	return eSceneType::E_RESULT;
+	//}
+
+	/*if (theme->GetThemeFlg() == false)
+	{
+		time->SetTimeFlg(true);
+	}*/
+
 	return GetNowScene();
 }
 
@@ -52,6 +71,16 @@ void GameMainScene::Draw() const
 #ifdef _DEBUG
 	SetFontSize(20);
 	DrawString(0, 0, "GameMain", 0xffffff);
+
+	if (time->GetTime() <= 0.0f)
+	{
+		DrawString(0,200,"Time Up",0xffffff);
+	}
+
+	if (theme->GetThemeNum() > THEME_MAX)
+	{
+		DrawString(0, 200, "MAX", 0xffffff);
+	}
 
 #endif // _DEBUG
 
@@ -93,4 +122,8 @@ void GameMainScene::Comparison()
 		player->SetPlayerInput();
 	}
 	
+}
+
+void GameMainScene::TimeupAnim()
+{
 }
