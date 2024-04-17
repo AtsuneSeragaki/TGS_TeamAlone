@@ -1,7 +1,7 @@
 ﻿#include "GameMainScene.h"
 #include "DxLib.h"
 
-GameMainScene::GameMainScene() :back_img(0), bgm(0), se(0), player_input{ -1 }, correct_num(0), player(nullptr), time(nullptr), theme(nullptr), begin_time(0)
+GameMainScene::GameMainScene() :back_img(0), bgm(0), se(0), player_input{ -1 }, correct_num(0), player(nullptr), time(nullptr), theme(nullptr), begin_time(0),begin_cnt(0)
 {
 }
 
@@ -14,6 +14,7 @@ GameMainScene::~GameMainScene()
 
 void GameMainScene::Initialize()
 {
+	begin_time = 3;
 	// オブジェクトの生成
 	player = new Player;
 	time = new Time;
@@ -27,46 +28,59 @@ void GameMainScene::Initialize()
 
 eSceneType GameMainScene::Update()
 {
-	
-	theme->Update();
-	player->SetPlayerTheme(theme->GetThemeNum());
-	time->Update();
-	player->Update();
-
-	if (player->GetPlayerInput()== true && correct_num < THEME_MAX)
+	if (begin_time != -1)
 	{
-		Comparison();
-	}
+		begin_cnt++;
 
-	if (correct_num == theme->GetThemeNum() && theme->GetThemeNum() < THEME_MAX && time->GetTime() > 0.0f)
-	{
-		//time->SetTimeFlg(false);
-		for (int i = 0; i < INPUT_MAX; i++)
+		if (begin_cnt % 60 == 0)
 		{
-			player->ResetPlayerInput(i);
+			begin_time--;
 		}
-		correct_num = 0;
-		theme->SetThemeNum();
+	}
+	
+	if (begin_time == -1)
+	{
+		theme->Update();
 		player->SetPlayerTheme(theme->GetThemeNum());
-		theme->SetThemeFlg(true);
+		time->Update();
+		player->Update();
+
+		if (player->GetPlayerInput() == true && correct_num < THEME_MAX)
+		{
+			Comparison();
+		}
+
+		if (correct_num == theme->GetThemeNum() && theme->GetThemeNum() < THEME_MAX && time->GetTime() > 0.0f)
+		{
+			//time->SetTimeFlg(false);
+			for (int i = 0; i < INPUT_MAX; i++)
+			{
+				player->ResetPlayerInput(i);
+			}
+			correct_num = 0;
+			theme->SetThemeNum();
+			player->SetPlayerTheme(theme->GetThemeNum());
+			theme->SetThemeFlg(true);
+		}
+
+		//if (time->GetTime() <= 0.0f)
+		//{
+		//	return eSceneType::E_RESULT;
+		//}
+
+		// 全てクリアしたら時間を止める
+		if (correct_num == THEME_MAX)
+		{
+			time->SetTimeFlg(false);
+			//return eSceneType::E_RESULT;
+		}
+
+		/*if (theme->GetThemeFlg() == false)
+		{
+			time->SetTimeFlg(true);
+		}*/
+
 	}
-
-	//if (time->GetTime() <= 0.0f)
-	//{
-	//	return eSceneType::E_RESULT;
-	//}
-
-	// 全てクリアしたら時間を止める
-	if (correct_num == THEME_MAX)
-	{
-		time->SetTimeFlg(false);
-		//return eSceneType::E_RESULT;
-	}
-
-	/*if (theme->GetThemeFlg() == false)
-	{
-		time->SetTimeFlg(true);
-	}*/
 
 	return GetNowScene();
 }
@@ -91,13 +105,27 @@ void GameMainScene::Draw() const
 
 #endif // _DEBUG
 
+
 	DrawBox(0, 0, 1280, 720, 0x7d7d7d, TRUE);
 
-	time->Draw();
+	if (begin_time == -1)
+	{
+		time->Draw();
 
-	theme->Draw();
+		theme->Draw();
 
-	player->Draw();
+		player->Draw();
+	}
+	else if (begin_time == 0)
+	{
+		SetFontSize(60);
+		DrawString(550, 200, "START", 0xffffff);
+	}
+	else
+	{
+		SetFontSize(60);
+		DrawFormatString(600, 200,0xffffff,"%d",begin_time);
+	}
 }
 
 void GameMainScene::Finalize()
