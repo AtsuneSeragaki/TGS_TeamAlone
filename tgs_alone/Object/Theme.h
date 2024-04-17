@@ -5,7 +5,7 @@
 class Theme
 {
 private:
-	int theme_img[4]; // お題画像
+	int img[4]; // お題画像
 	bool theme_flg;   // お題の生成フラグ
 	int theme_num;    // お題の数
 

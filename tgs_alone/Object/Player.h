@@ -5,7 +5,9 @@
 class Player
 {
 private:
-	int sound;         // 音データ
+	int sound;       // 音データ
+	int img[4];      // 画像データ
+	int theme_num;   // 成功した数
 
 public:
 	int input[INPUT_MAX]; // プレイヤーが入力したデータを保存
@@ -24,4 +26,5 @@ public:
 	void ResetPlayerInput(int num) { input[num] = -1; }    // プレイヤーの入力データをリセット
 	bool GetPlayerInput() { return input_flg; }  // プレイヤーの入力状態を返す
 	void SetPlayerInput() { input_flg = false; }  // プレイヤーの入力状態の設定
+	void SetPlayerTheme(int num) { theme_num = num; }  // 当たった数設定
 };

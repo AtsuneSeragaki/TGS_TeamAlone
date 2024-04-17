@@ -12,7 +12,8 @@ private:
 	int bgm;
 	int se;
 	int player_input[10]; // プレイヤーが入力したものが当たっていた時保存
-	int correct_num;  // プレイヤーが正解した数    
+	int correct_num;  // プレイヤーが正解した数
+	int begin_time;   // 開始までのカウントダウン
 	Player* player;   // プレイヤー
 	Time* time;       // 制限時間
 	Theme* theme;     // お題

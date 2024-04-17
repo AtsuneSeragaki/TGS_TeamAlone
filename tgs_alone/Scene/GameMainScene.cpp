@@ -1,7 +1,7 @@
 ﻿#include "GameMainScene.h"
 #include "DxLib.h"
 
-GameMainScene::GameMainScene() :back_img(0), bgm(0), se(0), player_input{ -1 }, correct_num(0),player(nullptr), time(nullptr), theme(nullptr)
+GameMainScene::GameMainScene() :back_img(0), bgm(0), se(0), player_input{ -1 }, correct_num(0), player(nullptr), time(nullptr), theme(nullptr), begin_time(0)
 {
 }
 
@@ -27,7 +27,9 @@ void GameMainScene::Initialize()
 
 eSceneType GameMainScene::Update()
 {
+	
 	theme->Update();
+	player->SetPlayerTheme(theme->GetThemeNum());
 	time->Update();
 	player->Update();
 
@@ -45,6 +47,7 @@ eSceneType GameMainScene::Update()
 		}
 		correct_num = 0;
 		theme->SetThemeNum();
+		player->SetPlayerTheme(theme->GetThemeNum());
 		theme->SetThemeFlg(true);
 	}
 
@@ -113,6 +116,7 @@ void GameMainScene::Comparison()
 	int num;
 
 	num = theme->GetThemeNum();
+
 	tm[correct_num] = theme->GetTheme(correct_num);
 	ip[correct_num] = player->GetPlayerInputData(correct_num);
 
