@@ -8,13 +8,16 @@
 class GameMainScene : public SceneBase
 {
 private:
-	int back_img;     // 背景画像
-	int bgm;
-	int se;
+	int back_img;     // 背景画像データ
+	int bgm;          // BGMデータ
+	int se;           // SEデータ
 	int player_input[10]; // プレイヤーが入力したものが当たっていた時保存
 	int correct_num;  // プレイヤーが正解した数
 	int begin_time;   // 開始までのカウントダウン
 	int begin_cnt;    // カウントダウンまでのカウントダウン
+	int draw_cnt;     // お題の設定を数フレーム後に
+	bool timeup_flg;  // 時間0かどうかのフラグ
+	int timeup_cnt;   // タイムアップのアニメーション用
     Player* player;   // プレイヤー
 	Time* time;       // 制限時間
 	Theme* theme;     // お題
