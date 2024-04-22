@@ -18,11 +18,12 @@ void Time::Initialize()
 
 void Time::Update()
 {
+	//	フラグがtrueのときカウントダウン
 	if (time_flg == true)
 	{
-		// 1フレーム0.016ずつマイナス
 		if (time > 0.016f)
 		{
+			// 1フレーム0.016ずつマイナス
 			time -= 0.016f;
 		}
 		else
@@ -38,7 +39,7 @@ void Time::Draw()
 	SetFontSize(50);
 
 	if (time < 11.0f)
-	{
+	{// 制限時間が10秒以下になったら赤い文字
 		DrawFormatString(600, 10, 0xed1a3d, "%.2f", time);
 	}
 	else
@@ -49,9 +50,4 @@ void Time::Draw()
 
 void Time::Finalize()
 {
-}
-
-void Time::SetTimeFlg(bool flg)
-{
-	time_flg = flg;
 }

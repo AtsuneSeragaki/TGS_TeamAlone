@@ -31,6 +31,28 @@ void Player::Initialize()
 	img[3] = LoadGraph("Resource/images/Xbotton2.png");
 	img[4] = LoadGraph("Resource/images/mistake.png");
 
+	// エラーチェック
+	if (img[0] == -1)
+	{
+		throw("Resource/images/Abotton2.pngがありません\n");
+	}
+	if (img[1] == -1)
+	{
+		throw("Resource/images/Bbotton2.pngがありません\n");
+	}
+	if (img[2] == -1)
+	{
+		throw("Resource/images/Ybotton2.pngがありません\n");
+	}
+	if (img[3] == -1)
+	{
+		throw("Resource/images/Xbotton2.pngがありません\n");
+	}
+	if (img[4] == -1)
+	{
+		throw("Resource/images/mistake.pngがありません\n");
+	}
+
 	// プレイヤーの入力データの初期化
 	for (int i = 0; i < INPUT_MAX; i++)
 	{
@@ -45,6 +67,7 @@ void Player::Initialize()
 
 void Player::Update()
 {
+	// プレイヤーからの入力受付
 	if (input_flg == false)
 	{
 		if (InputControl::GetButtonDown(XINPUT_BUTTON_A))
@@ -99,6 +122,7 @@ void Player::Update()
 		}
 	}
 
+	// プレイヤーが間違えた時
 	if (mistake_cnt > 20)
 	{
 		mistake_cnt = 0;
@@ -110,9 +134,7 @@ void Player::Update()
 			}	
 		}
 		input_flg = false;
-
 	}
-	
 }
 
 void Player::Draw()
@@ -125,18 +147,21 @@ void Player::Draw()
 	for (int i = 0; i < INPUT_MAX; i++)
 	{
 		if (mis_data[i] != -1)
-		{
+		{// プレイヤーが間違えたものを表示
 			mistake_cnt++;
+
 
 			DrawGraph((540 - 50 * (theme_num - 3) + i * 90), 500, img[mis_data[i]], TRUE);
 			DrawGraph((540 - 50 * (theme_num - 3) + i * 90), 500, img[4], TRUE);
+
 			/*if (mistake_cnt > 10)
 			{
 				DrawGraph((540 - 50 * (theme_num - 3) + i * 90), 500, img[4], TRUE);
 			}	*/
 		}
 		else if (input[i] != -1)
-		{
+		{// プレイヤーの入力とお題が同じとき表示
+
 			DrawGraph((540 - 50 * (theme_num - 3)) + i * 90, 500, img[input[i]], TRUE);
 			input_draw[i] = 0;
 		}

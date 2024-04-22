@@ -25,6 +25,8 @@ void ResultScene::Draw() const
 	DrawString(0, 0, "Result", 0xffffff);
 
 #endif // _DEBUG
+	SetFontSize(20);
+	DrawString(0, 0, "Result", 0xffffff);
 }
 
 void ResultScene::Finalize()

@@ -16,6 +16,25 @@ void Theme::Initialize()
 	img[1] = LoadGraph("Resource/images/Bbotton.png");
 	img[2] = LoadGraph("Resource/images/Ybotton.png");
 	img[3] = LoadGraph("Resource/images/Xbotton.png");
+
+	// エラーチェック
+	if (img[0] == -1)
+	{
+		throw("Resource/images/Abotton.pngがありません\n");
+	}
+	if (img[1] == -1)
+	{
+		throw("Resource/images/Bbotton.pngがありません\n");
+	}
+	if (img[2] == -1)
+	{
+		throw("Resource/images/Ybotton.pngがありません\n");
+	}
+	if (img[3] == -1)
+	{
+		throw("Resource/images/Xbotton.pngがありません\n");
+	}
+
 	theme_flg = true;
 
 	theme_num = 3;
@@ -23,6 +42,7 @@ void Theme::Initialize()
 
 void Theme::Update()
 {
+	// お題をランダムに生成
 	if (theme_flg == true)
 	{
 		for (int i = 0; i < theme_num; i++)
@@ -36,34 +56,11 @@ void Theme::Update()
 
 void Theme::Draw()
 {
-	//if (theme_num >= 6)
-	//{
-	//	// お題表示
-	//	for (int i = 0; i < 4; i++)
-	//	{
-	//		DrawGraph(390 + i * 150, 180, theme_img[theme[i]], TRUE);
-	//		/*SetFontSize(40);
-	//		DrawFormatString((650 - 30 * theme_num) + i * 60, 300, 0xffffff, "%d", theme[i]);*/
-	//	}
-
-	//	// お題表示
-	//	for (int i = 4; i < theme_num; i++)
-	//	{
-	//		DrawGraph(550 + (i - 4) * 150, 300, theme_img[theme[i]], TRUE);
-	//		/*SetFontSize(40);
-	//		DrawFormatString((650 - 30 * theme_num) + i * 60, 300, 0xffffff, "%d", theme[i]);*/
-	//	}
-	//}
-	//else
-	//{
-	//	// お題表示
-		for (int i = 0; i < theme_num; i++)
-		{
-			DrawGraph((500 - 60 * (theme_num - 3)) + i * 110, 250, img[theme[i]], TRUE);
-			/*SetFontSize(40);
-			DrawFormatString((650 - 30 * theme_num) + i * 60, 300, 0xffffff, "%d", theme[i]);*/
-		}
-	//}
+	// お題表示
+	for (int i = 0; i < theme_num; i++)
+	{
+		DrawGraph((500 - 60 * (theme_num - 3)) + i * 110, 250, img[theme[i]], TRUE);
+	}
 }
 
 void Theme::Finalize()

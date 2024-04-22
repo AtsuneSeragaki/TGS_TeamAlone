@@ -15,7 +15,15 @@ GameMainScene::~GameMainScene()
 void GameMainScene::Initialize()
 {
 	ui_img = LoadGraph("Resource/images/UI_botton.png");
+
+	// エラーチェック
+	if (ui_img == -1)
+	{
+		throw("Resource/images/UI_botton.pngがありません\n");
+	}
+
 	begin_time = 3;
+
 	// オブジェクトの生成
 	player = new Player;
 	time = new Time;
@@ -123,7 +131,7 @@ void GameMainScene::Draw() const
 
 #endif // _DEBUG
 
-
+	// 背景描画
 	DrawBox(0, 0, 1280, 720, 0xf5f5f5, TRUE);
 
 	
@@ -131,12 +139,12 @@ void GameMainScene::Draw() const
 	if (timeup_cnt != 0)
 	{
 		if (correct_num == THEME_MAX)
-		{
+		{// お題を全てクリアしたら
 			SetFontSize(100);
 			DrawString(470, 200, "PERFECT!", 0x000000);
 		}
 		else
-		{
+		{// 制限時間が0になったら
 			SetFontSize(100);
 			DrawString(470, 200, "TIME UP!", 0x000000);
 		}
@@ -145,21 +153,27 @@ void GameMainScene::Draw() const
 	{
 		if (begin_time == -1)
 		{
-			DrawGraph(1050, 490, ui_img, TRUE);
+			// ボタンの位置(UI)描画
+			DrawGraph(1050, 50, ui_img, TRUE);
 
+			// 制限時間の描画
 			time->Draw();
 
+			// お題の描画
 			theme->Draw();
 
+			// プレイヤーの入力を描画
 			player->Draw();
 		}
 		else if (begin_time == 0)
 		{
+			// ゲーム開始の描画
 			SetFontSize(60);
 			DrawString(550, 200, "START", 0x000000);
 		}
 		else
 		{
+			// ゲーム開始までのカウントダウン描画
 			SetFontSize(60);
 			DrawFormatString(600, 200, 0x000000, "%d", begin_time);
 	
@@ -184,15 +198,16 @@ void GameMainScene::Comparison()
 	tm[correct_num] = theme->GetTheme(correct_num);
 	ip[correct_num] = player->GetPlayerInputData(correct_num);
 
+	// プレイヤーの入力とお題を比較
 	if (tm[correct_num] == ip[correct_num])
-	{
+	{// 同じだった場合
 		correct_num++;
 		player->SetPlayerInput();
 	}
 	else
-	{
+	{// 異なる場合
 		player->SetPlayerMis(correct_num);
-		time->SetTime();
+		//time->SetTime();
 		player->ResetPlayerInput(correct_num);
 		player->ResetInputDraw(correct_num);
 	}
