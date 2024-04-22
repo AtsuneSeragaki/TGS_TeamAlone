@@ -2,8 +2,20 @@
 #include "../Utility/InputControl.h"
 #include "DxLib.h"
 
-Player::Player() : sound(0),input{-1},input_flg(false),img{0},theme_num(0),input_draw{0}, mistake_flg{0}, mistake_cnt(0)
+Player::Player() : sound(0),input_flg(false),theme_num(0), mistake_cnt(0)
 {
+	for (int i = 0; i < INPUT_MAX; i++)
+	{
+		input[i] = -1;
+		input_draw[i] = 0;
+		mistake_flg[i] = 0;
+		mis_data[i] = -1;
+	}
+
+	for (int i = 0; i < 5; i++)
+	{
+		img[i] = 0;
+	}
 }
 
 Player::~Player()
@@ -33,54 +45,72 @@ void Player::Initialize()
 
 void Player::Update()
 {
-	if (InputControl::GetButtonDown(XINPUT_BUTTON_A) && input_flg == false)
+	if (input_flg == false)
 	{
-		input_flg = true;
-		for (int i = 0; i < INPUT_MAX; i++)
+		if (InputControl::GetButtonDown(XINPUT_BUTTON_A))
 		{
-			if (input[i] == -1)
+			input_flg = true;
+			for (int i = 0; i < INPUT_MAX; i++)
 			{
-				input[i] = 0;
-				break;
+				if (input[i] == -1)
+				{
+					input[i] = 0;
+					break;
+				}
 			}
 		}
-	}
-	else if (InputControl::GetButtonDown(XINPUT_BUTTON_B) && input_flg == false)
-	{
-		input_flg = true;
-		for (int i = 0; i < INPUT_MAX; i++)
+		else if (InputControl::GetButtonDown(XINPUT_BUTTON_B))
 		{
-			if (input[i] == -1)
+			input_flg = true;
+			for (int i = 0; i < INPUT_MAX; i++)
 			{
-				input[i] = 1;
-				break;
+				if (input[i] == -1)
+				{
+					input[i] = 1;
+					break;
+				}
 			}
 		}
-	}
-	else if (InputControl::GetButtonDown(XINPUT_BUTTON_Y) && input_flg == false)
-	{
-		input_flg = true;
-		for (int i = 0; i < INPUT_MAX; i++)
+		else if (InputControl::GetButtonDown(XINPUT_BUTTON_Y))
 		{
-			if (input[i] == -1)
-			{
-				input[i] = 2;
-				break;
-			}
-		}
-	}
-	else if (InputControl::GetButtonDown(XINPUT_BUTTON_X) && input_flg == false)
-	{
-		input_flg = true;
+			input_flg = true;
 
-		for (int i = 0; i < INPUT_MAX; i++)
-		{
-			if (input[i] == -1)
+			for (int i = 0; i < INPUT_MAX; i++)
 			{
-				input[i] = 3;
-				break;
+				if (input[i] == -1)
+				{
+					input[i] = 2;
+					break;
+				}
 			}
 		}
+		else if (InputControl::GetButtonDown(XINPUT_BUTTON_X))
+		{
+			input_flg = true;
+
+			for (int i = 0; i < INPUT_MAX; i++)
+			{
+				if (input[i] == -1)
+				{
+					input[i] = 3;
+					break;
+				}
+			}
+		}
+	}
+
+	if (mistake_cnt > 20)
+	{
+		mistake_cnt = 0;
+		for (int i = 0; i < INPUT_MAX; i++)
+		{
+			if (mis_data[i] != -1)
+			{
+				mis_data[i] = -1;
+			}	
+		}
+		input_flg = false;
+
 	}
 	
 }
@@ -94,14 +124,24 @@ void Player::Draw()
 	// プレイヤーが入力したものを表示
 	for (int i = 0; i < INPUT_MAX; i++)
 	{
-		if (input[i] != -1)
+		if (mis_data[i] != -1)
+		{
+			mistake_cnt++;
+
+			DrawGraph((540 - 50 * (theme_num - 3) + i * 90), 500, img[mis_data[i]], TRUE);
+			DrawGraph((540 - 50 * (theme_num - 3) + i * 90), 500, img[4], TRUE);
+			/*if (mistake_cnt > 10)
+			{
+				DrawGraph((540 - 50 * (theme_num - 3) + i * 90), 500, img[4], TRUE);
+			}	*/
+		}
+		else if (input[i] != -1)
 		{
 			DrawGraph((540 - 50 * (theme_num - 3)) + i * 90, 500, img[input[i]], TRUE);
 			input_draw[i] = 0;
-			SetFontSize(20);
-			DrawFormatString(50, 500, 0xffffff, "%d", theme_num);
 		}
 	}
+	
 }
 
 void Player::Finalize()

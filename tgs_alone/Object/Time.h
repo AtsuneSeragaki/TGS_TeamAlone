@@ -19,4 +19,5 @@ public:
 
 	void SetTimeFlg(bool flg); // 制限時間を止めたり再開したりするフラグの設定
 	float GetTime() { return time; } // 制限時間を返す
+	void SetTime() { time -= 1.0f; } // 制限時間から一秒マイナス
 };

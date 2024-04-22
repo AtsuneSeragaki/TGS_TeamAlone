@@ -9,9 +9,9 @@ class GameMainScene : public SceneBase
 {
 private:
 	int back_img;     // 背景画像データ
+	int ui_img;       // UI画像
 	int bgm;          // BGMデータ
 	int se;           // SEデータ
-	int player_input[10]; // プレイヤーが入力したものが当たっていた時保存
 	int correct_num;  // プレイヤーが正解した数
 	int begin_time;   // 開始までのカウントダウン
 	int begin_cnt;    // カウントダウンまでのカウントダウン

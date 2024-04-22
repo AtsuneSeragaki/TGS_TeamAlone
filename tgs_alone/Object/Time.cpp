@@ -12,7 +12,7 @@ Time::~Time()
 void Time::Initialize()
 {
 	// 制限時間の初期化
-	time = 60.0f;
+	time = 50.0f;
 	time_flg = true;
 }
 
@@ -36,7 +36,15 @@ void Time::Draw()
 {
 	// 制限時間表示
 	SetFontSize(50);
-	DrawFormatString(600, 10, 0xffffff, "%.2f", time);
+
+	if (time < 11.0f)
+	{
+		DrawFormatString(600, 10, 0xed1a3d, "%.2f", time);
+	}
+	else
+	{
+		DrawFormatString(600, 10, 0x000000, "%.2f", time);
+	}
 }
 
 void Time::Finalize()
