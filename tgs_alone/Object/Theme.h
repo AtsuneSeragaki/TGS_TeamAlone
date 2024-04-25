@@ -1,11 +1,11 @@
 ﻿#pragma once
 
-#define THEME_MAX 10
+#define THEME_MAX 30
 
 class Theme
 {
 private:
-	int img[4]; // お題画像
+	int img[8]; // お題画像
 	bool theme_flg;   // お題の生成フラグ
 	int theme_num;    // お題の数
 

@@ -134,8 +134,6 @@ void GameMainScene::Draw() const
 	// 背景描画
 	DrawBox(0, 0, 1280, 720, 0xf5f5f5, TRUE);
 
-	
-
 	if (timeup_cnt != 0)
 	{
 		if (correct_num == THEME_MAX)
@@ -154,7 +152,7 @@ void GameMainScene::Draw() const
 		if (begin_time == -1)
 		{
 			// ボタンの位置(UI)描画
-			DrawGraph(1050, 50, ui_img, TRUE);
+			//DrawGraph(1050, 50, ui_img, TRUE);
 
 			// 制限時間の描画
 			time->Draw();
