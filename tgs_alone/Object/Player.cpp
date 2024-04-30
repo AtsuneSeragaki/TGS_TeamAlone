@@ -1,6 +1,7 @@
 ﻿#include "Player.h"
 #include "../Utility/InputControl.h"
 #include "DxLib.h"
+#include "EffekseerForDXLib.h"
 
 Player::Player() : sound(0),input_flg(false),theme_num(0), mistake_cnt(0)
 {
@@ -20,6 +21,7 @@ Player::Player() : sound(0),input_flg(false),theme_num(0), mistake_cnt(0)
 
 Player::~Player()
 {
+	DeleteEffekseerEffect(mEffectHndle);
 }
 
 void Player::Initialize()
@@ -63,10 +65,26 @@ void Player::Initialize()
 	input_flg = false;
 
 	theme_num = 0;
+
+	// Zバッファを有効にする。
+	// Effekseerを使用する場合、2DゲームでもZバッファを使用する。
+	SetUseZBuffer3D(TRUE);
+
+	// Zバッファへの書き込みを有効にする。
+	// Effekseerを使用する場合、2DゲームでもZバッファを使用する。
+	SetWriteZBuffer3D(TRUE);
+
+	mEffectHndle = "Resources/Effect/Effect.efk";
 }
 
 void Player::Update()
 {
+	mEffect = PlayEffekseer2DEffect(mEffectHndle);
+
+	SetPosPlayingEffekseer2DEffect(mEffect, PosX, PosY, 0);
+
+	UpdateEffekseer2D();
+
 	// プレイヤーからの入力受付
 	if (input_flg == false)
 	{
@@ -126,6 +144,7 @@ void Player::Update()
 	if (mistake_cnt > 20)
 	{
 		mistake_cnt = 0;
+
 		for (int i = 0; i < INPUT_MAX; i++)
 		{
 			if (mis_data[i] != -1)
@@ -133,6 +152,7 @@ void Player::Update()
 				mis_data[i] = -1;
 			}	
 		}
+
 		input_flg = false;
 	}
 }
@@ -143,6 +163,8 @@ void Player::Draw()
 
 #endif // _DEBUG
 
+	DrawEffekseer2D();
+
 	// プレイヤーが入力したものを表示
 	for (int i = 0; i < INPUT_MAX; i++)
 	{
@@ -151,22 +173,61 @@ void Player::Draw()
 			mistake_cnt++;
 
 
-			DrawGraph((540 - 50 * (theme_num - 3) + i * 90), 500, img[mis_data[i]], TRUE);
-			DrawGraph((540 - 50 * (theme_num - 3) + i * 90), 500, img[4], TRUE);
+			if (theme_num <= 10)
+			{
+				DrawGraph((540 - 50 * (theme_num - 3) + i * 90), 500, img[mis_data[i]], TRUE);
+				DrawGraph((540 - 50 * (theme_num - 3) + i * 90), 500, img[4], TRUE);
+			}
+			else if (theme_num >= 11)
+			{
+				if (i < 8)
+				{
+					DrawGraph(300 + i * 90, 490, img[mis_data[i]], TRUE);
+					DrawGraph(300 + i * 90, 490, img[4], TRUE);
+				}
+				else
+				{
+					DrawGraph((320 - 53 * (theme_num - 2)) + i * 90, 590, img[mis_data[i]], TRUE);
+					DrawGraph((320 - 53 * (theme_num - 2)) + i * 90, 590, img[4], TRUE);
+				}
+			}
 
 			/*if (mistake_cnt > 10)
 			{
 				DrawGraph((540 - 50 * (theme_num - 3) + i * 90), 500, img[4], TRUE);
 			}	*/
 		}
-		else if (input[i] != -1)
+		
+		if (input[i] != -1)
 		{// プレイヤーの入力とお題が同じとき表示
 
-			DrawGraph((540 - 50 * (theme_num - 3)) + i * 90, 500, img[input[i]], TRUE);
-			input_draw[i] = 0;
+			/*DrawGraph((540 - 50 * (theme_num - 3)) + i * 90, 500, img[input[i]], TRUE);
+			input_draw[i] = 0;*/
+
+			if (theme_num <= 10)
+			{
+				DrawGraph((540 - 50 * (theme_num - 3)) + i * 90, 500, img[input[i]], TRUE);
+				input_draw[i] = 0;
+			}
+			else if (theme_num >= 11)
+			{
+				
+				if (i < 8)
+				{
+					DrawGraph(300 + i * 90, 490, img[input[i]], TRUE);
+					input_draw[i] = 0;
+				}
+				else
+				{
+					DrawGraph((320 - 53 * (theme_num - 2)) + i * 90, 590, img[input[i]], TRUE);
+					input_draw[i] = 0;
+				}
+				
+			}
 		}
 	}
 	
+
 }
 
 void Player::Finalize()

@@ -57,7 +57,7 @@ void Theme::Initialize()
 
 	theme_flg = true;
 
-	theme_num = 15;
+	theme_num = 3;
 }
 
 void Theme::Update()
@@ -96,15 +96,17 @@ void Theme::Draw()
 			if (i < 8)
 			{
 				DrawGraph(225 + i * 110, 160, img[theme[i]], TRUE);
+				SetDrawBlendMode(DX_BLENDMODE_ALPHA, 122);
+				DrawGraph(300 + i * 90, 490, img[theme[i] + 4], TRUE);
+				SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 			}
 			else
 			{
-				DrawGraph((100 - 53 * (theme_num - 2)) + i * 110, 300, img[theme[i]], TRUE);
+				DrawGraph((100 - 54 * (theme_num - 2)) + i * 110, 300, img[theme[i]], TRUE);
+				SetDrawBlendMode(DX_BLENDMODE_ALPHA, 122);
+				DrawGraph((320 - 54 * (theme_num - 2)) + i * 90, 590, img[theme[i] + 4], TRUE);
+				SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 			}
-
-			SetDrawBlendMode(DX_BLENDMODE_ALPHA, 122);
-			DrawGraph((540 - 50 * (theme_num - 3)) + i * 90, 500, img[theme[i] + 4], TRUE);
-			SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 		}
 	}
 }
