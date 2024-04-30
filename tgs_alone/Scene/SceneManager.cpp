@@ -1,7 +1,7 @@
 ﻿#include "SceneManager.h"
 #include "../Utility/InputControl.h"
 #include "DxLib.h"
-#include "EffekseerForDXLib.h"
+//#include "EffekseerForDXLib.h"
 #include "TitleScene.h"
 #include "GameMainScene.h"
 #include "HelpScene.h"
@@ -42,10 +42,10 @@ void SceneManager::Initialize()
 
 	// Effekseerの初期化
 	// 引数には画面に表示する最大パーティクル数を設定
-	if (Effekseer_Init(8000) == -1)
+	/*if (Effekseer_Init(8000) == -1)
 	{
 		throw("Effekseerが初期化できませんでした\n");
-	}
+	}*/
 
 	// 描画先指定処理
 	if (SetDrawScreen(DX_SCREEN_BACK) == -1)
@@ -56,12 +56,12 @@ void SceneManager::Initialize()
 	// DXライブラリのデバイスロストした時のコールバックを設定する。
 	// ウインドウとフルスクリーンの切り替えが発生する場合は必ず実行する。
 	// ただし、DirectX11を使用する場合は実行する必要はない。
-	Effekseer_SetGraphicsDeviceLostCallbackFunctions();
+	//Effekseer_SetGraphicsDeviceLostCallbackFunctions();
 
 	// Effekseerに2D描画の設定をする。
-	Effekseer_Set2DSetting(1280, 720);
+	//Effekseer_Set2DSetting(1280, 720);
 
-	Effkseer_End();
+	//Effkseer_End();
 
 	// タイトルシーンから始める
 	ChangeScene(eSceneType::E_MAIN);

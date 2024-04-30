@@ -1,7 +1,7 @@
 ﻿#include "Player.h"
 #include "../Utility/InputControl.h"
 #include "DxLib.h"
-#include "EffekseerForDXLib.h"
+//#include "EffekseerForDXLib.h"
 
 Player::Player() : sound(0),input_flg(false),theme_num(0), mistake_cnt(0)
 {
@@ -21,7 +21,7 @@ Player::Player() : sound(0),input_flg(false),theme_num(0), mistake_cnt(0)
 
 Player::~Player()
 {
-	DeleteEffekseerEffect(mEffectHndle);
+	//DeleteEffekseerEffect(mEffectHndle);
 }
 
 void Player::Initialize()
@@ -74,16 +74,16 @@ void Player::Initialize()
 	// Effekseerを使用する場合、2DゲームでもZバッファを使用する。
 	SetWriteZBuffer3D(TRUE);
 
-	mEffectHndle = "Resources/Effect/Effect.efk";
+	//mEffectHndle = "Resources/Effect/Effect.efk";
 }
 
 void Player::Update()
 {
-	mEffect = PlayEffekseer2DEffect(mEffectHndle);
+	/*mEffect = PlayEffekseer2DEffect(mEffectHndle);
 
 	SetPosPlayingEffekseer2DEffect(mEffect, PosX, PosY, 0);
 
-	UpdateEffekseer2D();
+	UpdateEffekseer2D();*/
 
 	// プレイヤーからの入力受付
 	if (input_flg == false)
@@ -163,7 +163,7 @@ void Player::Draw()
 
 #endif // _DEBUG
 
-	DrawEffekseer2D();
+	//DrawEffekseer2D();
 
 	// プレイヤーが入力したものを表示
 	for (int i = 0; i < INPUT_MAX; i++)
@@ -187,8 +187,8 @@ void Player::Draw()
 				}
 				else
 				{
-					DrawGraph((320 - 53 * (theme_num - 2)) + i * 90, 590, img[mis_data[i]], TRUE);
-					DrawGraph((320 - 53 * (theme_num - 2)) + i * 90, 590, img[4], TRUE);
+					DrawGraph((320 - 54 * (theme_num - 2)) + i * 90, 590, img[mis_data[i]], TRUE);
+					DrawGraph((320 - 54 * (theme_num - 2)) + i * 90, 590, img[4], TRUE);
 				}
 			}
 
@@ -219,7 +219,7 @@ void Player::Draw()
 				}
 				else
 				{
-					DrawGraph((320 - 53 * (theme_num - 2)) + i * 90, 590, img[input[i]], TRUE);
+					DrawGraph((320 - 54 * (theme_num - 2)) + i * 90, 590, img[input[i]], TRUE);
 					input_draw[i] = 0;
 				}
 				

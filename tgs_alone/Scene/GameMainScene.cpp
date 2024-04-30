@@ -152,7 +152,7 @@ void GameMainScene::Draw() const
 		if (begin_time == -1)
 		{
 			// ボタンの位置(UI)描画
-			//DrawGraph(1050, 50, ui_img, TRUE);
+			DrawGraph(1100, 20, ui_img, TRUE);
 
 			// 制限時間の描画
 			time->Draw();
