@@ -33,6 +33,9 @@ void Player::Initialize()
 	img[3] = LoadGraph("Resource/images/Xbotton2.png");
 	img[4] = LoadGraph("Resource/images/mistake.png");
 
+	// サウンド読み込み
+	sound = LoadSoundMem("Resource/sounds/決定ボタンを押す39.mp3");
+
 	// エラーチェック
 	if (img[0] == -1)
 	{
@@ -53,6 +56,10 @@ void Player::Initialize()
 	if (img[4] == -1)
 	{
 		throw("Resource/images/mistake.pngがありません\n");
+	}
+	if (sound == -1)
+	{
+		throw("Resource/sounds/決定ボタンを押す39.mp3がありません\n");
 	}
 
 	// プレイヤーの入力データの初期化
@@ -91,6 +98,7 @@ void Player::Update()
 		if (InputControl::GetButtonDown(XINPUT_BUTTON_A))
 		{
 			input_flg = true;
+			PlaySoundMem(sound, DX_PLAYTYPE_BACK, TRUE);
 			for (int i = 0; i < INPUT_MAX; i++)
 			{
 				if (input[i] == -1)
@@ -103,6 +111,7 @@ void Player::Update()
 		else if (InputControl::GetButtonDown(XINPUT_BUTTON_B))
 		{
 			input_flg = true;
+			PlaySoundMem(sound, DX_PLAYTYPE_BACK, TRUE);
 			for (int i = 0; i < INPUT_MAX; i++)
 			{
 				if (input[i] == -1)
@@ -115,6 +124,7 @@ void Player::Update()
 		else if (InputControl::GetButtonDown(XINPUT_BUTTON_Y))
 		{
 			input_flg = true;
+			PlaySoundMem(sound, DX_PLAYTYPE_BACK, TRUE);
 
 			for (int i = 0; i < INPUT_MAX; i++)
 			{
@@ -128,6 +138,7 @@ void Player::Update()
 		else if (InputControl::GetButtonDown(XINPUT_BUTTON_X))
 		{
 			input_flg = true;
+			PlaySoundMem(sound, DX_PLAYTYPE_BACK, TRUE);
 
 			for (int i = 0; i < INPUT_MAX; i++)
 			{
