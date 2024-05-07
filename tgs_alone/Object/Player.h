@@ -5,12 +5,13 @@
 class Player
 {
 private:
-	int sound;       // 音データ
+	int sound[2];       // 音データ
 	int img[5];      // 画像データ
 	int theme_num;   // 成功した数
 	int mistake_flg[INPUT_MAX]; // 間違えた時のアニメーションフラグ
 	int  mistake_cnt; // 間違えた時のアニメーションカウント
 	int mis_data[INPUT_MAX]; // プレイヤーが間違えたものを保存
+	//int effect;  // エフェクトデータ
 	
 public:
 	int input[INPUT_MAX]; // プレイヤーが入力したデータを保存

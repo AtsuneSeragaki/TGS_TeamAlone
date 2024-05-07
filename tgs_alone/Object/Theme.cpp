@@ -1,7 +1,7 @@
 ﻿#include "Theme.h"
 #include "DxLib.h"
 
-Theme::Theme() : img{0},theme{-1},theme_flg(false),theme_num(0)
+Theme::Theme() : img{0},theme{-1},theme_flg(false),theme_num(0),sound(0)
 {
 }
 
@@ -20,6 +20,9 @@ void Theme::Initialize()
 	img[5] = LoadGraph("Resource/images/Bbotton2.png");
 	img[6] = LoadGraph("Resource/images/Ybotton2.png");
 	img[7] = LoadGraph("Resource/images/Xbotton2.png");
+
+	// サウンド読み込み
+	sound = LoadSoundMem("Resource/sounds/Theme.mp3");
 
 	// エラーチェック
 	if (img[0] == -1)
@@ -54,6 +57,10 @@ void Theme::Initialize()
 	{
 		throw("Resource/images/Xbotton2.pngがありません\n");
 	}
+	if (sound == -1)
+	{
+		throw("Resource/sounds/Theme.mp3がありません\n");
+	}
 
 	theme_flg = true;
 
@@ -65,6 +72,8 @@ void Theme::Update()
 	// お題をランダムに生成
 	if (theme_flg == true)
 	{
+		PlaySoundMem(sound, DX_PLAYTYPE_BACK, TRUE);
+
 		for (int i = 0; i < theme_num; i++)
 		{
 			theme[i] = GetRand(3);

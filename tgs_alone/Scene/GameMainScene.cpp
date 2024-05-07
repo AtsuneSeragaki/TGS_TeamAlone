@@ -3,6 +3,8 @@
 
 GameMainScene::GameMainScene() :back_img(0), bgm(0), se(0),  correct_num(0), player(nullptr), time(nullptr), theme(nullptr), begin_time(0),begin_cnt(0),draw_cnt(0),timeup_flg(false),timeup_cnt(0),ui_img(0)
 {
+	sound[0] = 0;
+	sound[1] = 0;
 }
 
 GameMainScene::~GameMainScene()
@@ -10,16 +12,23 @@ GameMainScene::~GameMainScene()
 	delete player;
 	delete time;
 	delete theme;
+	//DeleteSoundMem()
 }
 
 void GameMainScene::Initialize()
 {
 	ui_img = LoadGraph("Resource/images/UI_botton.png");
+	// サウンド読み込み
+	sound[0] = LoadSoundMem("Resource/sounds/maou_bgm_cyber44.ogg");
 
 	// エラーチェック
 	if (ui_img == -1)
 	{
 		throw("Resource/images/UI_botton.pngがありません\n");
+	}
+	if (sound[0] == -1)
+	{
+		throw("Resource/sounds/maou_bgm_cyber44.oggがありません\n");
 	}
 
 	begin_time = 3;
@@ -33,6 +42,8 @@ void GameMainScene::Initialize()
 	player->Initialize();
 	time->Initialize();
 	theme->Initialize();
+
+	ChangeVolumeSoundMem(100, sound[0]);
 }
 
 eSceneType GameMainScene::Update()
@@ -51,7 +62,9 @@ eSceneType GameMainScene::Update()
 	// カウントダウン後に開始
 	if (begin_time == -1)
 	{
+
 		theme->Update();
+		PlaySoundMem(sound[0], DX_PLAYTYPE_LOOP, FALSE);
 		player->SetPlayerTheme(theme->GetThemeNum());
 		time->Update();
 		player->Update();
@@ -88,6 +101,7 @@ eSceneType GameMainScene::Update()
 		//制限時間が0になったら終了のアニメーション
 		if (time->GetTime() <= 0.0f)
 		{
+			StopSoundMem(sound[0]);
 			TimeupAnim();
 		}
 
