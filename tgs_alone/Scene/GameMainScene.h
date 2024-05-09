@@ -8,7 +8,7 @@
 class GameMainScene : public SceneBase
 {
 private:
-	int sound[2];       // 音データ
+	int sound[5];     // 音データ
 	int back_img;     // 背景画像データ
 	int ui_img;       // UI画像
 	int bgm;          // BGMデータ

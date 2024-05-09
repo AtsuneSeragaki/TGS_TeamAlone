@@ -25,41 +25,47 @@ Player::Player() :input_flg(false),theme_num(0), mistake_cnt(0)//,effect(0)
 Player::~Player()
 {
 	//DeleteEffekseerEffect(effect);
+	DeleteSoundMem(sound[0]);
+	DeleteSoundMem(sound[1]);
+	for (int i = 0; i < 5; i++)
+	{
+		DeleteGraph(img[i]);
+	}
 }
 
 void Player::Initialize()
 {
 	// 画像の読み込み
-	img[0] = LoadGraph("Resource/images/Abotton2.png");
-	img[1] = LoadGraph("Resource/images/Bbotton2.png");
-	img[2] = LoadGraph("Resource/images/Ybotton2.png");
-	img[3] = LoadGraph("Resource/images/Xbotton2.png");
-	img[4] = LoadGraph("Resource/images/mistake.png");
+	img[0] = LoadGraph("Resource/images/Abotton.png");
+	img[1] = LoadGraph("Resource/images/Bbotton.png");
+	img[2] = LoadGraph("Resource/images/Ybotton.png");
+	img[3] = LoadGraph("Resource/images/Xbotton.png");
+	img[4] = LoadGraph("Resource/images/mistake2.png");
 
 	// サウンド読み込み
-	sound[0] = LoadSoundMem("Resource/sounds/Button.mp3");
-	sound[1] = LoadSoundMem("Resource/sounds/Miss.mp3");
+	sound[0] = LoadSoundMem("Resource/sounds/button.mp3");
+	sound[1] = LoadSoundMem("Resource/sounds/mis.mp3");
 
 	// エラーチェック
 	if (img[0] == -1)
 	{
-		throw("Resource/images/Abotton2.pngがありません\n");
+		throw("Resource/images/Abotton.pngがありません\n");
 	}
 	if (img[1] == -1)
 	{
-		throw("Resource/images/Bbotton2.pngがありません\n");
+		throw("Resource/images/Bbotton.pngがありません\n");
 	}
 	if (img[2] == -1)
 	{
-		throw("Resource/images/Ybotton2.pngがありません\n");
+		throw("Resource/images/Ybotton.pngがありません\n");
 	}
 	if (img[3] == -1)
 	{
-		throw("Resource/images/Xbotton2.pngがありません\n");
+		throw("Resource/images/Xbotton.pngがありません\n");
 	}
 	if (img[4] == -1)
 	{
-		throw("Resource/images/mistake.pngがありません\n");
+		throw("Resource/images/mistake2.pngがありません\n");
 	}
 	if (sound[0] == -1)
 	{
@@ -200,20 +206,29 @@ void Player::Draw()
 
 			if (theme_num <= 10)
 			{
-				DrawGraph((540 - 50 * (theme_num - 3) + i * 90), 500, img[mis_data[i]], TRUE);
-				DrawGraph((540 - 50 * (theme_num - 3) + i * 90), 500, img[4], TRUE);
+				DrawGraph((500 - 57 * (theme_num - 3)) + i * 110, 300, img[mis_data[i]], TRUE);
+				DrawGraph((500 - 57 * (theme_num - 3)) + i * 110, 300, img[4], TRUE);
+				/*DrawGraph((540 - 50 * (theme_num - 3) + i * 90), 500, img[mis_data[i]], TRUE);
+				DrawGraph((540 - 50 * (theme_num - 3) + i * 90), 500, img[4], TRUE);*/
 			}
 			else if (theme_num >= 11)
 			{
 				if (i < 8)
 				{
-					DrawGraph(300 + i * 90, 490, img[mis_data[i]], TRUE);
-					DrawGraph(300 + i * 90, 490, img[4], TRUE);
+					DrawGraph(225 + i * 110, 250, img[mis_data[i]], TRUE);
+					DrawGraph(225 + i * 110, 250, img[4], TRUE);
+
+					/*DrawGraph(300 + i * 90, 490, img[mis_data[i]], TRUE);
+					DrawGraph(300 + i * 90, 490, img[4], TRUE);*/
 				}
 				else
 				{
-					DrawGraph((320 - 54 * (theme_num - 2)) + i * 90, 590, img[mis_data[i]], TRUE);
-					DrawGraph((320 - 54 * (theme_num - 2)) + i * 90, 590, img[4], TRUE);
+					DrawGraph((100 - 54 * (theme_num - 2)) + i * 110, 390, img[mis_data[i]], TRUE);
+					DrawGraph((100 - 54 * (theme_num - 2)) + i * 110, 390, img[4], TRUE);
+
+
+					/*DrawGraph((320 - 54 * (theme_num - 2)) + i * 90, 590, img[mis_data[i]], TRUE);
+					DrawGraph((320 - 54 * (theme_num - 2)) + i * 90, 590, img[4], TRUE);*/
 				}
 			}
 
@@ -231,7 +246,8 @@ void Player::Draw()
 
 			if (theme_num <= 10)
 			{
-				DrawGraph((540 - 50 * (theme_num - 3)) + i * 90, 500, img[input[i]], TRUE);
+				DrawGraph((500 - 57 * (theme_num - 3)) + i * 110, 300, img[input[i]], TRUE);
+				//DrawGraph((540 - 50 * (theme_num - 3)) + i * 90, 500, img[input[i]], TRUE);
 				input_draw[i] = 0;
 			}
 			else if (theme_num >= 11)
@@ -239,12 +255,16 @@ void Player::Draw()
 				
 				if (i < 8)
 				{
-					DrawGraph(300 + i * 90, 490, img[input[i]], TRUE);
+					DrawGraph(225 + i * 110, 250, img[input[i]], TRUE);
+
+					//DrawGraph(300 + i * 90, 490, img[input[i]], TRUE);
 					input_draw[i] = 0;
 				}
 				else
 				{
-					DrawGraph((320 - 54 * (theme_num - 2)) + i * 90, 590, img[input[i]], TRUE);
+					DrawGraph((100 - 54 * (theme_num - 2)) + i * 110, 390, img[input[i]], TRUE);
+
+					//DrawGraph((320 - 54 * (theme_num - 2)) + i * 90, 590, img[input[i]], TRUE);
 					input_draw[i] = 0;
 				}
 				

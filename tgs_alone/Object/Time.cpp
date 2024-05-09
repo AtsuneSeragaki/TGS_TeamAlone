@@ -35,6 +35,10 @@ void Time::Update()
 
 void Time::Draw()
 {
+	/*SetFontSize(20);
+
+	DrawString(620, 0, "Time", 0x000000);*/
+
 	// 制限時間表示
 	SetFontSize(50);
 

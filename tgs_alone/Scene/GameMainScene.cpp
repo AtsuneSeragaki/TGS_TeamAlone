@@ -3,23 +3,37 @@
 
 GameMainScene::GameMainScene() :back_img(0), bgm(0), se(0),  correct_num(0), player(nullptr), time(nullptr), theme(nullptr), begin_time(0),begin_cnt(0),draw_cnt(0),timeup_flg(false),timeup_cnt(0),ui_img(0)
 {
-	sound[0] = 0;
-	sound[1] = 0;
+	for (int i = 0; i < 5; i++)
+	{
+		sound[i] = 0;
+	}
 }
 
 GameMainScene::~GameMainScene()
 {
+	// オブジェクトの削除
 	delete player;
 	delete time;
 	delete theme;
-	//DeleteSoundMem()
+
+	// 音データの削除
+	DeleteSoundMem(sound[0]);
+
+	// 画像データの削除
+	DeleteGraph(ui_img);
 }
 
 void GameMainScene::Initialize()
 {
+	// 画像の読み込み
 	ui_img = LoadGraph("Resource/images/UI_botton.png");
+	
 	// サウンド読み込み
 	sound[0] = LoadSoundMem("Resource/sounds/maou_bgm_cyber44.ogg");
+	sound[1] = LoadSoundMem("Resource/sounds/countdown.mp3");
+	sound[2] = LoadSoundMem("Resource/sounds/start.mp3");
+	sound[3] = LoadSoundMem("Resource/sounds/game_end.mp3");
+	sound[4] = LoadSoundMem("Resource/sounds/game_end_voice.mp3");
 
 	// エラーチェック
 	if (ui_img == -1)
@@ -30,7 +44,24 @@ void GameMainScene::Initialize()
 	{
 		throw("Resource/sounds/maou_bgm_cyber44.oggがありません\n");
 	}
+	if (sound[1] == -1)
+	{
+		throw("Resource/sounds/countdown.mp3がありません\n");
+	}
+	if (sound[2] == -1)
+	{
+		throw("Resource/sounds/start.mp3がありません\n");
+	}
+	if (sound[3] == -1)
+	{
+		throw("Resource/sounds/game_end.mp3がありません\n");
+	}
+	if (sound[4] == -1)
+	{
+		throw("Resource/sounds/game_end_voice.mp3がありません\n");
+	}
 
+	// 開始のカウントダウン初期化
 	begin_time = 3;
 
 	// オブジェクトの生成
@@ -43,6 +74,7 @@ void GameMainScene::Initialize()
 	time->Initialize();
 	theme->Initialize();
 
+	// BGMの音量設定
 	ChangeVolumeSoundMem(100, sound[0]);
 }
 
@@ -51,11 +83,25 @@ eSceneType GameMainScene::Update()
 	// 開始のカウントダウン
 	if (begin_time != -1)
 	{
+		if (begin_time == 3 && begin_cnt == 0)
+		{
+			PlaySoundMem(sound[1], DX_PLAYTYPE_BACK, TRUE);
+		}
+
 		begin_cnt++;
 
 		if (begin_cnt % 60 == 0)
 		{
 			begin_time--;
+
+			if (begin_time > 0)
+			{
+				PlaySoundMem(sound[1], DX_PLAYTYPE_BACK, TRUE);
+			}
+			else if(begin_time == 0)
+			{
+				PlaySoundMem(sound[2], DX_PLAYTYPE_BACK, TRUE);
+			}
 		}
 	}
 	
@@ -64,10 +110,10 @@ eSceneType GameMainScene::Update()
 	{
 
 		theme->Update();
-		PlaySoundMem(sound[0], DX_PLAYTYPE_LOOP, FALSE);
 		player->SetPlayerTheme(theme->GetThemeNum());
 		time->Update();
 		player->Update();
+		PlaySoundMem(sound[0], DX_PLAYTYPE_LOOP, FALSE);
 
 		// プレイヤーの入力とお題の比較
 		if (player->GetPlayerInput() == true && correct_num < THEME_MAX && player->GetInputDraw(correct_num) == 0)
@@ -98,15 +144,18 @@ eSceneType GameMainScene::Update()
 			
 		}
 
-		//制限時間が0になったら終了のアニメーション
+		//制限時間が0になったら
 		if (time->GetTime() <= 0.0f)
 		{
+			// BGMを止める
 			StopSoundMem(sound[0]);
+
+			// 終了の表示
 			TimeupAnim();
 		}
 
 		// 全てクリアしたら時間を止める
-		if (correct_num == THEME_MAX)
+		/*if (correct_num == THEME_MAX)
 		{
 			time->SetTimeFlg(false);
 			draw_cnt++;
@@ -114,15 +163,16 @@ eSceneType GameMainScene::Update()
 			{
 				TimeupAnim();
 			}
-		}
+		}*/
 
-		// アニメーションの後、リザルト画面へ
+		// 終了の表示後、リザルト画面へ
 		if (timeup_flg == true)
 		{
 			if (draw_cnt != 0)
 			{
 				draw_cnt = 0;
 			}
+
 			return eSceneType::E_RESULT;
 		}
 	}
@@ -219,7 +269,6 @@ void GameMainScene::Comparison()
 	else
 	{// 異なる場合
 		player->SetPlayerMis(correct_num);
-		//time->SetTime();
 		player->ResetPlayerInput(correct_num);
 		player->ResetInputDraw(correct_num);
 	}
@@ -230,7 +279,17 @@ void GameMainScene::TimeupAnim()
 {
 	timeup_cnt++;
 
-	if (timeup_cnt == 110)
+	if (timeup_cnt == 1)
+	{
+		PlaySoundMem(sound[3], DX_PLAYTYPE_BACK, TRUE);
+	}
+
+	if (timeup_cnt == 50)
+	{
+		PlaySoundMem(sound[4], DX_PLAYTYPE_BACK, TRUE);
+	}
+
+	if (timeup_cnt == 130)
 	{
 		timeup_flg = true;
 	}

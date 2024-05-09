@@ -7,6 +7,14 @@ Theme::Theme() : img{0},theme{-1},theme_flg(false),theme_num(0),sound(0)
 
 Theme::~Theme()
 {
+	// 音データの削除
+	DeleteSoundMem(sound);
+
+	// 画像データの削除
+	for (int i = 0; i < 8; i++)
+	{
+		DeleteGraph(img[i]);
+	}
 }
 
 void Theme::Initialize()
@@ -22,7 +30,7 @@ void Theme::Initialize()
 	img[7] = LoadGraph("Resource/images/Xbotton2.png");
 
 	// サウンド読み込み
-	sound = LoadSoundMem("Resource/sounds/Theme.mp3");
+	sound = LoadSoundMem("Resource/sounds/theme.mp3");
 
 	// エラーチェック
 	if (img[0] == -1)
@@ -85,15 +93,17 @@ void Theme::Update()
 
 void Theme::Draw()
 {
+	SetFontSize(30);
+	DrawFormatString(150,150, 0x000000,"Theme%d",theme_num - 2);
+
 	if (theme_num <= 10)
 	{
 		// お題表示
 		for (int i = 0; i < theme_num; i++)
 		{
-			DrawGraph((500 - 57 * (theme_num - 3)) + i * 110, 250, img[theme[i]], TRUE);
-
 			SetDrawBlendMode(DX_BLENDMODE_ALPHA, 122);
-			DrawGraph((540 - 50 * (theme_num - 3)) + i * 90, 500, img[theme[i] + 4], TRUE);
+			DrawGraph((500 - 57 * (theme_num - 3)) + i * 110, 300, img[theme[i]], TRUE);
+			//DrawGraph((540 - 50 * (theme_num - 3)) + i * 90, 500, img[theme[i] + 4], TRUE);
 			SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 		}
 	}
@@ -104,16 +114,16 @@ void Theme::Draw()
 		{
 			if (i < 8)
 			{
-				DrawGraph(225 + i * 110, 160, img[theme[i]], TRUE);
 				SetDrawBlendMode(DX_BLENDMODE_ALPHA, 122);
-				DrawGraph(300 + i * 90, 490, img[theme[i] + 4], TRUE);
+				DrawGraph(225 + i * 110, 250, img[theme[i]], TRUE);
+				//DrawGraph(300 + i * 90, 490, img[theme[i] + 4], TRUE);
 				SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 			}
 			else
 			{
-				DrawGraph((100 - 54 * (theme_num - 2)) + i * 110, 300, img[theme[i]], TRUE);
 				SetDrawBlendMode(DX_BLENDMODE_ALPHA, 122);
-				DrawGraph((320 - 54 * (theme_num - 2)) + i * 90, 590, img[theme[i] + 4], TRUE);
+				DrawGraph((100 - 54 * (theme_num - 2)) + i * 110, 390, img[theme[i]], TRUE);
+				//DrawGraph((320 - 54 * (theme_num - 2)) + i * 90, 590, img[theme[i] + 4], TRUE);
 				SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 			}
 		}
