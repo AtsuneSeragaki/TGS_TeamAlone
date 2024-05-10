@@ -5,7 +5,7 @@
 class Player
 {
 private:
-	int sound[2];       // 音データ
+	int sound[2];    // 音データ
 	int img[5];      // 画像データ
 	int theme_num;   // 成功した数
 	int mistake_flg[INPUT_MAX]; // 間違えた時のアニメーションフラグ

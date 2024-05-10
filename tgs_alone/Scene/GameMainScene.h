@@ -19,6 +19,7 @@ private:
 	int draw_cnt;     // お題の設定を数フレーム後に
 	bool timeup_flg;  // 時間0かどうかのフラグ
 	int timeup_cnt;   // タイムアップのアニメーション用
+	int combo; // 連続で当たった数保存用
     Player* player;   // プレイヤー
 	Time* time;       // 制限時間
 	Theme* theme;     // お題

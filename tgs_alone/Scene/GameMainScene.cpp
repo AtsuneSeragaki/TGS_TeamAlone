@@ -1,7 +1,7 @@
 ﻿#include "GameMainScene.h"
 #include "DxLib.h"
 
-GameMainScene::GameMainScene() :back_img(0), bgm(0), se(0),  correct_num(0), player(nullptr), time(nullptr), theme(nullptr), begin_time(0),begin_cnt(0),draw_cnt(0),timeup_flg(false),timeup_cnt(0),ui_img(0)
+GameMainScene::GameMainScene() :back_img(0), bgm(0), se(0),  correct_num(0), player(nullptr), time(nullptr), theme(nullptr), begin_time(0),begin_cnt(0),draw_cnt(0),timeup_flg(false),timeup_cnt(0),ui_img(0),combo(0)
 {
 	for (int i = 0; i < 5; i++)
 	{
@@ -76,6 +76,8 @@ void GameMainScene::Initialize()
 
 	// BGMの音量設定
 	ChangeVolumeSoundMem(100, sound[0]);
+
+	combo = 0;
 }
 
 eSceneType GameMainScene::Update()
@@ -218,6 +220,10 @@ void GameMainScene::Draw() const
 			// ボタンの位置(UI)描画
 			DrawGraph(1100, 20, ui_img, TRUE);
 
+			// コンボ数表示
+			SetFontSize(30);
+			DrawFormatString(10, 10,0x000000,"Combo:%d",combo);
+
 			// 制限時間の描画
 			time->Draw();
 
@@ -264,10 +270,12 @@ void GameMainScene::Comparison()
 	if (tm[correct_num] == ip[correct_num])
 	{// 同じだった場合
 		correct_num++;
+		combo++;
 		player->SetPlayerInput();
 	}
 	else
 	{// 異なる場合
+		combo = 0;
 		player->SetPlayerMis(correct_num);
 		player->ResetPlayerInput(correct_num);
 		player->ResetInputDraw(correct_num);
