@@ -10,6 +10,7 @@ class GameMainScene : public SceneBase
 private:
 	int sound[5];     // 音データ
 	int back_img;     // 背景画像データ
+	int img[6];
 	int ui_img;       // UI画像
 	int bgm;          // BGMデータ
 	int se;           // SEデータ

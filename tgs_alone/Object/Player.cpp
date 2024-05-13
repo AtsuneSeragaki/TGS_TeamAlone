@@ -206,8 +206,8 @@ void Player::Draw()
 
 			if (theme_num <= 10)
 			{
-				DrawGraph((500 - 57 * (theme_num - 3)) + i * 110, 300, img[mis_data[i]], TRUE);
-				DrawGraph((500 - 57 * (theme_num - 3)) + i * 110, 300, img[4], TRUE);
+				DrawGraph((500 - 57 * (theme_num - 3)) + i * 110, 410, img[mis_data[i]], TRUE);
+				DrawGraph((500 - 57 * (theme_num - 3)) + i * 110, 410, img[4], TRUE);
 				/*DrawGraph((540 - 50 * (theme_num - 3) + i * 90), 500, img[mis_data[i]], TRUE);
 				DrawGraph((540 - 50 * (theme_num - 3) + i * 90), 500, img[4], TRUE);*/
 			}
@@ -215,16 +215,16 @@ void Player::Draw()
 			{
 				if (i < 8)
 				{
-					DrawGraph(225 + i * 110, 250, img[mis_data[i]], TRUE);
-					DrawGraph(225 + i * 110, 250, img[4], TRUE);
+					DrawGraph(225 + i * 110, 355, img[mis_data[i]], TRUE);
+					DrawGraph(225 + i * 110, 355, img[4], TRUE);
 
 					/*DrawGraph(300 + i * 90, 490, img[mis_data[i]], TRUE);
 					DrawGraph(300 + i * 90, 490, img[4], TRUE);*/
 				}
 				else
 				{
-					DrawGraph((100 - 54 * (theme_num - 2)) + i * 110, 390, img[mis_data[i]], TRUE);
-					DrawGraph((100 - 54 * (theme_num - 2)) + i * 110, 390, img[4], TRUE);
+					DrawGraph((100 - 54 * (theme_num - 2)) + i * 110, 500, img[mis_data[i]], TRUE);
+					DrawGraph((100 - 54 * (theme_num - 2)) + i * 110, 500, img[4], TRUE);
 
 
 					/*DrawGraph((320 - 54 * (theme_num - 2)) + i * 90, 590, img[mis_data[i]], TRUE);
@@ -246,7 +246,7 @@ void Player::Draw()
 
 			if (theme_num <= 10)
 			{
-				DrawGraph((500 - 57 * (theme_num - 3)) + i * 110, 300, img[input[i]], TRUE);
+				DrawGraph((500 - 57 * (theme_num - 3)) + i * 110, 410, img[input[i]], TRUE);
 				//DrawGraph((540 - 50 * (theme_num - 3)) + i * 90, 500, img[input[i]], TRUE);
 				input_draw[i] = 0;
 			}
@@ -255,14 +255,14 @@ void Player::Draw()
 				
 				if (i < 8)
 				{
-					DrawGraph(225 + i * 110, 250, img[input[i]], TRUE);
+					DrawGraph(225 + i * 110, 355, img[input[i]], TRUE);
 
 					//DrawGraph(300 + i * 90, 490, img[input[i]], TRUE);
 					input_draw[i] = 0;
 				}
 				else
 				{
-					DrawGraph((100 - 54 * (theme_num - 2)) + i * 110, 390, img[input[i]], TRUE);
+					DrawGraph((100 - 54 * (theme_num - 2)) + i * 110, 500, img[input[i]], TRUE);
 
 					//DrawGraph((320 - 54 * (theme_num - 2)) + i * 90, 590, img[input[i]], TRUE);
 					input_draw[i] = 0;
