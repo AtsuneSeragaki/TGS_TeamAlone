@@ -52,7 +52,7 @@ void Theme::Initialize()
 
 	theme_flg = true;
 
-	theme_num = 3;
+	theme_num = 20;
 }
 
 void Theme::Update()

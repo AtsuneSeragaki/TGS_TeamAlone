@@ -9,7 +9,7 @@ GameMainScene::GameMainScene() :back_img(0), bgm(0), se(0),  correct_num(0), pla
 		
 	}
 
-	for (int i = 0; i < 6; i++)
+	for (int i = 0; i < 7; i++)
 	{
 		img[i] = 0;
 	}
@@ -39,6 +39,8 @@ void GameMainScene::Initialize()
 	img[0] = LoadGraph("Resource/images/start.png");
 	img[4] = LoadGraph("Resource/images/main.png");
 	img[5] = LoadGraph("Resource/images/timeup.png");
+	img[6] = LoadGraph("Resource/images/perfect.png");
+
 
 	// サウンド読み込み
 	sound[0] = LoadSoundMem("Resource/sounds/maou_bgm_cyber44.ogg");
@@ -75,6 +77,10 @@ void GameMainScene::Initialize()
 	if (img[5] == -1)
 	{
 		throw("Resource/images/timeup.pngがありません\n");
+	}
+	if (img[6] == -1)
+	{
+		throw("Resource/images/perfect.pngがありません\n");
 	}
 	if (sound[0] == -1)
 	{
@@ -281,13 +287,11 @@ void GameMainScene::Draw() const
 
 			if (timeup_cnt <= 78)
 			{
-				SetFontSize(100);
-				DrawString(470, 0 + timeup_cnt * 2, "PERFECT!", 0x000000);
+				DrawGraph(30, -600 + timeup_cnt * 7, img[6], TRUE);
 			}
 			else
 			{
-				SetFontSize(100);
-				DrawString(470, 200, "PERFECT!", 0x000000);
+				DrawGraph(30, -50, img[6], TRUE);
 			}
 		}
 		else
