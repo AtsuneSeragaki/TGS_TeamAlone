@@ -204,12 +204,17 @@ void Player::Draw()
 			mistake_cnt++;
 
 
-			if (theme_num <= 10)
+			if (theme_num < 10)
 			{
 				DrawGraph((500 - 57 * (theme_num - 3)) + i * 110, 410, img[mis_data[i]], TRUE);
 				DrawGraph((500 - 57 * (theme_num - 3)) + i * 110, 410, img[4], TRUE);
 				/*DrawGraph((540 - 50 * (theme_num - 3) + i * 90), 500, img[mis_data[i]], TRUE);
 				DrawGraph((540 - 50 * (theme_num - 3) + i * 90), 500, img[4], TRUE);*/
+			}
+			else if (theme_num == 10)
+			{	
+				DrawGraph(90 + i * 110, 410, img[mis_data[i]], TRUE);
+				DrawGraph(90 + i * 110, 410, img[4], TRUE);
 			}
 			else if (theme_num >= 11 && theme_num < 16)
 			{
@@ -325,10 +330,15 @@ void Player::Draw()
 			/*DrawGraph((540 - 50 * (theme_num - 3)) + i * 90, 500, img[input[i]], TRUE);
 			input_draw[i] = 0;*/
 
-			if (theme_num <= 10)
+			if (theme_num < 10)
 			{
 				DrawGraph((500 - 57 * (theme_num - 3)) + i * 110, 410, img[input[i]], TRUE);
 				//DrawGraph((540 - 50 * (theme_num - 3)) + i * 90, 500, img[input[i]], TRUE);
+				input_draw[i] = 0;
+			}
+			else if (theme_num == 10)
+			{
+				DrawGraph(90 + i * 110, 410, img[input[i]], TRUE);
 				input_draw[i] = 0;
 			}
 			else if (theme_num >= 11 && theme_num < 16)

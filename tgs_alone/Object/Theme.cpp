@@ -11,7 +11,7 @@ Theme::~Theme()
 	DeleteSoundMem(sound);
 
 	// 画像データの削除
-	for (int i = 0; i < 8; i++)
+	for (int i = 0; i < 4; i++)
 	{
 		DeleteGraph(img[i]);
 	}
@@ -52,7 +52,7 @@ void Theme::Initialize()
 
 	theme_flg = true;
 
-	theme_num = 20;
+	theme_num = 3;
 }
 
 void Theme::Update()
@@ -85,13 +85,24 @@ void Theme::Draw()
 	}
 	
 
-	if (theme_num <= 10)
+	if (theme_num < 10)
 	{
 		// お題表示
 		for (int i = 0; i < theme_num; i++)
 		{
 			SetDrawBlendMode(DX_BLENDMODE_ALPHA, 122);
 			DrawGraph((500 - 57 * (theme_num - 3)) + i * 110, 410, img[theme[i]], TRUE);
+			//DrawGraph((540 - 50 * (theme_num - 3)) + i * 90, 500, img[theme[i] + 4], TRUE);
+			SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+		}
+	}
+	else if (theme_num == 10)
+	{
+		// お題表示
+		for (int i = 0; i < theme_num; i++)
+		{
+			SetDrawBlendMode(DX_BLENDMODE_ALPHA, 122);
+			DrawGraph(90 + i * 110, 410, img[theme[i]], TRUE);
 			//DrawGraph((540 - 50 * (theme_num - 3)) + i * 90, 500, img[theme[i] + 4], TRUE);
 			SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 		}
