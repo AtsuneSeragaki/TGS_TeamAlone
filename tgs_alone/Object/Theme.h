@@ -1,12 +1,12 @@
 ﻿#pragma once
 
-#define THEME_MAX 30
+#define THEME_MAX 20
 
 class Theme
 {
 private:
 	int sound;       // 音データ
-	int img[8]; // お題画像
+	int img[4]; // お題画像
 	bool theme_flg;   // お題の生成フラグ
 	int theme_num;    // お題の数
 

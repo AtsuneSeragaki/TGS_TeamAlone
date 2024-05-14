@@ -12,7 +12,7 @@ Time::~Time()
 void Time::Initialize()
 {
 	// 制限時間の初期化
-	time = 1.0f;
+	time = 45.0f;
 	time_flg = true;
 }
 
@@ -21,14 +21,14 @@ void Time::Update()
 	//	フラグがtrueのときカウントダウン
 	if (time_flg == true)
 	{
-		if (time > 0.016f)
+		if (time >= 0.016f)
 		{
 			// 1フレーム0.016ずつマイナス
 			time -= 0.016f;
 		}
 		else
 		{
-			time = 0.0f;
+			time = 0.000f;
 		}
 	}
 }
@@ -52,7 +52,6 @@ void Time::Draw()
 		{
 			DrawFormatString(590, 110, 0xed1a3d, "%.2f", time);
 		}
-		
 	}
 	else
 	{

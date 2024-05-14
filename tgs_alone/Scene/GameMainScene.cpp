@@ -32,7 +32,7 @@ GameMainScene::~GameMainScene()
 void GameMainScene::Initialize()
 {
 	// 画像の読み込み
-	ui_img = LoadGraph("Resource/images/UI_botton.png");
+	//ui_img = LoadGraph("Resource/images/UI_botton.png");
 	img[3] = LoadGraph("Resource/images/count3.png");
 	img[2] = LoadGraph("Resource/images/count2.png");
 	img[1] = LoadGraph("Resource/images/count1.png");
@@ -48,10 +48,10 @@ void GameMainScene::Initialize()
 	sound[4] = LoadSoundMem("Resource/sounds/stop.mp3");
 
 	// エラーチェック
-	if (ui_img == -1)
+	/*if (ui_img == -1)
 	{
 		throw("Resource/images/UI_botton.pngがありません\n");
-	}
+	}*/
 	if (img[0] == -1)
 	{
 		throw("Resource/images/start.pngがありません\n");
@@ -147,8 +147,13 @@ eSceneType GameMainScene::Update()
 	if (begin_time == -1)
 	{
 		//制限時間が0になったら
-		if (time->GetTime() <= 0.0f)
+		if (time->GetTime() <= 0.0f || correct_num == THEME_MAX)
 		{
+			if (correct_num == THEME_MAX)
+			{
+				time->SetTimeFlg(false);
+			}
+
 			// BGMを止める
 			StopSoundMem(sound[0]);
 
@@ -163,7 +168,7 @@ eSceneType GameMainScene::Update()
 					draw_cnt = 0;
 				}
 
-				//return eSceneType::E_RESULT;
+				return eSceneType::E_RESULT;
 			}
 		}
 		else
@@ -202,29 +207,6 @@ eSceneType GameMainScene::Update()
 				}
 
 			}
-
-			//制限時間が0になったら
-			//if (time->GetTime() <= 0.0f)
-			//{
-			//	// BGMを止める
-			//	StopSoundMem(sound[0]);
-
-			//	// 終了の表示
-			//	TimeupAnim();
-			//}
-
-			// 全てクリアしたら時間を止める
-			/*if (correct_num == THEME_MAX)
-			{
-				time->SetTimeFlg(false);
-				draw_cnt++;
-				if (draw_cnt > 60)
-				{
-					TimeupAnim();
-				}
-			}*/
-
-			
 		}
 	}
 
@@ -289,21 +271,44 @@ void GameMainScene::Draw() const
 
 	if (timeup_cnt != 0)
 	{
-		SetDrawBlendMode(DX_BLENDMODE_ALPHA, 200);
-		DrawBox(0, 0, 1280, 720, 0xffffff, TRUE);
-		SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
-
 		if (correct_num == THEME_MAX)
 		{// お題を全てクリアしたら
-			SetFontSize(100);
-			DrawString(470, 200, "PERFECT!", 0x000000);
+
+			SetDrawBlendMode(DX_BLENDMODE_ALPHA, 200);
+			DrawBox(0, 0, 1280, 720, 0xffffff, TRUE);
+			SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+
+
+			if (timeup_cnt <= 78)
+			{
+				SetFontSize(100);
+				DrawString(470, 0 + timeup_cnt * 2, "PERFECT!", 0x000000);
+			}
+			else
+			{
+				SetFontSize(100);
+				DrawString(470, 200, "PERFECT!", 0x000000);
+			}
 		}
 		else
 		{// 制限時間が0になったら
 			//SetFontSize(100);
 			//DrawString(470, 200, "TIME UP!", 0x000000);
 
-			DrawGraph(30, -50, img[5], TRUE);
+			SetDrawBlendMode(DX_BLENDMODE_ALPHA, 200);
+			DrawBox(0, 0, 1280, 720, 0xffffff, TRUE);
+			SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+
+			if (timeup_cnt <= 78)
+			{
+				DrawGraph(30, -600 + timeup_cnt * 7, img[5], TRUE);
+			}
+			else
+			{
+				DrawGraph(30, -50, img[5], TRUE);
+			}
+			
+			//DrawFormatString(0, 0, 0x000000, "%d", timeup_cnt);
 		}
 	}
 	
@@ -357,7 +362,7 @@ void GameMainScene::TimeupAnim()
 		PlaySoundMem(sound[4], DX_PLAYTYPE_BACK, TRUE);
 	}
 
-	if (timeup_cnt == 130)
+	if (timeup_cnt == 200)
 	{
 		timeup_flg = true;
 	}
