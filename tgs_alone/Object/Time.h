@@ -4,9 +4,12 @@ class Time
 {
 private:
 	bool time_flg;     // 1秒減らすタイミングをカウント
+	int img_b[10];       // 画像データ
+	int img_r[10];       // 画像データ
 
 public:
 	float time;       // 制限時間
+	float time2[5];
 
 public:
 	Time();
