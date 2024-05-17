@@ -80,10 +80,10 @@ void Time::Draw()
 		{
 			DrawFormatString(565, 110, 0xed1a3d, "%.2f", time);
 
-			for (int i = 0; i < 4; i++)
-			{
-				DrawGraph(565, 110, img_r[i], TRUE);
-			}
+			//for (int i = 0; i < 4; i++)
+			//{
+			//	DrawGraph(565, 110, img_r[i], TRUE);
+			//}
 		}
 		else
 		{
