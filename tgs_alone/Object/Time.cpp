@@ -2,17 +2,12 @@
 #include "DxLib.h"
 #include <tgmath.h>
 
-Time::Time() :time(0.0f),time_flg(false)
+Time::Time() :time(0),time_flg(false), time2(0)
 {
 	for (int i = 0; i < 10; i++)
 	{
 		img_b[i] = 0;
 		img_r[i] = 0;
-	}
-
-	for (int i = 0; i < 5; i++)
-	{
-		time2[i] = 0.0f;
 	}
 }
 
@@ -23,23 +18,29 @@ Time::~Time()
 void Time::Initialize()
 {
 	// 画像データの読み込み
-	LoadDivGraph("Resource/images/numberb.png", 10, 5, 2, 75, 75, img_b);
-	LoadDivGraph("Resource/images/numberr.png", 10, 5, 2, 75, 75, img_r);
+	//LoadDivGraph("Resource/images/numberb.png", 10, 5, 2, 75, 75, img_b);
+	LoadDivGraph("Resource/images/92.png", 10, 5, 2, 75, 75, img_b);
+	img_b[10] = LoadGraph("Resource/images/period.png");
+	//LoadDivGraph("Resource/images/numberr.png", 10, 5, 2, 75, 75, img_r);
+	LoadDivGraph("Resource/images/9.png", 10, 5, 2, 75, 75, img_r);
+	img_r[10] = LoadGraph("Resource/images/periodr.png");
 
-	for (int i = 0; i < 10; i++)
+
+	for (int i = 0; i < 11; i++)
 	{
 		if (img_b[i] == -1)
 		{
-			throw("Resource/images/numberb.pngがありません\n");
+			throw("img_b[%d]がありません\n",i);
 		}
 		if (img_r[i] == -1)
 		{
-			throw("Resource/images/numberr.pngがありません\n");
+			throw("img_r[%d]がありません\n", i);
 		}
 	}
 
 	// 制限時間の初期化
-	time = 45.0f;
+	time = 45;
+	time2 = 99;
 	time_flg = true;
 }
 
@@ -48,54 +49,101 @@ void Time::Update()
 	//	フラグがtrueのときカウントダウン
 	if (time_flg == true)
 	{
-		if (time >= 0.016f)
+		if (time2 > 0)
 		{
-			// 1フレーム0.016ずつマイナス
-			time -= 0.016f;
+			// 1フレームミリ秒を1ずつマイナス
+			if (time2 % 3 == 0)
+			{
+				time2 -= 2;
+			}
+			else
+			{
+				time2--;
+			}
 		}
 		else
 		{
-			time = 0.000f;
+			time--;
+			if (time == 0)
+			{
+				time2 = 0;
+			}
+			else
+			{
+				time2 = 99;
+			}
 		}
-
-		time2[0] = time / 10;
-		time2[1] = time / 1.0f;
-		time2[2] = time / 0.1f;
-		time2[3] = time / 0.01f;
 	}
 }
 
 void Time::Draw()
 {
-	/*SetFontSize(20);
-
-	DrawString(620, 0, "Time", 0x000000);*/
-
 	// 制限時間表示
-	SetFontSize(70);
-
-	if (time < 11.0f)
+	if (time < 11)
 	{// 制限時間が10秒以下になったら赤い文字
-		if (time >= 10.0f)
-		{
-			DrawFormatString(565, 110, 0xed1a3d, "%.2f", time);
 
-			//for (int i = 0; i < 4; i++)
-			//{
-			//	DrawGraph(565, 110, img_r[i], TRUE);
-			//}
+		// ピリオド表示
+		DrawGraph(TIME_X + 78, TIME_Y, img_r[10], TRUE);
+
+		if (time < 10)
+		{
+			// 時間(秒)表示
+			DrawGraph(TIME_X, TIME_Y, img_r[0], TRUE);
+			DrawGraph(TIME_X + 50, TIME_Y, img_r[time % 10], TRUE);
+
+			// 時間(ミリ秒)表示
+			if (time2 < 10)
+			{
+				DrawGraph(TIME_X + 120, TIME_Y, img_r[0], TRUE);
+				DrawGraph(TIME_X + 170, TIME_Y, img_r[time2 % 10], TRUE);
+			}
+			else
+			{
+				//DrawFormatString(650, 110, 0x000000, "%d", time2);
+				DrawGraph(TIME_X + 120, TIME_Y, img_r[time2 / 10], TRUE);
+				DrawGraph(TIME_X + 170, TIME_Y, img_r[time2 % 10], TRUE);
+			}
 		}
 		else
 		{
-			DrawFormatString(590, 110, 0xed1a3d, "%.2f", time);
+			// 時間(秒)表示
+			DrawGraph(TIME_X, TIME_Y, img_r[time / 10], TRUE);
+			DrawGraph(TIME_X + 50, TIME_Y, img_r[time % 10], TRUE);
+
+			// 時間(ミリ秒)表示
+			if (time2 < 10)
+			{
+				DrawGraph(TIME_X + 120, TIME_Y, img_r[0], TRUE);
+				DrawGraph(TIME_X + 170, TIME_Y, img_r[time2 % 10], TRUE);
+			}
+			else
+			{
+				DrawGraph(TIME_X + 120, TIME_Y, img_r[time2 / 10], TRUE);
+				DrawGraph(TIME_X + 170, TIME_Y, img_r[time2 % 10], TRUE);
+			}
 		}
 	}
 	else
 	{
-		DrawFormatString(565, 110, 0x000000, "%.2f", time);
-	}
+		// 時間(秒)表示
+		DrawGraph(TIME_X, TIME_Y, img_b[time / 10], TRUE);
+		DrawGraph(TIME_X + 50, TIME_Y, img_b[time % 10], TRUE);
 
-	//DrawGraph(0, 0, img_r[4], TRUE);
+		// ピリオド表示
+		DrawGraph(TIME_X + 78,TIME_Y, img_b[10], TRUE);
+
+		// 時間(ミリ秒)表示
+		if (time2 < 10)
+		{
+			DrawGraph(TIME_X + 122, TIME_Y, img_b[0], TRUE);
+			DrawGraph(TIME_X + 172, TIME_Y, img_b[time2 % 10], TRUE);
+		}
+		else
+		{
+			DrawGraph(TIME_X + 122, TIME_Y, img_b[time2 / 10], TRUE);
+			DrawGraph(TIME_X + 172, TIME_Y, img_b[time2 % 10], TRUE);
+		}
+	}
 }
 
 void Time::Finalize()

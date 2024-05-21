@@ -11,6 +11,7 @@ private:
 	int sound[5];     // 音データ
 	int back_img;     // 背景画像データ
 	int img[7];
+	int combo_img[10];
 	int ui_img;       // UI画像
 	int bgm;          // BGMデータ
 	int se;           // SEデータ

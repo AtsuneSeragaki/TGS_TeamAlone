@@ -1,15 +1,18 @@
 ﻿#pragma once
 
+#define TIME_Y 105   // 時間(秒)の描画位置Y座標
+#define TIME_X 530   // 時間(秒)の描画位置X座標
+
 class Time
 {
 private:
 	bool time_flg;     // 1秒減らすタイミングをカウント
-	int img_b[10];       // 画像データ
-	int img_r[10];       // 画像データ
+	int img_b[11];       // 画像データ
+	int img_r[11];       // 画像データ
 
 public:
-	float time;       // 制限時間
-	float time2[5];
+	int time;       // 制限時間(秒)
+	int time2;      // 制限時間(ミリ秒)
 
 public:
 	Time();

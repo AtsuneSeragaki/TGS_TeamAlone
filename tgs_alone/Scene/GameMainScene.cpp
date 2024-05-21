@@ -13,6 +13,11 @@ GameMainScene::GameMainScene() :back_img(0), bgm(0), se(0),  correct_num(0), pla
 	{
 		img[i] = 0;
 	}
+
+	for (int i = 0; i < 10; i++)
+	{
+		combo_img[i] = 0;
+	}
 }
 
 GameMainScene::~GameMainScene()
@@ -40,6 +45,8 @@ void GameMainScene::Initialize()
 	img[4] = LoadGraph("Resource/images/main.png");
 	img[5] = LoadGraph("Resource/images/timeup.png");
 	img[6] = LoadGraph("Resource/images/perfect.png");
+
+	LoadDivGraph("Resource/images/number.png", 10, 5, 2, 90, 90, combo_img);
 
 
 	// サウンド読み込み
@@ -119,7 +126,7 @@ void GameMainScene::Initialize()
 	// BGMの音量設定
 	ChangeVolumeSoundMem(100, sound[0]);
 
-	combo = 0;
+	combo = 25;
 }
 
 eSceneType GameMainScene::Update()
@@ -244,8 +251,20 @@ void GameMainScene::Draw() const
 		//DrawGraph(1100, 20, ui_img, TRUE);
 
 		// コンボ数表示
-		SetFontSize(50);
-		DrawFormatString(250, 73,0x000000,"%d",combo);
+		//SetFontSize(50);
+		//DrawFormatString(250, 73,0x000000,"%d",combo);
+
+		if (combo < 10)
+		{
+			DrawGraph(130, 98, combo_img[0], TRUE);
+			DrawGraph(205, 98, combo_img[combo % 10], TRUE);
+		}
+		else
+		{
+			DrawGraph(130, 98, combo_img[combo / 10], TRUE);
+			DrawGraph(203, 98, combo_img[combo % 10], TRUE);
+		}
+
 
 		// 制限時間の描画
 		time->Draw();
