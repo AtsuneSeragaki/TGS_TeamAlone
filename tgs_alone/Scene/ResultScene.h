@@ -2,10 +2,13 @@
 
 #include "SceneBase.h"
 
+#define NUM_Y 405
+
 class ResultScene : public SceneBase
 {
 private:
 	int back_img;    // 背景画像 
+	int num_img[10];
 
 public:
 	ResultScene();

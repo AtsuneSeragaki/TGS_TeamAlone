@@ -1,7 +1,9 @@
 ﻿#include "GameMainScene.h"
 #include "DxLib.h"
 
-GameMainScene::GameMainScene() :back_img(0), bgm(0), se(0),  correct_num(0), player(nullptr), time(nullptr), theme(nullptr), begin_time(0),begin_cnt(0),draw_cnt(0),timeup_flg(false),timeup_cnt(0),ui_img(0),combo(0)
+int GameMainScene::combo = 0;
+
+GameMainScene::GameMainScene() :back_img(0), bgm(0), se(0),  correct_num(0), player(nullptr), time(nullptr), theme(nullptr), begin_time(0),begin_cnt(0),draw_cnt(0),timeup_flg(false),timeup_cnt(0),ui_img(0)
 {
 	for (int i = 0; i < 5; i++)
 	{
@@ -55,7 +57,7 @@ void GameMainScene::Initialize()
 	img[4] = LoadGraph("Resource/images/main.png");
 	img[5] = LoadGraph("Resource/images/timeup.png");
 	img[6] = LoadGraph("Resource/images/perfect.png");
-	LoadDivGraph("Resource/images/combo.png", 10, 5, 2, 90, 90, combo_img);
+	LoadDivGraph("Resource/images/combo.png", 10, 5, 2, 75, 75, combo_img);
 
 	// サウンド読み込み
 	sound[0] = LoadSoundMem("Resource/sounds/maou_bgm_cyber44.ogg");
@@ -229,13 +231,13 @@ void GameMainScene::Draw() const
 		// コンボ数表示
 		if (combo < 10)
 		{
-			DrawGraph(145, 105, combo_img[0], TRUE);
-			DrawGraph(204, 105, combo_img[combo % 10], TRUE);
+			DrawGraph(143, 105, combo_img[0], TRUE);
+			DrawGraph(207, 105, combo_img[combo % 10], TRUE);
 		}
 		else
 		{
-			DrawGraph(145, 105, combo_img[combo / 10], TRUE);
-			DrawGraph(204, 105, combo_img[combo % 10], TRUE);
+			DrawGraph(143, 105, combo_img[combo / 10], TRUE);
+			DrawGraph(207, 105, combo_img[combo % 10], TRUE);
 		}
 
 		// 制限時間の描画

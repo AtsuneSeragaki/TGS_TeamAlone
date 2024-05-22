@@ -9,10 +9,10 @@ private:
 	int img[4]; // お題画像
 	int level_img[10];
 	bool theme_flg;   // お題の生成フラグ
-	int theme_num;    // お題の数
 
 public:
 	int theme[THEME_MAX];  // お題 
+	static int theme_num;    // お題の数
 
 public:
 	Theme();
