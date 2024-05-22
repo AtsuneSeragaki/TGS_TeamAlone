@@ -46,7 +46,8 @@ void GameMainScene::Initialize()
 	img[5] = LoadGraph("Resource/images/timeup.png");
 	img[6] = LoadGraph("Resource/images/perfect.png");
 
-	LoadDivGraph("Resource/images/number.png", 10, 5, 2, 90, 90, combo_img);
+	//LoadDivGraph("Resource/images/number.png", 10, 5, 2, 90, 90, combo_img);
+	LoadDivGraph("Resource/images/922.png", 10, 5, 2, 75, 75, combo_img);
 
 
 	// サウンド読み込み
@@ -126,7 +127,7 @@ void GameMainScene::Initialize()
 	// BGMの音量設定
 	ChangeVolumeSoundMem(100, sound[0]);
 
-	combo = 25;
+	combo = 0;
 }
 
 eSceneType GameMainScene::Update()
@@ -256,13 +257,13 @@ void GameMainScene::Draw() const
 
 		if (combo < 10)
 		{
-			DrawGraph(130, 98, combo_img[0], TRUE);
-			DrawGraph(205, 98, combo_img[combo % 10], TRUE);
+			DrawGraph(145, 105, combo_img[0], TRUE);
+			DrawGraph(204, 105, combo_img[combo % 10], TRUE);
 		}
 		else
 		{
-			DrawGraph(130, 98, combo_img[combo / 10], TRUE);
-			DrawGraph(203, 98, combo_img[combo % 10], TRUE);
+			DrawGraph(145, 105, combo_img[combo / 10], TRUE);
+			DrawGraph(204, 105, combo_img[combo % 10], TRUE);
 		}
 
 

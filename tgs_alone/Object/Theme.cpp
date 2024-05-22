@@ -3,6 +3,10 @@
 
 Theme::Theme() : img{0},theme{-1},theme_flg(false),theme_num(0),sound(0)
 {
+	for (int i = 0; i < 10; i++)
+	{
+		level_img[i] = 0;
+	}
 }
 
 Theme::~Theme()
@@ -24,6 +28,8 @@ void Theme::Initialize()
 	img[1] = LoadGraph("Resource/images/Bbotton.png");
 	img[2] = LoadGraph("Resource/images/Ybotton.png");
 	img[3] = LoadGraph("Resource/images/Xbotton.png");
+
+	LoadDivGraph("Resource/images/level.png", 10, 5, 2, 50, 50, level_img);
 
 	// サウンド読み込み
 	sound = LoadSoundMem("Resource/sounds/theme.mp3");
@@ -52,7 +58,7 @@ void Theme::Initialize()
 
 	theme_flg = true;
 
-	theme_num = 3;
+	theme_num = 20;
 }
 
 void Theme::Update()
@@ -75,13 +81,17 @@ void Theme::Draw()
 {
 	if (theme_num < 10)
 	{
-		SetFontSize(50);
-		DrawFormatString(295, 250, 0x000000, "%d", theme_num - 2);
+		/*SetFontSize(50);
+		DrawFormatString(295, 250, 0x000000, "%d", theme_num - 2);*/
+		//DrawGraph(280, 245, level_img[0], TRUE);
+		DrawGraph(300, 245, level_img[(theme_num - 2) % 10], TRUE);
 	}
 	else
 	{
-		SetFontSize(50);
-		DrawFormatString(285, 250, 0x000000, "%d", theme_num - 2);
+		/*SetFontSize(50);
+		DrawFormatString(285, 250, 0x000000, "%d", theme_num - 2);*/
+		DrawGraph(277, 245, level_img[(theme_num - 2) / 10], TRUE);
+		DrawGraph(314, 245, level_img[(theme_num - 2) % 10], TRUE);
 	}
 	
 

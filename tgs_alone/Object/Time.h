@@ -1,7 +1,7 @@
 ﻿#pragma once
 
 #define TIME_Y 105   // 時間(秒)の描画位置Y座標
-#define TIME_X 530   // 時間(秒)の描画位置X座標
+#define TIME_X 475   // 時間(秒)の描画位置X座標
 
 class Time
 {
@@ -24,6 +24,6 @@ public:
 	void Finalize();    // 終了時処理
 
 	void SetTimeFlg(bool flg) { time_flg = flg; } // 制限時間を止めたり再開したりするフラグの設定
-	float GetTime() { return time; } // 制限時間を返す
-	void SetTime() { time -= 1.0f; } // 制限時間から一秒マイナス
+	int GetTime() { return time; } // 制限時間を返す
+	void SetTime() { time--; } // 制限時間から一秒マイナス
 };
