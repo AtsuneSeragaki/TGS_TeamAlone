@@ -13,19 +13,23 @@ Time::Time() :time(0),time_flg(false), time2(0)
 
 Time::~Time()
 {
+	// 画像データの削除
+	for (int i = 0; i < 11; i++)
+	{
+		DeleteGraph(img_b[i]);
+		DeleteGraph(img_r[i]);
+	}
 }
 
 void Time::Initialize()
 {
 	// 画像データの読み込み
-	//LoadDivGraph("Resource/images/numberb.png", 10, 5, 2, 75, 75, img_b);
-	LoadDivGraph("Resource/images/92.png", 10, 5, 2, 75, 75, img_b);
+	LoadDivGraph("Resource/images/numberb.png", 10, 5, 2, 75, 75, img_b);
 	img_b[10] = LoadGraph("Resource/images/period.png");
-	//LoadDivGraph("Resource/images/numberr.png", 10, 5, 2, 75, 75, img_r);
-	LoadDivGraph("Resource/images/9.png", 10, 5, 2, 75, 75, img_r);
+	LoadDivGraph("Resource/images/numberr.png", 10, 5, 2, 75, 75, img_r);
 	img_r[10] = LoadGraph("Resource/images/periodr.png");
 
-
+	// エラーチェック
 	for (int i = 0; i < 11; i++)
 	{
 		if (img_b[i] == -1)

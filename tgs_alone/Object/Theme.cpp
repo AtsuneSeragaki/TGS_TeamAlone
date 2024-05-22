@@ -28,37 +28,28 @@ void Theme::Initialize()
 	img[1] = LoadGraph("Resource/images/Bbotton.png");
 	img[2] = LoadGraph("Resource/images/Ybotton.png");
 	img[3] = LoadGraph("Resource/images/Xbotton.png");
-
 	LoadDivGraph("Resource/images/level.png", 10, 5, 2, 50, 50, level_img);
 
 	// サウンド読み込み
 	sound = LoadSoundMem("Resource/sounds/theme.mp3");
 
 	// エラーチェック
-	if (img[0] == -1)
+	for (int i = 0; i < 4; i++)
 	{
-		throw("Resource/images/Abotton.pngがありません\n");
+		if (img[i] == -1)
+		{
+			throw("img[%d]がありません\n", i);
+		}
 	}
-	if (img[1] == -1)
-	{
-		throw("Resource/images/Bbotton.pngがありません\n");
-	}
-	if (img[2] == -1)
-	{
-		throw("Resource/images/Ybotton.pngがありません\n");
-	}
-	if (img[3] == -1)
-	{
-		throw("Resource/images/Xbotton.pngがありません\n");
-	}
+
 	if (sound == -1)
 	{
 		throw("Resource/sounds/Theme.mp3がありません\n");
 	}
 
+	// 変数の初期化
 	theme_flg = true;
-
-	theme_num = 20;
+	theme_num = 3;
 }
 
 void Theme::Update()

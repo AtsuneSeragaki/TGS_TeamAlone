@@ -25,8 +25,11 @@ Player::Player() :input_flg(false),theme_num(0), mistake_cnt(0)//,effect(0)
 Player::~Player()
 {
 	//DeleteEffekseerEffect(effect);
+	// 音データの削除
 	DeleteSoundMem(sound[0]);
 	DeleteSoundMem(sound[1]);
+
+	// 画像データの削除
 	for (int i = 0; i < 5; i++)
 	{
 		DeleteGraph(img[i]);
@@ -47,26 +50,14 @@ void Player::Initialize()
 	sound[1] = LoadSoundMem("Resource/sounds/mis.mp3");
 
 	// エラーチェック
-	if (img[0] == -1)
+	for (int i = 0; i < 5; i++)
 	{
-		throw("Resource/images/Abotton.pngがありません\n");
+		if (img[i] == -1)
+		{
+			throw("img[%d]がありません\n", i);
+		}
 	}
-	if (img[1] == -1)
-	{
-		throw("Resource/images/Bbotton.pngがありません\n");
-	}
-	if (img[2] == -1)
-	{
-		throw("Resource/images/Ybotton.pngがありません\n");
-	}
-	if (img[3] == -1)
-	{
-		throw("Resource/images/Xbotton.pngがありません\n");
-	}
-	if (img[4] == -1)
-	{
-		throw("Resource/images/mistake.pngがありません\n");
-	}
+
 	if (sound[0] == -1)
 	{
 		throw("Resource/sounds/Button.mp3がありません\n");
@@ -83,8 +74,8 @@ void Player::Initialize()
 		input_draw[i] = -1;
 	}
 
+	// 変数の初期化
 	input_flg = false;
-
 	theme_num = 0;
 
 	// Zバッファを有効にする。

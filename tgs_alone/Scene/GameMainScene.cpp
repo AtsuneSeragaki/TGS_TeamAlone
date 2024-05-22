@@ -28,16 +28,26 @@ GameMainScene::~GameMainScene()
 	delete theme;
 
 	// 音データの削除
-	DeleteSoundMem(sound[0]);
+	for (int i = 0; i < 5; i++)
+	{
+		DeleteSoundMem(sound[i]);
+	}
 
 	// 画像データの削除
-	DeleteGraph(ui_img);
+	for (int i = 0; i < 7; i++)
+	{
+		DeleteGraph(img[i]);
+	}
+
+	for (int i = 0; i < 10; i++)
+	{
+		DeleteGraph(combo_img[i]);
+	}
 }
 
 void GameMainScene::Initialize()
 {
 	// 画像の読み込み
-	//ui_img = LoadGraph("Resource/images/UI_botton.png");
 	img[3] = LoadGraph("Resource/images/count3.png");
 	img[2] = LoadGraph("Resource/images/count2.png");
 	img[1] = LoadGraph("Resource/images/count1.png");
@@ -45,10 +55,7 @@ void GameMainScene::Initialize()
 	img[4] = LoadGraph("Resource/images/main.png");
 	img[5] = LoadGraph("Resource/images/timeup.png");
 	img[6] = LoadGraph("Resource/images/perfect.png");
-
-	//LoadDivGraph("Resource/images/number.png", 10, 5, 2, 90, 90, combo_img);
-	LoadDivGraph("Resource/images/922.png", 10, 5, 2, 75, 75, combo_img);
-
+	LoadDivGraph("Resource/images/combo.png", 10, 5, 2, 90, 90, combo_img);
 
 	// サウンド読み込み
 	sound[0] = LoadSoundMem("Resource/sounds/maou_bgm_cyber44.ogg");
@@ -58,57 +65,28 @@ void GameMainScene::Initialize()
 	sound[4] = LoadSoundMem("Resource/sounds/stop.mp3");
 
 	// エラーチェック
-	/*if (ui_img == -1)
+	for (int i = 0; i < 7; i++)
 	{
-		throw("Resource/images/UI_botton.pngがありません\n");
-	}*/
-	if (img[0] == -1)
-	{
-		throw("Resource/images/start.pngがありません\n");
+		if (img[i] == -1)
+		{
+			throw("img[%d]がありません\n", i);
+		}
 	}
-	if (img[1] == -1)
+
+	for (int i = 0; i < 10; i++)
 	{
-		throw("Resource/images/count1.pngがありません\n");
+		if (combo_img[i] == -1)
+		{
+			throw("combo_img[%d]がありません\n", i);
+		}
 	}
-	if (img[2] == -1)
+	
+	for (int i = 0; i < 5; i++)
 	{
-		throw("Resource/images/count2.pngがありません\n");
-	}
-	if (img[3] == -1)
-	{
-		throw("Resource/images/count3.pngがありません\n");
-	}
-	if (img[4] == -1)
-	{
-		throw("Resource/images/main.pngがありません\n");
-	}
-	if (img[5] == -1)
-	{
-		throw("Resource/images/timeup.pngがありません\n");
-	}
-	if (img[6] == -1)
-	{
-		throw("Resource/images/perfect.pngがありません\n");
-	}
-	if (sound[0] == -1)
-	{
-		throw("Resource/sounds/maou_bgm_cyber44.oggがありません\n");
-	}
-	if (sound[1] == -1)
-	{
-		throw("Resource/sounds/countdown.mp3がありません\n");
-	}
-	if (sound[2] == -1)
-	{
-		throw("Resource/sounds/start.mp3がありません\n");
-	}
-	if (sound[3] == -1)
-	{
-		throw("Resource/sounds/game_end.mp3がありません\n");
-	}
-	if (sound[4] == -1)
-	{
-		throw("Resource/sounds/game_end_voice.mp3がありません\n");
+		if (sound[i] == -1)
+		{
+			throw("sound[%d]がありません\n", i);
+		}
 	}
 
 	// 開始のカウントダウン初期化
@@ -127,6 +105,7 @@ void GameMainScene::Initialize()
 	// BGMの音量設定
 	ChangeVolumeSoundMem(100, sound[0]);
 
+	// コンボ初期化
 	combo = 0;
 }
 
@@ -243,18 +222,11 @@ void GameMainScene::Draw() const
 #endif // _DEBUG
 
 	// 背景描画
-	//DrawBox(0, 0, 1280, 720, 0xf5f5f5, TRUE);
 	DrawGraph(0, 0, img[4], TRUE);
 	
 	if (begin_time == -1)
 	{
-		// ボタンの位置(UI)描画
-		//DrawGraph(1100, 20, ui_img, TRUE);
-
 		// コンボ数表示
-		//SetFontSize(50);
-		//DrawFormatString(250, 73,0x000000,"%d",combo);
-
 		if (combo < 10)
 		{
 			DrawGraph(145, 105, combo_img[0], TRUE);
@@ -265,7 +237,6 @@ void GameMainScene::Draw() const
 			DrawGraph(145, 105, combo_img[combo / 10], TRUE);
 			DrawGraph(204, 105, combo_img[combo % 10], TRUE);
 		}
-
 
 		// 制限時間の描画
 		time->Draw();
@@ -279,18 +250,12 @@ void GameMainScene::Draw() const
 	else if (begin_time == 0)
 	{
 		// ゲーム開始の描画
-		//SetFontSize(60);
-		//DrawString(550, 200, "START", 0x000000);
-
 		DrawGraph(0, 0, img[0], TRUE);
 
 	}
 	else
 	{
 		// ゲーム開始までのカウントダウン描画
-		//SetFontSize(60);
-		//DrawFormatString(600, 200, 0x000000, "%d", begin_time);
-
 		DrawGraph(0, 0, img[begin_time], TRUE);
 	
 	}
@@ -316,9 +281,6 @@ void GameMainScene::Draw() const
 		}
 		else
 		{// 制限時間が0になったら
-			//SetFontSize(100);
-			//DrawString(470, 200, "TIME UP!", 0x000000);
-
 			SetDrawBlendMode(DX_BLENDMODE_ALPHA, 200);
 			DrawBox(0, 0, 1280, 720, 0xffffff, TRUE);
 			SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
@@ -331,8 +293,6 @@ void GameMainScene::Draw() const
 			{
 				DrawGraph(30, -50, img[5], TRUE);
 			}
-			
-			//DrawFormatString(0, 0, 0x000000, "%d", timeup_cnt);
 		}
 	}
 	
