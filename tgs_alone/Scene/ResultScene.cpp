@@ -1,6 +1,7 @@
 ﻿#include "ResultScene.h"
 #include "GameMainScene.h"
 #include "../Object/Theme.h"
+#include "../Utility/InputControl.h"
 #include "DxLib.h"
 
 ResultScene::ResultScene():back_img{0}
@@ -68,6 +69,11 @@ void ResultScene::Initialize()
 
 eSceneType ResultScene::Update()
 {
+	if (InputControl::GetButtonDown(XINPUT_BUTTON_A))
+	{
+		return eSceneType::E_TITLE;
+	}
+
 	return GetNowScene();
 }
 
