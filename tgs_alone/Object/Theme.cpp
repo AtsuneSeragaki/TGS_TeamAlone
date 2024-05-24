@@ -72,7 +72,7 @@ void Theme::Update()
 
 void Theme::Draw()
 {
-	if (theme_num < 10)
+	if ((theme_num - 2) < 10)
 	{
 		/*SetFontSize(50);
 		DrawFormatString(295, 250, 0x000000, "%d", theme_num - 2);*/
