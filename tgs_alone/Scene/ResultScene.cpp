@@ -86,7 +86,7 @@ void ResultScene::Draw() const
 	// 背景画像表示
 	DrawGraph(0, 0, back_img[0], TRUE);
 
-	int i = Theme::theme_num;
+	int i = Theme::theme_num - 2;
 	int j = GameMainScene::combo;
 
 	// ランクの表示
