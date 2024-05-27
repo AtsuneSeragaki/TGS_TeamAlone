@@ -144,6 +144,8 @@ eSceneType GameMainScene::Update()
 		//制限時間が0になったら
 		if (time->GetTime() <= 0.0f || correct_num == THEME_MAX)
 		{
+			player->SetPlayerAnim();
+
 			if (correct_num == THEME_MAX)
 			{
 				time->SetTimeFlg(false);
@@ -168,20 +170,19 @@ eSceneType GameMainScene::Update()
 		}
 		else
 		{
+			PlaySoundMem(sound[0], DX_PLAYTYPE_LOOP, FALSE);
 			theme->Update();
-			player->SetPlayerTheme(theme->GetThemeNum());
 			time->Update();
 			player->Update();
-			PlaySoundMem(sound[0], DX_PLAYTYPE_LOOP, FALSE);
 
 			// プレイヤーの入力とお題の比較
-			if (player->GetPlayerInput() == true && correct_num < THEME_MAX && player->GetInputDraw(correct_num) == 0)
+			if (player->GetPlayerInput() == true && correct_num < THEME_MAX)
 			{
 				Comparison();
 			}
 
 			// プレイヤーがお題を全てクリアしたら次のお題へ
-			if (correct_num == theme->GetThemeNum() && theme->GetThemeNum() < THEME_MAX && time->GetTime() > 0.0f && player->GetInputDraw(correct_num - 1) == 0)
+			if (correct_num == theme->GetThemeNum() && theme->GetThemeNum() < THEME_MAX && player->GetInputDraw(correct_num - 1) == 0)
 			{
 				if (draw_cnt == 15)
 				{
@@ -190,9 +191,10 @@ eSceneType GameMainScene::Update()
 						player->ResetPlayerInput(i);
 						player->ResetInputDraw(i);
 					}
+					player->ResetPlayerAnim();
 					correct_num = 0;
 					theme->SetThemeNum();
-					player->SetPlayerTheme(theme->GetThemeNum());
+					//player->SetPlayerTheme(theme->GetThemeNum());
 					draw_cnt = 0;
 					theme->SetThemeFlg(true);
 				}
@@ -320,9 +322,9 @@ void GameMainScene::Comparison()
 	// プレイヤーの入力とお題を比較
 	if (tm[correct_num] == ip[correct_num])
 	{// 同じだった場合
+		player->SetPlayerInput();
 		correct_num++;
 		combo++;
-		player->SetPlayerInput();
 	}
 	else
 	{// 異なる場合
@@ -331,7 +333,6 @@ void GameMainScene::Comparison()
 		player->ResetPlayerInput(correct_num);
 		player->ResetInputDraw(correct_num);
 	}
-	
 }
 
 void GameMainScene::TimeupAnim()
