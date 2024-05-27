@@ -24,7 +24,7 @@ SceneManager::~SceneManager()
 void SceneManager::Initialize()
 {
 	// ウィンドウのタイトルを設定
-	SetMainWindowText("Botton Attack");
+	SetMainWindowText("Button Attack");
 
 	// ウィンドウモードで起動
 	if (ChangeWindowMode(TRUE) != DX_CHANGESCREEN_OK)

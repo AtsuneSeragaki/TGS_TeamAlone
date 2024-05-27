@@ -176,7 +176,7 @@ eSceneType GameMainScene::Update()
 			player->Update();
 
 			// プレイヤーの入力とお題の比較
-			if (player->GetPlayerInput() == true && correct_num < THEME_MAX)
+			if (player->GetButtonInput() == true && correct_num < THEME_MAX)
 			{
 				Comparison();
 			}
@@ -184,7 +184,9 @@ eSceneType GameMainScene::Update()
 			// プレイヤーがお題を全てクリアしたら次のお題へ
 			if (correct_num == theme->GetThemeNum() && theme->GetThemeNum() < THEME_MAX && player->GetInputDraw(correct_num - 1) == 0)
 			{
-				if (draw_cnt == 15)
+				player->SetPlayerInput(true);
+
+				if (draw_cnt == 10)
 				{
 					for (int i = 0; i < INPUT_MAX; i++)
 					{
@@ -194,15 +196,15 @@ eSceneType GameMainScene::Update()
 					player->ResetPlayerAnim();
 					correct_num = 0;
 					theme->SetThemeNum();
-					//player->SetPlayerTheme(theme->GetThemeNum());
 					draw_cnt = 0;
 					theme->SetThemeFlg(true);
+
+					player->SetPlayerInput(false);
 				}
 				else
 				{
 					draw_cnt++;
 				}
-
 			}
 		}
 	}
@@ -299,7 +301,6 @@ void GameMainScene::Draw() const
 			}
 		}
 	}
-	
 }
 
 void GameMainScene::Finalize()
@@ -322,14 +323,15 @@ void GameMainScene::Comparison()
 	// プレイヤーの入力とお題を比較
 	if (tm[correct_num] == ip[correct_num])
 	{// 同じだった場合
-		player->SetPlayerInput();
 		correct_num++;
 		combo++;
+		player->SetPlayerInput(false);
+		player->SetButtonInput(false);
 	}
 	else
 	{// 異なる場合
 		combo = 0;
-		player->SetPlayerMis(correct_num);
+		player->SetPlayerMis(correct_num, 2);
 		player->ResetPlayerInput(correct_num);
 		player->ResetInputDraw(correct_num);
 	}
