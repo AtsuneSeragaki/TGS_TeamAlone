@@ -11,7 +11,7 @@ private:
 	bool theme_flg;   // お題の生成フラグ
 
 public:
-	int theme[THEME_MAX];  // お題 
+	static int theme[THEME_MAX];  // お題 
 	static int theme_num;    // お題の数
 
 public:

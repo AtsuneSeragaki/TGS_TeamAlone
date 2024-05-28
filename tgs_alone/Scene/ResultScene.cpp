@@ -1,5 +1,5 @@
 ﻿#include "ResultScene.h"
-#include "GameMainScene.h"
+#include "../Object/Player.h"
 #include "../Object/Theme.h"
 #include "../Utility/InputControl.h"
 #include "DxLib.h"
@@ -87,7 +87,7 @@ void ResultScene::Draw() const
 	DrawGraph(0, 0, back_img[0], TRUE);
 
 	int i = Theme::theme_num - 2;
-	int j = GameMainScene::combo;
+	int j = Player::combo;
 
 	// ランクの表示
 	if (i < 6)

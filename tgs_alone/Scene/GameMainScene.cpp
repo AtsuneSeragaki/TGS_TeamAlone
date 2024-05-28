@@ -1,9 +1,7 @@
 ﻿#include "GameMainScene.h"
 #include "DxLib.h"
 
-int GameMainScene::combo = 0;
-
-GameMainScene::GameMainScene() :back_img(0), bgm(0), se(0),  correct_num(0), player(nullptr), time(nullptr), theme(nullptr), begin_time(0),begin_cnt(0),draw_cnt(0),timeup_flg(false),timeup_cnt(0),ui_img(0)
+GameMainScene::GameMainScene() :back_img(0), bgm(0), se(0), player(nullptr), time(nullptr), theme(nullptr), begin_time(0),begin_cnt(0),draw_cnt(0),timeup_flg(false),timeup_cnt(0),ui_img(0)
 {
 	for (int i = 0; i < 5; i++)
 	{
@@ -14,11 +12,6 @@ GameMainScene::GameMainScene() :back_img(0), bgm(0), se(0),  correct_num(0), pla
 	for (int i = 0; i < 7; i++)
 	{
 		img[i] = 0;
-	}
-
-	for (int i = 0; i < 10; i++)
-	{
-		combo_img[i] = 0;
 	}
 }
 
@@ -40,11 +33,6 @@ GameMainScene::~GameMainScene()
 	{
 		DeleteGraph(img[i]);
 	}
-
-	for (int i = 0; i < 10; i++)
-	{
-		DeleteGraph(combo_img[i]);
-	}
 }
 
 void GameMainScene::Initialize()
@@ -57,8 +45,7 @@ void GameMainScene::Initialize()
 	img[4] = LoadGraph("Resource/images/main.png");
 	img[5] = LoadGraph("Resource/images/timeup.png");
 	img[6] = LoadGraph("Resource/images/perfect.png");
-	LoadDivGraph("Resource/images/combo.png", 10, 5, 2, 75, 75, combo_img);
-
+	
 	// サウンド読み込み
 	sound[0] = LoadSoundMem("Resource/sounds/maou_bgm_cyber44.ogg");
 	sound[1] = LoadSoundMem("Resource/sounds/countdown.mp3");
@@ -75,14 +62,6 @@ void GameMainScene::Initialize()
 		}
 	}
 
-	for (int i = 0; i < 10; i++)
-	{
-		if (combo_img[i] == -1)
-		{
-			throw("combo_img[%d]がありません\n", i);
-		}
-	}
-	
 	for (int i = 0; i < 5; i++)
 	{
 		if (sound[i] == -1)
@@ -106,9 +85,6 @@ void GameMainScene::Initialize()
 
 	// BGMの音量設定
 	ChangeVolumeSoundMem(100, sound[0]);
-
-	// コンボ初期化
-	combo = 0;
 }
 
 eSceneType GameMainScene::Update()
@@ -142,11 +118,11 @@ eSceneType GameMainScene::Update()
 	if (begin_time == -1)
 	{
 		//制限時間が0になったら
-		if (time->GetTime() <= 0.0f || correct_num == THEME_MAX)
+		if (time->GetTime() <= 0.0f || Player::correct_num == THEME_MAX)
 		{
 			player->SetPlayerAnim();
 
-			if (correct_num == THEME_MAX)
+			if (Player::correct_num == THEME_MAX)
 			{
 				time->SetTimeFlg(false);
 			}
@@ -175,14 +151,8 @@ eSceneType GameMainScene::Update()
 			time->Update();
 			player->Update();
 
-			// プレイヤーの入力とお題の比較
-			if (player->GetButtonInput() == true && correct_num < THEME_MAX)
-			{
-				Comparison();
-			}
-
 			// プレイヤーがお題を全てクリアしたら次のお題へ
-			if (correct_num == theme->GetThemeNum() && theme->GetThemeNum() < THEME_MAX && player->GetInputDraw(correct_num - 1) == 0)
+			if (Player::correct_num == theme->GetThemeNum() && theme->GetThemeNum() < THEME_MAX && player->GetInputDraw(Player::correct_num - 1) == 0)
 			{
 				player->SetPlayerInput(true);
 
@@ -192,9 +162,10 @@ eSceneType GameMainScene::Update()
 					{
 						player->ResetPlayerInput(i);
 						player->ResetInputDraw(i);
+						player->ResetPlayerAnim(i);
 					}
 					player->ResetPlayerAnim();
-					correct_num = 0;
+					Player::correct_num = 0;
 					theme->SetThemeNum();
 					draw_cnt = 0;
 					theme->SetThemeFlg(true);
@@ -232,18 +203,6 @@ void GameMainScene::Draw() const
 	
 	if (begin_time == -1)
 	{
-		// コンボ数表示
-		if (combo < 10)
-		{
-			DrawGraph(143, 105, combo_img[0], TRUE);
-			DrawGraph(207, 105, combo_img[combo % 10], TRUE);
-		}
-		else
-		{
-			DrawGraph(143, 105, combo_img[combo / 10], TRUE);
-			DrawGraph(207, 105, combo_img[combo % 10], TRUE);
-		}
-
 		// 制限時間の描画
 		time->Draw();
 
@@ -268,7 +227,7 @@ void GameMainScene::Draw() const
 
 	if (timeup_cnt != 0)
 	{
-		if (correct_num == THEME_MAX)
+		if (Player::correct_num == THEME_MAX)
 		{// お題を全てクリアしたら
 
 			SetDrawBlendMode(DX_BLENDMODE_ALPHA, 200);
@@ -310,31 +269,6 @@ void GameMainScene::Finalize()
 eSceneType GameMainScene::GetNowScene() const
 {
 	return eSceneType::E_MAIN;
-}
-
-void GameMainScene::Comparison()
-{
-	int tm[THEME_MAX];
-	int ip[INPUT_MAX];
-
-	tm[correct_num] = theme->GetTheme(correct_num);
-	ip[correct_num] = player->GetPlayerInputData(correct_num);
-
-	// プレイヤーの入力とお題を比較
-	if (tm[correct_num] == ip[correct_num])
-	{// 同じだった場合
-		correct_num++;
-		combo++;
-		player->SetPlayerInput(false);
-		player->SetButtonInput(false);
-	}
-	else
-	{// 異なる場合
-		combo = 0;
-		player->SetPlayerMis(correct_num, 2);
-		player->ResetPlayerInput(correct_num);
-		player->ResetInputDraw(correct_num);
-	}
 }
 
 void GameMainScene::TimeupAnim()

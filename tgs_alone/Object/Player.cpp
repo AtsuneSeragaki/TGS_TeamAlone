@@ -3,6 +3,9 @@
 #include "DxLib.h"
 #include "Theme.h"
 
+int Player::combo = 0;
+int Player::correct_num = 0;
+
 Player::Player() :input_flg(false),/*theme_num(0), */mistake_cnt(0),cnt(0),button_flg(false), mis_img(0)//,effect(0)
 {
 	for (int i = 0; i < INPUT_MAX; i++)
@@ -29,6 +32,11 @@ Player::Player() :input_flg(false),/*theme_num(0), */mistake_cnt(0),cnt(0),butto
 
 	sound[0] = 0;
 	sound[1] = 0;
+
+	for (int i = 0; i < 10; i++)
+	{
+		combo_img[i] = 100;
+	}
 }
 
 Player::~Player()
@@ -50,6 +58,11 @@ Player::~Player()
 	{
 		DeleteGraph(mis_img[j]);
 	}*/
+
+	for (int i = 0; i < 10; i++)
+	{
+		DeleteGraph(combo_img[i]);
+	}
 }
 
 void Player::Initialize()
@@ -87,6 +100,7 @@ void Player::Initialize()
 	mis_img[4] = LoadGraph("Resource/images/mistake4.png");*/
 
 	mis_img = LoadGraph("Resource/images/mistake.png");
+	LoadDivGraph("Resource/images/combo.png", 10, 5, 2, 75, 75, combo_img);
 
 	// サウンド読み込み
 	sound[0] = LoadSoundMem("Resource/sounds/button.mp3");
@@ -101,6 +115,14 @@ void Player::Initialize()
 			{
 				throw("img[%d][%d]がありません\n", i,j);
 			}
+		}
+	}
+
+	for (int i = 0; i < 10; i++)
+	{
+		if (combo_img[i] == -1)
+		{
+			throw("combo_img[%d]がありません\n", i);
 		}
 	}
 
@@ -137,6 +159,7 @@ void Player::Initialize()
 	input_flg = false;
 	button_flg = false;
 	cnt = 0;
+	combo = 0;
 }
 
 void Player::Update()
@@ -157,6 +180,9 @@ void Player::Update()
 					break;
 				}
 			}
+
+			
+			Comparison();
 		}
 		else if (InputControl::GetButtonDown(XINPUT_BUTTON_B))
 		{
@@ -171,6 +197,7 @@ void Player::Update()
 					break;
 				}
 			}
+			Comparison();
 		}
 		else if (InputControl::GetButtonDown(XINPUT_BUTTON_Y))
 		{
@@ -186,6 +213,7 @@ void Player::Update()
 					break;
 				}
 			}
+			Comparison();
 		}
 		else if (InputControl::GetButtonDown(XINPUT_BUTTON_X))
 		{
@@ -201,6 +229,7 @@ void Player::Update()
 					break;
 				}
 			}
+			Comparison();
 		}
 	}
 
@@ -255,6 +284,24 @@ void Player::Draw()
 #ifdef _DEBUG
 
 #endif // _DEBUG
+
+	// コンボ数表示
+	if (combo < 10)
+	{
+		//DrawGraph(143, 105, combo_img[0], TRUE);
+		DrawGraph(170, 105, combo_img[combo % 10], TRUE);
+	}
+	else if(combo < 100)
+	{
+		DrawGraph(143, 105, combo_img[combo / 10], TRUE);
+		DrawGraph(207, 105, combo_img[combo % 10], TRUE);
+	}
+	else
+	{
+		DrawGraph(110, 105, combo_img[combo / 100], TRUE);
+		DrawGraph(165, 105, combo_img[(combo - combo / 100 * 100) / 10], TRUE);
+		DrawGraph(230, 105, combo_img[combo % 10], TRUE);
+	}
 
 	// プレイヤーが入力したものを表示
 	for (int i = 0; i < INPUT_MAX; i++)
@@ -512,7 +559,7 @@ void Player::Draw()
 				if (i < 10)
 				{
 					if (input_draw[i] == 0)
-					{
+					
 						DrawGraph(90 + i * 110, 355, img[input[i]][0], TRUE);
 					}
 					else
@@ -557,16 +604,22 @@ void Player::Draw()
 					}
 				}
 			}
-		}
 	}
 
-	SetFontSize(30);
-	DrawFormatString(0, 0, 0x000000,"%d",mistake_cnt);
+	//SetFontSize(30);
+	/*DrawFormatString(0, 0, 0x000000, "%d", mistake_cnt);
 	DrawFormatString(30, 0, 0xff0000, "%d", mis_data[0]);
-	DrawFormatString(60, 0, 0xff0000, "%d", input[0]);
-	DrawFormatString(90, 0, 0x00ff00, "%d", input_flg);
+	DrawFormatString(60, 0, 0xff0000, "%d", input[0]);*/
 
+	for (int i = 0; i < INPUT_MAX; i++)
+	{
+		DrawFormatString(0 + i * 20, 0, 0xff0000, "%d", input[i]);
+	}
 }
+
+	
+
+
 
 void Player::Finalize()
 {
@@ -585,5 +638,39 @@ void Player::ResetPlayerAnim()
 	for (int i = 0; i < INPUT_MAX; i++)
 	{
 		player_anim[i] = 4;
+	}
+}
+
+void Player::SetPlayerMis(int num)
+{
+	mis_data[num] = input[num];
+
+	//ResetPlayerInput(num);
+
+	ResetInputDraw(num);
+}
+
+void Player::Comparison()
+{
+	int tm[THEME_MAX];
+	int ip[INPUT_MAX];
+
+	tm[correct_num] = Theme::theme[correct_num];
+	ip[correct_num] = input[correct_num];
+
+	// プレイヤーの入力とお題を比較
+	if (tm[correct_num] == ip[correct_num])
+	{// 同じだった場合
+		correct_num++;
+		combo++;
+		input_flg = false;
+		button_flg = false;
+	}
+	else
+	{// 異なる場合
+		combo = 0;
+		mis_data[correct_num] = ip[correct_num];
+		input[correct_num] = -1;
+		input_draw[correct_num] = -1;
 	}
 }

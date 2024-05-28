@@ -2,8 +2,9 @@
 #include "DxLib.h"
 
 int Theme::theme_num = 0;
+int Theme::theme[] = { 0 };
 
-Theme::Theme() : img{0},theme{-1},theme_flg(false),sound(0)
+Theme::Theme() : img{0},theme_flg(false),sound(0)
 {
 	for (int i = 0; i < 10; i++)
 	{
