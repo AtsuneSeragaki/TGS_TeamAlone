@@ -10,6 +10,7 @@ private:
 	int img[4][5];      // 画像データ
 	int combo_img[10];
 	int mis_img;
+	int 
 
 	int correct[INPUT_MAX];
 	int player_anim[INPUT_MAX];

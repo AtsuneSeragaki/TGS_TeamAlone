@@ -31,7 +31,7 @@ Player::Player() :input_flg(false),mistake_cnt(0),cnt(0),button_flg(false), mis_
 
 	for (int i = 0; i < 10; i++)
 	{
-		combo_img[i] = 100;
+		combo_img[i] = 0;
 	}
 }
 
@@ -144,9 +144,7 @@ void Player::Update()
 					input[i] = 0;
 					break;
 				}
-			}
-			
-			
+			}	
 		}
 		else if (InputControl::GetButtonDown(XINPUT_BUTTON_B) == true)
 		{
@@ -162,8 +160,6 @@ void Player::Update()
 					break;
 				}
 			}
-
-			
 		}
 		else if (InputControl::GetButtonDown(XINPUT_BUTTON_Y) == true)
 		{
@@ -179,8 +175,6 @@ void Player::Update()
 					break;
 				}
 			}
-
-			
 		}
 		else if (InputControl::GetButtonDown(XINPUT_BUTTON_X) == true)
 		{
@@ -278,6 +272,184 @@ void Player::Draw()
 		if (input[i] != -1)
 		{// プレイヤーの入力とお題が同じとき表示
 
+			if (Theme::theme_num < 10)
+			{
+				if (input_draw[i] == 0)
+				{
+					DrawGraph((500 - 57 * (Theme::theme_num - 3)) + i * 110, 410, img[input[i]][0], TRUE);
+				}
+				else
+				{
+					DrawGraph(((500 - player_anim[i] * 28) - 57 * (Theme::theme_num - 3)) + i * 110, 410 - player_anim[i] * 23, img[input[i]][player_anim[i]], TRUE);
+				}
+			}
+			else if (Theme::theme_num == 10)
+			{
+				if (input_draw[i] == 0)
+				{
+					DrawGraph(90 + i * 110, 410, img[input[i]][0], TRUE);
+				}
+				else
+				{
+					DrawGraph((90 - player_anim[i] * 28) + i * 110, 410 - player_anim[i] * 23, img[input[i]][player_anim[i]], TRUE);
+				}
+			}
+			else if (Theme::theme_num >= 11 && Theme::theme_num < 16)
+			{
+				if (i < 8)
+				{
+					if (input_draw[i] == 0)
+					{
+						DrawGraph(225 + i * 110, 355, img[input[i]][0], TRUE);
+					}
+					else
+					{
+						DrawGraph((225 - player_anim[i] * 28) + i * 110, 355 - player_anim[i] * 23, img[input[i]][player_anim[i]], TRUE);
+
+					}
+				}
+				else
+				{
+					if (input_draw[i] == 0)
+					{
+						DrawGraph((100 - 54 * (Theme::theme_num - 2)) + i * 110, 500, img[input[i]][0], TRUE);
+					}
+					else
+					{
+						DrawGraph(((100 - player_anim[i] * 28) - 54 * (Theme::theme_num - 2)) + i * 110, 500 - player_anim[i] * 23, img[input[i]][player_anim[i]], TRUE);
+					}
+				}
+			}
+			else if (Theme::theme_num == 16)
+			{
+				if (i < 8)
+				{
+					if (input_draw[i] == 0)
+					{
+						DrawGraph(225 + i * 110, 355, img[input[i]][0], TRUE);
+					}
+					else
+					{
+						DrawGraph((225 - player_anim[i] * 28) + i * 110, 355 - player_anim[i] * 23, img[input[i]][player_anim[i]], TRUE);
+					}
+				}
+				else
+				{
+					if (input_draw[i] == 0)
+					{
+						DrawGraph(225 + (i - 8) * 110, 500, img[input[i]][0], TRUE);
+					}
+					else
+					{
+						DrawGraph((225 - player_anim[i] * 28) + (i - 8) * 110, 500 - player_anim[i] * 23, img[input[i]][player_anim[i]], TRUE);
+					}
+				}
+			}
+			else if (Theme::theme_num == 17)
+			{
+				if (i < 9)
+				{
+					if (input_draw[i] == 0)
+					{
+						DrawGraph(160 + i * 110, 355, img[input[i]][0], TRUE);
+					}
+					else
+					{
+						DrawGraph((160 - player_anim[i] * 28) + i * 110, 355 - player_anim[i] * 23, img[input[i]][player_anim[i]], TRUE);
+					}
+				}
+				else
+				{
+					if (input_draw[i] == 0)
+					{
+						DrawGraph(215 + (i - 9) * 110, 500, img[input[i]][0], TRUE);
+					}
+					else
+					{
+						DrawGraph((215 - player_anim[i] * 28) + (i - 9) * 110, 500 - player_anim[i] * 23, img[input[i]][player_anim[i]], TRUE);
+					}
+				}
+			}
+			else if (Theme::theme_num == 18)
+			{
+				if (i < 9)
+				{
+					if (input_draw[i] == 0)
+					{
+						DrawGraph(160 + i * 110, 355, img[input[i]][0], TRUE);
+					}
+					else
+					{
+						DrawGraph((160 - player_anim[i] * 28) + i * 110, 355 - player_anim[i] * 23, img[input[i]][player_anim[i]], TRUE);
+					}
+				}
+				else
+				{
+					if (input_draw[i] == 0)
+					{
+						DrawGraph(160 + (i - 9) * 110, 500, img[input[i]][0], TRUE);
+					}
+					else
+					{
+						DrawGraph((160 - player_anim[i] * 28) + (i - 9) * 110, 500 - player_anim[i] * 23, img[input[i]][player_anim[i]], TRUE);
+					}
+				}
+			}
+			else if (Theme::theme_num == 19)
+			{
+				if (i < 10)
+				{
+					if (input_draw[i] == 0)
+					{
+						DrawGraph(90 + i * 110, 355, img[input[i]][0], TRUE);
+					}
+					else
+					{
+						DrawGraph((90 - player_anim[i] * 28) + i * 110, 355 - player_anim[i] * 23, img[input[i]][player_anim[i]], TRUE);
+					}
+				}
+				else
+				{
+					if (input_draw[i] == 0)
+					{
+						DrawGraph(160 + (i - 10) * 110, 500, img[input[i]][0], TRUE);
+					}
+					else
+					{
+						DrawGraph((160 - player_anim[i] * 28) + (i - 10) * 110, 500 - player_anim[i] * 23, img[input[i]][player_anim[i]], TRUE);
+					}
+				}
+
+			}
+			else
+			{
+				if (i < 10)
+				{
+					if (input_draw[i] == 0)
+					{
+						DrawGraph(90 + i * 110, 355, img[input[i]][0], TRUE);
+					}
+					else
+					{
+						DrawGraph((90 - player_anim[i] * 28) + i * 110, 355 - player_anim[i] * 23, img[input[i]][player_anim[i]], TRUE);
+					}
+				}
+				else
+				{
+					if (input_draw[i] == 0)
+					{
+						DrawGraph(90 + (i - 10) * 110, 500, img[input[i]][0], TRUE);
+					}
+					else
+					{
+						DrawGraph((90 - player_anim[i] * 28) + (i - 10) * 110, 500 - player_anim[i] * 23, img[input[i]][player_anim[i]], TRUE);
+					}
+				}
+			}
+		}
+
+		if (correct[i] != -1)
+		{
 			if (Theme::theme_num < 10)
 			{
 				if (input_draw[i] == 0)
