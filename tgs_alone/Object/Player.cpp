@@ -146,6 +146,7 @@ void Player::Update()
 				}
 			}
 			
+			
 		}
 		else if (InputControl::GetButtonDown(XINPUT_BUTTON_B) == true)
 		{
@@ -161,6 +162,8 @@ void Player::Update()
 					break;
 				}
 			}
+
+			
 		}
 		else if (InputControl::GetButtonDown(XINPUT_BUTTON_Y) == true)
 		{
@@ -176,6 +179,8 @@ void Player::Update()
 					break;
 				}
 			}
+
+			
 		}
 		else if (InputControl::GetButtonDown(XINPUT_BUTTON_X) == true)
 		{
@@ -196,6 +201,8 @@ void Player::Update()
 
 	if (button_flg == true)
 	{
+		input_flg = false;
+		button_flg = false;
 		Comparison();
 	}
 
@@ -203,6 +210,11 @@ void Player::Update()
 	if (mistake_cnt == 1)
 	{
 		PlaySoundMem(sound[1], DX_PLAYTYPE_BACK, TRUE);
+		mistake_cnt++;
+	}
+	else if (mistake_cnt > 1 && mistake_cnt <= 20)
+	{
+		mistake_cnt++;
 	}
 	else if (mistake_cnt > 20)
 	{
@@ -214,8 +226,6 @@ void Player::Update()
 			}
 		}
 
-		input_flg = false;
-		button_flg = false;
 		mistake_cnt = 0;
 	}
 
@@ -448,7 +458,7 @@ void Player::Draw()
 		DrawFormatString(0 + i * 20, 0, 0x000000, "%d", input[i]);
 	}
 
-	
+	DrawFormatString(0, 20, 0xff0000, "%d", input_flg);
 }
 
 void Player::Finalize()
@@ -499,18 +509,16 @@ void Player::Comparison()
 	// プレイヤーの入力とお題を比較
 	if (tm == ip)
 	{// 同じだった場合
-		input_flg = false;
-		button_flg = false;
 		correct[correct_num] = ip;
 		correct_num++;
 		combo++;
 	}
 	else
 	{// 異なる場合
+		mistake_cnt++;
 		combo = 0;
 		mis_data[correct_num] = ip;
 		input[correct_num] = -1;
-		mistake_cnt++;
 		input_draw[correct_num] = -1;
 	}
 }
