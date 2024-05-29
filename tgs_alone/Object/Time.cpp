@@ -13,12 +13,7 @@ Time::Time() :time(0),time_flg(false), time2(0)
 
 Time::~Time()
 {
-	// 画像データの削除
-	for (int i = 0; i < 11; i++)
-	{
-		DeleteGraph(img_b[i]);
-		DeleteGraph(img_r[i]);
-	}
+	
 }
 
 void Time::Initialize()
@@ -152,4 +147,10 @@ void Time::Draw()
 
 void Time::Finalize()
 {
+	// 画像データの削除
+	for (int i = 0; i < 11; i++)
+	{
+		DeleteGraph(img_b[i]);
+		DeleteGraph(img_r[i]);
+	}
 }

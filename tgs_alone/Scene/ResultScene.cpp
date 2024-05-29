@@ -19,19 +19,6 @@ ResultScene::ResultScene():back_img{0}
 
 ResultScene::~ResultScene()
 {
-	// 画像データの削除
-	DeleteGraph(back_img[0]);
-	DeleteGraph(back_img[1]);
-
-	for (int i = 0; i < 10; i++)
-	{
-		DeleteGraph(num_img[i]);
-	}
-
-	for (int i = 0; i < 3; i++)
-	{
-		DeleteGraph(rank_img[i]);
-	}
 }
 
 void ResultScene::Initialize()
@@ -71,7 +58,7 @@ eSceneType ResultScene::Update()
 {
 	if (InputControl::GetButtonDown(XINPUT_BUTTON_A))
 	{
-		return eSceneType::E_TITLE;
+		return eSceneType::E_MAIN;
 	}
 
 	return GetNowScene();
@@ -131,6 +118,19 @@ void ResultScene::Draw() const
 
 void ResultScene::Finalize()
 {
+	// 画像データの削除
+	DeleteGraph(back_img[0]);
+	DeleteGraph(back_img[1]);
+
+	for (int i = 0; i < 10; i++)
+	{
+		DeleteGraph(num_img[i]);
+	}
+
+	for (int i = 0; i < 3; i++)
+	{
+		DeleteGraph(rank_img[i]);
+	}
 }
 
 eSceneType ResultScene::GetNowScene() const

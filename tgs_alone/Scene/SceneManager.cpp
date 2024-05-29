@@ -53,16 +53,6 @@ void SceneManager::Initialize()
 		throw("描画先の指定ができませんでした\n");
 	}
 
-	// DXライブラリのデバイスロストした時のコールバックを設定する。
-	// ウインドウとフルスクリーンの切り替えが発生する場合は必ず実行する。
-	// ただし、DirectX11を使用する場合は実行する必要はない。
-	//Effekseer_SetGraphicsDeviceLostCallbackFunctions();
-
-	// Effekseerに2D描画の設定をする。
-	//Effekseer_Set2DSetting(1280, 720);
-
-	//Effkseer_End();
-
 	// タイトルシーンから始める
 	ChangeScene(eSceneType::E_MAIN);
 }

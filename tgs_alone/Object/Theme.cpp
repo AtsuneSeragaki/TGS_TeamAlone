@@ -2,7 +2,7 @@
 #include "DxLib.h"
 
 int Theme::theme_num = 0;
-int Theme::theme[] = { 0 };
+int Theme::theme[THEME_MAX] = { -1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1};
 
 Theme::Theme() : img{0},theme_flg(false),sound(0)
 {
@@ -14,14 +14,6 @@ Theme::Theme() : img{0},theme_flg(false),sound(0)
 
 Theme::~Theme()
 {
-	// 音データの削除
-	DeleteSoundMem(sound);
-
-	// 画像データの削除
-	for (int i = 0; i < 4; i++)
-	{
-		DeleteGraph(img[i]);
-	}
 }
 
 void Theme::Initialize()
@@ -236,4 +228,12 @@ void Theme::Draw()
 
 void Theme::Finalize()
 {
+	// 音データの削除
+	DeleteSoundMem(sound);
+
+	// 画像データの削除
+	for (int i = 0; i < 4; i++)
+	{
+		DeleteGraph(img[i]);
+	}
 }

@@ -1,7 +1,7 @@
 ﻿#include "GameMainScene.h"
 #include "DxLib.h"
 
-GameMainScene::GameMainScene() :back_img(0), bgm(0), se(0), player(nullptr), time(nullptr), theme(nullptr), begin_time(0),begin_cnt(0),draw_cnt(0),timeup_flg(false),timeup_cnt(0),ui_img(0)
+GameMainScene::GameMainScene() :player(nullptr), time(nullptr), theme(nullptr), begin_time(0),begin_cnt(0),draw_cnt(0),timeup_flg(false),timeup_cnt(0)
 {
 	for (int i = 0; i < 5; i++)
 	{
@@ -17,22 +17,7 @@ GameMainScene::GameMainScene() :back_img(0), bgm(0), se(0), player(nullptr), tim
 
 GameMainScene::~GameMainScene()
 {
-	// オブジェクトの削除
-	delete player;
-	delete time;
-	delete theme;
-
-	// 音データの削除
-	for (int i = 0; i < 5; i++)
-	{
-		DeleteSoundMem(sound[i]);
-	}
-
-	// 画像データの削除
-	for (int i = 0; i < 7; i++)
-	{
-		DeleteGraph(img[i]);
-	}
+	
 }
 
 void GameMainScene::Initialize()
@@ -70,8 +55,12 @@ void GameMainScene::Initialize()
 		}
 	}
 
-	// 開始のカウントダウン初期化
+	// 変数の初期化
 	begin_time = 3;
+	begin_cnt = 0;
+	draw_cnt = 0;
+	timeup_flg = false;
+	timeup_cnt = 0;
 
 	// オブジェクトの生成
 	player = new Player;
@@ -264,6 +253,25 @@ void GameMainScene::Draw() const
 
 void GameMainScene::Finalize()
 {
+	// 音データの削除
+	for (int i = 0; i < 5; i++)
+	{
+		DeleteSoundMem(sound[i]);
+	}
+
+	// 画像データの削除
+	for (int i = 0; i < 7; i++)
+	{
+		DeleteGraph(img[i]);
+	}
+
+	// オブジェクトの削除
+	player->Finalize();
+	delete player;
+	time->Finalize();
+	delete time;
+	theme->Finalize();
+	delete theme;
 }
 
 eSceneType GameMainScene::GetNowScene() const

@@ -9,11 +9,7 @@ class GameMainScene : public SceneBase
 {
 private:
 	int sound[5];     // 音データ
-	int back_img;     // 背景画像データ
-	int img[7];
-	int ui_img;       // UI画像
-	int bgm;          // BGMデータ
-	int se;           // SEデータ
+	int img[7];       // 画像データ
 	int begin_time;   // 開始までのカウントダウン
 	int begin_cnt;    // カウントダウンまでのカウントダウン
 	int draw_cnt;     // お題の設定を数フレーム後に
@@ -23,9 +19,6 @@ private:
     Player* player;   // プレイヤー
 	Time* time;       // 制限時間
 	Theme* theme;     // お題
-
-public:
-	//static int combo; // 連続で当たった数保存用
 
 public:
 	GameMainScene();
@@ -39,6 +32,6 @@ public:
 	virtual eSceneType GetNowScene() const override;
 
 private:
-	//void Comparison(); // お題とプレイヤーの入力を比較
-	void TimeupAnim(); // タイムアップアニメーション
+	/* タイムアップアニメーション */
+	void TimeupAnim(); 
 };
