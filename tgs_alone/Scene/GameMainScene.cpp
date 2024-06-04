@@ -141,7 +141,7 @@ eSceneType GameMainScene::Update()
 			player->Update();
 
 			// プレイヤーがお題を全てクリアしたら次のお題へ
-			if (Player::correct_num == theme->GetThemeNum() && theme->GetThemeNum() < THEME_MAX && player->GetInputDraw(Player::correct_num - 1) == 0)
+			if (Player::correct_num == theme->GetThemeNum() && theme->GetThemeNum() < THEME_MAX && player->GetInputDraw(Player::correct_num - 1) == true)
 			{
 				player->SetPlayerInput(true);
 

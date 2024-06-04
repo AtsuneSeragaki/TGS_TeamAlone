@@ -11,20 +11,22 @@ private:
 	int combo_img[10];
 	int mis_img;
 	int comment[2];
+	int mcom_cnt[INPUT_MAX];
 	int com_cnt[INPUT_MAX];
-
-
 	int correct[INPUT_MAX];
 	int player_anim[INPUT_MAX];
 	int mis_anim[INPUT_MAX];
 	int mistake_flg[INPUT_MAX]; // 間違えた時のアニメーションフラグ
 	int mis_data[INPUT_MAX]; // プレイヤーが間違えたものを保存
-	int  mistake_cnt; // 間違えた時のアニメーションカウント
+	int mistake_cnt; // 間違えた時のアニメーションカウント
+	int mis_anim2[INPUT_MAX];
 	int cnt;
+	int mis_y[INPUT_MAX];
 
 public:
 	int input[INPUT_MAX]; // プレイヤーが入力したデータを保存
-	int input_draw[INPUT_MAX]; // プレイヤーが入力したデータを表示したかどうか
+	bool input_draw[INPUT_MAX]; // プレイヤーが入力したデータを表示したかどうか
+	bool mis_draw[INPUT_MAX]; // プレイヤーが入力したデータを表示したかどうか
 	bool input_flg;   // プレイヤーの入力ができるかどうか
 	bool button_flg;  // プレイヤーの入力があるかどうか
 	static int combo; // 連続で当たった数保存用
@@ -46,8 +48,8 @@ public:
 	bool GetButtonInput() { return button_flg; }  // プレイヤーの入力状態を返す
 	void SetButtonInput(bool flg) { button_flg = flg; }  // プレイヤーの入力状態の設定
 	void SetPlayerAnim(); // 当たった数設定
-	int GetInputDraw(int num) { return input_draw[num]; }  // プレイヤーが入力したデータを表示したか返す
-	void ResetInputDraw(int num) { input_draw[num] = -1; }  // プレイヤーの入力データ表示をリセット
+	bool GetInputDraw(int num) { return input_draw[num]; }  // プレイヤーが入力したデータを表示したか返す
+	void ResetInputDraw(int num) { input_draw[num] = false; }  // プレイヤーの入力データ表示をリセット
 	void ResetPlayerAnim(); // プレイヤーが当たった時のボタンの動き
 	void Comparison(); // プレイヤーの入力とお題の比較
 };
