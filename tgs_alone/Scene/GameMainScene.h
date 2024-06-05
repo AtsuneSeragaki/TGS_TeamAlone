@@ -15,6 +15,8 @@ private:
 	int draw_cnt;     // お題の設定を数フレーム後に
 	bool timeup_flg;  // 時間0かどうかのフラグ
 	int timeup_cnt;   // タイムアップのアニメーション用
+	bool pause;       // ポーズフラグ
+	int pause_cursor; // ポーズ画面のカーソル
 	
     Player* player;   // プレイヤー
 	Time* time;       // 制限時間

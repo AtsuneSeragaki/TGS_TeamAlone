@@ -1,7 +1,8 @@
 ﻿#include "GameMainScene.h"
+#include "../Utility/InputControl.h"
 #include "DxLib.h"
 
-GameMainScene::GameMainScene() :player(nullptr), time(nullptr), theme(nullptr), begin_time(0),begin_cnt(0),draw_cnt(0),timeup_flg(false),timeup_cnt(0)
+GameMainScene::GameMainScene() :player(nullptr), time(nullptr), theme(nullptr), begin_time(0),begin_cnt(0),draw_cnt(0),timeup_flg(false),timeup_cnt(0),pause(false),pause_cursor(0)
 {
 	for (int i = 0; i < 5; i++)
 	{
@@ -61,6 +62,8 @@ void GameMainScene::Initialize()
 	draw_cnt = 0;
 	timeup_flg = false;
 	timeup_cnt = 0;
+	pause = false;
+	pause_cursor = 0;
 
 	// オブジェクトの生成
 	player = new Player;
@@ -78,167 +81,226 @@ void GameMainScene::Initialize()
 
 eSceneType GameMainScene::Update()
 {
-	// 開始のカウントダウン
-	if (begin_time != -1)
+	if (pause == true)
 	{
-		if (begin_time == 3 && begin_cnt == 0)
+		if (InputControl::GetButtonDown(XINPUT_BUTTON_A) == true)
 		{
-			PlaySoundMem(sound[1], DX_PLAYTYPE_BACK, TRUE);
+			pause_cursor++;
+
+			if (pause_cursor > 2)
+			{
+				pause_cursor = 0;
+			}
 		}
 
-		begin_cnt++;
-
-		if (begin_cnt % 60 == 0)
+		if (InputControl::GetButtonDown(XINPUT_BUTTON_Y) == true)
 		{
-			begin_time--;
+			pause_cursor--;
 
-			if (begin_time > 0)
+			if (pause_cursor < 0)
+			{
+				pause_cursor = 2;
+			}
+		}
+
+		if (InputControl::GetButtonDown(XINPUT_BUTTON_B) == true)
+		{
+			switch (pause_cursor)
+			{
+			case 0:
+				pause = false;
+				break;
+			case 1:
+				pause = false;
+				Initialize();
+				break;
+			case 2:
+				return eSceneType::E_TITLE;
+			default:
+				break;
+			}
+		}
+	}
+	else
+	{
+		if (InputControl::GetButtonDown(XINPUT_BUTTON_START) == true)
+		{
+			pause = true;
+		}
+
+		// 開始のカウントダウン
+		if (begin_time != -1)
+		{
+			if (begin_time == 3 && begin_cnt == 0)
 			{
 				PlaySoundMem(sound[1], DX_PLAYTYPE_BACK, TRUE);
 			}
-			else if(begin_time == 0)
+
+			begin_cnt++;
+
+			if (begin_cnt % 60 == 0)
 			{
-				PlaySoundMem(sound[2], DX_PLAYTYPE_BACK, TRUE);
+				begin_time--;
+
+				if (begin_time > 0)
+				{
+					PlaySoundMem(sound[1], DX_PLAYTYPE_BACK, TRUE);
+				}
+				else if (begin_time == 0)
+				{
+					PlaySoundMem(sound[2], DX_PLAYTYPE_BACK, TRUE);
+				}
+			}
+		}
+
+		// カウントダウン後に開始
+		if (begin_time == -1)
+		{
+			//制限時間が0になったら
+			if (time->GetTime() <= 0.0f || Player::correct_num == THEME_MAX)
+			{
+				player->SetPlayerAnim();
+
+				if (Player::correct_num == THEME_MAX)
+				{
+					time->SetTimeFlg(false);
+				}
+
+				// BGMを止める
+				StopSoundMem(sound[0]);
+
+				// 終了の表示
+				TimeupAnim();
+
+				// 終了の表示後、リザルト画面へ
+				if (timeup_flg == true)
+				{
+					if (draw_cnt != 0)
+					{
+						draw_cnt = 0;
+					}
+
+					return eSceneType::E_RESULT;
+				}
+			}
+			else
+			{
+				PlaySoundMem(sound[0], DX_PLAYTYPE_LOOP, FALSE);
+				theme->Update();
+				time->Update();
+				player->Update();
+
+				// プレイヤーがお題を全てクリアしたら次のお題へ
+				if (Player::correct_num == theme->GetThemeNum() && theme->GetThemeNum() < THEME_MAX && player->GetInputDraw(Player::correct_num - 1) == true)
+				{
+					player->SetPlayerInput(true);
+
+					if (draw_cnt == 10)
+					{
+						player->ResetPlayerState();
+						theme->SetThemeNum();
+						draw_cnt = 0;
+						theme->SetThemeFlg(true);
+
+						player->SetPlayerInput(false);
+					}
+					else
+					{
+						draw_cnt++;
+					}
+				}
 			}
 		}
 	}
-	
-	// カウントダウン後に開始
-	if (begin_time == -1)
-	{
-		//制限時間が0になったら
-		if (time->GetTime() <= 0.0f || Player::correct_num == THEME_MAX)
-		{
-			player->SetPlayerAnim();
-
-			if (Player::correct_num == THEME_MAX)
-			{
-				time->SetTimeFlg(false);
-			}
-
-			// BGMを止める
-			StopSoundMem(sound[0]);
-
-			// 終了の表示
-			TimeupAnim();
-
-			// 終了の表示後、リザルト画面へ
-			if (timeup_flg == true)
-			{
-				if (draw_cnt != 0)
-				{
-					draw_cnt = 0;
-				}
-
-				return eSceneType::E_RESULT;
-			}
-		}
-		else
-		{
-			PlaySoundMem(sound[0], DX_PLAYTYPE_LOOP, FALSE);
-			theme->Update();
-			time->Update();
-			player->Update();
-
-			// プレイヤーがお題を全てクリアしたら次のお題へ
-			if (Player::correct_num == theme->GetThemeNum() && theme->GetThemeNum() < THEME_MAX && player->GetInputDraw(Player::correct_num - 1) == true)
-			{
-				player->SetPlayerInput(true);
-
-				if (draw_cnt == 10)
-				{
-					player->ResetPlayerState();
-					theme->SetThemeNum();
-					draw_cnt = 0;
-					theme->SetThemeFlg(true);
-
-					player->SetPlayerInput(false);
-				}
-				else
-				{
-					draw_cnt++;
-				}
-			}
-		}
-	}
-
 	return GetNowScene();
 }
 
 void GameMainScene::Draw() const
 {
-#ifdef _DEBUG
-	SetFontSize(20);
-	DrawString(0, 0, "GameMain", 0xffffff);
-
-	if (theme->GetThemeNum() > THEME_MAX)
-	{
-		DrawString(0, 200, "MAX", 0xffffff);
-	}
-
-	DrawBox(0, 0, 1280, 720, 0x7d7d7d, TRUE);
-
-#endif // _DEBUG
-
-	// 背景描画
-	DrawGraph(0, 0, img[4], TRUE);
-	
-	if (begin_time == -1)
-	{
-		// 制限時間の描画
-		time->Draw();
-
-		// お題の描画
-		theme->Draw();
-
-		// プレイヤーの入力を描画
-		player->Draw();
-	}
-	else if (begin_time == 0)
-	{
-		// ゲーム開始の描画
-		DrawGraph(0, 0, img[0], TRUE);
-
+	if (pause == true)
+	{// ポーズ
+		// 背景描画
+		DrawBox(0, 0, 1280, 720, 0x7d7d7d, TRUE);
+		DrawString(0, 0, "Pause", 0xffffff);
+		SetFontSize(40);
+		DrawFormatString(0, 40, 0x000000, "%d", pause_cursor);
+		switch (pause_cursor)
+		{
+		case 0:
+			DrawString(0, 70, "resume", 0xffffff);
+			break;
+		case 1:
+			DrawString(0, 70, "restart", 0xffffff);
+			break;
+		case 2:
+			DrawString(0, 70, "back to title", 0xffffff);
+			break;
+		default:
+			break;
+		}
 	}
 	else
 	{
-		// ゲーム開始までのカウントダウン描画
-		DrawGraph(0, 0, img[begin_time], TRUE);
-	
-	}
+		// 背景描画
+		DrawGraph(0, 0, img[4], TRUE);
 
-	if (timeup_cnt != 0)
-	{
-		if (Player::correct_num == THEME_MAX)
-		{// お題を全てクリアしたら
+		if (begin_time == -1)
+		{
+			// 制限時間の描画
+			time->Draw();
 
-			SetDrawBlendMode(DX_BLENDMODE_ALPHA, 200);
-			DrawBox(0, 0, 1280, 720, 0xffffff, TRUE);
-			SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+			// お題の描画
+			theme->Draw();
 
+			// プレイヤーの入力を描画
+			player->Draw();
+		}
+		else if (begin_time == 0)
+		{
+			// ゲーム開始の描画
+			DrawGraph(0, 0, img[0], TRUE);
 
-			if (timeup_cnt <= 78)
-			{
-				DrawGraph(30, -600 + timeup_cnt * 7, img[6], TRUE);
-			}
-			else
-			{
-				DrawGraph(30, -50, img[6], TRUE);
-			}
 		}
 		else
-		{// 制限時間が0になったら
-			SetDrawBlendMode(DX_BLENDMODE_ALPHA, 200);
-			DrawBox(0, 0, 1280, 720, 0xffffff, TRUE);
-			SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+		{
+			// ゲーム開始までのカウントダウン描画
+			DrawGraph(0, 0, img[begin_time], TRUE);
 
-			if (timeup_cnt <= 78)
-			{
-				DrawGraph(30, -600 + timeup_cnt * 7, img[5], TRUE);
+		}
+
+		if (timeup_cnt != 0)
+		{
+			if (Player::correct_num == THEME_MAX)
+			{// お題を全てクリアしたら
+
+				SetDrawBlendMode(DX_BLENDMODE_ALPHA, 200);
+				DrawBox(0, 0, 1280, 720, 0xffffff, TRUE);
+				SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+
+
+				if (timeup_cnt <= 78)
+				{
+					DrawGraph(30, -600 + timeup_cnt * 7, img[6], TRUE);
+				}
+				else
+				{
+					DrawGraph(30, -50, img[6], TRUE);
+				}
 			}
 			else
-			{
-				DrawGraph(30, -50, img[5], TRUE);
+			{// 制限時間が0になったら
+				SetDrawBlendMode(DX_BLENDMODE_ALPHA, 200);
+				DrawBox(0, 0, 1280, 720, 0xffffff, TRUE);
+				SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+
+				if (timeup_cnt <= 78)
+				{
+					DrawGraph(30, -600 + timeup_cnt * 7, img[5], TRUE);
+				}
+				else
+				{
+					DrawGraph(30, -50, img[5], TRUE);
+				}
 			}
 		}
 	}
