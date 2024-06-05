@@ -147,14 +147,7 @@ eSceneType GameMainScene::Update()
 
 				if (draw_cnt == 10)
 				{
-					for (int i = 0; i < INPUT_MAX; i++)
-					{
-						player->ResetPlayerInput(i);
-						player->ResetInputDraw(i);
-						player->ResetPlayerAnim(i);
-					}
-					player->ResetPlayerAnim();
-					Player::correct_num = 0;
+					player->ResetPlayerState();
 					theme->SetThemeNum();
 					draw_cnt = 0;
 					theme->SetThemeFlg(true);

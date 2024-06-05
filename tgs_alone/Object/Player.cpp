@@ -133,7 +133,7 @@ void Player::Initialize()
 		mcom_cnt[i] = 0;
 		mis_draw[i] = false;
 		mis_anim2[i] = 0;
-		mis_y[i] = 0;
+		mis_y[i] = -1;
 	}
 
 	// 変数の初期化
@@ -147,12 +147,11 @@ void Player::Initialize()
 void Player::Update()
 {
 	// プレイヤーからの入力受付
-	if (input_flg == false && button_flg == false)
+	if (input_flg == false)
 	{
 		if (InputControl::GetButtonDown(XINPUT_BUTTON_A) == true)
 		{
 			input_flg = true;
-			button_flg = true;
 			PlaySoundMem(sound[0], DX_PLAYTYPE_BACK, TRUE);
 
 			for (int i = 0; i < INPUT_MAX; i++)
@@ -162,12 +161,13 @@ void Player::Update()
 					input[i] = 0;
 					break;
 				}
-			}	
+			}
+
+			Comparison();
 		}
 		else if (InputControl::GetButtonDown(XINPUT_BUTTON_B) == true)
 		{
 			input_flg = true;
-			button_flg = true;
 			PlaySoundMem(sound[0], DX_PLAYTYPE_BACK, TRUE);
 
 			for (int i = 0; i < INPUT_MAX; i++)
@@ -178,11 +178,12 @@ void Player::Update()
 					break;
 				}
 			}
+
+			Comparison();
 		}
 		else if (InputControl::GetButtonDown(XINPUT_BUTTON_Y) == true)
 		{
 			input_flg = true;
-			button_flg = true;
 			PlaySoundMem(sound[0], DX_PLAYTYPE_BACK, TRUE);
 
 			for (int i = 0; i < INPUT_MAX; i++)
@@ -193,11 +194,12 @@ void Player::Update()
 					break;
 				}
 			}
+
+			Comparison();
 		}
 		else if (InputControl::GetButtonDown(XINPUT_BUTTON_X) == true)
 		{
 			input_flg = true;
-			button_flg = true;
 			PlaySoundMem(sound[0], DX_PLAYTYPE_BACK, TRUE);
 
 			for (int i = 0; i < INPUT_MAX; i++)
@@ -208,107 +210,68 @@ void Player::Update()
 					break;
 				}
 			}
+
+			Comparison();
 		}
 	}
-
-	if (button_flg == true)
+	else
 	{
-		button_flg = false;
-		Comparison();
-	}
-
-	// プレイヤーが間違えた時
-	/*if (mistake_cnt == 1)
-	{
-		mistake_cnt++;
-	}
-	else if (mistake_cnt > 1 && mistake_cnt <= 20)
-	{
-		mistake_cnt++;
-	}
-	else if (mistake_cnt > 20)
-	{
-		for (int i = 0; i < INPUT_MAX; i++)
-		{
-			if (mis_data[i] != -1)
-			{
-				mis_data[i] = -1;
-			}
-		}
-
-		mistake_cnt = 0;
-	}*/
-
-	for (int i = 0; i < INPUT_MAX; i++)
-	{
-		if (correct[i] != -1 && input_draw[i] != true)
+		if (correct[correct_num] != -1 && input_draw[correct_num] == false)
 		{// プレイヤーの入力とお題が同じとき
 			cnt++;
 
-			if (cnt > 1)
+			if (cnt != 0)
 			{
-				if (player_anim[i] > 0)
+				if (player_anim[correct_num] > 0)
 				{
-					player_anim[i]--;
+					player_anim[correct_num]--;
 				}
 				else
 				{
-					com_cnt[i]++;
-					input_draw[i] = true;
-					player_anim[i] = 4;
+					com_cnt[correct_num]++;
+					input_draw[correct_num] = true;
+					player_anim[correct_num] = 4;
+					correct_num++;
+					input_flg = false;
+					
 				}
 
 				cnt = 0;
 			}
 		}
-		
-		if (mis_data[i] != -1 && mis_draw[i] != true)
+
+		if (mis_data[correct_num] != -1 && mis_draw[correct_num] == false)
 		{// プレイヤーが間違えた時
 			mistake_cnt++;
 
-			if (mistake_cnt > 1)
+			if (mistake_cnt != 0)
 			{
-				if (mis_anim[i] > 0)
+				if (mis_anim[correct_num] > 0)
 				{
-					mis_anim[i]--;
+					mis_anim[correct_num]--;
 				}
 				else
 				{
-					mcom_cnt[i]++;
-					mis_draw[i] = true;
-					mis_anim[i] = 4;
+					mcom_cnt[correct_num]++;
+					mis_draw[correct_num] = true;
 				}
 
 				mistake_cnt = 0;
 			}
 		}
+
+		if (mcom_cnt[correct_num] != 0)
+		{
+			SetMisCom();
+		}
+
+		if (mis_anim2[correct_num] != 0)
+		{
+			FallAnim();
+		}
 	}
 
-	for (int i = 0; i < INPUT_MAX; i++)
-	{
-		if (mcom_cnt[i] > 30)
-		{
-			mcom_cnt[i] = 0;
-		}
-		else if (mcom_cnt[i] > 0)
-		{
-			mcom_cnt[i]++;
-
-			if (mcom_cnt[i] == 10)
-			{
-				mis_anim2[i]++;
-			}
-		}
-
-		if (com_cnt[i] > 30)
-		{
-			com_cnt[i] = 0;
-		}
-		else if (com_cnt[i] > 0)
-		{
-			com_cnt[i]++;
-		}
-	}
+	SetCom();
 }
 
 void Player::Draw()
@@ -338,135 +301,53 @@ void Player::Draw()
 
 			if (Theme::theme_num < 10)
 			{
-				if (mis_anim2[i] == 0)
+				if (mis_draw[i] == true)
 				{
-					mis_y[i] = 410;
-				}
-
-				if (mcom_cnt[i] != 0)
-				{
-					DrawGraph((515 - 57 * (Theme::theme_num - 3)) + i * 110, 370, comment[1], TRUE);
+					DrawGraph((500 - 57 * (Theme::theme_num - 3)) + i * 110 + 15, 370, comment[1], TRUE);
 					DrawGraph((500 - 57 * (Theme::theme_num - 3)) + i * 110, mis_y[i], img[mis_data[i]][0], TRUE);
 				}
 				else
 				{
 					DrawGraph(((500 - mis_anim[i] * 28) - 57 * (Theme::theme_num - 3)) + i * 110, mis_y[i] - mis_anim[i] * 23, img[mis_data[i]][mis_anim[i]], TRUE);
 				}
-				
-				if (mis_anim2[i] != 0)
-				{
-					if (mis_y[i] < 730)
-					{
-						mis_y[i] += 40;
-						DrawGraph((500 - 57 * (Theme::theme_num - 3)) + i * 110, mis_y[i], img[mis_data[i]][0], TRUE);
-					}
-					else
-					{
-						mis_data[i] = -1;
-						mis_anim2[i] = 0;
-						input_flg = false;
-					}
-				}
-				
 			}
 			else if (Theme::theme_num == 10)
 			{
-				if (mis_anim2[i] == 0)
+				if (mis_draw[i] == true)
 				{
-					mis_y[i] = 410;
-				}
-
-				if (mcom_cnt[i] != 0)
-				{
-					DrawGraph(90 + i * 110, 370, comment[1], TRUE);
+					DrawGraph(90 + i * 110 + 15, 370, comment[1], TRUE);
 					DrawGraph((90 - mis_anim[i] * 28) + i * 110, mis_y[i] - mis_anim[i] * 23, img[mis_data[i]][0], TRUE);
 				}
 				else
 				{
 					DrawGraph((90 - mis_anim[i] * 28) + i * 110, mis_y[i] - mis_anim[i] * 23, img[mis_data[i]][mis_anim[i]], TRUE);
 				}
-				
-				if (mis_anim2[i] != 0)
-				{
-					if (mis_y[i] < 730)
-					{
-						mis_y[i] += 20;
-						DrawGraph((90 - mis_anim[i] * 28) + i * 110, mis_y[i] - mis_anim[i] * 23, img[mis_data[i]][0], TRUE);
-					}
-					else
-					{
-						mis_data[i] = -1;
-						mis_anim2[i] = 0;
-						input_flg = false;
-					}
-				}
-				
 			}
 			else if (Theme::theme_num >= 11 && Theme::theme_num < 16)
 			{
 
 				if (i < 8)
 				{
-					if (mis_anim2[i] == 0)
+					if (mis_draw[i] == true)
 					{
-						mis_y[i] = 355;
-					}
-
-					if (mcom_cnt[i] != 0)
-					{
-						DrawGraph(225 + i * 110, 315, comment[1], TRUE);
+						DrawGraph(225 + i * 110 + 15, 315, comment[1], TRUE);
 						DrawGraph((225 - mis_anim[i] * 28) + i * 110, mis_y[i] - mis_anim[i] * 23, img[mis_data[i]][0], TRUE);
 					}
 					else
 					{
 						DrawGraph((225 - mis_anim[i] * 28) + i * 110, mis_y[i] - mis_anim[i] * 23, img[mis_data[i]][mis_anim[i]], TRUE);
 					}
-
-					if (mis_anim2[i] != 0)
-					{
-						if (mis_y[i] < 730)
-						{
-							mis_y[i] += 20;
-							DrawGraph((225 - mis_anim[i] * 28) + i * 110, mis_y[i] - mis_anim[i] * 23, img[mis_data[i]][0], TRUE);
-						}
-						else
-						{
-							mis_data[i] = -1;
-							mis_anim2[i] = 0;
-							input_flg = false;
-						}
-					}
 				}
 				else
 				{
-					if (mis_anim2[i] == 0)
+					if (mis_draw[i] == true)
 					{
-						mis_y[i] = 500;
-					}
-
-					if (mcom_cnt[i] != 0)
-					{
-						DrawGraph((100 - 54 * (Theme::theme_num - 2)) + i * 110, 460, comment[1], TRUE);
+						DrawGraph((100 - 54 * (Theme::theme_num - 2)) + i * 110 + 15, 460, comment[1], TRUE);
 						DrawGraph(((100 - mis_anim[i] * 28) - 54 * (Theme::theme_num - 2)) + i * 110, mis_y[i] - mis_anim[i] * 23, img[mis_data[i]][0], TRUE);
 					}
 					else
 					{
 						DrawGraph(((100 - mis_anim[i] * 28) - 54 * (Theme::theme_num - 2)) + i * 110, mis_y[i] - mis_anim[i] * 23, img[mis_data[i]][mis_anim[i]], TRUE);
-					}
-
-					if (mis_anim2[i] != 0)
-					{
-						if (mis_y[i] < 730)
-						{
-							mis_y[i] += 20;
-							DrawGraph(((100 - mis_anim[i] * 28) - 54 * (Theme::theme_num - 2)) + i * 110, mis_y[i] - mis_anim[i] * 23, img[mis_data[i]][0], TRUE);
-						}
-						else
-						{
-							mis_data[i] = -1;
-							mis_anim2[i] = 0;
-							input_flg = false;
-						}
 					}
 				}
 			}
@@ -474,66 +355,26 @@ void Player::Draw()
 			{
 				if (i < 8)
 				{
-					if (mis_anim2[i] == 0)
+					if (mis_draw[i] == true)
 					{
-						mis_y[i] = 355;
-					}
-
-					if (mcom_cnt[i] != 0)
-					{
-						DrawGraph(225 + i * 110, 315, comment[1], TRUE);
+						DrawGraph(225 + i * 110 + 15, 315, comment[1], TRUE);
 						DrawGraph((225 - mis_anim[i] * 28) + i * 110, mis_y[i] - mis_anim[i] * 23, img[mis_data[i]][0], TRUE);
 					}
 					else
 					{
 						DrawGraph((225 - mis_anim[i] * 28) + i * 110, mis_y[i] - mis_anim[i] * 23, img[mis_data[i]][mis_anim[i]], TRUE);
 					}
-
-					if (mis_anim2[i] != 0)
-					{
-						if (mis_y[i] < 730)
-						{
-							mis_y[i] += 20;
-							DrawGraph((225 - mis_anim[i] * 28) + i * 110, mis_y[i] - mis_anim[i] * 23, img[mis_data[i]][0], TRUE);
-						}
-						else
-						{
-							mis_data[i] = -1;
-							mis_anim2[i] = 0;
-							input_flg = false;
-						}
-					}
 				}
 				else
 				{
-					if (mis_anim2[i] == 0)
+					if (mis_draw[i] == true)
 					{
-						mis_y[i] = 500;
-					}
-
-					if (mcom_cnt[i] != 0)
-					{
-						DrawGraph(225 + (i - 8) * 110, 460, comment[1], TRUE);
+						DrawGraph(225 + (i - 8) * 110 + 15, 460, comment[1], TRUE);
 						DrawGraph((225 - mis_anim[i] * 28) + (i - 8) * 110, mis_y[i] - mis_anim[i] * 23, img[mis_data[i]][0], TRUE);
 					}
 					else
 					{
 						DrawGraph((225 - mis_anim[i] * 28) + (i - 8) * 110, mis_y[i] - mis_anim[i] * 23, img[mis_data[i]][mis_anim[i]], TRUE);
-					}
-
-					if (mis_anim2[i] != 0)
-					{
-						if (mis_y[i] < 730)
-						{
-							mis_y[i] += 20;
-							DrawGraph((225 - mis_anim[i] * 28) + (i - 8) * 110, mis_y[i] - mis_anim[i] * 23, img[mis_data[i]][0], TRUE);
-						}
-						else
-						{
-							mis_data[i] = -1;
-							mis_anim2[i] = 0;
-							input_flg = false;
-						}
 					}
 				}
 			}
@@ -541,66 +382,26 @@ void Player::Draw()
 			{
 				if (i < 9)
 				{
-					if (mis_anim2[i] == 0)
+					if (mis_draw[i] == true)
 					{
-						mis_y[i] = 355;
-					}
-
-					if (mcom_cnt[i] != 0)
-					{
-						DrawGraph(160 + i * 110, 315, comment[1], TRUE);
+						DrawGraph(160 + i * 110 + 15, 315, comment[1], TRUE);
 						DrawGraph((160 - mis_anim[i] * 28) + i * 110, mis_y[i] - mis_anim[i] * 23, img[mis_data[i]][0], TRUE);
 					}
 					else
 					{
 						DrawGraph((160 - mis_anim[i] * 28) + i * 110, mis_y[i] - mis_anim[i] * 23, img[mis_data[i]][mis_anim[i]], TRUE);
 					}
-
-					if (mis_anim2[i] != 0)
-					{
-						if (mis_y[i] < 730)
-						{
-							mis_y[i] += 20;
-							DrawGraph((160 - mis_anim[i] * 28) + i * 110, mis_y[i] - mis_anim[i] * 23, img[mis_data[i]][0], TRUE);
-						}
-						else
-						{
-							mis_data[i] = -1;
-							mis_anim2[i] = 0;
-							input_flg = false;
-						}
-					}
 				}
 				else
 				{
-					if (mis_anim2[i] == 0)
+					if (mis_draw[i] == true)
 					{
-						mis_y[i] = 500;
-					}
-
-					if (mcom_cnt[i] != 0)
-					{
-						DrawGraph(215 + (i - 9) * 110, 460, comment[1], TRUE);
+						DrawGraph(215 + (i - 9) * 110 + 15, 460, comment[1], TRUE);
 						DrawGraph((215 - mis_anim[i] * 28) + (i - 9) * 110, mis_y[i] - mis_anim[i] * 23, img[mis_data[i]][0], TRUE);
 					}
 					else
 					{
 						DrawGraph((215 - mis_anim[i] * 28) + (i - 9) * 110, mis_y[i] - mis_anim[i] * 23, img[mis_data[i]][mis_anim[i]], TRUE);
-					}
-
-					if (mis_anim2[i] != 0)
-					{
-						if (mis_y[i] < 730)
-						{
-							mis_y[i] += 20;
-							DrawGraph((215 - mis_anim[i] * 28) + (i - 9) * 110, mis_y[i] - mis_anim[i] * 23, img[mis_data[i]][0], TRUE);
-						}
-						else
-						{
-							mis_data[i] = -1;
-							mis_anim2[i] = 0;
-							input_flg = false;
-						}
 					}
 				}
 			}
@@ -608,135 +409,53 @@ void Player::Draw()
 			{
 				if (i < 9)
 				{
-					if (mis_anim2[i] == 0)
+					if (mis_draw[i] == true)
 					{
-						mis_y[i] = 355;
-					}
-
-					if (mcom_cnt[i] != 0)
-					{
-						DrawGraph(160 + i * 110, 315, comment[1], TRUE);
+						DrawGraph(160 + i * 110 + 15, 315, comment[1], TRUE);
 						DrawGraph((160 - mis_anim[i] * 28) + i * 110, mis_y[i] - mis_anim[i] * 23, img[mis_data[i]][0], TRUE);
 					}
 					else
 					{
 						DrawGraph((160 - mis_anim[i] * 28) + i * 110, mis_y[i] - mis_anim[i] * 23, img[mis_data[i]][mis_anim[i]], TRUE);
-					}
-
-					if (mis_anim2[i] != 0)
-					{
-						if (mis_y[i] < 730)
-						{
-							mis_y[i] += 20;
-							DrawGraph((160 - mis_anim[i] * 28) + i * 110, mis_y[i] - mis_anim[i] * 23, img[mis_data[i]][0], TRUE);
-						}
-						else
-						{
-							mis_data[i] = -1;
-							mis_anim2[i] = 0;
-							input_flg = false;
-						}
-					}
-					
+					}					
 				}
 				else
 				{
-					if (mis_anim2[i] == 0)
+					if (mis_draw[i] == true)
 					{
-						mis_y[i] = 355;
-					}
-
-					if (mcom_cnt[i] != 0)
-					{
-						DrawGraph(160 + (i - 9) * 110, 460, comment[1], TRUE);
+						DrawGraph(160 + (i - 9) * 110 + 15, 460, comment[1], TRUE);
 						DrawGraph((160 - mis_anim[i] * 28) + (i - 9) * 110, mis_y[i] - mis_anim[i] * 23, img[mis_data[i]][0], TRUE);
 					}
 					else
 					{
 						DrawGraph((160 - mis_anim[i] * 28) + (i - 9) * 110, mis_y[i] - mis_anim[i] * 23, img[mis_data[i]][mis_anim[i]], TRUE);
 					}
-
-					if (mis_anim2[i] != 0)
-					{
-						if (mis_y[i] < 730)
-						{
-							mis_y[i] += 20;
-							DrawGraph((160 - mis_anim[i] * 28) + (i - 9) * 110, mis_y[i] - mis_anim[i] * 23, img[mis_data[i]][0], TRUE);
-						}
-						else
-						{
-							mis_data[i] = -1;
-							mis_anim2[i] = 0;
-							input_flg = false;
-						}
-					}
-					
 				}
 			}
 			else if (Theme::theme_num == 19)
 			{
 				if (i < 10)
 				{
-					if (mis_anim2[i] == 0)
+					if (mis_draw[i] == true)
 					{
-						mis_y[i] = 355;
-					}
-
-					if (mcom_cnt[i] != 0)
-					{
-						DrawGraph(90 + i * 110, 315, comment[1], TRUE);
+						DrawGraph(90 + i * 110 + 15, 315, comment[1], TRUE);
 						DrawGraph((90 - mis_anim[i] * 28) + i * 110, mis_y[i] - mis_anim[i] * 23, img[mis_data[i]][0], TRUE);
 					}
 					else
 					{
 						DrawGraph((90 - mis_anim[i] * 28) + i * 110, mis_y[i] - mis_anim[i] * 23, img[mis_data[i]][mis_anim[i]], TRUE);
 					}
-
-					if (mis_anim2[i] != 0)
-					{
-						if (mis_y[i] < 730)
-						{
-							mis_y[i] += 20;
-							DrawGraph((90 - mis_anim[i] * 28) + i * 110, mis_y[i] - mis_anim[i] * 23, img[mis_data[i]][0], TRUE);
-						}
-						else
-						{
-							mis_data[i] = -1;
-							mis_anim2[i] = 0;
-							input_flg = false;
-						}
-					}
 				}
 				else
 				{
-					if (mis_anim2[i] == 0)
+					if (mis_draw[i] == true)
 					{
-						mis_y[i] = 500;
-					}
-
-					if (mcom_cnt[i] != 0)
-					{
-						DrawGraph(160 + (i - 10) * 110, 460, comment[1], TRUE);
+						DrawGraph(160 + (i - 10) * 110 + 15, 460, comment[1], TRUE);
 						DrawGraph((160 - mis_anim[i] * 28) + (i - 10) * 110, mis_y[i] - mis_anim[i] * 23, img[mis_data[i]][0], TRUE);
 					}
 					else
 					{
 						DrawGraph((160 - mis_anim[i] * 28) + (i - 10) * 110, mis_y[i] - mis_anim[i] * 23, img[mis_data[i]][mis_anim[i]], TRUE);
-					}
-
-					if (mis_anim2[i] != 0)
-					{
-						if (mis_y[i] < 730)
-						{
-							mis_y[i] += 20;
-							DrawGraph((160 - mis_anim[i] * 28) + (i - 10) * 110, mis_y[i] - mis_anim[i] * 23, img[mis_data[i]][0], TRUE);
-						}
-						else
-						{
-							mis_data[i] = -1;
-							mis_anim2[i] = 0;
-							input_flg = false;
-						}
 					}
 				}
 			}
@@ -744,66 +463,26 @@ void Player::Draw()
 			{
 				if (i < 10)
 				{
-					if (mis_anim2[i] == 0)
+					if (mis_draw[i] == true)
 					{
-						mis_y[i] = 355;
-					}
-
-					if (mcom_cnt[i] != 0)
-					{
-						DrawGraph(90 + i * 110, 315, comment[1], TRUE);
+						DrawGraph(90 + i * 110 + 15, 315, comment[1], TRUE);
 						DrawGraph((90 - mis_anim[i] * 28) + i * 110, mis_y[i] - mis_anim[i] * 23, img[mis_data[i]][0], TRUE);
 					}
 					else
 					{
 						DrawGraph((90 - mis_anim[i] * 28) + i * 110, mis_y[i] - mis_anim[i] * 23, img[mis_data[i]][mis_anim[i]], TRUE);
 					}
-
-					if (mis_anim2[i] != 0)
-					{
-						if (mis_y[i] < 730)
-						{
-							mis_y[i] += 20;
-							DrawGraph((90 - mis_anim[i] * 28) + i * 110, mis_y[i] - mis_anim[i] * 23, img[mis_data[i]][0], TRUE);
-						}
-						else
-						{
-							mis_data[i] = -1;
-							mis_anim2[i] = 0;
-							input_flg = false;
-						}
-					}
 				}
 				else
 				{
-					if (mis_anim2[i] == 0)
+					if (mis_draw[i] == true)
 					{
-						mis_y[i] = 500;
-					}
-
-					if (mcom_cnt[i] != 0)
-					{
-						DrawGraph(90 + (i - 10) * 110, 460, comment[1], TRUE);
+						DrawGraph(90 + (i - 10) * 110 + 15, 460, comment[1], TRUE);
 						DrawGraph((90 - mis_anim[i] * 28) + (i - 10) * 110, mis_y[i] - mis_anim[i] * 23, img[mis_data[i]][0], TRUE);
 					}
 					else
 					{
 						DrawGraph((90 - mis_anim[i] * 28) + (i - 10) * 110, mis_y[i] - mis_anim[i] * 23, img[mis_data[i]][mis_anim[i]], TRUE);
-					}
-
-					if (mis_anim2[i] != 0)
-					{
-						if (mis_y[i] < 730)
-						{
-							mis_y[i] += 20;
-							DrawGraph((90 - mis_anim[i] * 28) + (i - 10) * 110, mis_y[i] - mis_anim[i] * 23, img[mis_data[i]][0], TRUE);
-						}
-						else
-						{
-							mis_data[i] = -1;
-							mis_anim2[i] = 0;
-							input_flg = false;
-						}
 					}
 				}
 			}
@@ -1057,13 +736,13 @@ void Player::Draw()
 		}
 
 		SetFontSize(30);
-		DrawFormatString(0 + i * 20, 0, 0x000000, "%d", mis_data[i]);
-		DrawFormatString(0 + i * 20, 60, 0xff0000, "%d", com_cnt[i]);
-		DrawFormatString(0 + i * 20,40, 0x000000, "%d",correct[i]);
-
+		DrawFormatString(0, 0, 0x000000, "%d", mcom_cnt[correct_num]);
+		//DrawFormatString(0, 60, 0xff0000, "%d", mis_anim2[correct_num]);
 	}
 
-	//DrawFormatString(0, 20, 0xff0000, "%d", mis_anim[0]);
+	//DrawFormatString(0, 0, 0x000000, "%d", mis_data[correct_num]);
+
+	//DrawFormatString(0, 30, 0xff0000, "%d", input_flg);
 }
 
 void Player::Finalize()
@@ -1095,11 +774,44 @@ void Player::SetPlayerAnim()
 	}
 }
 
-void Player::ResetPlayerAnim()
+void Player::SetMisY()
 {
-	for (int i = 0; i < INPUT_MAX; i++)
+	if (Theme::theme_num <= 10)
 	{
-		player_anim[i] = 4;
+		mis_y[correct_num] = 410;
+	}
+	else if (Theme::theme_num <= 16)
+	{
+		if (correct_num < 8)
+		{
+			mis_y[correct_num] = 355;
+		}
+		else
+		{
+			mis_y[correct_num] = 500;
+		}
+	}
+	else if (Theme::theme_num <= 18)
+	{
+		if (correct_num < 9)
+		{
+			mis_y[correct_num] = 355;
+		}
+		else
+		{
+			mis_y[correct_num] = 500;
+		}
+	}
+	else
+	{
+		if (correct_num < 10)
+		{
+			mis_y[correct_num] = 355;
+		}
+		else
+		{
+			mis_y[correct_num] = 500;
+		}
 	}
 }
 
@@ -1116,8 +828,6 @@ void Player::Comparison()
 	{// 同じだった場合
 		correct[correct_num] = ip;
 		input_draw[correct_num] = false;
-		input_flg = false;
-		correct_num++;
 		combo++;
 	}
 	else
@@ -1126,6 +836,62 @@ void Player::Comparison()
 		combo = 0;
 		mis_data[correct_num] = ip;
 		mis_draw[correct_num] = false;
+		SetMisY();
 		input[correct_num] = -1;
 	}
+}
+
+void Player::SetMisCom()
+{
+	mcom_cnt[correct_num]++;
+
+	if (mcom_cnt[correct_num] == 20)
+	{
+		mis_anim2[correct_num]++;
+	}
+}
+
+void Player::SetCom()
+{
+	for (int i = 0; i < INPUT_MAX; i++)
+	{
+		if (com_cnt[i] > 20)
+		{
+			com_cnt[i] = 0;
+		}
+		else if (com_cnt[i] > 0)
+		{
+			com_cnt[i]++;
+		}
+	}
+}
+
+void Player::FallAnim()
+{
+	if (mis_y[correct_num] <= 730)
+	{
+		mis_y[correct_num] += 35;
+	}
+	else
+	{
+		mis_data[correct_num] = -1;
+		mis_anim2[correct_num] = 0;
+		mis_anim[correct_num] = 4;
+		mcom_cnt[correct_num] = 0;
+		input_flg = false;
+	}
+}
+
+void Player::ResetPlayerState()
+{
+	for (int i = 0; i < INPUT_MAX; i++)
+	{
+		correct[i] = -1;
+		input[i] = -1;
+		mis_data[i] = -1;
+		input_draw[i] = false;
+		player_anim[i] = 4;
+	}
+
+	correct_num = 0;
 }

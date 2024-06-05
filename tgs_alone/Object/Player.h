@@ -36,20 +36,33 @@ public:
 	Player();
 	~Player();
 
-	void Initialize();  // 初期化処理
-	void Update();      // 更新処理
-	void Draw();        // 描画処理
-	void Finalize();    // 終了時処理
+	// 初期化処理
+	void Initialize();
+	// 更新処理
+	void Update();
+	// 描画処理
+	void Draw();
+	// 終了時処理
+	void Finalize();
 
-	void ResetPlayerInput(int num) { correct[num] = -1,input[num] = -1,mis_data[num] = -1; }    // プレイヤーの入力データをリセット
-	void ResetPlayerAnim(int num) { player_anim[num] = 4; }    // プレイヤーの入力データをリセット
-	bool GetPlayerInput() { return input_flg; }  // プレイヤーの入力状態を返す
-	void SetPlayerInput(bool flg) { input_flg = flg; }  // プレイヤーの入力状態の設定
-	bool GetButtonInput() { return button_flg; }  // プレイヤーの入力状態を返す
-	void SetButtonInput(bool flg) { button_flg = flg; }  // プレイヤーの入力状態の設定
-	void SetPlayerAnim(); // 当たった数設定
-	bool GetInputDraw(int num) { return input_draw[num]; }  // プレイヤーが入力したデータを表示したか返す
-	void ResetInputDraw(int num) { input_draw[num] = false; }  // プレイヤーの入力データ表示をリセット
-	void ResetPlayerAnim(); // プレイヤーが当たった時のボタンの動き
-	void Comparison(); // プレイヤーの入力とお題の比較
+	// ボタンが落ちる演出
+	void FallAnim();
+	// MisYの設定
+	void SetMisY();
+	// プレイヤーの情報を初期化
+	void ResetPlayerState();
+	// プレイヤーの入力とお題の比較 
+	void Comparison();
+	// 当たった数設定
+	void SetPlayerAnim();
+	// コメントの表示時間
+	void SetCom();
+	// ミスコメントの表示時間
+	void SetMisCom();
+	// プレイヤーの入力状態を返す
+	bool GetPlayerInput() { return input_flg; } 
+	// プレイヤーの入力状態の設定
+	void SetPlayerInput(bool flg) { input_flg = flg; }  
+	// プレイヤーが入力したデータを表示したか返す
+	bool GetInputDraw(int num) { return input_draw[num]; }  
 };
