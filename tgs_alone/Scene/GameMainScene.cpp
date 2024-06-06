@@ -112,6 +112,7 @@ eSceneType GameMainScene::Update()
 				break;
 			case 1:
 				pause = false;
+				Finalize();
 				Initialize();
 				break;
 			case 2:

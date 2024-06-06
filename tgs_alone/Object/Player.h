@@ -9,7 +9,7 @@ private:
 	int sound[2];    // 音データ
 	int img[4][5];      // 画像データ
 	int combo_img[10];
-	int mis_img;
+	int mis_img[4];
 	int comment[2];
 	int mcom_cnt[INPUT_MAX];
 	int com_cnt[INPUT_MAX];
@@ -22,6 +22,8 @@ private:
 	int mis_anim2[INPUT_MAX];
 	int cnt;
 	int mis_y[INPUT_MAX];
+	int effect_img[2];
+	int effect[INPUT_MAX];
 
 public:
 	int input[INPUT_MAX]; // プレイヤーが入力したデータを保存
