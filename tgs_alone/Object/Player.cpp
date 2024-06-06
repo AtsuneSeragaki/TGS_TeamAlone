@@ -316,7 +316,16 @@ void Player::Draw()
 				if (mis_draw[i] == true)
 				{
 					DrawGraph((500 - 57 * (Theme::theme_num - 3)) + i * 110 + 15, 370, comment[1], TRUE);
-					DrawGraph((500 - 57 * (Theme::theme_num - 3)) + i * 110, mis_y[i], mis_img[mis_data[i]], TRUE);
+					//DrawGraph((500 - 57 * (Theme::theme_num - 3)) + i * 110, mis_y[i], mis_img[mis_data[i]], TRUE);
+
+					if (mis_y[i] > 410)
+					{
+						DrawGraph((500 - 57 * (Theme::theme_num - 3)) + i * 110, mis_y[i], mis_img[mis_data[i]], TRUE);
+					}
+					else
+					{
+						DrawGraph((500 - 57 * (Theme::theme_num - 3)) + i * 110, mis_y[i], img[mis_data[i]][0], TRUE);
+					}
 				}
 				else
 				{
@@ -906,7 +915,7 @@ void Player::FallAnim()
 {
 	if (mis_y[correct_num] <= 730)
 	{
-		mis_y[correct_num] += 35;
+		mis_y[correct_num] += 30;
 	}
 	else
 	{

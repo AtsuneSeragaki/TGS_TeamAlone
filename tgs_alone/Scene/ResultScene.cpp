@@ -73,7 +73,7 @@ void ResultScene::Draw() const
 	// 背景画像表示
 	DrawGraph(0, 0, back_img[0], TRUE);
 
-	int i = Theme::theme_num - 2;
+	int i = Theme::theme_num - 3;
 	int j = Player::combo;
 
 	// ランクの表示

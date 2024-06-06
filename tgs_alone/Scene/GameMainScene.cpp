@@ -160,6 +160,11 @@ eSceneType GameMainScene::Update()
 			//制限時間が0になったら
 			if (time->GetTime() <= 0.0f || Player::correct_num == THEME_MAX)
 			{
+				if (Player::correct_num == theme->GetThemeNum())
+				{
+					Player::correct_num++;
+				}
+
 				player->SetPlayerAnim();
 
 				if (Player::correct_num == THEME_MAX)
