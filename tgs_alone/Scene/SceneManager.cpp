@@ -96,6 +96,11 @@ void SceneManager::Update()
 		{
 			break;
 		}
+
+		if (EndScene::cnt > 180)
+		{
+			break;
+		}
 	}
 }
 

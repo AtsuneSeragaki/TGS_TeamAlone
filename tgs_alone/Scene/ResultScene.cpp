@@ -56,7 +56,7 @@ void ResultScene::Initialize()
 
 eSceneType ResultScene::Update()
 {
-	if (InputControl::GetButtonDown(XINPUT_BUTTON_A))
+	if (InputControl::GetButtonDown(XINPUT_BUTTON_B))
 	{
 		return eSceneType::E_TITLE;
 	}

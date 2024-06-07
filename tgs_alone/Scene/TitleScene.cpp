@@ -2,7 +2,9 @@
 #include "../Utility/InputControl.h"
 #include "DxLib.h"
 
-TitleScene::TitleScene() : back_img(0),menu_cursor(0)
+int TitleScene::menu_cursor = 0;
+
+TitleScene::TitleScene() : back_img(0)
 {
 	for (int i = 0; i < 8; i++)
 	{
@@ -46,13 +48,11 @@ void TitleScene::Initialize()
 			throw("menu_img[%d]がありません",i);
 		}
 	}
-
-	menu_cursor = 0;
 }
 
 eSceneType TitleScene::Update()
 {
-	if (InputControl::GetButtonDown(XINPUT_BUTTON_A) == true)
+	if (InputControl::GetButtonDown(XINPUT_BUTTON_A))
 	{
 		menu_cursor++;
 
@@ -62,7 +62,7 @@ eSceneType TitleScene::Update()
 		}
 	}
 
-	if (InputControl::GetButtonDown(XINPUT_BUTTON_Y) == true)
+	if (InputControl::GetButtonDown(XINPUT_BUTTON_Y))
 	{
 		menu_cursor--;
 
@@ -72,7 +72,7 @@ eSceneType TitleScene::Update()
 		}
 	}
 
-	if (InputControl::GetButtonDown(XINPUT_BUTTON_B) == true)
+	if (InputControl::GetButtonDown(XINPUT_BUTTON_B))
 	{
 		switch (menu_cursor)
 		{

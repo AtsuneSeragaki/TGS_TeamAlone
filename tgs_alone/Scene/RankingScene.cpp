@@ -1,4 +1,5 @@
 ﻿#include "RankingScene.h"
+#include "../Utility/InputControl.h"
 #include "DxLib.h"
 
 RankingScene::RankingScene():back_img(0)
@@ -15,6 +16,11 @@ void RankingScene::Initialize()
 
 eSceneType RankingScene::Update()
 {
+	if (InputControl::GetButtonDown(XINPUT_BUTTON_B))
+	{
+		return eSceneType::E_TITLE;
+	}
+
 	return GetNowScene();
 }
 
