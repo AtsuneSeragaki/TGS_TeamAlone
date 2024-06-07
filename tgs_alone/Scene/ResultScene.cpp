@@ -24,12 +24,12 @@ ResultScene::~ResultScene()
 void ResultScene::Initialize()
 {
 	// 画像データの読み込み
-	back_img[0] = LoadGraph("Resource/images/result.png");
-	back_img[1] = LoadGraph("Resource/images/result2.png");
-	LoadDivGraph("Resource/images/result_num.png", 10, 5, 2, 75, 75, num_img);
-	rank_img[0] = LoadGraph("Resource/images/rank1.png");
-	rank_img[1] = LoadGraph("Resource/images/rank2.png");
-	rank_img[2] = LoadGraph("Resource/images/rank3.png");
+	back_img[0] = LoadGraph("Resource/images/result/result.png");
+	back_img[1] = LoadGraph("Resource/images/result/result2.png");
+	LoadDivGraph("Resource/images/result/result_num.png", 10, 5, 2, 75, 75, num_img);
+	rank_img[0] = LoadGraph("Resource/images/result/rank1.png");
+	rank_img[1] = LoadGraph("Resource/images/result/rank2.png");
+	rank_img[2] = LoadGraph("Resource/images/result/rank3.png");
 
 	// エラーチェック
 	if (back_img[0] == -1)
@@ -58,7 +58,7 @@ eSceneType ResultScene::Update()
 {
 	if (InputControl::GetButtonDown(XINPUT_BUTTON_A))
 	{
-		return eSceneType::E_MAIN;
+		return eSceneType::E_TITLE;
 	}
 
 	return GetNowScene();

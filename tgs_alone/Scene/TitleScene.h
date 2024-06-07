@@ -5,8 +5,9 @@
 class TitleScene : public SceneBase
 {
 private:
-	int back_img;    // 背景画像 
-	int menu_img[4]; // メニュー画像
+	int back_img;     // 背景画像 
+	int menu_img[8];  // メニュー画像
+	int menu_cursor;  // カーソルがどこにあるか 
 
 public:
 	TitleScene();

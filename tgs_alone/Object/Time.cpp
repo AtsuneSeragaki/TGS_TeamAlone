@@ -19,10 +19,10 @@ Time::~Time()
 void Time::Initialize()
 {
 	// 画像データの読み込み
-	LoadDivGraph("Resource/images/numberb.png", 10, 5, 2, 75, 75, img_b);
-	img_b[10] = LoadGraph("Resource/images/period.png");
-	LoadDivGraph("Resource/images/numberr.png", 10, 5, 2, 75, 75, img_r);
-	img_r[10] = LoadGraph("Resource/images/periodr.png");
+	LoadDivGraph("Resource/images/main/number/numberb.png", 10, 5, 2, 75, 75, img_b);
+	img_b[10] = LoadGraph("Resource/images/main/number/period.png");
+	LoadDivGraph("Resource/images/main/number/numberr.png", 10, 5, 2, 75, 75, img_r);
+	img_r[10] = LoadGraph("Resource/images/main/number/periodr.png");
 
 	// エラーチェック
 	for (int i = 0; i < 11; i++)

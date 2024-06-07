@@ -1,4 +1,5 @@
 ﻿#include "EndScene.h"
+#include "DxLib.h"
 
 EndScene::EndScene():back_img(0)
 {
@@ -19,6 +20,8 @@ eSceneType EndScene::Update()
 
 void EndScene::Draw() const
 {
+	SetFontSize(30);
+	DrawString(0, 0, "END", 0xffffff);
 }
 
 void EndScene::Finalize()

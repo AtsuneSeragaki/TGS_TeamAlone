@@ -54,7 +54,7 @@ void SceneManager::Initialize()
 	}
 
 	// タイトルシーンから始める
-	ChangeScene(eSceneType::E_MAIN);
+	ChangeScene(eSceneType::E_TITLE);
 }
 
 // シーンマネージャー機能：更新処理
@@ -83,12 +83,6 @@ void SceneManager::Update()
 
 			// 描画処理
 			Draw();
-
-			// エンドが選択されていたら、ゲームを終了する
-			if (next == eSceneType::E_END)
-			{
-				break;
-			}
 
 			// 現在のシーンと次のシーンが違っていたら、切り替え処理を行う
 			if (next != current_scene->GetNowScene())

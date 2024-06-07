@@ -1,4 +1,5 @@
 ﻿#include "RankingScene.h"
+#include "DxLib.h"
 
 RankingScene::RankingScene():back_img(0)
 {
@@ -19,6 +20,8 @@ eSceneType RankingScene::Update()
 
 void RankingScene::Draw() const
 {
+	SetFontSize(30);
+	DrawString(0, 0, "RANKING", 0xffffff);
 }
 
 void RankingScene::Finalize()

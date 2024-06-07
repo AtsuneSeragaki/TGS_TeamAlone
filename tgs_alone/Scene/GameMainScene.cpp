@@ -29,29 +29,29 @@ GameMainScene::~GameMainScene()
 void GameMainScene::Initialize()
 {
 	// 画像の読み込み
-	img[3] = LoadGraph("Resource/images/count3.png");
-	img[2] = LoadGraph("Resource/images/count2.png");
-	img[1] = LoadGraph("Resource/images/count1.png");
-	img[0] = LoadGraph("Resource/images/start.png");
-	img[4] = LoadGraph("Resource/images/main.png");
-	img[5] = LoadGraph("Resource/images/timeup.png");
-	img[6] = LoadGraph("Resource/images/perfect.png");
+	img[3] = LoadGraph("Resource/images/main/count3.png");
+	img[2] = LoadGraph("Resource/images/main/count2.png");
+	img[1] = LoadGraph("Resource/images/main/count1.png");
+	img[0] = LoadGraph("Resource/images/main/start.png");
+	img[4] = LoadGraph("Resource/images/main/main.png");
+	img[5] = LoadGraph("Resource/images/main/string/timeup.png");
+	img[6] = LoadGraph("Resource/images/main/string/perfect.png");
 
-	pause_img[0] = LoadGraph("Resource/images/pausewin.png");
-	pause_img[1] = LoadGraph("Resource/images/resumeb.png");
-	pause_img[2] = LoadGraph("Resource/images/resume.png");
-	pause_img[3] = LoadGraph("Resource/images/restartb.png");
-	pause_img[4] = LoadGraph("Resource/images/restart.png");
-	pause_img[5] = LoadGraph("Resource/images/backb.png");
-	pause_img[6] = LoadGraph("Resource/images/back.png");
-	pause_img[7] = LoadGraph("Resource/images/updownUI.png");
+	pause_img[0] = LoadGraph("Resource/images/pause/pausewin.png");
+	pause_img[1] = LoadGraph("Resource/images/pause/resumeb.png");
+	pause_img[2] = LoadGraph("Resource/images/pause/resume.png");
+	pause_img[3] = LoadGraph("Resource/images/pause/restartb.png");
+	pause_img[4] = LoadGraph("Resource/images/pause/restart.png");
+	pause_img[5] = LoadGraph("Resource/images/pause/backb.png");
+	pause_img[6] = LoadGraph("Resource/images/pause/back.png");
+	pause_img[7] = LoadGraph("Resource/images/pause/updownUI.png");
 
 	// サウンド読み込み
-	sound[0] = LoadSoundMem("Resource/sounds/maou_bgm_cyber44.ogg");
-	sound[1] = LoadSoundMem("Resource/sounds/countdown.mp3");
-	sound[2] = LoadSoundMem("Resource/sounds/start.mp3");
-	sound[3] = LoadSoundMem("Resource/sounds/game_end.mp3");
-	sound[4] = LoadSoundMem("Resource/sounds/stop.mp3");
+	sound[0] = LoadSoundMem("Resource/sounds/main/maou_bgm_cyber44.ogg");
+	sound[1] = LoadSoundMem("Resource/sounds/main/se/countdown.mp3");
+	sound[2] = LoadSoundMem("Resource/sounds/main/se/start.mp3");
+	sound[3] = LoadSoundMem("Resource/sounds/main/se/game_end.mp3");
+	sound[4] = LoadSoundMem("Resource/sounds/main/se/stop.mp3");
 
 	// エラーチェック
 	for (int i = 0; i < 7; i++)

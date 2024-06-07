@@ -57,47 +57,47 @@ Player::~Player()
 void Player::Initialize()
 {
 	// 画像の読み込み
-	img[0][0] = LoadGraph("Resource/images/Abotton0.png");
-	img[0][1] = LoadGraph("Resource/images/Abotton5.png");
-	img[0][2] = LoadGraph("Resource/images/Abotton6.png");
-	img[0][3] = LoadGraph("Resource/images/Abotton7.png");
-	img[0][4] = LoadGraph("Resource/images/Abotton8.png");
+	img[0][0] = LoadGraph("Resource/images/main/button/Abotton0.png");
+	img[0][1] = LoadGraph("Resource/images/main/button/Abotton5.png");
+	img[0][2] = LoadGraph("Resource/images/main/button/Abotton6.png");
+	img[0][3] = LoadGraph("Resource/images/main/button/Abotton7.png");
+	img[0][4] = LoadGraph("Resource/images/main/button/Abotton8.png");
 
 
-	img[1][0] = LoadGraph("Resource/images/Bbotton0.png");
-	img[1][1] = LoadGraph("Resource/images/Bbotton5.png");
-	img[1][2] = LoadGraph("Resource/images/Bbotton6.png");
-	img[1][3] = LoadGraph("Resource/images/Bbotton7.png");
-	img[1][4] = LoadGraph("Resource/images/Bbotton8.png");
+	img[1][0] = LoadGraph("Resource/images/main/button/Bbotton0.png");
+	img[1][1] = LoadGraph("Resource/images/main/button/Bbotton5.png");
+	img[1][2] = LoadGraph("Resource/images/main/button/Bbotton6.png");
+	img[1][3] = LoadGraph("Resource/images/main/button/Bbotton7.png");
+	img[1][4] = LoadGraph("Resource/images/main/button/Bbotton8.png");
 
-	img[2][0] = LoadGraph("Resource/images/Ybotton0.png");
-	img[2][1] = LoadGraph("Resource/images/Ybotton5.png");
-	img[2][2] = LoadGraph("Resource/images/Ybotton6.png");
-	img[2][3] = LoadGraph("Resource/images/Ybotton7.png");
-	img[2][4] = LoadGraph("Resource/images/Ybotton8.png");
+	img[2][0] = LoadGraph("Resource/images/main/button/Ybotton0.png");
+	img[2][1] = LoadGraph("Resource/images/main/button/Ybotton5.png");
+	img[2][2] = LoadGraph("Resource/images/main/button/Ybotton6.png");
+	img[2][3] = LoadGraph("Resource/images/main/button/Ybotton7.png");
+	img[2][4] = LoadGraph("Resource/images/main/button/Ybotton8.png");
 
-	img[3][0] = LoadGraph("Resource/images/Xbotton0.png");
-	img[3][1] = LoadGraph("Resource/images/Xbotton5.png");
-	img[3][2] = LoadGraph("Resource/images/Xbotton6.png");
-	img[3][3] = LoadGraph("Resource/images/Xbotton7.png");
-	img[3][4] = LoadGraph("Resource/images/Xbotton8.png");
+	img[3][0] = LoadGraph("Resource/images/main/button/Xbotton0.png");
+	img[3][1] = LoadGraph("Resource/images/main/button/Xbotton5.png");
+	img[3][2] = LoadGraph("Resource/images/main/button/Xbotton6.png");
+	img[3][3] = LoadGraph("Resource/images/main/button/Xbotton7.png");
+	img[3][4] = LoadGraph("Resource/images/main/button/Xbotton8.png");
 
-	mis_img[0] = LoadGraph("Resource/images/misbuttonA.png");
-	mis_img[1] = LoadGraph("Resource/images/misbuttonB.png");
-	mis_img[2] = LoadGraph("Resource/images/misbuttonY.png");
-	mis_img[3] = LoadGraph("Resource/images/misbuttonX.png");
+	mis_img[0] = LoadGraph("Resource/images/main/button/misbuttonA.png");
+	mis_img[1] = LoadGraph("Resource/images/main/button/misbuttonB.png");
+	mis_img[2] = LoadGraph("Resource/images/main/button/misbuttonY.png");
+	mis_img[3] = LoadGraph("Resource/images/main/button/misbuttonX.png");
 
-	LoadDivGraph("Resource/images/combo.png", 10, 5, 2, 75, 75, combo_img);
+	LoadDivGraph("Resource/images/main/number/combo.png", 10, 5, 2, 75, 75, combo_img);
 
-	comment[0] = LoadGraph("Resource/images/great.png");
-	comment[1] = LoadGraph("Resource/images/bad.png");
+	comment[0] = LoadGraph("Resource/images/main/string/great.png");
+	comment[1] = LoadGraph("Resource/images/main/string/bad.png");
 
-	effect_img[0] = LoadGraph("Resource/images/effect3.png");
-	effect_img[1] = LoadGraph("Resource/images/effect4.png");
+	effect_img[0] = LoadGraph("Resource/images/main/effect/effect3.png");
+	effect_img[1] = LoadGraph("Resource/images/main/effect/effect4.png");
 
 	// サウンド読み込み
-	sound[0] = LoadSoundMem("Resource/sounds/button.mp3");
-	sound[1] = LoadSoundMem("Resource/sounds/mis.mp3");
+	sound[0] = LoadSoundMem("Resource/sounds/main/se/button.mp3");
+	sound[1] = LoadSoundMem("Resource/sounds/main/se/mis.mp3");
 
 	// エラーチェック
 	for (int i = 0; i < 4; i++)

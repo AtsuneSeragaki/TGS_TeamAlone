@@ -19,14 +19,14 @@ Theme::~Theme()
 void Theme::Initialize()
 {
 	// 画像の読み込み
-	img[0] = LoadGraph("Resource/images/Abotton.png");
-	img[1] = LoadGraph("Resource/images/Bbotton.png");
-	img[2] = LoadGraph("Resource/images/Ybotton.png");
-	img[3] = LoadGraph("Resource/images/Xbotton.png");
-	LoadDivGraph("Resource/images/level.png", 10, 5, 2, 50, 50, level_img);
+	img[0] = LoadGraph("Resource/images/main/button/Abotton.png");
+	img[1] = LoadGraph("Resource/images/main/button/Bbotton.png");
+	img[2] = LoadGraph("Resource/images/main/button/Ybotton.png");
+	img[3] = LoadGraph("Resource/images/main/button/Xbotton.png");
+	LoadDivGraph("Resource/images/main/number/level.png", 10, 5, 2, 50, 50, level_img);
 
 	// サウンド読み込み
-	sound = LoadSoundMem("Resource/sounds/theme.mp3");
+	sound = LoadSoundMem("Resource/sounds/main/se/theme.mp3");
 
 	// エラーチェック
 	for (int i = 0; i < 4; i++)

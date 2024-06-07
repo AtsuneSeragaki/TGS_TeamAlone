@@ -1,4 +1,5 @@
 ﻿#include "HelpScene.h"
+#include "DxLib.h"
 
 HelpScene::HelpScene():back_img(0)
 {
@@ -19,6 +20,8 @@ eSceneType HelpScene::Update()
 
 void HelpScene::Draw() const
 {
+	SetFontSize(30);
+	DrawString(0, 0,"HELP",0xffffff);
 }
 
 void HelpScene::Finalize()
