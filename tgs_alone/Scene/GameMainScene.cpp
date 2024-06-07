@@ -14,6 +14,11 @@ GameMainScene::GameMainScene() :player(nullptr), time(nullptr), theme(nullptr), 
 	{
 		img[i] = 0;
 	}
+
+	for (int i = 0; i < 8; i++)
+	{
+		pause_img[i] = 0;
+	}
 }
 
 GameMainScene::~GameMainScene()
@@ -31,7 +36,16 @@ void GameMainScene::Initialize()
 	img[4] = LoadGraph("Resource/images/main.png");
 	img[5] = LoadGraph("Resource/images/timeup.png");
 	img[6] = LoadGraph("Resource/images/perfect.png");
-	
+
+	pause_img[0] = LoadGraph("Resource/images/pausewin.png");
+	pause_img[1] = LoadGraph("Resource/images/resumeb.png");
+	pause_img[2] = LoadGraph("Resource/images/resume.png");
+	pause_img[3] = LoadGraph("Resource/images/restartb.png");
+	pause_img[4] = LoadGraph("Resource/images/restart.png");
+	pause_img[5] = LoadGraph("Resource/images/backb.png");
+	pause_img[6] = LoadGraph("Resource/images/back.png");
+	pause_img[7] = LoadGraph("Resource/images/updownUI.png");
+
 	// サウンド読み込み
 	sound[0] = LoadSoundMem("Resource/sounds/maou_bgm_cyber44.ogg");
 	sound[1] = LoadSoundMem("Resource/sounds/countdown.mp3");
@@ -223,91 +237,98 @@ eSceneType GameMainScene::Update()
 
 void GameMainScene::Draw() const
 {
-	if (pause == true)
-	{// ポーズ
-		// 背景描画
-		DrawBox(0, 0, 1280, 720, 0x7d7d7d, TRUE);
-		DrawString(0, 0, "Pause", 0xffffff);
-		SetFontSize(40);
-		DrawFormatString(0, 40, 0x000000, "%d", pause_cursor);
-		switch (pause_cursor)
-		{
-		case 0:
-			DrawString(0, 70, "resume", 0xffffff);
-			break;
-		case 1:
-			DrawString(0, 70, "restart", 0xffffff);
-			break;
-		case 2:
-			DrawString(0, 70, "back to title", 0xffffff);
-			break;
-		default:
-			break;
-		}
+	// 背景描画
+	DrawGraph(0, 0, img[4], TRUE);
+
+	if (begin_time == -1)
+	{
+		// 制限時間の描画
+		time->Draw();
+
+		// お題の描画
+		theme->Draw();
+
+		// プレイヤーの入力を描画
+		player->Draw();
+	}
+	else if (begin_time == 0)
+	{
+		// ゲーム開始の描画
+		DrawGraph(0, 0, img[0], TRUE);
+
 	}
 	else
 	{
-		// 背景描画
-		DrawGraph(0, 0, img[4], TRUE);
+		// ゲーム開始までのカウントダウン描画
+		DrawGraph(0, 0, img[begin_time], TRUE);
 
-		if (begin_time == -1)
-		{
-			// 制限時間の描画
-			time->Draw();
+	}
 
-			// お題の描画
-			theme->Draw();
+	if (timeup_cnt != 0)
+	{
+		if (Player::correct_num == THEME_MAX)
+		{// お題を全てクリアしたら
 
-			// プレイヤーの入力を描画
-			player->Draw();
-		}
-		else if (begin_time == 0)
-		{
-			// ゲーム開始の描画
-			DrawGraph(0, 0, img[0], TRUE);
-
-		}
-		else
-		{
-			// ゲーム開始までのカウントダウン描画
-			DrawGraph(0, 0, img[begin_time], TRUE);
-
-		}
-
-		if (timeup_cnt != 0)
-		{
-			if (Player::correct_num == THEME_MAX)
-			{// お題を全てクリアしたら
-
-				SetDrawBlendMode(DX_BLENDMODE_ALPHA, 200);
-				DrawBox(0, 0, 1280, 720, 0xffffff, TRUE);
-				SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+			SetDrawBlendMode(DX_BLENDMODE_ALPHA, 200);
+			DrawBox(0, 0, 1280, 720, 0xffffff, TRUE);
+			SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 
 
-				if (timeup_cnt <= 78)
-				{
-					DrawGraph(30, -600 + timeup_cnt * 7, img[6], TRUE);
-				}
-				else
-				{
-					DrawGraph(30, -50, img[6], TRUE);
-				}
+			if (timeup_cnt <= 78)
+			{
+				DrawGraph(30, -600 + timeup_cnt * 7, img[6], TRUE);
 			}
 			else
-			{// 制限時間が0になったら
-				SetDrawBlendMode(DX_BLENDMODE_ALPHA, 200);
-				DrawBox(0, 0, 1280, 720, 0xffffff, TRUE);
-				SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
-
-				if (timeup_cnt <= 78)
-				{
-					DrawGraph(30, -600 + timeup_cnt * 7, img[5], TRUE);
-				}
-				else
-				{
-					DrawGraph(30, -50, img[5], TRUE);
-				}
+			{
+				DrawGraph(30, -50, img[6], TRUE);
 			}
+		}
+		else
+		{// 制限時間が0になったら
+			SetDrawBlendMode(DX_BLENDMODE_ALPHA, 200);
+			DrawBox(0, 0, 1280, 720, 0xffffff, TRUE);
+			SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+
+			if (timeup_cnt <= 78)
+			{
+				DrawGraph(30, -600 + timeup_cnt * 7, img[5], TRUE);
+			}
+			else
+			{
+				DrawGraph(30, -50, img[5], TRUE);
+			}
+		}
+	}
+
+	if (pause == true)
+	{// ポーズ
+		// 背景描画
+		SetDrawBlendMode(DX_BLENDMODE_ALPHA, 200);
+		DrawBox(0, 0, 1280, 720, 0xffffff, TRUE);
+		SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+
+		DrawGraph(348, 140, pause_img[0], TRUE);
+		DrawGraph(900, 600, pause_img[7], TRUE);
+
+		switch (pause_cursor)
+		{
+		case 0:
+			DrawGraph(538, 255, pause_img[1], TRUE);
+			DrawGraph(545, 347, pause_img[4], TRUE);
+			DrawGraph(470, 440, pause_img[6], TRUE);
+			break;
+		case 1:
+			DrawGraph(538, 255, pause_img[2], TRUE);
+			DrawGraph(545, 347, pause_img[3], TRUE);
+			DrawGraph(470, 440, pause_img[6], TRUE);
+			break;
+		case 2:
+			DrawGraph(538, 255, pause_img[2], TRUE);
+			DrawGraph(545, 347, pause_img[4], TRUE);
+			DrawGraph(470, 440, pause_img[5], TRUE);
+			break;
+		default:
+			break;
 		}
 	}
 }

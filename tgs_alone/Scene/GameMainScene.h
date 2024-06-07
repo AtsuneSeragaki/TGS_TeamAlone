@@ -17,6 +17,7 @@ private:
 	int timeup_cnt;   // タイムアップのアニメーション用
 	bool pause;       // ポーズフラグ
 	int pause_cursor; // ポーズ画面のカーソル
+	int pause_img[8]; // ポーズ画面の画像
 	
     Player* player;   // プレイヤー
 	Time* time;       // 制限時間
