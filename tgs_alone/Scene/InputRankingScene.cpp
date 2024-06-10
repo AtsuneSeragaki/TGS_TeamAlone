@@ -44,6 +44,8 @@ eSceneType InputRankingScene::Update()
 
 void InputRankingScene::Draw() const
 {
+	SetFontSize(25);
+
 	const int font_size = 25;
 	for (int i = 0; i < 26; i++)
 	{
@@ -70,9 +72,15 @@ void InputRankingScene::Draw() const
 		}
 		else
 		{
-			DrawBox(0, 0, font_size, font_size, 0xffffff, FALSE);
+			DrawBox(100, 400, 100 + font_size, 400 + font_size, 0xffffff, FALSE);
 		}
 	}
+
+	DrawFormatString(500, 0, 0xffffff, "%d", cursor_x);
+	DrawFormatString(600, 0, 0xffffff, "%d", cursor_y);
+
+	DrawFormatString(200, 0, 0xffffff, "%s", name);
+
 }
 
 void InputRankingScene::Finalize()
@@ -94,24 +102,52 @@ bool InputRankingScene::InputName()
 	// カーソル操作処理
 	if (InputControl::GetButtonDown(XINPUT_BUTTON_X))
 	{
-		if (cursor_x > 0)
+		if (cursor_y == 4)
 		{
-			cursor_x--;
+			if (cursor_x == 0)
+			{
+				cursor_x = 1;
+			}
+			else
+			{
+				cursor_x--;
+			}
 		}
 		else
 		{
-			cursor_x = 12;
+			if (cursor_x > 0)
+			{
+				cursor_x--;
+			}
+			else
+			{
+				cursor_x = 12;
+			}
 		}
 	}
 	if (InputControl::GetButtonDown(XINPUT_BUTTON_B))
 	{
-		if (cursor_x < 12)
+		if (cursor_y == 4)
 		{
-			cursor_x++;
+			if (cursor_x == 1)
+			{
+				cursor_x = 0;
+			}
+			else
+			{
+				cursor_x++;
+			}
 		}
 		else
 		{
-			cursor_x = 0;
+			if (cursor_x < 12)
+			{
+				cursor_x++;
+			}
+			else
+			{
+				cursor_x = 0;
+			}
 		}
 	}
 	if (InputControl::GetButtonDown(XINPUT_BUTTON_Y))
@@ -130,11 +166,10 @@ bool InputRankingScene::InputName()
 		if (cursor_y < 4)
 		{
 			cursor_y++;
-
-			if (cursor_y == 4)
-			{
-				cursor_x = 0;
-			}
+		}
+		else
+		{
+			cursor_y = 0;
 		}
 	}
 
@@ -145,7 +180,7 @@ bool InputRankingScene::InputName()
 		{
 			name[name_num++] = 'a' + cursor_x + (cursor_y * 13);
 
-			if (cursor_y == 14)
+			if (cursor_y == 4)
 			{
 				cursor_x = 0;
 				cursor_y = 4;
@@ -155,7 +190,7 @@ bool InputRankingScene::InputName()
 		{
 			name[name_num++] = 'A' + cursor_x + ((cursor_y - 2) * 13);
 
-			if (cursor_y == 14)
+			if (cursor_y == 4)
 			{
 				cursor_x = 0;
 				cursor_y = 4;

@@ -107,7 +107,6 @@ void RankingData::SortData()
 				strcpy_s(name[i], name[j]);
 				strcpy_s(name[j], buf);
 			}
-			
 		}
 	}
 
@@ -120,7 +119,7 @@ void RankingData::SortData()
 	{
 		for (int j = i + 1; j < 6; j++)
 		{
-			if (level[i] > level[j])
+			if (level[i] > level[j] && combo[i] > combo[j])
 			{
 				rank[j]++;
 			}
@@ -131,18 +130,18 @@ void RankingData::SortData()
 	FILE* fp = nullptr;
 
 	// ファイルオープン
-	errno_t result = fopen_s(&fp, "Resource/dat/ranking_data.csv", "w");
+	errno_t result = fopen_s(&fp, "Resource/dat/ranking_data.txt", "w");
 
 	// エラーチェック
 	if (result != 0)
 	{
-		throw("Resource/dat/ranking_data.csvが開けませんでした\n");
+		throw("Resource/dat/ranking_data.txtが開けませんでした\n");
 	}
 
 	// 対象ファイルに書き込み
 	for (int i = 0; i < 5; i++)
 	{
-		fprintf(fp, "%d,%d,%d,%s,\n", level[i], combo[i], rank[i], name[i]);
+		fprintf(fp, "%d %s %d %d\n", rank[i], name[i],level[i], combo[i]);
 	}
 
 	// ファイルクローズ

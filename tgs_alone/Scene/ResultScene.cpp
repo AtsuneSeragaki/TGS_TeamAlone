@@ -15,6 +15,18 @@ ResultScene::ResultScene():back_img{0}
 	{
 		rank_img[i] = 0;
 	}
+
+	for (int i = 0; i < 5; i++)
+	{
+		level[i] = NULL;
+		rank[i] = NULL;
+		combo[i] = NULL;
+
+		for (int j = 0; j < 15; j++)
+		{
+			name[i][j] = '\0';
+		}
+	}
 }
 
 ResultScene::~ResultScene()
@@ -52,15 +64,45 @@ void ResultScene::Initialize()
 			throw("rank_img[%d]がありません", i);
 		}
 	}
+
+	// ランキングデータの読み込み
+	FILE * fp = nullptr;
+
+	// ファイルオープン
+	errno_t result = fopen_s(&fp, "Resource/dat/ranking_data.txt", "r");
+
+	// エラーチェック
+	if (result != 0)
+	{
+		throw("Resource/dat/ranking_data.txtが開けませんでした\n");
+	}
+
+	// 対象ファイルから読み込む
+	for (int i = 0; i < 4; i++)
+	{
+		fscanf_s(fp, "%2d %15s %2d %2d", &rank[i], name[i], 15, &level[i], &combo[i]);
+	}
+
+	// ファイルクローズ
+	fclose(fp);
+
 }
 
 eSceneType ResultScene::Update()
 {
+	
 	if (InputControl::GetButtonDown(XINPUT_BUTTON_B))
 	{
-		return eSceneType::E_INPUT_RANKING;
+		if (level[4] <= Theme::theme_num - 3 && combo[4] <= Player::combo)
+		{
+			return eSceneType::E_INPUT_RANKING;
+		}
+		else
+		{
+			return eSceneType::E_TITLE;
+		}
 	}
-
+	
 	return GetNowScene();
 }
 
