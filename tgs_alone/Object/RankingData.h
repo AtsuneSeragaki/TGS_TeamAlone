@@ -3,9 +3,9 @@
 class RankingData
 {
 private:
-	int score[5];
+	int level[5];
 	int rank[5];
-	float time[5];
+	int combo[5];
 	char name[5][15];
 
 public:
@@ -16,13 +16,13 @@ public:
 	void Finalize();    // 終了処理
 
 	// ランキングデータの設定
-	void SetRankingData(int score, float time, const char* name);
+	void SetRankingData(int level, int combo, const char* name);
 
 	// スコア取得処理
-	int GetScore(int value) const;
+	int GetLevel(int value) const;
 
 	// タイム取得処理
-	float GetTime(int value) const;
+	float GetCombo(int value) const;
 
 	// スコア取得処理
 	int GetRank(int value) const;
