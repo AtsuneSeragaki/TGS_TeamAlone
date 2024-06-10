@@ -21,8 +21,8 @@ public:
 	// スコア取得処理
 	int GetLevel(int value) const;
 
-	// タイム取得処理
-	float GetCombo(int value) const;
+	// コンボ取得処理
+	int GetCombo(int value) const;
 
 	// スコア取得処理
 	int GetRank(int value) const;

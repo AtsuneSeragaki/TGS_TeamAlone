@@ -58,7 +58,7 @@ eSceneType ResultScene::Update()
 {
 	if (InputControl::GetButtonDown(XINPUT_BUTTON_B))
 	{
-		return eSceneType::E_TITLE;
+		return eSceneType::E_INPUT_RANKING;
 	}
 
 	return GetNowScene();

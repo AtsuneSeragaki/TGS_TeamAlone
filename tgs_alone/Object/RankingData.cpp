@@ -27,18 +27,18 @@ void RankingData::Initialize()
 	FILE* fp = nullptr;
 
 	// ファイルオープン
-	errno_t result = fopen_s(&fp, "Resource/dat/ranking_data.csv", "r");
+	errno_t result = fopen_s(&fp, "Resource/dat/ranking_data.txt", "r");
 
 	// エラーチェック
 	if (result != 0)
 	{
-		throw("Resource/dat/ranking_data.csvが開けませんでした\n");
+		throw("Resource/dat/ranking_data.txtが開けませんでした\n");
 	}
 
 	// 対象ファイルから読み込む
 	for (int i = 0; i < 4; i++)
 	{
-		fscanf_s(fp, "%2d,%2d,%2d,%[^,],\n", &level[i], &combo[i], &rank[i], name[i], 15);
+		fscanf_s(fp, "%2d %15s %2d %2d", &rank[i],name[i],15, &level[i], &combo[i]);
 	}
 
 	// ファイルクローズ
@@ -46,7 +46,7 @@ void RankingData::Initialize()
 
 	// 末尾データの設定
 	level[4] = 0;
-	combo[4] = 0.0f;
+	combo[4] = 0;
 	rank[4] = 0;
 	name[4][0] = '\0';
 }
@@ -70,7 +70,7 @@ int RankingData::GetLevel(int value) const
 	return level[value];
 }
 
-float RankingData::GetCombo(int value) const
+int RankingData::GetCombo(int value) const
 {
 	return combo[value];
 }
@@ -98,9 +98,9 @@ void RankingData::SortData()
 				level[i] = level[j];
 				level[j] = tmp;
 
-				float tmp = combo[i];
+				int tmp2 = combo[i];
 				combo[i] = combo[j];
-				combo[j] = tmp;
+				combo[j] = tmp2;
 
 				char buf[15] = {};
 				strcpy_s(buf, name[j]);

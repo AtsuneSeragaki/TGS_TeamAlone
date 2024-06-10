@@ -44,6 +44,35 @@ eSceneType InputRankingScene::Update()
 
 void InputRankingScene::Draw() const
 {
+	const int font_size = 25;
+	for (int i = 0; i < 26; i++)
+	{
+		int x = (i % 13) * font_size + 15;
+		int y = (i / 13) * font_size + 300;
+		DrawFormatString(x, y, 0xffffff, "%-3c", 'a' + i);
+		y = ((i / 13) + 2) * font_size + 300;
+		DrawFormatString(x, y, 0xffffff, "%-3c", 'A' + i);
+	}
+	DrawString(40, 405, "ok", 0xffffff);
+	DrawString(40 + font_size * 2, 405, "delete", 0xffffff);
+
+	if (cursor_y < 4)
+	{
+		int x = cursor_x * font_size + 10;
+		int y = cursor_y * font_size + 295;
+		DrawBox(x, y, x + font_size, y + font_size, 0xffffff,FALSE);
+	}
+	else
+	{
+		if (cursor_x == 0)
+		{
+			DrawBox(35, 400, 35 + font_size, 400 + font_size, 0xffffff, FALSE);
+		}
+		else
+		{
+			DrawBox(0, 0, font_size, font_size, 0xffffff, FALSE);
+		}
+	}
 }
 
 void InputRankingScene::Finalize()
@@ -91,17 +120,9 @@ bool InputRankingScene::InputName()
 		{
 			cursor_y--;
 		}
-	}
-	if (InputControl::GetButtonDown(XINPUT_BUTTON_A))
-	{
-		if (cursor_y < 4)
+		else
 		{
-			cursor_y++;
-
-			if (cursor_y == 4)
-			{
-				cursor_y = 0;
-			}
+			cursor_y = 4;
 		}
 	}
 	if (InputControl::GetButtonDown(XINPUT_BUTTON_A))
@@ -112,21 +133,44 @@ bool InputRankingScene::InputName()
 
 			if (cursor_y == 4)
 			{
-				cursor_y = 0;
+				cursor_x = 0;
 			}
 		}
 	}
 
 	// カーソル位置の文字を決定する
-	if (InputControl::GetButtonDown(XINPUT_BUTTON_A))
+	if (InputControl::GetButtonDown(XINPUT_BUTTON_START))
 	{
-		if (cursor_y < 4)
+		if (cursor_y < 2)
 		{
-			cursor_y++;
+			name[name_num++] = 'a' + cursor_x + (cursor_y * 13);
 
-			if (cursor_y == 4)
+			if (cursor_y == 14)
 			{
-				cursor_y = 0;
+				cursor_x = 0;
+				cursor_y = 4;
+			}
+		}
+		else if (cursor_y < 4)
+		{
+			name[name_num++] = 'A' + cursor_x + ((cursor_y - 2) * 13);
+
+			if (cursor_y == 14)
+			{
+				cursor_x = 0;
+				cursor_y = 4;
+			}
+		}
+		else
+		{
+			if (cursor_x == 0)
+			{
+				name[name_num] = '\0';
+				return true;
+			}
+			else
+			{
+				name[name_num--] = NULL;
 			}
 		}
 	}
