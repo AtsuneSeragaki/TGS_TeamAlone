@@ -78,7 +78,7 @@ void ResultScene::Initialize()
 	}
 
 	// 対象ファイルから読み込む
-	for (int i = 0; i < 5; i++)
+	for (int i = 0; i < 4; i++)
 	{
 		fscanf_s(fp, "%2d %15s %2d %2d", &rank[i], name[i], 15, &level[i], &combo[i]);
 	}
@@ -93,7 +93,7 @@ eSceneType ResultScene::Update()
 	
 	if (InputControl::GetButtonDown(XINPUT_BUTTON_B))
 	{
-		if (level[4] <= Theme::theme_num - 3 && combo[4] <= Player::combo)
+		if (level[3] <= Theme::theme_num - 3 && combo[3] <= Player::combo)
 		{
 			return eSceneType::E_INPUT_RANKING;
 		}

@@ -139,7 +139,7 @@ void RankingData::SortData()
 	}
 
 	// 対象ファイルに書き込み
-	for (int i = 0; i < 5; i++)
+	for (int i = 0; i < 4; i++)
 	{
 		fprintf(fp, "%d %s %d %d\n", rank[i], name[i],level[i], combo[i]);
 	}
