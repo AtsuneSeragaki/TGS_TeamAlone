@@ -14,6 +14,7 @@ private:
 	int name_num;
 	int cursor_x;
 	int cursor_y;
+	bool no_name;
 
 public:
 	InputRankingScene();

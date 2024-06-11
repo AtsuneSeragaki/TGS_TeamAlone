@@ -27,7 +27,6 @@ void EndScene::Draw() const
 {
 	SetFontSize(30);
 	DrawString(0, 0, "END", 0xffffff);
-	DrawFormatString(30, 0,0xffffff,"%d",cnt);
 }
 
 void EndScene::Finalize()

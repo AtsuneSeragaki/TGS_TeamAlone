@@ -35,6 +35,7 @@ void HelpScene::Draw() const
 {
 	SetFontSize(30);
 	DrawString(0, 0,"HELP",0xffffff);
+	DrawString(0, 30, "X:GAME MAIN B:TITLE", 0xff0000);
 }
 
 void HelpScene::Finalize()

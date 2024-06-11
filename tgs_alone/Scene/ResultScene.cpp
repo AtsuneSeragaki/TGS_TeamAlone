@@ -78,7 +78,7 @@ void ResultScene::Initialize()
 	}
 
 	// 対象ファイルから読み込む
-	for (int i = 0; i < 4; i++)
+	for (int i = 0; i < 5; i++)
 	{
 		fscanf_s(fp, "%2d %15s %2d %2d", &rank[i], name[i], 15, &level[i], &combo[i]);
 	}
@@ -109,6 +109,7 @@ eSceneType ResultScene::Update()
 void ResultScene::Draw() const
 {
 #ifdef _DEBUG
+	
 
 #endif // _DEBUG
 
@@ -146,15 +147,21 @@ void ResultScene::Draw() const
 	}
 
 	// 最終的なコンボの表示
-	if (i < 10)
+	if (j < 10)
 	{
 		DrawGraph(898, NUM_Y, num_img[0], TRUE);
 		DrawGraph(960, NUM_Y, num_img[j % 10], TRUE);
 	}
-	else
+	else if (j < 100)
 	{
 		DrawGraph(898, NUM_Y, num_img[j / 10], TRUE);
 		DrawGraph(960, NUM_Y, num_img[j % 10], TRUE);
+	}
+	else
+	{
+		DrawGraph(856, NUM_Y, num_img[j / 100], TRUE);
+		DrawGraph(913, NUM_Y, num_img[(j - j / 100 * 100) / 10], TRUE);
+		DrawGraph(980, NUM_Y, num_img[j % 10], TRUE);
 	}
 }
 

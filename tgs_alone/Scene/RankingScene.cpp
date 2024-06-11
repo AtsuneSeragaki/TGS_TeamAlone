@@ -31,6 +31,7 @@ void RankingScene::Draw() const
 {
 	SetFontSize(30);
 	DrawString(0, 0, "RANKING", 0xffffff);
+	DrawString(0, 40, "B:TITLE", 0xff0000);
 
 	// 取得したランキングデータを描画する
 	for (int i = 0; i < 4; i++)

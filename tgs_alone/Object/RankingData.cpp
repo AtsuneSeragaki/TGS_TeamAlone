@@ -103,7 +103,7 @@ void RankingData::SortData()
 				combo[j] = tmp2;
 
 				char buf[15] = {};
-				strcpy_s(buf, name[j]);
+				strcpy_s(buf, name[i]);
 				strcpy_s(name[i], name[j]);
 				strcpy_s(name[j], buf);
 			}
@@ -115,9 +115,9 @@ void RankingData::SortData()
 	{
 		rank[i] = 1;
 	}
-	for (int i = 0; i < 5; i++)
+	for (int i = 0; i < 4; i++)
 	{
-		for (int j = i + 1; j < 6; j++)
+		for (int j = i + 1; j < 5; j++)
 		{
 			if (level[i] > level[j] && combo[i] > combo[j])
 			{

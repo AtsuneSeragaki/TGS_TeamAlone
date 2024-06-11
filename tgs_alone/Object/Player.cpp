@@ -769,16 +769,7 @@ void Player::Draw()
 				}
 			}
 		}
-
-		SetFontSize(30);
-		DrawFormatString(0 + i * 20, 0, 0x000000, "%d", correct[i]);
-		//DrawFormatString(0 + i * 20, 60, 0xff0000, "%d", com_cnt[i]);
 	}
-
-   DrawFormatString(0, 30, 0x000000, "%d", correct_num);
-
-	
-	//DrawFormatString(0, 30, 0xff0000, "%d", input_flg);
 }
 
 void Player::Finalize()

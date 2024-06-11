@@ -4,7 +4,7 @@
 #include "../Object/Theme.h"
 #include "DxLib.h"
 
-InputRankingScene::InputRankingScene():back_img(0),ranking(nullptr),level(0),combo(0),name_num(0),cursor_x(0),cursor_y(0)
+InputRankingScene::InputRankingScene():back_img(0),ranking(nullptr),level(0),combo(0),name_num(0),cursor_x(0),cursor_y(0),no_name(false)
 {
 	memset(name, NULL, (sizeof(char) * 15));
 }
@@ -21,6 +21,8 @@ void InputRankingScene::Initialize()
 
 	level = Theme::theme_num - 3;
 	combo = Player::combo;
+
+	no_name = true;
 }
 
 eSceneType InputRankingScene::Update()
@@ -76,11 +78,16 @@ void InputRankingScene::Draw() const
 		}
 	}
 
-	DrawFormatString(500, 0, 0xffffff, "%d", cursor_x);
-	DrawFormatString(600, 0, 0xffffff, "%d", cursor_y);
+	if (no_name == true)
+	{
+		DrawString(200, 200, "no name", 0xffffff);
+	}
+	else
+	{
+		DrawFormatString(200, 200, 0xffffff, "%s", name);
+	}
 
-	DrawFormatString(200, 0, 0xffffff, "%s", name);
-
+	DrawString(0, 500, "Y:UP A:DOWN X:LEFT B:RIGHT START:OK", 0xffffff);
 }
 
 void InputRankingScene::Finalize()
@@ -159,6 +166,11 @@ bool InputRankingScene::InputName()
 		else
 		{
 			cursor_y = 4;
+
+			if (cursor_x > 1)
+			{
+				cursor_x = 1;
+			}
 		}
 	}
 	if (InputControl::GetButtonDown(XINPUT_BUTTON_A))
@@ -166,6 +178,11 @@ bool InputRankingScene::InputName()
 		if (cursor_y < 4)
 		{
 			cursor_y++;
+
+			if (cursor_y == 4 && cursor_x > 1)
+			{
+				cursor_x = 1;
+			}
 		}
 		else
 		{
@@ -178,6 +195,11 @@ bool InputRankingScene::InputName()
 	{
 		if (cursor_y < 2)
 		{
+			if (no_name == true)
+			{
+				no_name = false;
+			}
+
 			name[name_num++] = 'a' + cursor_x + (cursor_y * 13);
 
 			if (cursor_y == 4)
@@ -188,6 +210,11 @@ bool InputRankingScene::InputName()
 		}
 		else if (cursor_y < 4)
 		{
+			if (no_name == true)
+			{
+				no_name = false;
+			}
+
 			name[name_num++] = 'A' + cursor_x + ((cursor_y - 2) * 13);
 
 			if (cursor_y == 4)
@@ -200,8 +227,15 @@ bool InputRankingScene::InputName()
 		{
 			if (cursor_x == 0)
 			{
-				name[name_num] = '\0';
-				return true;
+				if (name == NULL)
+				{
+					no_name = true;
+				}
+				else
+				{
+					name[name_num] = '\0';
+					return true;
+				}
 			}
 			else
 			{
