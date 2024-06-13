@@ -3,7 +3,7 @@
 #include "TitleScene.h"
 #include "DxLib.h"
 
-HelpScene::HelpScene():back_img(0),cnt(0),anim(0),cnt_flg(false)
+HelpScene::HelpScene():cnt(0),anim(0),cnt_flg(false)
 {
 	for (int i = 0; i < 4; i++)
 	{
@@ -11,6 +11,11 @@ HelpScene::HelpScene():back_img(0),cnt(0),anim(0),cnt_flg(false)
 		{
 			button_img[i][j] = 0;
 		}
+	}
+
+	for (int i = 0; i < 6; i++)
+	{
+		back_img[i] = 0;
 	}
 }
 
@@ -20,7 +25,12 @@ HelpScene::~HelpScene()
 
 void HelpScene::Initialize()
 {
-	back_img = LoadGraph("Resource/images/help/help.png");
+	back_img[0] = LoadGraph("Resource/images/help/help.png");
+	back_img[1] = LoadGraph("Resource/images/help/help1.png");
+	back_img[2] = LoadGraph("Resource/images/help/helpm.png");
+	back_img[3] = LoadGraph("Resource/images/help/star2.png");
+	back_img[4] = LoadGraph("Resource/images/help/line.png");
+	back_img[5] = LoadGraph("Resource/images/help/ui.png");
 
 	button_img[0][0] = LoadGraph("Resource/images/main/button/Abotton0.png");
 	button_img[0][1] = LoadGraph("Resource/images/main/button/Abotton5.png");
@@ -95,7 +105,17 @@ eSceneType HelpScene::Update()
 
 void HelpScene::Draw() const
 {
-	DrawGraph(0, 0, back_img, TRUE);
+	DrawGraph(0, 0, back_img[0], TRUE);
+
+	DrawGraph(0, 0, back_img[3], TRUE);
+	DrawGraph(0, 0, back_img[4], TRUE);
+
+	DrawGraph(0, 0, back_img[1], TRUE);
+	DrawGraph(0, 0, back_img[2], TRUE);
+	DrawGraph(0, 0, back_img[5], TRUE);
+
+	
+
 
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 122);
 	for (int i = 0; i < 4; i++)
@@ -219,7 +239,11 @@ void HelpScene::Draw() const
 
 void HelpScene::Finalize()
 {
-	DeleteGraph(back_img);
+	for (int i = 0; i < 6; i++)
+	{
+		DeleteGraph(back_img[i]);
+	}
+
 
 	for (int i = 0; i < 4; i++)
 	{
