@@ -117,11 +117,22 @@ void ResultScene::Draw() const
 
 #endif // _DEBUG
 
-	// 背景画像表示
-	DrawGraph(0, 0, back_img[0], TRUE);
-
 	int i = Theme::theme_num - 3;
 	int j = Player::combo;
+
+	// 背景画像表示
+	if (level[3] < i)
+	{
+		DrawGraph(0, 0, back_img[1], TRUE);
+	}
+	else if (level[3] == i && combo[3] < j)
+	{
+		DrawGraph(0, 0, back_img[1], TRUE);
+	}
+	else
+	{
+		DrawGraph(0, 0, back_img[0], TRUE);
+	}
 
 	// ランクの表示
 	if (i < 6)

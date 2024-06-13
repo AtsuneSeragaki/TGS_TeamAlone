@@ -6,6 +6,10 @@ class HelpScene : public SceneBase
 {
 private:
 	int back_img;    // 背景画像 
+	int button_img[4][6]; // ボタン画像
+	int cnt; // カウント用
+	bool cnt_flg;
+	int anim; // ボタンの動き用
 
 public:
 	HelpScene();
