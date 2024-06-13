@@ -1,10 +1,10 @@
-﻿#include "RankingData.h"
+﻿ #include "RankingData.h"
 #include <stdio.h>
 #include <string.h>
 
 RankingData::RankingData()
 {
-	for (int i = 0; i < 5; i++)
+	for (int i = 0; i < RANKING_DATA; i++)
 	{
 		level[i] = NULL;
 		rank[i] = NULL;
@@ -36,19 +36,13 @@ void RankingData::Initialize()
 	}
 
 	// 対象ファイルから読み込む
-	for (int i = 0; i < 4; i++)
+	for (int i = 0; i < RANKING_DATA; i++)
 	{
-		fscanf_s(fp, "%2d %15s %2d %2d", &rank[i],name[i],15, &level[i], &combo[i]);
+		fscanf_s(fp, "%d %s %d %d", &rank[i],name[i],15, &level[i], &combo[i]);
 	}
 
 	// ファイルクローズ
 	fclose(fp);
-
-	// 末尾データの設定
-	level[4] = 0;
-	combo[4] = 0;
-	rank[4] = 0;
-	name[4][0] = '\0';
 }
 
 void RankingData::Finalize()
@@ -58,9 +52,9 @@ void RankingData::Finalize()
 
 void RankingData::SetRankingData(int level, int combo, const char* name)
 {
-	this->level[4] = level;
-	this->combo[4] = combo;
-	strcpy_s(this->name[4], name);
+	this->level[3] = level;
+	this->combo[3] = combo;
+	strcpy_s(this->name[3], name);
 
 	SortData();
 }
@@ -88,11 +82,26 @@ const char* RankingData::GetName(int value) const
 void RankingData::SortData()
 {
 	// 選択法ソートを使用し、降順で入れ替える
-	for (int i = 0; i < 4; i++)
+	for (int i = 0; i < RANKING_DATA - 1; i++)
 	{
-		for (int j = i + 1; j < 5; j++)
+		for (int j = i + 1; j < RANKING_DATA; j++)
 		{
-			if (level[i] <= level[j] && combo[i] <= combo[j])
+			if (level[i] < level[j])
+			{
+				int tmp = level[i];
+				level[i] = level[j];
+				level[j] = tmp;
+
+				int tmp2 = combo[i];
+				combo[i] = combo[j];
+				combo[j] = tmp2;
+
+				char buf[15] = {};
+				strcpy_s(buf, name[i]);
+				strcpy_s(name[i], name[j]);
+				strcpy_s(name[j], buf);
+			}
+			else if (level[i] == level[j] && combo[i] < combo[j])
 			{
 				int tmp = level[i];
 				level[i] = level[j];
@@ -119,7 +128,11 @@ void RankingData::SortData()
 	{
 		for (int j = i + 1; j < 5; j++)
 		{
-			if (level[i] > level[j] && combo[i] > combo[j])
+			if (level[i] > level[j])
+			{
+				rank[j]++;
+			}
+			else if (level[i] == level[j] && combo[i] > combo[j])
 			{
 				rank[j]++;
 			}

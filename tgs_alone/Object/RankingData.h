@@ -1,12 +1,14 @@
 ﻿#pragma once
 
+#define RANKING_DATA 4
+
 class RankingData
 {
 private:
-	int level[5];
-	int rank[5];
-	int combo[5];
-	char name[5][15];
+	int level[RANKING_DATA];
+	int rank[RANKING_DATA];
+	int combo[RANKING_DATA];
+	char name[RANKING_DATA][15];
 
 public:
 	RankingData();
