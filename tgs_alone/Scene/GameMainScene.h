@@ -4,6 +4,7 @@
 #include "../Object/Player.h"
 #include "../Object/Time.h"
 #include "../Object/Theme.h"
+#include "../Object/Comment.h"
 
 class GameMainScene : public SceneBase
 {
@@ -22,6 +23,7 @@ private:
     Player* player;   // プレイヤー
 	Time* time;       // 制限時間
 	Theme* theme;     // お題
+	Comment* comment; // コメント
 
 public:
 	GameMainScene();

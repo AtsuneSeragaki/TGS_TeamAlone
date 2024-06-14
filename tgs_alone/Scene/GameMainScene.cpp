@@ -2,7 +2,7 @@
 #include "../Utility/InputControl.h"
 #include "DxLib.h"
 
-GameMainScene::GameMainScene() :player(nullptr), time(nullptr), theme(nullptr), begin_time(0),begin_cnt(0),draw_cnt(0),timeup_flg(false),timeup_cnt(0),pause(false),pause_cursor(0)
+GameMainScene::GameMainScene() :player(nullptr), time(nullptr), theme(nullptr),comment(nullptr), begin_time(0),begin_cnt(0),draw_cnt(0),timeup_flg(false),timeup_cnt(0),pause(false),pause_cursor(0)
 {
 	for (int i = 0; i < 5; i++)
 	{
@@ -83,11 +83,13 @@ void GameMainScene::Initialize()
 	player = new Player;
 	time = new Time;
 	theme = new Theme;
+	comment = new Comment;
 
 	// オブジェクトの初期化
 	player->Initialize();
 	time->Initialize();
 	theme->Initialize();
+	comment->Initialize();
 
 	// BGMの音量設定
 	ChangeVolumeSoundMem(100, sound[0]);
@@ -209,11 +211,15 @@ eSceneType GameMainScene::Update()
 				theme->Update();
 				time->Update();
 				player->Update();
+				comment->Update();
 
 				// プレイヤーがお題を全てクリアしたら次のお題へ
-				if (Player::correct_num == theme->GetThemeNum() && theme->GetThemeNum() < THEME_MAX && player->GetInputDraw(Player::correct_num - 1) == true)
+				if (Player::correct_num == Theme::theme_num && Theme::theme_num < THEME_MAX && player->GetInputDraw(Player::correct_num - 1) == true)
 				{
+					comment->SetDispFlg(true);
+					comment->SetNum(Player::correct_num, Theme::theme_num);
 					player->SetPlayerInput(true);
+					
 
 					if (draw_cnt == 10)
 					{
@@ -250,6 +256,9 @@ void GameMainScene::Draw() const
 
 		// プレイヤーの入力を描画
 		player->Draw();
+
+		// コメントの描画
+		comment->Draw();
 	}
 	else if (begin_time == 0)
 	{
@@ -354,6 +363,8 @@ void GameMainScene::Finalize()
 	delete time;
 	theme->Finalize();
 	delete theme;
+	comment->Finalize();
+	delete comment;
 }
 
 eSceneType GameMainScene::GetNowScene() const
