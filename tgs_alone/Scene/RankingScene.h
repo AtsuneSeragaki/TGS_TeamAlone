@@ -8,6 +8,7 @@ class RankingScene : public SceneBase
 private:
 	int back_img;    // 背景画像 
 	RankingData* ranking;
+	int font;
 
 public:
 	RankingScene();

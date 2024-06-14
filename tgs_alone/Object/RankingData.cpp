@@ -10,7 +10,7 @@ RankingData::RankingData()
 		rank[i] = NULL;
 		combo[i] = NULL;
 
-		for (int j = 0; j < 15; j++)
+		for (int j = 0; j < 10; j++)
 		{
 			name[i][j] = '\0';
 		}
@@ -38,7 +38,7 @@ void RankingData::Initialize()
 	// 対象ファイルから読み込む
 	for (int i = 0; i < RANKING_DATA; i++)
 	{
-		fscanf_s(fp, "%d %s %d %d", &rank[i],name[i],15, &level[i], &combo[i]);
+		fscanf_s(fp, "%d %s %d %d", &rank[i],name[i],10, &level[i], &combo[i]);
 	}
 
 	// ファイルクローズ
@@ -52,9 +52,9 @@ void RankingData::Finalize()
 
 void RankingData::SetRankingData(int level, int combo, const char* name)
 {
-	this->level[3] = level;
-	this->combo[3] = combo;
-	strcpy_s(this->name[3], name);
+	this->level[2] = level;
+	this->combo[2] = combo;
+	strcpy_s(this->name[2], name);
 
 	SortData();
 }
@@ -96,7 +96,7 @@ void RankingData::SortData()
 				combo[i] = combo[j];
 				combo[j] = tmp2;
 
-				char buf[15] = {};
+				char buf[10] = {};
 				strcpy_s(buf, name[i]);
 				strcpy_s(name[i], name[j]);
 				strcpy_s(name[j], buf);
@@ -111,7 +111,7 @@ void RankingData::SortData()
 				combo[i] = combo[j];
 				combo[j] = tmp2;
 
-				char buf[15] = {};
+				char buf[10] = {};
 				strcpy_s(buf, name[i]);
 				strcpy_s(name[i], name[j]);
 				strcpy_s(name[j], buf);
@@ -120,13 +120,13 @@ void RankingData::SortData()
 	}
 
 	// 順位を整列させる
-	for (int i = 0; i < 4; i++)
+	for (int i = 0; i < RANKING_DATA; i++)
 	{
 		rank[i] = 1;
 	}
-	for (int i = 0; i < 4; i++)
+	for (int i = 0; i < RANKING_DATA - 1; i++)
 	{
-		for (int j = i + 1; j < 5; j++)
+		for (int j = i + 1; j < RANKING_DATA; j++)
 		{
 			if (level[i] > level[j])
 			{
@@ -152,7 +152,7 @@ void RankingData::SortData()
 	}
 
 	// 対象ファイルに書き込み
-	for (int i = 0; i < 4; i++)
+	for (int i = 0; i < RANKING_DATA; i++)
 	{
 		fprintf(fp, "%d %s %d %d\n", rank[i], name[i],level[i], combo[i]);
 	}

@@ -14,6 +14,8 @@ EndScene::~EndScene()
 void EndScene::Initialize()
 {
 	cnt = 0;
+
+	back_img = LoadGraph("Resource/images/end/end.png");
 }
 
 eSceneType EndScene::Update()
@@ -25,8 +27,7 @@ eSceneType EndScene::Update()
 
 void EndScene::Draw() const
 {
-	SetFontSize(30);
-	DrawString(0, 0, "END", 0xffffff);
+	DrawGraph(0, 0, back_img,TRUE);
 }
 
 void EndScene::Finalize()

@@ -1,6 +1,6 @@
 ﻿#pragma once
 
-#define RANKING_DATA 4
+#define RANKING_DATA 3
 
 class RankingData
 {
@@ -8,7 +8,7 @@ private:
 	int level[RANKING_DATA];
 	int rank[RANKING_DATA];
 	int combo[RANKING_DATA];
-	char name[RANKING_DATA][15];
+	char name[RANKING_DATA][10];
 
 public:
 	RankingData();

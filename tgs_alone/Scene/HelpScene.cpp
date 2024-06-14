@@ -107,15 +107,12 @@ void HelpScene::Draw() const
 {
 	DrawGraph(0, 0, back_img[0], TRUE);
 
-	DrawGraph(0, 0, back_img[3], TRUE);
-	DrawGraph(0, 0, back_img[4], TRUE);
+	/*DrawGraph(0, 0, back_img[3], TRUE);
+	DrawGraph(0, 0, back_img[4], TRUE);*/
 
 	DrawGraph(0, 0, back_img[1], TRUE);
 	DrawGraph(0, 0, back_img[2], TRUE);
 	DrawGraph(0, 0, back_img[5], TRUE);
-
-	
-
 
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 122);
 	for (int i = 0; i < 4; i++)

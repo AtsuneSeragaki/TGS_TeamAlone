@@ -16,13 +16,13 @@ ResultScene::ResultScene():back_img{0}
 		rank_img[i] = 0;
 	}
 
-	for (int i = 0; i < 5; i++)
+	for (int i = 0; i < 3; i++)
 	{
 		level[i] = NULL;
 		rank[i] = NULL;
 		combo[i] = NULL;
 
-		for (int j = 0; j < 15; j++)
+		for (int j = 0; j < 10; j++)
 		{
 			name[i][j] = '\0';
 		}
@@ -78,7 +78,7 @@ void ResultScene::Initialize()
 	}
 
 	// 対象ファイルから読み込む
-	for (int i = 0; i < 4; i++)
+	for (int i = 0; i < 3; i++)
 	{
 		fscanf_s(fp, "%d %s %d %d", &rank[i], name[i], 15, &level[i], &combo[i]);
 	}
@@ -93,11 +93,11 @@ eSceneType ResultScene::Update()
 	
 	if (InputControl::GetButtonDown(XINPUT_BUTTON_B))
 	{
-		if (level[3] < Theme::theme_num - 3)
+		if (level[2] < Theme::theme_num - 3)
 		{
 			return eSceneType::E_INPUT_RANKING;
 		}
-		else if (level[3] == Theme::theme_num - 3 && combo[3] < Player::combo)
+		else if (level[2] == Theme::theme_num - 3 && combo[2] < Player::combo)
 		{
 			return eSceneType::E_INPUT_RANKING;
 		}
@@ -121,11 +121,11 @@ void ResultScene::Draw() const
 	int j = Player::combo;
 
 	// 背景画像表示
-	if (level[3] < i)
+	if (level[2] < i)
 	{
 		DrawGraph(0, 0, back_img[1], TRUE);
 	}
-	else if (level[3] == i && combo[3] < j)
+	else if (level[2] == i && combo[2] < j)
 	{
 		DrawGraph(0, 0, back_img[1], TRUE);
 	}

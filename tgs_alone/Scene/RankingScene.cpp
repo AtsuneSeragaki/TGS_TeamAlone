@@ -2,7 +2,7 @@
 #include "../Utility/InputControl.h"
 #include "DxLib.h"
 
-RankingScene::RankingScene():back_img(0),ranking(nullptr)
+RankingScene::RankingScene():back_img(0),ranking(nullptr),font(0)
 {
 }
 
@@ -12,6 +12,10 @@ RankingScene::~RankingScene()
 
 void RankingScene::Initialize()
 {
+	back_img = LoadGraph("Resource/images/ranking/ranking.png");
+
+	font = CreateFontToHandle("Segoe UI", 70, 7, DX_FONTTYPE_ANTIALIASING);
+
 	// ランキング情報を取得
 	ranking = new RankingData;
 	ranking->Initialize();
@@ -29,19 +33,23 @@ eSceneType RankingScene::Update()
 
 void RankingScene::Draw() const
 {
-	SetFontSize(30);
-	DrawString(0, 0, "RANKING", 0xffffff);
-	DrawString(0, 40, "B:TITLE", 0xff0000);
+	DrawGraph(0, 0, back_img, TRUE);
 
 	// 取得したランキングデータを描画する
-	for (int i = 0; i < 4; i++)
+	for (int i = 0; i < 3; i++)
 	{
-		DrawFormatString(50, 170 + i * 25, 0xffffff, "%2d %-15s %2d %3d", ranking->GetRank(i), ranking->GetName(i), ranking->GetLevel(i), ranking->GetCombo(i));
+		DrawFormatStringToHandle(250, 242 + i * 135, 0x000000, font, "%s",ranking->GetName(i));
+		DrawFormatStringToHandle(815, 242 + i * 135, 0x000000, font, "%02d", ranking->GetLevel(i));
+		DrawFormatStringToHandle(1040, 242 + i * 135, 0x000000, font, "%03d", ranking->GetCombo(i));
 	}
 }
 
 void RankingScene::Finalize()
 {
+	DeleteFontToHandle(font);
+
+	DeleteGraph(back_img);
+
 	// 動的メモリの解放
 	ranking->Finalize();
 	delete ranking;
