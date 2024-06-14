@@ -10,6 +10,8 @@ private:
 	int cnt; // カウント用
 	bool cnt_flg;
 	int anim; // ボタンの動き用
+	int se;
+	int bgm;
 
 public:
 	HelpScene();

@@ -2,8 +2,10 @@
 #include "../Utility/InputControl.h"
 #include "DxLib.h"
 
-RankingScene::RankingScene():back_img(0),ranking(nullptr),font(0)
+RankingScene::RankingScene():back_img(0),ranking(nullptr),font(0),bgm(0)
 {
+	se[0] = 0;
+	se[1] = 0;
 }
 
 RankingScene::~RankingScene()
@@ -16,6 +18,15 @@ void RankingScene::Initialize()
 
 	font = CreateFontToHandle("Segoe UI", 70, 7, DX_FONTTYPE_ANTIALIASING);
 
+	se[0] = LoadSoundMem("Resource/sounds/title/move.mp3");
+	se[1] = LoadSoundMem("Resource/sounds/title/ok.mp3");
+
+	bgm = LoadSoundMem("Resource/sounds/title/bgm2.mp3");
+
+	// BGMの音量設定
+	ChangeVolumeSoundMem(100, bgm);
+
+
 	// ランキング情報を取得
 	ranking = new RankingData;
 	ranking->Initialize();
@@ -23,8 +34,13 @@ void RankingScene::Initialize()
 
 eSceneType RankingScene::Update()
 {
+	PlaySoundMem(bgm, DX_PLAYTYPE_LOOP, FALSE);
+
 	if (InputControl::GetButtonDown(XINPUT_BUTTON_B))
 	{
+		PlaySoundMem(se[1], DX_PLAYTYPE_BACK, TRUE);
+		StopSoundMem(bgm);
+
 		return eSceneType::E_TITLE;
 	}
 

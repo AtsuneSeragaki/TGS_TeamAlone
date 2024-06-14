@@ -4,8 +4,11 @@
 
 int TitleScene::menu_cursor = 0;
 
-TitleScene::TitleScene() : back_img(0)
+TitleScene::TitleScene() : back_img(0),bgm(0)
 {
+	se[0] = 0;
+	se[1] = 0;
+
 	for (int i = 0; i < 8; i++)
 	{
 		menu_img[i] = 0;
@@ -36,6 +39,15 @@ void TitleScene::Initialize()
 	menu_img[6] = LoadGraph("Resource/images/title/endy.png");
 	menu_img[7] = LoadGraph("Resource/images/title/end.png");
 
+	se[0] = LoadSoundMem("Resource/sounds/title/move.mp3");
+	se[1] = LoadSoundMem("Resource/sounds/title/ok.mp3");
+
+	bgm = LoadSoundMem("Resource/sounds/title/bgm3.mp3");
+
+	// BGMの音量設定
+	ChangeVolumeSoundMem(100, bgm);
+
+
 	if (back_img == -1)
 	{
 		throw("Resource/images/title.pngがありません");
@@ -52,8 +64,11 @@ void TitleScene::Initialize()
 
 eSceneType TitleScene::Update()
 {
+	PlaySoundMem(bgm, DX_PLAYTYPE_LOOP, FALSE);
+
 	if (InputControl::GetButtonDown(XINPUT_BUTTON_A))
 	{
+		PlaySoundMem(se[0], DX_PLAYTYPE_BACK, TRUE);
 		menu_cursor++;
 
 		if (menu_cursor > 3)
@@ -64,6 +79,8 @@ eSceneType TitleScene::Update()
 
 	if (InputControl::GetButtonDown(XINPUT_BUTTON_Y))
 	{
+		PlaySoundMem(se[0], DX_PLAYTYPE_BACK, TRUE);
+
 		menu_cursor--;
 
 		if (menu_cursor < 0)
@@ -74,6 +91,9 @@ eSceneType TitleScene::Update()
 
 	if (InputControl::GetButtonDown(XINPUT_BUTTON_B))
 	{
+		PlaySoundMem(se[1], DX_PLAYTYPE_BACK, TRUE);
+		StopSoundMem(bgm);
+
 		switch (menu_cursor)
 		{
 		case 0:

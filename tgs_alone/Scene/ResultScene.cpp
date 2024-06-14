@@ -4,7 +4,7 @@
 #include "../Utility/InputControl.h"
 #include "DxLib.h"
 
-ResultScene::ResultScene():back_img{0}
+ResultScene::ResultScene():back_img{0},bgm(0),se(0)
 {
 	for (int i = 0; i < 10; i++)
 	{
@@ -42,6 +42,14 @@ void ResultScene::Initialize()
 	rank_img[0] = LoadGraph("Resource/images/result/rank1.png");
 	rank_img[1] = LoadGraph("Resource/images/result/rank2.png");
 	rank_img[2] = LoadGraph("Resource/images/result/rank3.png");
+
+	se = LoadSoundMem("Resource/sounds/title/ok.mp3");
+
+	bgm = LoadSoundMem("Resource/sounds/title/bgm.mp3");
+
+	// BGMの音量設定
+	ChangeVolumeSoundMem(100, bgm);
+
 
 	// エラーチェック
 	if (back_img[0] == -1)
@@ -90,9 +98,13 @@ void ResultScene::Initialize()
 
 eSceneType ResultScene::Update()
 {
+	PlaySoundMem(bgm, DX_PLAYTYPE_LOOP, FALSE);
 	
 	if (InputControl::GetButtonDown(XINPUT_BUTTON_B))
 	{
+		PlaySoundMem(se, DX_PLAYTYPE_BACK, TRUE);
+		StopSoundMem(bgm);
+
 		if (level[2] < Theme::theme_num - 3)
 		{
 			return eSceneType::E_INPUT_RANKING;

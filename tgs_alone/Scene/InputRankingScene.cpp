@@ -4,13 +4,18 @@
 #include "../Object/Theme.h"
 #include "DxLib.h"
 
-InputRankingScene::InputRankingScene():back_img(0),ranking(nullptr),level(0),combo(0),name_num(0),cursor_x(0),cursor_y(0),no_name(false),font(0)
+InputRankingScene::InputRankingScene():back_img(0),ranking(nullptr),level(0),combo(0),name_num(0),cursor_x(0),cursor_y(0),no_name(false),font(0),bgm(0)
 {
 	memset(name, NULL, (sizeof(char) * 10));
 
 	for (int i = 0; i < 7; i++)
 	{
 		img[i] = 0;
+	}
+
+	for (int i = 0; i < 3; i++)
+	{
+		se[i] = 0;
 	}
 }
 
@@ -41,11 +46,21 @@ void InputRankingScene::Initialize()
 
 	name_num = -1;
 
+	se[0] = LoadSoundMem("Resource/sounds/title/move.mp3");
+	se[1] = LoadSoundMem("Resource/sounds/title/ok.mp3");
+
 	font = CreateFontToHandle("Segoe UI", 70, 7, DX_FONTTYPE_ANTIALIASING);
+
+	bgm = LoadSoundMem("Resource/sounds/title/bgm.mp3");
+
+	// BGMの音量設定
+	ChangeVolumeSoundMem(100, bgm);
 }
 
 eSceneType InputRankingScene::Update()
 {
+	PlaySoundMem(bgm, DX_PLAYTYPE_LOOP, FALSE);
+
 	bool is_change = false;
 
 	// 名前入力処理
@@ -54,6 +69,7 @@ eSceneType InputRankingScene::Update()
 	// シーン変更は可能か？
 	if (is_change)
 	{
+		StopSoundMem(bgm);
 		// ランキングに遷移
 		return eSceneType::E_RANKING;
 	}
@@ -128,6 +144,8 @@ bool InputRankingScene::InputName()
 	// カーソル操作処理
 	if (InputControl::GetButtonDown(XINPUT_BUTTON_X))
 	{
+		PlaySoundMem(se[0], DX_PLAYTYPE_BACK, TRUE);
+
 		if (cursor_y == 3)
 		{
 			if (cursor_x == 0)
@@ -153,6 +171,8 @@ bool InputRankingScene::InputName()
 	}
 	if (InputControl::GetButtonDown(XINPUT_BUTTON_B))
 	{
+		PlaySoundMem(se[0], DX_PLAYTYPE_BACK, TRUE);
+
 		if (cursor_y == 3)
 		{
 			if (cursor_x == 1)
@@ -178,6 +198,8 @@ bool InputRankingScene::InputName()
 	}
 	if (InputControl::GetButtonDown(XINPUT_BUTTON_Y))
 	{
+		PlaySoundMem(se[0], DX_PLAYTYPE_BACK, TRUE);
+
 		if (cursor_y > 0)
 		{
 			cursor_y--;
@@ -194,6 +216,8 @@ bool InputRankingScene::InputName()
 	}
 	if (InputControl::GetButtonDown(XINPUT_BUTTON_A))
 	{
+		PlaySoundMem(se[0], DX_PLAYTYPE_BACK, TRUE);
+
 		if (cursor_y < 3)
 		{
 			cursor_y++;
@@ -214,6 +238,8 @@ bool InputRankingScene::InputName()
 	{
 		if (cursor_y < 3)
 		{
+			PlaySoundMem(se[1], DX_PLAYTYPE_BACK, TRUE);
+
 			if (no_name == true)
 			{
 				no_name = false;
@@ -239,6 +265,8 @@ bool InputRankingScene::InputName()
 		{
 			if (cursor_x == 0)
 			{
+				PlaySoundMem(se[1], DX_PLAYTYPE_BACK, TRUE);
+
 				if (name == NULL)
 				{
 					no_name = true;
@@ -251,6 +279,8 @@ bool InputRankingScene::InputName()
 			}
 			else
 			{
+				PlaySoundMem(se[1], DX_PLAYTYPE_BACK, TRUE);
+
 				name[name_num--] = NULL;
 			}
 		}

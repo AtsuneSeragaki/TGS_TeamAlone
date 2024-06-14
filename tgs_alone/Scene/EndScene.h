@@ -6,6 +6,7 @@ class EndScene : public SceneBase
 {
 private:
 	int back_img;  // 背景画像
+	int bgm;
 	
 public:
 	static int cnt;       // 終了までのカウント用変数

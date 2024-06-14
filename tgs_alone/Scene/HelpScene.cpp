@@ -3,7 +3,7 @@
 #include "TitleScene.h"
 #include "DxLib.h"
 
-HelpScene::HelpScene():cnt(0),anim(0),cnt_flg(false)
+HelpScene::HelpScene():cnt(0),anim(0),cnt_flg(false),se(0),bgm(0)
 {
 	for (int i = 0; i < 4; i++)
 	{
@@ -60,6 +60,13 @@ void HelpScene::Initialize()
 	button_img[3][4] = LoadGraph("Resource/images/main/button/Xbotton8.png");
 	button_img[3][5] = LoadGraph("Resource/images/main/button/Xbotton.png");
 
+	se = LoadSoundMem("Resource/sounds/title/ok.mp3");
+
+	bgm = LoadSoundMem("Resource/sounds/title/bgm2.mp3");
+
+	// BGMの音量設定
+	ChangeVolumeSoundMem(100, bgm);
+
 	cnt = 0;
 	cnt_flg = false;
 	anim = 1;
@@ -67,13 +74,21 @@ void HelpScene::Initialize()
 
 eSceneType HelpScene::Update()
 {
+	PlaySoundMem(bgm, DX_PLAYTYPE_LOOP, FALSE);
+
 	if (InputControl::GetButtonDown(XINPUT_BUTTON_B))
 	{
+		PlaySoundMem(se, DX_PLAYTYPE_BACK, TRUE);
+		StopSoundMem(bgm);
+
 		return eSceneType::E_TITLE;
 	}
 
 	if (InputControl::GetButtonDown(XINPUT_BUTTON_X))
 	{
+		PlaySoundMem(se, DX_PLAYTYPE_BACK, TRUE);
+		StopSoundMem(bgm);
+
 		TitleScene::menu_cursor = 0;
 		return eSceneType::E_MAIN;
 	}

@@ -14,6 +14,8 @@ private:
 	char name[5][15];
 	int level[5];
 	int combo[5];
+	int se;
+	int bgm;
 
 public:
 	ResultScene();

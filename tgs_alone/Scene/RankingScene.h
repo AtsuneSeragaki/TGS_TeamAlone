@@ -9,6 +9,8 @@ private:
 	int back_img;    // 背景画像 
 	RankingData* ranking;
 	int font;
+	int se[2];
+	int bgm;
 
 public:
 	RankingScene();

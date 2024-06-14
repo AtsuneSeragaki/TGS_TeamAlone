@@ -17,6 +17,8 @@ private:
 	int cursor_y;
 	bool no_name;
 	int font;
+	int se[3];
+	int bgm;
 
 public:
 	InputRankingScene();
