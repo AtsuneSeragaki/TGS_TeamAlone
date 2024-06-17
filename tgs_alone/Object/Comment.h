@@ -7,6 +7,7 @@ private:
 	int com_num;   // 表示するコメントの種類
 	int p_num;     // プレイヤーが正解した数
 	int t_num;     // お題の数
+	int cnt;       // 表示時間カウント用
 
 public:
 	Comment();

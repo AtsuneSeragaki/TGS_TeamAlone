@@ -5,6 +5,7 @@
 
 int Player::combo = 0;
 int Player::correct_num = 0;
+int Player::mis_num = 0;
 
 Player::Player() :input_flg(false), mistake_cnt(0), cnt(0), button_flg(false)
 {
@@ -154,6 +155,7 @@ void Player::Initialize()
 	cnt = 0;
 	combo = 0;
 	correct_num = 0;
+	mis_num = 0;
 }
 
 void Player::Update()
@@ -860,6 +862,7 @@ void Player::Comparison()
 	else
 	{// 異なる場合
 		PlaySoundMem(sound[1], DX_PLAYTYPE_BACK, TRUE);
+		mis_num++;
 		combo = 0;
 		mis_data[correct_num] = ip;
 		mis_draw[correct_num] = false;
@@ -931,4 +934,5 @@ void Player::ResetPlayerState()
 	}
 
 	correct_num = 0;
+	mis_num = 0;
 }

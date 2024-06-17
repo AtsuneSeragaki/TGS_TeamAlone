@@ -65,11 +65,9 @@ void Theme::Update()
 
 void Theme::Draw()
 {
+	// レベルの表示
 	if ((theme_num - 2) < 10)
 	{
-		/*SetFontSize(50);
-		DrawFormatString(295, 250, 0x000000, "%d", theme_num - 2);*/
-		//DrawGraph(280, 245, level_img[0], TRUE);
 		DrawGraph(300, 245, level_img[(theme_num - 2) % 10], TRUE);
 	}
 	else

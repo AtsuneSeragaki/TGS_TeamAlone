@@ -216,8 +216,9 @@ eSceneType GameMainScene::Update()
 				// プレイヤーがお題を全てクリアしたら次のお題へ
 				if (Player::correct_num == Theme::theme_num && Theme::theme_num < THEME_MAX && player->GetInputDraw(Player::correct_num - 1) == true)
 				{
+					comment->SetNum(Player::mis_num, Theme::theme_num);
+					comment->SetComNum();
 					comment->SetDispFlg(true);
-					comment->SetNum(Player::correct_num, Theme::theme_num);
 					player->SetPlayerInput(true);
 					
 

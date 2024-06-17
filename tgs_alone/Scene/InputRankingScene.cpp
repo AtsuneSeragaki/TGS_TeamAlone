@@ -251,8 +251,10 @@ bool InputRankingScene::InputName()
 				{
 					name[++name_num] = '!';
 				}
-
-				name[++name_num] = 'A' + cursor_x + (cursor_y * 9);
+				else
+				{
+					name[++name_num] = 'A' + cursor_x + (cursor_y * 9);
+				}
 
 				if (cursor_y == 3)
 				{
