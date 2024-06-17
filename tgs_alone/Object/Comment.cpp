@@ -3,8 +3,17 @@
 #include "Theme.h"
 #include "DxLib.h"
 
-Comment::Comment():disp_flg(false),com_num(0),p_num(0),t_num(0),cnt(0)
+Comment::Comment():disp_flg(false),com_num(0),p_num(0),t_num(0),cnt(0),font(0),font2(0),char_cnt(0)
 {
+	for (int i = 0; i < 7; i++)
+	{
+		char_img[i] = 0;
+	}
+
+	for (int i = 0; i < 5; i++)
+	{
+		com_img[i] = 0;
+	}
 }
 
 Comment::~Comment()
@@ -13,15 +22,40 @@ Comment::~Comment()
 
 void Comment::Initialize()
 {
+	char_img[0] = LoadGraph("Resource/images/main/comment/char1.png");
+	char_img[1] = LoadGraph("Resource/images/main/comment/char2.png");
+	char_img[2] = LoadGraph("Resource/images/main/comment/char3.png");
+	char_img[3] = LoadGraph("Resource/images/main/comment/char4.png");
+	char_img[4] = LoadGraph("Resource/images/main/comment/char5.png");
+	char_img[5] = LoadGraph("Resource/images/main/comment/char6.png");
+	char_img[6] = LoadGraph("Resource/images/main/comment/char7.png");
+	
+	com_img[0] = LoadGraph("Resource/images/main/comment/comment1.png");
+	com_img[1] = LoadGraph("Resource/images/main/comment/comment2.png");
+	com_img[2] = LoadGraph("Resource/images/main/comment/comment3.png");
+	com_img[3] = LoadGraph("Resource/images/main/comment/comment4.png");
+	com_img[4] = LoadGraph("Resource/images/main/comment/comment5.png");
+
+	font = CreateFontToHandle("Segoe UI", 40, 7, DX_FONTTYPE_ANTIALIASING);
+	font2 = CreateFontToHandle("Segoe UI", 30, 7, DX_FONTTYPE_ANTIALIASING);
+
 	disp_flg = 0;
 	t_num = 0;
 	p_num = 0;
 	cnt = 0;
 	com_num = -1;
+	char_cnt = 0;
 }
 
 void Comment::Update()
 {
+	char_cnt++;
+	
+	if (char_cnt > 220)
+	{
+		char_cnt = 0;
+	}
+	
 	if (disp_flg == true)
 	{
 		cnt++;
@@ -38,30 +72,89 @@ void Comment::Draw()
 {
 	SetFontSize(40);
 
-	DrawFormatString(600, 245, 0xff0000, "%d", p_num);
+	// DrawFormatString(600, 245, 0xff0000, "%d", p_num);
+
+	//DrawGraph(46, 530, img[6], TRUE);
+	
+	if (char_cnt < 11)
+	{
+		DrawGraph(46, 530, char_img[1], TRUE);
+	}
+	else if (char_cnt < 21)
+	{
+		DrawGraph(46, 530, char_img[2], TRUE);
+	}
+	else if (char_cnt < 31)
+	{
+		DrawGraph(46, 530, char_img[3], TRUE);
+	}
+	else if (char_cnt < 41)
+	{
+		DrawGraph(46, 530, char_img[4], TRUE);
+	}
+	else if (char_cnt < 51)
+	{
+		DrawGraph(46, 570, char_img[5], TRUE);
+	}
+	else if (char_cnt < 61)
+	{
+		DrawGraph(46, 530, char_img[6], TRUE);
+	}
+	else if (char_cnt < 71)
+	{
+		DrawGraph(46, 530, char_img[5], TRUE);
+	}
+	else if (char_cnt < 81)
+	{
+		DrawGraph(46, 530, char_img[4], TRUE);
+	}
+	else if (char_cnt < 91)
+	{
+		DrawGraph(46, 530, char_img[3], TRUE);
+	}
+	else if (char_cnt < 101)
+	{
+		DrawGraph(46, 530, char_img[2], TRUE);
+	}
+	else if (char_cnt < 111)
+	{
+		DrawGraph(46, 530, char_img[1], TRUE);
+	}
+	else
+	{
+		DrawGraph(46, 530, char_img[1], TRUE);
+	}
+
+	DrawGraph(60, 570, char_img[0], TRUE);
+	
 
 	if (disp_flg == true)
 	{
 		switch (com_num)
 		{
 		case 0:
-			DrawString(400, 245, "Genius!", 0x000000);
+			DrawGraph(30, 520, com_img[4], TRUE);
+			DrawStringToHandle(85, 540, "Genius!", 0x000000,font);
 			break;
 
 		case 1:
-			DrawString(400, 245, "Excellent!", 0x000000);
+			DrawGraph(30, 520, com_img[1], TRUE);
+			DrawStringToHandle(65, 540, "Excellent!", 0x000000, font);
 			break;
 
 		case 2:
-			DrawString(400, 245, "Great!", 0x000000);
+			DrawGraph(30, 520, com_img[3], TRUE);
+			DrawStringToHandle(100, 540, "Great!", 0x000000, font);
 			break;
 
 		case 3:
-			DrawString(400, 245, "Nice!", 0x000000);
+			DrawGraph(30, 520, com_img[2], TRUE);
+			DrawStringToHandle(115, 542, "Nice!", 0x000000, font);
 			break;
 
 		case 4:
-			DrawString(400, 245, "You can do it!", 0x000000);
+			DrawGraph(30, 520, com_img[5], TRUE);
+			DrawStringToHandle(60, 545, "You can do it!", 0x000000, font2);
 			break;
 			
 		default:
@@ -72,6 +165,9 @@ void Comment::Draw()
 
 void Comment::Finalize()
 {
+	DeleteFontToHandle(font);
+	DeleteFontToHandle(font2);
+
 }
 
 void Comment::SetComNum()

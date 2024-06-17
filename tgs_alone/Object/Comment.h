@@ -1,5 +1,7 @@
 #pragma once
 
+#define PI    3.1415926535897932384626433832795f
+
 class Comment
 {
 private:
@@ -8,6 +10,11 @@ private:
 	int p_num;     // プレイヤーが正解した数
 	int t_num;     // お題の数
 	int cnt;       // 表示時間カウント用
+	int char_img[7];    // キャラクター画像用
+	int com_img[5];     // 吹き出し画像用
+	int font;      // フォント用
+	int font2;     // サイズ違いのフォント用
+	int char_cnt;  // キャラクターのアニメーションカウント用
 
 public:
 	Comment();
