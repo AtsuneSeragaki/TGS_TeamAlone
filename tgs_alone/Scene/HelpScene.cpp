@@ -3,7 +3,7 @@
 #include "TitleScene.h"
 #include "DxLib.h"
 
-HelpScene::HelpScene():cnt(0),anim(0),cnt_flg(false),se(0),bgm(0)
+HelpScene::HelpScene():cnt(0),anim(0),cnt_flg(false),se(0),bgm(0),ui_anim(0)
 {
 	for (int i = 0; i < 4; i++)
 	{
@@ -70,6 +70,7 @@ void HelpScene::Initialize()
 	cnt = 0;
 	cnt_flg = false;
 	anim = 1;
+	ui_anim = 0;
 }
 
 eSceneType HelpScene::Update()
