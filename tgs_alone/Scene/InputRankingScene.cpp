@@ -53,6 +53,8 @@ void InputRankingScene::Initialize()
 
 	bgm = LoadSoundMem("Resource/sounds/title/bgm.mp3");
 
+	
+
 	// BGMの音量設定
 	ChangeVolumeSoundMem(100, bgm);
 }
@@ -110,10 +112,10 @@ void InputRankingScene::Draw() const
 	}
 	else
 	{
-		DrawFormatStringToHandle(300, 100, 0x000000, font, "%s", name);
+		DrawFormatStringToHandle(600 - name_num * 20, 100, 0x000000, font, "%s", name);
 	}
 
-	//DrawFormatString(300, 100, 0xffffff, "%d", name_num);
+	//DrawFormatString(300, 100, 0xff00ff, "%d", name_num);
 }
 
 void InputRankingScene::Finalize()
@@ -236,17 +238,18 @@ bool InputRankingScene::InputName()
 	// カーソル位置の文字を決定する
 	if (InputControl::GetButtonDown(XINPUT_BUTTON_START))
 	{
+		
 		if (cursor_y < 3)
 		{
 			PlaySoundMem(se[1], DX_PLAYTYPE_BACK, TRUE);
 
-			if (no_name == true)
+			if (name[8] == NULL)
 			{
-				no_name = false;
-			}
+				if (no_name == true)
+				{
+					no_name = false;
+				}
 
-			if (name[9] == NULL)
-			{
 				if (cursor_y == 3 && cursor_x == 8)
 				{
 					name[++name_num] = '!';
@@ -255,35 +258,40 @@ bool InputRankingScene::InputName()
 				{
 					name[++name_num] = 'A' + cursor_x + (cursor_y * 9);
 				}
+			}
 
-				if (cursor_y == 3)
-				{
-					cursor_x = 0;
-					cursor_y = 3;
-				}
+			if (cursor_y == 3)
+			{
+				cursor_x = 0;
+				cursor_y = 3;
 			}
 		}
-		else
+		else if (cursor_y == 3)
 		{
 			if (cursor_x == 0)
 			{
 				PlaySoundMem(se[1], DX_PLAYTYPE_BACK, TRUE);
 
-				if (name == NULL)
+				if (no_name != true)
 				{
-					no_name = true;
+					name[++name_num] = '\0';
+					return true;
 				}
 				else
 				{
-					name[name_num] = '\0';
-					return true;
+					return false;
 				}
 			}
-			else
+			else if (cursor_x == 1)
 			{
 				PlaySoundMem(se[1], DX_PLAYTYPE_BACK, TRUE);
 
 				name[name_num--] = NULL;
+
+				if (name[0] == NULL)
+				{
+					no_name = true;
+				}
 			}
 		}
 	}
