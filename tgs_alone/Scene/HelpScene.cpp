@@ -3,7 +3,7 @@
 #include "TitleScene.h"
 #include "DxLib.h"
 
-HelpScene::HelpScene():cnt(0),anim(0),cnt_flg(false),se(0),bgm(0),ui_anim(0)
+HelpScene::HelpScene():cnt(0),anim(0),cnt_flg(false),se(0),bgm(0),ui_anim(0),back_cnt(0)
 {
 	for (int i = 0; i < 4; i++)
 	{
@@ -29,7 +29,7 @@ void HelpScene::Initialize()
 	back_img[1] = LoadGraph("Resource/images/help/help1.png");
 	back_img[2] = LoadGraph("Resource/images/help/helpm.png");
 	back_img[3] = LoadGraph("Resource/images/help/star2.png");
-	back_img[4] = LoadGraph("Resource/images/help/line.png");
+	back_img[4] = LoadGraph("Resource/images/help/line2.png");
 	back_img[5] = LoadGraph("Resource/images/help/ui.png");
 
 	button_img[0][0] = LoadGraph("Resource/images/main/button/Abotton0.png");
@@ -71,11 +71,22 @@ void HelpScene::Initialize()
 	cnt_flg = false;
 	anim = 1;
 	ui_anim = 0;
+
+	back_cnt = 0;
 }
 
 eSceneType HelpScene::Update()
 {
 	PlaySoundMem(bgm, DX_PLAYTYPE_LOOP, FALSE);
+
+	BackScrool();
+
+	ui_anim++;
+
+	if (ui_anim > 100)
+	{
+		ui_anim = 0;
+	}
 
 	if (InputControl::GetButtonDown(XINPUT_BUTTON_B))
 	{
@@ -121,14 +132,12 @@ eSceneType HelpScene::Update()
 
 void HelpScene::Draw() const
 {
-	DrawGraph(0, 0, back_img[0], TRUE);
-
-	/*DrawGraph(0, 0, back_img[3], TRUE);
-	DrawGraph(0, 0, back_img[4], TRUE);*/
+	DrawGraph(0, 0, back_img[0], FALSE);
 
 	DrawGraph(0, 0, back_img[1], TRUE);
 	DrawGraph(0, 0, back_img[2], TRUE);
 	DrawGraph(0, 0, back_img[5], TRUE);
+
 
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 122);
 	for (int i = 0; i < 4; i++)
@@ -247,7 +256,6 @@ void HelpScene::Draw() const
 		DrawGraph(430 + 240, 350, button_img[2][0], TRUE);
 		DrawGraph(430 + 360, 350, button_img[3][0], TRUE);
 	}
-
 }
 
 void HelpScene::Finalize()
@@ -270,4 +278,17 @@ void HelpScene::Finalize()
 eSceneType HelpScene::GetNowScene() const
 {
 	return eSceneType::E_HELP;
+}
+
+void HelpScene::BackScrool()
+{
+	if (back_cnt < 1500)
+	{
+		back_cnt += 3;
+	}
+	else
+	{
+		back_cnt = 0;
+	}
+	
 }

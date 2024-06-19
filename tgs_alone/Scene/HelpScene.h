@@ -13,6 +13,7 @@ private:
 	int se;               // SE用
 	int bgm;              // BGM用
 	int ui_anim;          // UIボタンの動き用
+	int back_cnt;         // 背景の動き用
 
 public:
 
@@ -36,4 +37,7 @@ public:
 
 	// 現在のシーン情報
 	virtual eSceneType GetNowScene() const override;
+
+	// 背景のスクロール処理
+	void BackScrool();
 };
