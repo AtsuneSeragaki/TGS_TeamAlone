@@ -4,7 +4,7 @@
 
 int TitleScene::menu_cursor = 0;
 
-TitleScene::TitleScene() : back_img(0),bgm(0)
+TitleScene::TitleScene() : back_img(0),bgm(0),star_img(0),star_cnt(0),star_blend(0)
 {
 	se[0] = 0;
 	se[1] = 0;
@@ -39,6 +39,8 @@ void TitleScene::Initialize()
 	menu_img[6] = LoadGraph("Resource/images/title/endy.png");
 	menu_img[7] = LoadGraph("Resource/images/title/end.png");
 
+	star_img = LoadGraph("Resource/images/help/star.png");
+
 	se[0] = LoadSoundMem("Resource/sounds/title/move.mp3");
 	se[1] = LoadSoundMem("Resource/sounds/title/ok.mp3");
 
@@ -60,11 +62,38 @@ void TitleScene::Initialize()
 			throw("menu_img[%d]がありません",i);
 		}
 	}
+
+	star_cnt = 0;
+	star_blend = 255;
 }
 
 eSceneType TitleScene::Update()
 {
 	PlaySoundMem(bgm, DX_PLAYTYPE_LOOP, FALSE);
+
+	star_cnt++;
+
+	if (star_cnt <= 51)
+	{
+		star_blend = 255 - star_cnt * 5;
+	}
+	else if(star_cnt <= 101)
+	{
+		star_blend = 255 - (star_cnt - 51) * 5;
+	}
+	else if (star_cnt <= 152)
+	{
+		star_blend = (star_cnt - 152) * 5;
+	}
+	else
+	{
+		star_blend = (star_cnt - 152) * 5;
+	}
+
+	if (star_cnt > 202)
+	{
+		star_cnt = 0;
+	}
 
 	if (InputControl::GetButtonDown(XINPUT_BUTTON_A))
 	{
@@ -117,6 +146,38 @@ void TitleScene::Draw() const
 	// 背景表示
 	DrawGraph(0, 0, back_img, TRUE);
 
+	
+
+	
+	if (star_cnt <= 101)
+	{
+		SetDrawBlendMode(DX_BLENDMODE_ALPHA, star_blend);
+		DrawGraph(80, 220, star_img, TRUE);
+		DrawGraph(430, 220, star_img, TRUE);
+		DrawGraph(800, 220, star_img, TRUE);
+		DrawGraph(1200, 220, star_img, TRUE);
+		DrawGraph(250, 380, star_img, TRUE);
+		DrawGraph(950, 380, star_img, TRUE);
+		DrawGraph(430, 600, star_img, TRUE);
+		DrawGraph(800, 600, star_img, TRUE);
+		SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+	}
+	else
+	{
+		SetDrawBlendMode(DX_BLENDMODE_ALPHA, star_blend);
+		DrawGraph(250, 220, star_img, TRUE);
+		DrawGraph(950, 220, star_img, TRUE);
+		DrawGraph(80, 350, star_img, TRUE);
+		DrawGraph(430, 350, star_img, TRUE);
+		DrawGraph(800, 350, star_img, TRUE);
+		DrawGraph(1200, 350, star_img, TRUE);
+		DrawGraph(300, 600, star_img, TRUE);
+		DrawGraph(900, 600, star_img, TRUE);
+		SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+	}
+	
+	
+
 	switch (menu_cursor)
 	{
 	case 0:
@@ -146,6 +207,8 @@ void TitleScene::Draw() const
 	default:
 		break;
 	}
+
+	DrawFormatString(0, 0, 0x000000, "%d", star_blend);
 }
 
 void TitleScene::Finalize()
