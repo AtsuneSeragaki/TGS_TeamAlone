@@ -2,6 +2,8 @@
 
 #include "SceneBase.h"
 
+#define PI    3.1415926535897932384626433832795f
+
 class TitleScene : public SceneBase
 {
 private:
@@ -10,20 +12,34 @@ private:
 	int star_img;     // 星画像
 	int se[2];        // 効果音
 	int bgm;          // BGM
-	int star_cnt;     // 星の描画時間用
-	int star_blend;   // 星の透明度
+	int star_cnt;     // 星の回転用
 
 public:
 	static int menu_cursor;  // カーソルがどこにあるか 
 
 public:
+
+	// インストラクタ
 	TitleScene();
+
+	// デストラクタ
 	virtual ~TitleScene();
 
+	// 初期化処理
 	virtual void Initialize() override;
+
+	// 更新処理
 	virtual eSceneType Update() override;
+
+	// 描画処理
 	virtual void Draw() const override;
+
+	// 終了時処理
 	virtual void Finalize() override;
 
+	// 現在のシーンを取得
 	virtual eSceneType GetNowScene() const override;
+
+	// 星の回転処理
+	void StarAnim();
 };

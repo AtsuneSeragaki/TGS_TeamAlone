@@ -2,18 +2,21 @@
 
 #include "SceneBase.h"
 
+#define BUTTON_X 420
+#define BUTTON_Y 340
+
 class HelpScene : public SceneBase
 {
 private:
 	int back_img[6];      // 背景画像 
 	int button_img[4][6]; // ボタン画像
-	int cnt;              // カウント用
-	bool cnt_flg;         // カウントするかしないかフラグ
-	int anim;             // ボタンの動き用
-	int se;               // SE用
+	int star_img;     // 星画像
+	int se;               // 効果音
 	int bgm;              // BGM用
-	int ui_anim;          // UIボタンの動き用
-	int back_cnt;         // 背景の動き用
+	int cnt;              // ボタンアニメーションカウント用
+	bool cnt_flg;         // ボタンアニメーションのカウントをするかしないかフラグ
+	int anim;             // ボタンの動き用
+	int star_cnt;     // 星の回転用
 
 public:
 
@@ -38,6 +41,9 @@ public:
 	// 現在のシーン情報
 	virtual eSceneType GetNowScene() const override;
 
-	// 背景のスクロール処理
-	void BackScrool();
+	// ボタンのアニメーション処理
+	void ButtonAnim();
+
+	// 星の回転処理
+	void StarAnim();
 };

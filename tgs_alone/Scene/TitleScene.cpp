@@ -4,7 +4,7 @@
 
 int TitleScene::menu_cursor = 0;
 
-TitleScene::TitleScene() : back_img(0),bgm(0),star_img(0),star_cnt(0),star_blend(0)
+TitleScene::TitleScene() : back_img(0),bgm(0),star_img(0),star_cnt(0)
 {
 	se[0] = 0;
 	se[1] = 0;
@@ -17,19 +17,13 @@ TitleScene::TitleScene() : back_img(0),bgm(0),star_img(0),star_cnt(0),star_blend
 
 TitleScene::~TitleScene()
 {
-	// 画像データの削除
-	DeleteGraph(back_img);
-
-	for (int i = 0; i < 8; i++)
-	{
-		DeleteGraph(menu_img[i]);
-	}
 }
 
 void TitleScene::Initialize()
 {
 	// 画像データの読み込み
 	back_img = LoadGraph("Resource/images/title/title.png");
+	
 	menu_img[0] = LoadGraph("Resource/images/title/starty.png");
 	menu_img[1] = LoadGraph("Resource/images/title/start.png");
 	menu_img[2] = LoadGraph("Resource/images/title/helpy.png");
@@ -38,24 +32,22 @@ void TitleScene::Initialize()
 	menu_img[5] = LoadGraph("Resource/images/title/ranking.png");
 	menu_img[6] = LoadGraph("Resource/images/title/endy.png");
 	menu_img[7] = LoadGraph("Resource/images/title/end.png");
-
+	
 	star_img = LoadGraph("Resource/images/help/star.png");
 
+	// 音データの読み込み
 	se[0] = LoadSoundMem("Resource/sounds/title/move.mp3");
 	se[1] = LoadSoundMem("Resource/sounds/title/ok.mp3");
 
 	bgm = LoadSoundMem("Resource/sounds/title/bgm3.mp3");
 
-	// BGMの音量設定
-	ChangeVolumeSoundMem(100, bgm);
-
-
+	// エラーチェック
 	if (back_img == -1)
 	{
 		throw("Resource/images/title.pngがありません");
 	}
 
-	for (int i = 0; i < 4; i++)
+	for (int i = 0; i < 8; i++)
 	{
 		if (menu_img[i] == -1)
 		{
@@ -63,66 +55,78 @@ void TitleScene::Initialize()
 		}
 	}
 
+	if (star_img == -1)
+	{
+		throw("Resource/images/help/star.pngがありません");
+	}
+	if (se[0] == -1)
+	{
+		throw("Resource/sounds/title/move.mp3がありません");
+	}
+	if (se[1] == -1)
+	{
+		throw("Resource/sounds/title/ok.mp3がありません");
+	}
+	if (bgm == -1)
+	{
+		throw("Resource/sounds/title/bgm3.mp3がありません");
+	}
+
+	// BGMの音量設定
+	ChangeVolumeSoundMem(100, bgm);
+
+	// 変数の初期化
 	star_cnt = 0;
-	star_blend = 255;
 }
 
 eSceneType TitleScene::Update()
 {
+	// BGMの再生
 	PlaySoundMem(bgm, DX_PLAYTYPE_LOOP, FALSE);
 
-	star_cnt++;
-
-	if (star_cnt <= 51)
-	{
-		star_blend = 255 - star_cnt * 5;
-	}
-	else if(star_cnt <= 101)
-	{
-		star_blend = 255 - (star_cnt - 51) * 5;
-	}
-	else if (star_cnt <= 152)
-	{
-		star_blend = (star_cnt - 152) * 5;
-	}
-	else
-	{
-		star_blend = (star_cnt - 152) * 5;
-	}
-
-	if (star_cnt > 202)
-	{
-		star_cnt = 0;
-	}
+	// 星を回転させる
+	StarAnim();
 
 	if (InputControl::GetButtonDown(XINPUT_BUTTON_A))
-	{
+	{// Aボタンを押したら
+
+		// 効果音の再生
 		PlaySoundMem(se[0], DX_PLAYTYPE_BACK, TRUE);
+
+		// 下にカーソル移動
 		menu_cursor++;
 
+		// カーソルが1番下にある場合1番上に移動
 		if (menu_cursor > 3)
 		{
 			menu_cursor = 0;
 		}
 	}
+	else if (InputControl::GetButtonDown(XINPUT_BUTTON_Y))
+	{// Yボタンを押したら
 
-	if (InputControl::GetButtonDown(XINPUT_BUTTON_Y))
-	{
+		// 効果音の再生
 		PlaySoundMem(se[0], DX_PLAYTYPE_BACK, TRUE);
 
+		// 上にカーソル移動
 		menu_cursor--;
 
+		// カーソルが1番上にある場合1番下に移動
 		if (menu_cursor < 0)
 		{
 			menu_cursor = 3;
 		}
 	}
+	else if (InputControl::GetButtonDown(XINPUT_BUTTON_B))
+	{// Bボタンを押したら
 
-	if (InputControl::GetButtonDown(XINPUT_BUTTON_B))
-	{
+		// 効果音の再生
 		PlaySoundMem(se[1], DX_PLAYTYPE_BACK, TRUE);
+
+		// BGMの再生を止める
 		StopSoundMem(bgm);
 
+		// カーソルがある場所に遷移
 		switch (menu_cursor)
 		{
 		case 0:
@@ -143,41 +147,20 @@ eSceneType TitleScene::Update()
 
 void TitleScene::Draw() const
 {
-	// 背景表示
+	// 背景の描画
 	DrawGraph(0, 0, back_img, TRUE);
 
+	// 星の描画
+	DrawRotaGraph(80, 220,1.0,PI / 180 * (star_cnt * 2), star_img, TRUE);
+	DrawRotaGraph(430, 220,1.0,PI / 180 * (-star_cnt * 2), star_img, TRUE);
+	DrawRotaGraph(800, 220, 1.0, PI / 180 * (star_cnt * 2), star_img, TRUE);
+	DrawRotaGraph(1200, 220, 1.0, PI / 180 * (-star_cnt * 2), star_img, TRUE);
+	DrawRotaGraph(250, 380, 1.0, PI / 180 * (star_cnt * 2), star_img, TRUE);
+	DrawRotaGraph(950, 380, 1.0, PI / 180 * (star_cnt * 2), star_img, TRUE);
+	DrawRotaGraph(450, 600, 1.0, PI / 180 * (-star_cnt * 2), star_img, TRUE);
+	DrawRotaGraph(830, 600, 1.0, PI / 180 * (-star_cnt * 2), star_img, TRUE);
 	
-
-	
-	if (star_cnt <= 101)
-	{
-		SetDrawBlendMode(DX_BLENDMODE_ALPHA, star_blend);
-		DrawGraph(80, 220, star_img, TRUE);
-		DrawGraph(430, 220, star_img, TRUE);
-		DrawGraph(800, 220, star_img, TRUE);
-		DrawGraph(1200, 220, star_img, TRUE);
-		DrawGraph(250, 380, star_img, TRUE);
-		DrawGraph(950, 380, star_img, TRUE);
-		DrawGraph(430, 600, star_img, TRUE);
-		DrawGraph(800, 600, star_img, TRUE);
-		SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
-	}
-	else
-	{
-		SetDrawBlendMode(DX_BLENDMODE_ALPHA, star_blend);
-		DrawGraph(250, 220, star_img, TRUE);
-		DrawGraph(950, 220, star_img, TRUE);
-		DrawGraph(80, 350, star_img, TRUE);
-		DrawGraph(430, 350, star_img, TRUE);
-		DrawGraph(800, 350, star_img, TRUE);
-		DrawGraph(1200, 350, star_img, TRUE);
-		DrawGraph(300, 600, star_img, TRUE);
-		DrawGraph(900, 600, star_img, TRUE);
-		SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
-	}
-	
-	
-
+	// メニューの描画
 	switch (menu_cursor)
 	{
 	case 0:
@@ -207,15 +190,38 @@ void TitleScene::Draw() const
 	default:
 		break;
 	}
-
-	DrawFormatString(0, 0, 0x000000, "%d", star_blend);
 }
 
 void TitleScene::Finalize()
 {
+	// 画像データの削除
+	DeleteGraph(back_img);
+
+	for (int i = 0; i < 8; i++)
+	{
+		DeleteGraph(menu_img[i]);
+	}
+
+	DeleteGraph(star_img);
+
+	// 音データの削除
+	DeleteSoundMem(se[0]);
+	DeleteSoundMem(se[1]);
+	DeleteSoundMem(bgm);
 }
 
 eSceneType TitleScene::GetNowScene() const
 {
 	return eSceneType::E_TITLE;
+}
+
+void TitleScene::StarAnim()
+{
+	star_cnt++;
+
+	// 180より大きくなったら0にする
+	if (star_cnt > 180)
+	{
+		star_cnt = 0;
+	}
 }
