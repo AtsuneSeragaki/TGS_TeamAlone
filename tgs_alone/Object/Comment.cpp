@@ -3,7 +3,7 @@
 #include "Theme.h"
 #include "DxLib.h"
 
-Comment::Comment():disp_flg(false),com_num(0),p_num(0),t_num(0),cnt(0),font(0),font2(0),char_cnt(0)
+Comment::Comment():disp_flg(false),com_num(0),p_num(0),t_num(0),cnt(0),font(0),font2(0)
 {
 	for (int i = 0; i < 7; i++)
 	{
@@ -22,6 +22,7 @@ Comment::~Comment()
 
 void Comment::Initialize()
 {
+	// 画像データの読み込み
 	char_img[0] = LoadGraph("Resource/images/main/comment/char1.png");
 	char_img[1] = LoadGraph("Resource/images/main/comment/char2.png");
 	char_img[2] = LoadGraph("Resource/images/main/comment/char3.png");
@@ -36,30 +37,52 @@ void Comment::Initialize()
 	com_img[3] = LoadGraph("Resource/images/main/comment/comment4.png");
 	com_img[4] = LoadGraph("Resource/images/main/comment/comment5.png");
 
+	// フォントデータの読み込み
 	font = CreateFontToHandle("Segoe UI", 40, 7, DX_FONTTYPE_ANTIALIASING);
 	font2 = CreateFontToHandle("Segoe UI", 30, 7, DX_FONTTYPE_ANTIALIASING);
 
-	disp_flg = 0;
+	// エラーチェック
+	for (int i = 0; i < 7; i++)
+	{
+		if (char_img[i] == -1)
+		{
+			throw("char_img[%d]がありません", i);
+		}
+	}
+
+	for (int i = 0; i < 5; i++)
+	{
+		if (com_img[i] == -1)
+		{
+			throw("com_img[%d]がありません", i);
+		}
+	}
+
+	if (font == -1)
+	{
+		throw("Segoe UIがありません");
+	}
+	if (font2 == -1)
+	{
+		throw("Segoe UIがありません");
+	}
+
+	// 変数の初期化
+	disp_flg = false;
 	t_num = 0;
 	p_num = 0;
 	cnt = 0;
 	com_num = -1;
-	char_cnt = 0;
 }
 
 void Comment::Update()
 {
-	char_cnt++;
-	
-	if (char_cnt > 300)
-	{
-		char_cnt = 0;
-	}
-	
+	// コメント表示フラグがtrueだったら
 	if (disp_flg == true)
 	{
 		cnt++;
 
+		// cntが60より大きかったら
 		if (cnt > 60)
 		{
 			cnt = 0;
@@ -70,93 +93,37 @@ void Comment::Update()
 
 void Comment::Draw()
 {
-	SetFontSize(40);
-
-	// DrawFormatString(600, 245, 0xff0000, "%d", p_num);
-
-	//DrawGraph(46, 530, img[6], TRUE);
-
-	
-	
-	//if (char_cnt < 21)
-	//{
-	//	DrawGraph(46, 530, char_img[1], TRUE);
-	//}
-	//else if (char_cnt < 41)
-	//{
-	//	DrawGraph(37, 535, char_img[2], TRUE);
-	//}
-	//else if (char_cnt < 61)
-	//{
-	//	DrawGraph(15, 530, char_img[3], TRUE);
-	//}
-	//else if (char_cnt < 81)
-	//{
-	//	DrawGraph(0, 545, char_img[4], TRUE);
-	//}
-	//else if (char_cnt < 101)
-	//{
-	//	DrawGraph(-25, 575, char_img[5], TRUE);
-	//}
-	//else if (char_cnt < 121)
-	//{
-	//	DrawGraph(-35, 590, char_img[6], TRUE);
-	//}
-	//else if (char_cnt < 141)
-	//{
-	//	DrawGraph(-25, 575, char_img[5], TRUE);
-	//}
-	//else if (char_cnt < 161)
-	//{
-	//	DrawGraph(0, 545, char_img[4], TRUE);
-	//}
-	//else if (char_cnt < 181)
-	//{
-	//	DrawGraph(15, 530, char_img[3], TRUE);
-	//}
-	//else if (char_cnt < 201)
-	//{
-	//	DrawGraph(37, 535, char_img[2], TRUE);
-	//}
-	//else if (char_cnt < 221)
-	//{
-	//	DrawGraph(46, 530, char_img[1], TRUE);
-	//}
-	//else
-	//{
-	//	DrawGraph(46, 530, char_img[1], TRUE);
-	//}
-
+	// 背景の描画
 	DrawGraph(55, 570, char_img[0], TRUE);
 	
-
+	// コメント表示フラグがtrueのときコメントを描画
 	if (disp_flg == true)
 	{
 		switch (com_num)
 		{
 		case 0:
-			DrawGraph(30, 520, com_img[3], TRUE);
-			DrawStringToHandle(85, 540, "Genius!", 0x000000,font);
+			DrawGraph(SB_X, SB_Y, com_img[3], TRUE);
+			DrawStringToHandle(SB_X + 55, SB_Y + 20, "Genius!", 0x000000, font);
 			break;
 
 		case 1:
-			DrawGraph(30, 520, com_img[0], TRUE);
-			DrawStringToHandle(65, 540, "Excellent!", 0x000000, font);
+			DrawGraph(SB_X, SB_Y, com_img[0], TRUE);
+			DrawStringToHandle(SB_X + 35, SB_Y + 20, "Excellent!", 0x000000, font);
 			break;
 
 		case 2:
-			DrawGraph(30, 520, com_img[2], TRUE);
-			DrawStringToHandle(100, 540, "Great!", 0x000000, font);
+			DrawGraph(SB_X, SB_Y, com_img[2], TRUE);
+			DrawStringToHandle(SB_X + 70, SB_Y + 20, "Great!", 0x000000, font);
 			break;
 
 		case 3:
-			DrawGraph(30, 520, com_img[1], TRUE);
-			DrawStringToHandle(115, 542, "Nice!", 0x000000, font);
+			DrawGraph(SB_X, SB_Y, com_img[1], TRUE);
+			DrawStringToHandle(SB_X + 85, SB_Y + 22, "Nice!", 0x000000, font);
 			break;
 
 		case 4:
-			DrawGraph(30, 520, com_img[4], TRUE);
-			DrawStringToHandle(60, 545, "You can do it!", 0x000000, font2);
+			DrawGraph(SB_X, SB_Y, com_img[4], TRUE);
+			DrawStringToHandle(SB_X + 30, SB_Y + 25, "You can do it!", 0x000000, font2);
 			break;
 			
 		default:
@@ -167,13 +134,26 @@ void Comment::Draw()
 
 void Comment::Finalize()
 {
+	// フォントデータの削除
 	DeleteFontToHandle(font);
 	DeleteFontToHandle(font2);
 
+	// 画像データの削除
+	for (int i = 0; i < 7; i++)
+	{
+		DeleteGraph(char_img[i]);
+	}
+
+	for (int i = 0; i < 5; i++)
+	{
+		DeleteGraph(com_img[i]);
+	}
 }
 
 void Comment::SetComNum()
 {
+	// プレイヤーが間違えた数によって表示するコメントの種類を変える
+	// お題の数によって条件を変える
 	switch (t_num)
 	{
 	case 3:

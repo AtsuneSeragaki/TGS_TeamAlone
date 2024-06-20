@@ -47,6 +47,10 @@ void RankingScene::Initialize()
 	{
 		throw("Resource/sounds/title/bgm2.mp3がありません");
 	}
+	if (font == -1)
+	{
+		throw("Segoe UIがありません");
+	}
 
 	// BGMの音量設定
 	ChangeVolumeSoundMem(100, bgm);

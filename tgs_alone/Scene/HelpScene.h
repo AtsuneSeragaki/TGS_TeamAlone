@@ -2,21 +2,21 @@
 
 #include "SceneBase.h"
 
-#define BUTTON_X 420
-#define BUTTON_Y 340
+#define BUTTON_X 420  // ボタンのX座標
+#define BUTTON_Y 340  // ボタンのY座標
 
 class HelpScene : public SceneBase
 {
 private:
 	int back_img[6];      // 背景画像 
 	int button_img[4][6]; // ボタン画像
-	int star_img;     // 星画像
+	int star_img;         // 星画像
 	int se;               // 効果音
 	int bgm;              // BGM用
 	int cnt;              // ボタンアニメーションカウント用
 	bool cnt_flg;         // ボタンアニメーションのカウントをするかしないかフラグ
 	int anim;             // ボタンの動き用
-	int star_cnt;     // 星の回転用
+	int star_cnt;         // 星の回転用
 
 public:
 

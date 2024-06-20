@@ -5,17 +5,17 @@
 
 HelpScene::HelpScene():cnt(0),anim(0),cnt_flg(false),se(0),bgm(0), star_img(0),star_cnt(0)
 {
+	for (int i = 0; i < 6; i++)
+	{
+		back_img[i] = 0;
+	}
+
 	for (int i = 0; i < 4; i++)
 	{
 		for (int j = 0; j < 6; j++)
 		{
 			button_img[i][j] = 0;
 		}
-	}
-
-	for (int i = 0; i < 6; i++)
-	{
-		back_img[i] = 0;
 	}
 }
 
@@ -91,7 +91,6 @@ void HelpScene::Initialize()
 	{
 		throw("Resource/images/help/star.pngがありません");
 	}
-
 	if (se == -1)
 	{
 		throw("Resource/sounds/title/ok.mp3がありません");
