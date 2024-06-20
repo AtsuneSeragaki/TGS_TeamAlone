@@ -253,13 +253,14 @@ void GameMainScene::Draw() const
 		time->Draw();
 
 		// お題の描画
-		theme->Draw();
+		theme->Draw();	
 
 		// プレイヤーの入力を描画
 		player->Draw();
 
 		// コメントの描画
 		comment->Draw();
+		
 	}
 	else if (begin_time == 0)
 	{

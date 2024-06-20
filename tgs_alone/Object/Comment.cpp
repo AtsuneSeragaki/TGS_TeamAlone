@@ -93,7 +93,7 @@ void Comment::Update()
 
 void Comment::Draw()
 {
-	// 背景の描画
+	// 猫の描画
 	DrawGraph(55, 570, char_img[0], TRUE);
 	
 	// コメント表示フラグがtrueのときコメントを描画

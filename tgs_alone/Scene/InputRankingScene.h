@@ -6,32 +6,47 @@
 class InputRankingScene : public SceneBase
 {
 private:
-	int back_img;    // 背景画像 
-	int img[7];
+	int img[7];     // 画像データ用
+	int star_img;   // 星画像
+	int font;       // フォントデータ
+	int se[3];      // 効果音
+	int bgm;        // BGM
+	int level;      // プレイヤーの最終的なレベル数
+	int combo;      // プレイヤーの最終的なコンボ数
+	char name[10];  // プレイヤーが入力した名前
+	int name_num;   // 入力した名前の数
+	int cursor_x;   // カーソルのX座標
+	int cursor_y;   // カーソルのY座標
+	bool no_name;   // 名前が入力されてない場合はtrue 
+	int star_cnt;   // 星の回転用
 	RankingData* ranking; // ランキング情報
-	int level;
-	int combo;
-	char name[10];
-	int name_num;
-	int cursor_x;
-	int cursor_y;
-	bool no_name;
-	int font;
-	int se[3];
-	int bgm;
 
 public:
+
+	// インストラクタ
 	InputRankingScene();
+
+	// デストラクタ
 	virtual ~InputRankingScene();
 
+	// 初期化処理
 	virtual void Initialize() override;
+
+	// 更新処理
 	virtual eSceneType Update() override;
+
+	// 描画処理
 	virtual void Draw() const override;
+
+	// 終了時処理
 	virtual void Finalize() override;
 
+	// 現在のシーンを取得
 	virtual eSceneType GetNowScene() const override;
 
-private:
 	// 名前入力処理
 	bool InputName();
+
+	// 星の回転処理
+	void StarAnim();
 };
