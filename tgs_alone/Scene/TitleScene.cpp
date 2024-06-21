@@ -17,6 +17,20 @@ TitleScene::TitleScene() : back_img(0),bgm(0),star_img(0),star_cnt(0)
 
 TitleScene::~TitleScene()
 {
+	// 画像データの削除
+	DeleteGraph(back_img);
+
+	for (int i = 0; i < 8; i++)
+	{
+		DeleteGraph(menu_img[i]);
+	}
+
+	DeleteGraph(star_img);
+
+	// 音データの削除
+	DeleteSoundMem(se[0]);
+	DeleteSoundMem(se[1]);
+	DeleteSoundMem(bgm);
 }
 
 void TitleScene::Initialize()
@@ -121,7 +135,7 @@ eSceneType TitleScene::Update()
 	{// Bボタンを押したら
 
 		// 効果音の再生
-		PlaySoundMem(se[1], DX_PLAYTYPE_BACK, TRUE);
+		PlaySoundMem(se[1], DX_PLAYTYPE_NORMAL, TRUE);
 
 		// BGMの再生を止める
 		StopSoundMem(bgm);
@@ -194,20 +208,7 @@ void TitleScene::Draw() const
 
 void TitleScene::Finalize()
 {
-	// 画像データの削除
-	DeleteGraph(back_img);
-
-	for (int i = 0; i < 8; i++)
-	{
-		DeleteGraph(menu_img[i]);
-	}
-
-	DeleteGraph(star_img);
-
-	// 音データの削除
-	DeleteSoundMem(se[0]);
-	DeleteSoundMem(se[1]);
-	DeleteSoundMem(bgm);
+	
 }
 
 eSceneType TitleScene::GetNowScene() const

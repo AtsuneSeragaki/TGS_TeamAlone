@@ -31,6 +31,23 @@ ResultScene::ResultScene():back_img{0},bgm(0),se(0), star_img(0), star_cnt(0)
 
 ResultScene::~ResultScene()
 {
+	// 画像データの削除
+	DeleteGraph(back_img[0]);
+	DeleteGraph(back_img[1]);
+
+	for (int i = 0; i < 10; i++)
+	{
+		DeleteGraph(num_img[i]);
+	}
+
+	for (int i = 0; i < 3; i++)
+	{
+		DeleteGraph(rank_img[i]);
+	}
+
+	// 音データの削除
+	DeleteSoundMem(se);
+	DeleteSoundMem(bgm);
 }
 
 void ResultScene::Initialize()
@@ -126,7 +143,7 @@ eSceneType ResultScene::Update()
 	if (InputControl::GetButtonDown(XINPUT_BUTTON_B))
 	{
 		// 効果音の再生
-		PlaySoundMem(se, DX_PLAYTYPE_BACK, TRUE);
+		PlaySoundMem(se, DX_PLAYTYPE_NORMAL, TRUE);
 
 		// BGMの再生を止める
 		StopSoundMem(bgm);
@@ -223,19 +240,6 @@ void ResultScene::Draw() const
 
 void ResultScene::Finalize()
 {
-	// 画像データの削除
-	DeleteGraph(back_img[0]);
-	DeleteGraph(back_img[1]);
-
-	for (int i = 0; i < 10; i++)
-	{
-		DeleteGraph(num_img[i]);
-	}
-
-	for (int i = 0; i < 3; i++)
-	{
-		DeleteGraph(rank_img[i]);
-	}
 }
 
 eSceneType ResultScene::GetNowScene() const

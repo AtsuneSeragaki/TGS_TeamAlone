@@ -21,6 +21,25 @@ HelpScene::HelpScene():cnt(0),anim(0),cnt_flg(false),se(0),bgm(0), star_img(0),s
 
 HelpScene::~HelpScene()
 {
+	// 画像データの削除
+	for (int i = 0; i < 6; i++)
+	{
+		DeleteGraph(back_img[i]);
+	}
+
+	for (int i = 0; i < 4; i++)
+	{
+		for (int j = 0; j < 6; j++)
+		{
+			DeleteGraph(button_img[i][j]);
+		}
+	}
+
+	DeleteGraph(star_img);
+
+	// 音データの削除
+	DeleteSoundMem(se);
+	DeleteSoundMem(bgm);
 }
 
 void HelpScene::Initialize()
@@ -125,7 +144,7 @@ eSceneType HelpScene::Update()
 	{// Bボタンが押されたら
 
 		// 効果音の再生
-		PlaySoundMem(se, DX_PLAYTYPE_BACK, TRUE);
+		PlaySoundMem(se, DX_PLAYTYPE_NORMAL, TRUE);
 
 		// BGMの再生を止める
 		StopSoundMem(bgm);
@@ -135,10 +154,10 @@ eSceneType HelpScene::Update()
 	}
 
 	if (InputControl::GetButtonDown(XINPUT_BUTTON_X))
-	{// Bボタンが押されたら
+	{// Xボタンが押されたら
 
 		// 効果音の再生
-		PlaySoundMem(se, DX_PLAYTYPE_BACK, TRUE);
+		PlaySoundMem(se, DX_PLAYTYPE_NORMAL, TRUE);
 
 		// BGMの再生を止める
 		StopSoundMem(bgm);
@@ -293,25 +312,7 @@ void HelpScene::Draw() const
 
 void HelpScene::Finalize()
 {
-	// 画像データの削除
-	for (int i = 0; i < 6; i++)
-	{
-		DeleteGraph(back_img[i]);
-	}
-
-	for (int i = 0; i < 4; i++)
-	{
-		for (int j = 0; j < 6; j++)
-		{
-			DeleteGraph(button_img[i][j]);
-		}
-	}
-
-	DeleteGraph(star_img);
-
-	// 音データの削除
-	DeleteSoundMem(se);
-	DeleteSoundMem(bgm);
+	
 }
 
 eSceneType HelpScene::GetNowScene() const

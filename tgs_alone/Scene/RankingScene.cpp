@@ -10,6 +10,17 @@ RankingScene::RankingScene():back_img(0),ranking(nullptr),font(0),bgm(0), star_i
 
 RankingScene::~RankingScene()
 {
+	// フォントデータの削除
+	DeleteFontToHandle(font);
+
+	// 画像データの削除
+	DeleteGraph(back_img);
+	DeleteGraph(star_img);
+
+	// 音データの削除
+	DeleteSoundMem(se[0]);
+	DeleteSoundMem(se[1]);
+	DeleteSoundMem(bgm);
 }
 
 void RankingScene::Initialize()
@@ -72,7 +83,7 @@ eSceneType RankingScene::Update()
 	if (InputControl::GetButtonDown(XINPUT_BUTTON_B))
 	{
 		// 効果音の再生
-		PlaySoundMem(se[1], DX_PLAYTYPE_BACK, TRUE);
+		PlaySoundMem(se[1], DX_PLAYTYPE_NORMAL, TRUE);
 
 		// BGMを止める
 		StopSoundMem(bgm);
@@ -115,18 +126,6 @@ void RankingScene::Draw() const
 
 void RankingScene::Finalize()
 {
-	// フォントデータの削除
-	DeleteFontToHandle(font);
-
-	// 画像データの削除
-	DeleteGraph(back_img);
-	DeleteGraph(star_img);
-
-	// 音データの削除
-	DeleteSoundMem(se[0]);
-	DeleteSoundMem(se[1]);
-	DeleteSoundMem(bgm);
-
 	// 動的メモリの解放
 	ranking->Finalize();
 	delete ranking;

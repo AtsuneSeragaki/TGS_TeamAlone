@@ -21,6 +21,21 @@ InputRankingScene::InputRankingScene():ranking(nullptr),level(0),combo(0),name_n
 
 InputRankingScene::~InputRankingScene()
 {
+	// フォントデータの削除
+	DeleteFontToHandle(font);
+
+	// 画像データの削除
+	DeleteGraph(star_img);
+
+	for (int i = 0; i < 7; i++)
+	{
+		DeleteGraph(img[i]);
+	}
+
+	// 音データの削除
+	DeleteSoundMem(se[0]);
+	DeleteSoundMem(se[1]);
+	DeleteSoundMem(bgm);
 }
 
 void InputRankingScene::Initialize()
@@ -171,22 +186,6 @@ void InputRankingScene::Finalize()
 {
 	// ランキングにデータを格納
 	ranking->SetRankingData(level, combo, name);
-
-	// フォントデータの削除
-	DeleteFontToHandle(font);
-
-	// 画像データの削除
-	DeleteGraph(star_img);
-
-	for (int i = 0; i < 7; i++)
-	{
-		DeleteGraph(img[i]);
-	}
-
-	// 音データの削除
-	DeleteSoundMem(se[0]);
-	DeleteSoundMem(se[1]);
-	DeleteSoundMem(bgm);
 
 	// 動的メモリの解放
 	delete ranking;
@@ -361,7 +360,7 @@ bool InputRankingScene::InputName()
 			if (cursor_x == 0)
 			{
 				// 効果音を再生
-				PlaySoundMem(se[1], DX_PLAYTYPE_BACK, TRUE);
+				PlaySoundMem(se[1], DX_PLAYTYPE_NORMAL, TRUE);
 
 				if (no_name != true)
 				{

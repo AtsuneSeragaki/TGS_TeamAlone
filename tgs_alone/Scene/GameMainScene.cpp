@@ -26,7 +26,17 @@ GameMainScene::GameMainScene() :player(nullptr), time(nullptr), theme(nullptr),c
 
 GameMainScene::~GameMainScene()
 {
-	
+	// 音データの削除
+	for (int i = 0; i < 5; i++)
+	{
+		DeleteSoundMem(sound[i]);
+	}
+
+	// 画像データの削除
+	for (int i = 0; i < 7; i++)
+	{
+		DeleteGraph(img[i]);
+	}
 }
 
 void GameMainScene::Initialize()
@@ -155,7 +165,7 @@ eSceneType GameMainScene::Update()
 		if (InputControl::GetButtonDown(XINPUT_BUTTON_B) == true)
 		{
 			// 効果音の再生
-			PlaySoundMem(se[1], DX_PLAYTYPE_BACK, TRUE);
+			PlaySoundMem(se[1], DX_PLAYTYPE_NORMAL, TRUE);
 
 			switch (pause_cursor)
 			{
@@ -404,18 +414,7 @@ void GameMainScene::Draw() const
 
 void GameMainScene::Finalize()
 {
-	// 音データの削除
-	for (int i = 0; i < 5; i++)
-	{
-		DeleteSoundMem(sound[i]);
-	}
-
-	// 画像データの削除
-	for (int i = 0; i < 7; i++)
-	{
-		DeleteGraph(img[i]);
-	}
-
+	
 	// オブジェクトの削除
 	player->Finalize();
 	delete player;
