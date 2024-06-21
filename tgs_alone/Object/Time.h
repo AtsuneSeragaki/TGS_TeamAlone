@@ -7,23 +7,39 @@ class Time
 {
 private:
 	bool time_flg;     // 1秒減らすタイミングをカウント
-	int img_b[11];       // 画像データ
-	int img_r[11];       // 画像データ
+	int img_b[11];     // 画像データ
+	int img_r[11];     // 画像データ
 
 public:
-	int time;       // 制限時間(秒)
-	int time2;      // 制限時間(ミリ秒)
+	int time;   // 制限時間(秒)
+	int time2;  // 制限時間(ミリ秒)
 
 public:
+
+	// コンストラクタ
 	Time();
+
+	// デストラクタ
 	~Time();
 
-	void Initialize();  // 初期化処理
-	void Update();      // 更新処理
-	void Draw();        // 描画処理
-	void Finalize();    // 終了時処理
+	// 初期化処理
+	void Initialize();  
 
-	void SetTimeFlg(bool flg) { time_flg = flg; } // 制限時間を止めたり再開したりするフラグの設定
-	int GetTime() { return time; } // 制限時間を返す
-	void SetTime() { time--; } // 制限時間から一秒マイナス
+	// 更新処理
+	void Update();   
+
+	// 描画処理
+	void Draw();   
+
+	// 終了時処理
+	void Finalize();   
+
+	// 制限時間を止めたり再開したりするフラグの設定
+	void SetTimeFlg(bool flg) { time_flg = flg; } 
+
+	// 制限時間を返す
+	int GetTime() { return time; } 
+
+	// 制限時間から1秒マイナス
+	void SetTime() { time--; } 
 };

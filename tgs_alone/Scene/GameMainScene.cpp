@@ -121,7 +121,8 @@ void GameMainScene::Initialize()
 eSceneType GameMainScene::Update()
 {
 	if (pause == true)
-	{
+	{// ポーズ中だったら
+
 		// BGMの再生を止める
 		StopSoundMem(sound[0]);
 
@@ -177,12 +178,15 @@ eSceneType GameMainScene::Update()
 		}
 	}
 	else
-	{
+	{// ポーズ中じゃなかったら
+
+		// STARTボタンが押されたら
 		if (InputControl::GetButtonDown(XINPUT_BUTTON_START) == true)
 		{
 			// 効果音の再生
 			PlaySoundMem(se[1], DX_PLAYTYPE_BACK, TRUE);
 
+			// ポーズ中にする
 			pause = true;
 		}
 
@@ -191,6 +195,7 @@ eSceneType GameMainScene::Update()
 		{
 			if (begin_time == 3 && begin_cnt == 0)
 			{
+				// 効果音の再生
 				PlaySoundMem(sound[1], DX_PLAYTYPE_BACK, TRUE);
 			}
 
@@ -202,10 +207,12 @@ eSceneType GameMainScene::Update()
 
 				if (begin_time > 0)
 				{
+					// 効果音の再生
 					PlaySoundMem(sound[1], DX_PLAYTYPE_BACK, TRUE);
 				}
 				else if (begin_time == 0)
 				{
+					// 効果音の再生
 					PlaySoundMem(sound[2], DX_PLAYTYPE_BACK, TRUE);
 				}
 			}
@@ -248,10 +255,19 @@ eSceneType GameMainScene::Update()
 			}
 			else
 			{
+				// BGMの再生
 				PlaySoundMem(sound[0], DX_PLAYTYPE_LOOP, FALSE);
+
+				// お題の更新処理
 				theme->Update();
+
+				// タイムの更新処理
 				time->Update();
+
+				// プレイヤーの更新処理
 				player->Update();
+
+				// コメントの更新処理
 				comment->Update();
 
 				// プレイヤーがお題を全てクリアしたら次のお題へ
@@ -262,7 +278,6 @@ eSceneType GameMainScene::Update()
 					comment->SetDispFlg(true);
 					player->SetPlayerInput(true);
 					
-
 					if (draw_cnt == 10)
 					{
 						player->ResetPlayerState();
@@ -280,16 +295,17 @@ eSceneType GameMainScene::Update()
 			}
 		}
 	}
+
 	return GetNowScene();
 }
 
 void GameMainScene::Draw() const
 {
-	// 背景描画
-	DrawGraph(0, 0, img[4], TRUE);
-
 	if (begin_time == -1)
 	{
+		// 背景描画
+		DrawGraph(0, 0, img[4], TRUE);
+
 		// 制限時間の描画
 		time->Draw();
 
@@ -301,19 +317,16 @@ void GameMainScene::Draw() const
 
 		// コメントの描画
 		comment->Draw();
-		
 	}
 	else if (begin_time == 0)
 	{
 		// ゲーム開始の描画
 		DrawGraph(0, 0, img[0], TRUE);
-
 	}
 	else
 	{
 		// ゲーム開始までのカウントダウン描画
 		DrawGraph(0, 0, img[begin_time], TRUE);
-
 	}
 
 	if (timeup_cnt != 0)
@@ -321,11 +334,12 @@ void GameMainScene::Draw() const
 		if (Player::correct_num == THEME_MAX)
 		{// お題を全てクリアしたら
 
+			// 背景の描画
 			SetDrawBlendMode(DX_BLENDMODE_ALPHA, 200);
 			DrawBox(0, 0, 1280, 720, 0xffffff, TRUE);
 			SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 
-
+			// Parfectの描画
 			if (timeup_cnt <= 78)
 			{
 				DrawGraph(30, -600 + timeup_cnt * 7, img[6], TRUE);
@@ -341,6 +355,7 @@ void GameMainScene::Draw() const
 			DrawBox(0, 0, 1280, 720, 0xffffff, TRUE);
 			SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 
+			// Timeupの描画
 			if (timeup_cnt <= 78)
 			{
 				DrawGraph(30, -600 + timeup_cnt * 7, img[5], TRUE);
@@ -353,7 +368,7 @@ void GameMainScene::Draw() const
 	}
 
 	if (pause == true)
-	{// ポーズ
+	{// ポーズ中
 
 		// 背景描画
 		SetDrawBlendMode(DX_BLENDMODE_ALPHA, 200);
@@ -361,8 +376,9 @@ void GameMainScene::Draw() const
 		SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 
 		DrawGraph(348, 140, pause_img[0], TRUE);
-		DrawGraph(900, 600, pause_img[7], TRUE);
+		DrawGraph(800, 600, pause_img[7], TRUE);
 
+		// メニューの描画
 		switch (pause_cursor)
 		{
 		case 0:

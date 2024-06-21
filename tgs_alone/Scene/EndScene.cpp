@@ -3,7 +3,7 @@
 
 int EndScene::cnt = 0;
 
-EndScene::EndScene():back_img(0),bgm(0), star_img(0), star_cnt(0)
+EndScene::EndScene():back_img(0), star_img(0), star_cnt(0)
 {
 }
 
@@ -17,9 +17,6 @@ void EndScene::Initialize()
 	back_img = LoadGraph("Resource/images/end/end.png");
 	star_img = LoadGraph("Resource/images/help/star.png");
 
-	// 音データの読み込み
-	bgm = LoadSoundMem("Resource/sounds/title/bgm2.mp3");
-
 	// エラーチェック
 	if (back_img == -1)
 	{
@@ -29,13 +26,6 @@ void EndScene::Initialize()
 	{
 		throw("Resource/images/help/star.pngがありません");
 	}
-	if (bgm == -1)
-	{
-		throw("Resource/sounds/title/bgm2.mp3がありません");
-	}
-
-	// BGMの音量設定
-	ChangeVolumeSoundMem(100, bgm);
 
 	// 変数の初期化
 	cnt = 0;
@@ -44,9 +34,6 @@ void EndScene::Initialize()
 
 eSceneType EndScene::Update()
 {
-	// BGMの再生
-	PlaySoundMem(bgm, DX_PLAYTYPE_LOOP, FALSE);
-
 	// 星を回転させる
 	StarAnim();
 

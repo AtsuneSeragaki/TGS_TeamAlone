@@ -5,17 +5,24 @@
 class RankingData
 {
 private:
-	int level[RANKING_DATA];
-	int rank[RANKING_DATA];
-	int combo[RANKING_DATA];
-	char name[RANKING_DATA][10];
+	int level[RANKING_DATA];     // レベル
+	int rank[RANKING_DATA];      // ランク
+	int combo[RANKING_DATA];     // コンボ
+	char name[RANKING_DATA][10]; // 名前
 
 public:
+
+	// コンストラクタ
 	RankingData();
+
+	// デストラクタ
 	~RankingData();
 
-	void Initialize();  // 初期処理
-	void Finalize();    // 終了処理
+	// 初期処理
+	void Initialize();
+
+	// 終了処理
+	void Finalize();    
 
 	// ランキングデータの設定
 	void SetRankingData(int level, int combo, const char* name);
@@ -32,7 +39,6 @@ public:
 	// 名前取得処理
 	const char* GetName(int value) const;
 
-private:
 	// データ入れ替え処理
 	void SortData();
 };

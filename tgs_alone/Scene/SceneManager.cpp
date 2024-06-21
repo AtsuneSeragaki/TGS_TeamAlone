@@ -1,7 +1,6 @@
 ﻿#include "SceneManager.h"
 #include "../Utility/InputControl.h"
 #include "DxLib.h"
-//#include "EffekseerForDXLib.h"
 #include "TitleScene.h"
 #include "GameMainScene.h"
 #include "HelpScene.h"

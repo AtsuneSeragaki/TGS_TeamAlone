@@ -120,7 +120,30 @@ void Player::Initialize()
 		}
 	}
 
-	
+	for (int i = 0; i < 4; i++)
+	{
+		if (mis_img[i] == -1)
+		{
+			throw("mis_img[%d]がありません\n", i);
+		}
+	}
+
+	if (comment[0] == -1)
+	{
+		throw("Resource/images/main/string/great.pngがありません\n");
+	}
+	if (comment[1] == -1)
+	{
+		throw("Resource/images/main/string/bad.pngがありません\n");
+	}
+	if (effect_img[0] == -1)
+	{
+		throw("Resource/images/main/effect/effect3.pngがありません\n");
+	}
+	if (effect_img[1] == -1)
+	{
+		throw("Resource/images/main/effect/effect4.pngがありません\n");
+	}
 	if (sound[0] == -1)
 	{
 		throw("Resource/sounds/Button.mp3がありません\n");
@@ -164,8 +187,11 @@ void Player::Update()
 	if (input_flg == false)
 	{
 		if (InputControl::GetButtonDown(XINPUT_BUTTON_A) == true)
-		{
+		{// Aボタンが押されたら
+
 			input_flg = true;
+
+			// 効果音の再生
 			PlaySoundMem(sound[0], DX_PLAYTYPE_BACK, TRUE);
 
 			for (int i = 0; i < INPUT_MAX; i++)
@@ -177,11 +203,15 @@ void Player::Update()
 				}
 			}
 
+			// プレイヤーの入力とお題を判定
 			Comparison();
 		}
 		else if (InputControl::GetButtonDown(XINPUT_BUTTON_B) == true)
-		{
+		{// Bボタンが押されたら
+
 			input_flg = true;
+
+			// 効果音の再生
 			PlaySoundMem(sound[0], DX_PLAYTYPE_BACK, TRUE);
 
 			for (int i = 0; i < INPUT_MAX; i++)
@@ -193,11 +223,15 @@ void Player::Update()
 				}
 			}
 
+			// プレイヤーの入力とお題を判定
 			Comparison();
 		}
 		else if (InputControl::GetButtonDown(XINPUT_BUTTON_Y) == true)
-		{
+		{// Yボタンが押されたら
+
 			input_flg = true;
+
+			// 効果音の再生
 			PlaySoundMem(sound[0], DX_PLAYTYPE_BACK, TRUE);
 
 			for (int i = 0; i < INPUT_MAX; i++)
@@ -209,11 +243,15 @@ void Player::Update()
 				}
 			}
 
+			// プレイヤーの入力とお題を判定
 			Comparison();
 		}
 		else if (InputControl::GetButtonDown(XINPUT_BUTTON_X) == true)
-		{
+		{// Xボタンが押されたら
+
 			input_flg = true;
+
+			// 効果音の再生
 			PlaySoundMem(sound[0], DX_PLAYTYPE_BACK, TRUE);
 
 			for (int i = 0; i < INPUT_MAX; i++)
@@ -225,13 +263,15 @@ void Player::Update()
 				}
 			}
 
+			// プレイヤーの入力とお題を判定
 			Comparison();
 		}
 	}
 	else
 	{
 		if (correct[correct_num] != -1 && input_draw[correct_num] == false)
-		{// プレイヤーの入力とお題が同じとき
+		{// プレイヤーの入力とお題が同じとき、アニメーションを再生
+
 			cnt++;
 
 			if (cnt != 0)
@@ -255,7 +295,7 @@ void Player::Update()
 		}
 
 		if (mis_data[correct_num] != -1 && mis_draw[correct_num] == false)
-		{// プレイヤーが間違えた時
+		{// プレイヤーが間違えた時、アニメーションを再生
 			mistake_cnt++;
 
 			if (mistake_cnt != 0)
@@ -274,17 +314,20 @@ void Player::Update()
 			}
 		}
 
+		// 間違えた時のコメント処理
 		if (mcom_cnt[correct_num] != 0)
 		{
 			SetMisCom();
 		}
 
+		// 間違えた時のアニメーション処理
 		if (mis_anim2[correct_num] != 0)
 		{
 			FallAnim();
 		}
 	}
 
+	// コメントの更新処理
 	SetCom();
 }
 
@@ -310,6 +353,7 @@ void Player::Draw()
 	// プレイヤーが入力したものを表示
 	for (int i = 0; i < INPUT_MAX; i++)
 	{
+		// 間違えた時
 		if (mis_data[i] != -1)
 		{// プレイヤーの入力とお題が同じとき表示
 
@@ -511,6 +555,7 @@ void Player::Draw()
 			}
 		}
 		
+		// 正解したとき
 		if (correct[i] != -1)
 		{
 			if (Theme::theme_num < 10)
@@ -793,6 +838,16 @@ void Player::Finalize()
 	{
 		DeleteGraph(combo_img[i]);
 	}
+
+	for (int i = 0; i < 4; i++)
+	{
+		DeleteGraph(mis_img[i]);
+	}
+
+	DeleteGraph(comment[0]);
+	DeleteGraph(comment[1]);
+	DeleteGraph(effect_img[0]);
+	DeleteGraph(effect_img[1]);
 }
 
 void Player::SetPlayerAnim()

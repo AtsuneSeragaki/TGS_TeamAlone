@@ -49,8 +49,6 @@ public:
 	// 現在のシーン情報
 	virtual eSceneType GetNowScene() const override;
 
-private:
-
 	// タイムアップアニメーション
 	void TimeupAnim(); 
 };
