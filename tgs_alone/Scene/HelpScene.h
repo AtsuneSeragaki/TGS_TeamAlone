@@ -20,7 +20,7 @@ private:
 
 public:
 
-	// インストラクタ
+	// コンストラクタ
 	HelpScene();	
 
 	// デストラクタ

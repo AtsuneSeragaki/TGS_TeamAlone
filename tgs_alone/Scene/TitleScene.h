@@ -19,7 +19,7 @@ public:
 
 public:
 
-	// インストラクタ
+	// コンストラクタ
 	TitleScene();
 
 	// デストラクタ

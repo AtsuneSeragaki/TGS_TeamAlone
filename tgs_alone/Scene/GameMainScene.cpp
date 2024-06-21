@@ -4,6 +4,9 @@
 
 GameMainScene::GameMainScene() :player(nullptr), time(nullptr), theme(nullptr),comment(nullptr), begin_time(0),begin_cnt(0),draw_cnt(0),timeup_flg(false),timeup_cnt(0),pause(false),pause_cursor(0)
 {
+	se[0] = 0;
+	se[1] = 0;
+
 	for (int i = 0; i < 5; i++)
 	{
 		sound[i] = 0;
@@ -53,6 +56,9 @@ void GameMainScene::Initialize()
 	sound[3] = LoadSoundMem("Resource/sounds/main/se/game_end.mp3");
 	sound[4] = LoadSoundMem("Resource/sounds/main/se/stop.mp3");
 
+	se[0] = LoadSoundMem("Resource/sounds/title/move.mp3");
+	se[1] = LoadSoundMem("Resource/sounds/title/ok.mp3");
+
 	// エラーチェック
 	for (int i = 0; i < 7; i++)
 	{
@@ -62,12 +68,29 @@ void GameMainScene::Initialize()
 		}
 	}
 
+	for (int i = 0; i < 8; i++)
+	{
+		if (pause_img[i] == -1)
+		{
+			throw("pause_img[%d]がありません\n", i);
+		}
+	}
+
 	for (int i = 0; i < 5; i++)
 	{
 		if (sound[i] == -1)
 		{
 			throw("sound[%d]がありません\n", i);
 		}
+	}
+
+	if (se[0] == -1)
+	{
+		throw("Resource/sounds/title/move.mp3がありません");
+	}
+	if (se[1] == -1)
+	{
+		throw("Resource/sounds/title/ok.mp3がありません");
 	}
 
 	// 変数の初期化
@@ -99,8 +122,14 @@ eSceneType GameMainScene::Update()
 {
 	if (pause == true)
 	{
+		// BGMの再生を止める
+		StopSoundMem(sound[0]);
+
 		if (InputControl::GetButtonDown(XINPUT_BUTTON_A) == true)
 		{
+			// 効果音の再生
+			PlaySoundMem(se[0], DX_PLAYTYPE_BACK, TRUE);
+
 			pause_cursor++;
 
 			if (pause_cursor > 2)
@@ -111,6 +140,9 @@ eSceneType GameMainScene::Update()
 
 		if (InputControl::GetButtonDown(XINPUT_BUTTON_Y) == true)
 		{
+			// 効果音の再生
+			PlaySoundMem(se[0], DX_PLAYTYPE_BACK, TRUE);
+
 			pause_cursor--;
 
 			if (pause_cursor < 0)
@@ -121,18 +153,24 @@ eSceneType GameMainScene::Update()
 
 		if (InputControl::GetButtonDown(XINPUT_BUTTON_B) == true)
 		{
+			// 効果音の再生
+			PlaySoundMem(se[1], DX_PLAYTYPE_BACK, TRUE);
+
 			switch (pause_cursor)
 			{
 			case 0:
 				pause = false;
 				break;
+
 			case 1:
 				pause = false;
 				Finalize();
 				Initialize();
 				break;
+
 			case 2:
 				return eSceneType::E_TITLE;
+
 			default:
 				break;
 			}
@@ -142,6 +180,9 @@ eSceneType GameMainScene::Update()
 	{
 		if (InputControl::GetButtonDown(XINPUT_BUTTON_START) == true)
 		{
+			// 効果音の再生
+			PlaySoundMem(se[1], DX_PLAYTYPE_BACK, TRUE);
+
 			pause = true;
 		}
 
@@ -313,6 +354,7 @@ void GameMainScene::Draw() const
 
 	if (pause == true)
 	{// ポーズ
+
 		// 背景描画
 		SetDrawBlendMode(DX_BLENDMODE_ALPHA, 200);
 		DrawBox(0, 0, 1280, 720, 0xffffff, TRUE);
@@ -380,11 +422,13 @@ void GameMainScene::TimeupAnim()
 
 	if (timeup_cnt == 1)
 	{
+		// サウンドの再生
 		PlaySoundMem(sound[3], DX_PLAYTYPE_BACK, TRUE);
 	}
 
 	if (timeup_cnt == 50)
 	{
+		// サウンドの再生
 		PlaySoundMem(sound[4], DX_PLAYTYPE_BACK, TRUE);
 	}
 

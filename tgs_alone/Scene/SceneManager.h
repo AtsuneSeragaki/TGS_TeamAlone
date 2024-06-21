@@ -14,15 +14,30 @@ private:
 	SceneBase* current_scene;  // 現在のシーン情報
 
 public:
+
+	// コンストラクタ
 	SceneManager();
+
+	// デストラクタ
 	~SceneManager();
 
-	void Initialize();  // 初期化処理
-	void Update();     // 更新処理
-	void Finalize();   // 終了時処理
+	// 初期化処理
+	void Initialize(); 
+
+	// 更新処理
+	void Update(); 
+
+	// 終了時処理
+	void Finalize();   
 
 private:
-	void Draw() const;  // 描画処理
-	void ChangeScene(eSceneType scene_type);        // シーンの切り替え処理
-	SceneBase* CreateScene(eSceneType scene_type);  // シーン生成処理
+
+	// 描画処理
+	void Draw() const;  
+
+	// シーンの切り替え処理
+	void ChangeScene(eSceneType scene_type);   
+
+	// シーン生成処理
+	SceneBase* CreateScene(eSceneType scene_type);  
 };

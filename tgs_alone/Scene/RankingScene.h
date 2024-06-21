@@ -18,7 +18,7 @@ private:
 
 public:
 
-	// インストラクタ
+	// コンストラクタ
 	RankingScene();
 
 	// デストラクタ

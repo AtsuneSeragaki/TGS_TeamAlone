@@ -4,7 +4,7 @@
 #include "../Utility/InputControl.h"
 #include "DxLib.h"
 
-ResultScene::ResultScene():back_img{0},bgm(0),se(0)
+ResultScene::ResultScene():back_img{0},bgm(0),se(0), star_img(0), star_cnt(0)
 {
 	for (int i = 0; i < 10; i++)
 	{
@@ -42,19 +42,32 @@ void ResultScene::Initialize()
 	rank_img[0] = LoadGraph("Resource/images/result/rank1.png");
 	rank_img[1] = LoadGraph("Resource/images/result/rank2.png");
 	rank_img[2] = LoadGraph("Resource/images/result/rank3.png");
+	star_img = LoadGraph("Resource/images/help/star.png");
 
+	// 音データの読み込み
 	se = LoadSoundMem("Resource/sounds/title/ok.mp3");
-
 	bgm = LoadSoundMem("Resource/sounds/title/bgm.mp3");
-
-	// BGMの音量設定
-	ChangeVolumeSoundMem(100, bgm);
-
 
 	// エラーチェック
 	if (back_img[0] == -1)
 	{
 		throw("Resource/images/result.pngがありません");
+	}
+	if (back_img[1] == -1)
+	{
+		throw("Resource/images/result.pngがありません");
+	}
+	if (star_img == -1)
+	{
+		throw("Resource/images/help/star.pngがありません");
+	}
+	if (se == -1)
+	{
+		throw("Resource/sounds/title/ok.mp3がありません");
+	}
+	if (bgm == -1)
+	{
+		throw("Resource/sounds/title/bgm.mp3がありません");
 	}
 
 	for (int i = 0; i < 10; i++)
@@ -72,6 +85,9 @@ void ResultScene::Initialize()
 			throw("rank_img[%d]がありません", i);
 		}
 	}
+
+	// BGMの音量設定
+	ChangeVolumeSoundMem(100, bgm);
 
 	// ランキングデータの読み込み
 	FILE * fp = nullptr;
@@ -94,27 +110,37 @@ void ResultScene::Initialize()
 	// ファイルクローズ
 	fclose(fp);
 
+	// 変数の初期化
+	star_cnt = 0;
 }
 
 eSceneType ResultScene::Update()
 {
+	// BGMの再生
 	PlaySoundMem(bgm, DX_PLAYTYPE_LOOP, FALSE);
+
+	// 星を回転させる
+	StarAnim();
 	
+	// Bボタンを押したとき
 	if (InputControl::GetButtonDown(XINPUT_BUTTON_B))
 	{
+		// 効果音の再生
 		PlaySoundMem(se, DX_PLAYTYPE_BACK, TRUE);
-		StopSoundMem(bgm);
 
+		// BGMの再生を止める
+		StopSoundMem(bgm);
+		
 		if (level[2] < Theme::theme_num - 3)
-		{
+		{// ランキングに載る成績なら、名前入力画面に遷移
 			return eSceneType::E_INPUT_RANKING;
 		}
 		else if (level[2] == Theme::theme_num - 3 && combo[2] < Player::combo)
-		{
+		{// ランキングに載る成績なら、名前入力画面に遷移
 			return eSceneType::E_INPUT_RANKING;
 		}
 		else
-		{
+		{// ランキングに載らない場合、タイトル画面に遷移
 			return eSceneType::E_TITLE;
 		}
 	}
@@ -124,15 +150,12 @@ eSceneType ResultScene::Update()
 
 void ResultScene::Draw() const
 {
-#ifdef _DEBUG
-	
-
-#endif // _DEBUG
-
+	// 比較用のデータを格納
 	int i = Theme::theme_num - 3;
 	int j = Player::combo;
 
 	// 背景画像表示
+	// 名前入力画面に行くか行かないかで変える
 	if (level[2] < i)
 	{
 		DrawGraph(0, 0, back_img[1], TRUE);
@@ -145,6 +168,12 @@ void ResultScene::Draw() const
 	{
 		DrawGraph(0, 0, back_img[0], TRUE);
 	}
+
+	// 星の描画
+	DrawRotaGraph(120, 80, 1.0, PI / 180 * (star_cnt * 2), star_img, TRUE);
+	DrawRotaGraph(1160, 50, 1.0, PI / 180 * (-star_cnt * 2), star_img, TRUE);
+	DrawRotaGraph(120, 640, 1.0, PI / 180 * (-star_cnt * 2), star_img, TRUE);
+	DrawRotaGraph(1160, 640, 1.0, PI / 180 * (star_cnt * 2), star_img, TRUE);
 
 	// ランクの表示
 	if (i < 6)
@@ -212,4 +241,15 @@ void ResultScene::Finalize()
 eSceneType ResultScene::GetNowScene() const
 {
 	return eSceneType::E_RESULT;
+}
+
+void ResultScene::StarAnim()
+{
+	star_cnt++;
+
+	// 180より大きくなったら0にする
+	if (star_cnt > 180)
+	{
+		star_cnt = 0;
+	}
 }

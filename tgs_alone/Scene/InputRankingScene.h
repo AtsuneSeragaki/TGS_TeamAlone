@@ -23,7 +23,7 @@ private:
 
 public:
 
-	// インストラクタ
+	// コンストラクタ
 	InputRankingScene();
 
 	// デストラクタ

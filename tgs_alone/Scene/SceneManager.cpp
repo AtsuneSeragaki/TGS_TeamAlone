@@ -12,12 +12,10 @@
 
 SceneManager::SceneManager() : current_scene(nullptr)
 {
-
 }
 
 SceneManager::~SceneManager()
 {
-
 }
 
 // シーンマネージャー機能：初期化処理
@@ -32,6 +30,7 @@ void SceneManager::Initialize()
 		throw("ウィンドウモードで起動できませんでした\n");
 	}
 
+	// ウィンドウサイズの設定
 	SetGraphMode(1280, 720, 32);
 
 	// DXライブラリの初期化
@@ -39,13 +38,6 @@ void SceneManager::Initialize()
 	{
 		throw("Dxライブラリが初期化できませんでした\n");
 	}
-
-	// Effekseerの初期化
-	// 引数には画面に表示する最大パーティクル数を設定
-	/*if (Effekseer_Init(8000) == -1)
-	{
-		throw("Effekseerが初期化できませんでした\n");
-	}*/
 
 	// 描画先指定処理
 	if (SetDrawScreen(DX_SCREEN_BACK) == -1)
@@ -97,6 +89,7 @@ void SceneManager::Update()
 			break;
 		}
 
+		// エンドカウントが180より大きかったらゲームを終了する
 		if (EndScene::cnt > 180)
 		{
 			break;
