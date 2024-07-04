@@ -178,7 +178,7 @@ void InputRankingScene::Draw() const
 	else
 	{
 		// 入力された名前を描画
-		DrawFormatStringToHandle(600 - name_num * 20, 63, 0x000000, font, "%s", name);
+		DrawFormatStringToHandle(630 - name_num * 20, 63, 0x000000, font, "%s", name);
 	}
 }
 
@@ -283,7 +283,7 @@ bool InputRankingScene::InputName()
 			cursor_y++;
 			cursor_x = 0;
 		}
-		else if (cursor_y == 3 && cursor_x == 7)
+		else if (cursor_y == 3 && cursor_x == 1)
 		{// 4列目の一番最後にカーソルがある場合、1列目の最初の位置に移動
 			cursor_y = 0;
 			cursor_x = 0;
