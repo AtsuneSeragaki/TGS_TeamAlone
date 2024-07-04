@@ -151,6 +151,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="liquid.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Object\Comment.cpp" />
     <ClCompile Include="Object\Player.cpp" />
@@ -168,6 +169,7 @@
     <ClCompile Include="Utility\InputControl.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="liquid.h" />
     <ClInclude Include="Object\Comment.h" />
     <ClInclude Include="Object\Player.h" />
     <ClInclude Include="Object\RankingData.h" />
