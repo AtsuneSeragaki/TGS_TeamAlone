@@ -205,7 +205,33 @@ bool InputRankingScene::InputName()
 		// 効果音を再生
 		PlaySoundMem(se[0], DX_PLAYTYPE_BACK, TRUE);
 
-		if (cursor_y == 3)
+		if (cursor_y == 0 && cursor_x == 0)
+		{// 1列目の一番最初にカーソルがある場合、4列目の最後の位置に移動
+			cursor_y = 3;
+			cursor_x = 1;
+		}
+		else if (cursor_y == 1 && cursor_x == 0)
+		{// 2列目の一番最初にカーソルがある場合、1列目の最後の位置に移動
+			cursor_y--;
+			cursor_x = 8;
+		}
+		else if (cursor_y == 2 && cursor_x == 0)
+		{// 3列目の一番最初にカーソルがある場合、2列目の最後の位置に移動
+			cursor_y--;
+			cursor_x = 8;
+		}
+		else if (cursor_y == 3 && cursor_x == 0)
+		{// 4列目の一番最初にカーソルがある場合、3列目の最後の位置に移動
+			cursor_y--;
+			cursor_x = 7;
+		}
+		else
+		{// 上記以外は、左にカーソルを移動
+			cursor_x--;
+		}
+
+
+		/*if (cursor_y == 3)
 		{
 			if (cursor_x == 0)
 			{
@@ -233,7 +259,7 @@ bool InputRankingScene::InputName()
 					cursor_x = 7;
 				}
 			}
-		}
+		}*/
 	}
 
 	if (InputControl::GetButtonDown(XINPUT_BUTTON_B))
@@ -242,7 +268,32 @@ bool InputRankingScene::InputName()
 		// 効果音を再生
 		PlaySoundMem(se[0], DX_PLAYTYPE_BACK, TRUE);
 
-		if (cursor_y == 3)
+		if (cursor_y == 0 && cursor_x == 8)
+		{// 1列目の一番最後にカーソルがある場合、2列目の最初の位置に移動
+			cursor_y++;
+			cursor_x = 0;
+		}
+		else if (cursor_y == 1 && cursor_x == 8)
+		{// 2列目の一番最後にカーソルがある場合、3列目の最初の位置に移動
+			cursor_y++;
+			cursor_x = 0;
+		}
+		else if (cursor_y == 2 && cursor_x == 7)
+		{// 3列目の一番最後にカーソルがある場合、4列目の最初の位置に移動
+			cursor_y++;
+			cursor_x = 0;
+		}
+		else if (cursor_y == 3 && cursor_x == 7)
+		{// 4列目の一番最後にカーソルがある場合、1列目の最初の位置に移動
+			cursor_y = 0;
+			cursor_x = 0;
+		}
+		else
+		{// 上記以外は、右にカーソルを移動
+			cursor_x++;
+		}
+
+		/*if (cursor_y == 3)
 		{
 			if (cursor_x == 1)
 			{
@@ -279,65 +330,19 @@ bool InputRankingScene::InputName()
 			}
 			
 			
-		}
+		}*/
 	}
 
-	if (InputControl::GetButtonDown(XINPUT_BUTTON_Y))
-	{//Y ボタンを押した場合
-
-		// 効果音を再生
-		PlaySoundMem(se[0], DX_PLAYTYPE_BACK, TRUE);
-
-		if (cursor_y > 0)
-		{
-			cursor_y--;
-		}
-		else
-		{
-			cursor_y = 3;
-
-			if (cursor_x > 1)
-			{
-				cursor_x = 1;
-			}
-		}
-	}
-
+	// Aボタンを押した場合カーソル位置の文字を決定する
 	if (InputControl::GetButtonDown(XINPUT_BUTTON_A))
-	{//Aボタンを押した場合
-
-		// 効果音を再生
-		PlaySoundMem(se[0], DX_PLAYTYPE_BACK, TRUE);
-
+	{	
 		if (cursor_y < 3)
-		{
-			cursor_y++;
+		{// カーソルが1～3列目にある場合
 
-			if (cursor_y == 2 && cursor_x == 8)
-			{
-				cursor_x = 7;
-			}
-
-			if (cursor_y == 3 && cursor_x > 1)
-			{
-				cursor_x = 1;
-			}
-		}
-		else
-		{
-			cursor_y = 0;
-		}
-	}
-
-	// カーソル位置の文字を決定する
-	if (InputControl::GetButtonDown(XINPUT_BUTTON_START))
-	{//STARTボタンを押した場合
-		
-		if (cursor_y < 3)
-		{
 			// 効果音を再生
 			PlaySoundMem(se[1], DX_PLAYTYPE_BACK, TRUE);
 
+			// 名前が8文字未満だったら
 			if (name[8] == NULL)
 			{
 				if (no_name == true)
@@ -349,23 +354,27 @@ bool InputRankingScene::InputName()
 				name[++name_num] = 'A' + cursor_x + (cursor_y * 9);
 			}
 
-			if (cursor_y == 3)
+			/*if (cursor_y == 3)
 			{
 				cursor_x = 0;
 				cursor_y = 3;
-			}
+			}*/
 		}
 		else if (cursor_y == 3)
-		{
+		{// カーソルが4列目にある場合
+
 			if (cursor_x == 0)
-			{
+			{// カーソルがOKの位置にある場合
+
 				// 効果音を再生
 				PlaySoundMem(se[1], DX_PLAYTYPE_NORMAL, TRUE);
-
+				
 				if (no_name != true)
-				{
+				{// 名前が入力されていたら
+
 					// 名前の最後に\0を入れる
 					name[++name_num] = '\0';
+
 					return true;
 				}
 				else
@@ -381,6 +390,7 @@ bool InputRankingScene::InputName()
 				// 入力された名前をひとつ消す
 				name[name_num--] = NULL;
 
+				// 名前が入力されていなかったら
 				if (name[0] == NULL)
 				{
 					no_name = true;
