@@ -13,7 +13,7 @@ private:
 	int bgm;        // BGM
 	int level;      // プレイヤーの最終的なレベル数
 	int combo;      // プレイヤーの最終的なコンボ数
-	char name[10];  // プレイヤーが入力した名前
+	char name[9];  // プレイヤーが入力した名前
 	int name_num;   // 入力した名前の数
 	int cursor_x;   // カーソルのX座標
 	int cursor_y;   // カーソルのY座標

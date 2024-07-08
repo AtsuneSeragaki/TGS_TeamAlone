@@ -6,7 +6,7 @@
 
 InputRankingScene::InputRankingScene():ranking(nullptr),level(0),combo(0),name_num(0),cursor_x(0),cursor_y(0),no_name(false),font(0),bgm(0), star_img(0), star_cnt(0)
 {
-	memset(name, NULL, (sizeof(char) * 10));
+	memset(name, NULL, (sizeof(char) * 9));
 
 	for (int i = 0; i < 7; i++)
 	{
@@ -178,7 +178,7 @@ void InputRankingScene::Draw() const
 	else
 	{
 		// 入力された名前を描画
-		DrawFormatStringToHandle(630 - name_num * 20, 63, 0x000000, font, "%s", name);
+		DrawFormatStringToHandle(630 - name_num * 30, 63, 0x000000, font, "%s", name);
 	}
 }
 
@@ -229,37 +229,6 @@ bool InputRankingScene::InputName()
 		{// 上記以外は、左にカーソルを移動
 			cursor_x--;
 		}
-
-
-		/*if (cursor_y == 3)
-		{
-			if (cursor_x == 0)
-			{
-				cursor_x = 1;
-			}
-			else
-			{
-				cursor_x--;
-			}
-		}
-		else
-		{
-			if (cursor_x > 0)
-			{
-				cursor_x--;
-			}
-			else
-			{
-				if (cursor_y != 2)
-				{
-					cursor_x = 8;
-				}
-				else
-				{
-					cursor_x = 7;
-				}
-			}
-		}*/
 	}
 
 	if (InputControl::GetButtonDown(XINPUT_BUTTON_B))
@@ -292,45 +261,6 @@ bool InputRankingScene::InputName()
 		{// 上記以外は、右にカーソルを移動
 			cursor_x++;
 		}
-
-		/*if (cursor_y == 3)
-		{
-			if (cursor_x == 1)
-			{
-				cursor_x = 0;
-			}
-			else
-			{
-				cursor_x++;
-			}
-		}
-		else
-		{
-			if (cursor_y != 2)
-			{
-				if (cursor_x < 8)
-				{
-					cursor_x++;
-				}
-				else
-				{
-					cursor_x = 0;
-				}
-			}
-			else
-			{
-				if (cursor_x < 7)
-				{
-					cursor_x++;
-				}
-				else
-				{
-					cursor_x = 0;
-				}
-			}
-			
-			
-		}*/
 	}
 
 	// Aボタンを押した場合カーソル位置の文字を決定する
@@ -342,8 +272,8 @@ bool InputRankingScene::InputName()
 			// 効果音を再生
 			PlaySoundMem(se[1], DX_PLAYTYPE_BACK, TRUE);
 
-			// 名前が8文字未満だったら
-			if (name[8] == NULL)
+			// 名前が9文字未満だったら
+			if (name[7] == NULL)
 			{
 				if (no_name == true)
 				{
@@ -353,12 +283,6 @@ bool InputRankingScene::InputName()
 				// 名前を格納
 				name[++name_num] = 'A' + cursor_x + (cursor_y * 9);
 			}
-
-			/*if (cursor_y == 3)
-			{
-				cursor_x = 0;
-				cursor_y = 3;
-			}*/
 		}
 		else if (cursor_y == 3)
 		{// カーソルが4列目にある場合
