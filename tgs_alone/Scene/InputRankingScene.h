@@ -13,12 +13,13 @@ private:
 	int bgm;        // BGM
 	int level;      // プレイヤーの最終的なレベル数
 	int combo;      // プレイヤーの最終的なコンボ数
-	char name[9];  // プレイヤーが入力した名前
+	char name[6];  // プレイヤーが入力した名前
 	int name_num;   // 入力した名前の数
 	int cursor_x;   // カーソルのX座標
 	int cursor_y;   // カーソルのY座標
 	bool no_name;   // 名前が入力されてない場合はtrue 
 	int star_cnt;   // 星の回転用
+	bool input_end; // 名前入力終了フラグ
 	RankingData* ranking; // ランキング情報
 
 public:

@@ -4,9 +4,9 @@
 #include "../Object/Theme.h"
 #include "DxLib.h"
 
-InputRankingScene::InputRankingScene():ranking(nullptr),level(0),combo(0),name_num(0),cursor_x(0),cursor_y(0),no_name(false),font(0),bgm(0), star_img(0), star_cnt(0)
+InputRankingScene::InputRankingScene():ranking(nullptr),level(0),combo(0),name_num(0),cursor_x(0),cursor_y(0),no_name(false),font(0),bgm(0), star_img(0), star_cnt(0),input_end(false)
 {
-	memset(name, NULL, (sizeof(char) * 9));
+	memset(name, NULL, (sizeof(char) * 6));
 
 	for (int i = 0; i < 7; i++)
 	{
@@ -102,6 +102,7 @@ void InputRankingScene::Initialize()
 	no_name = true;
 	name_num = -1;
 	star_cnt = 0;
+	input_end = false;
 }
 
 eSceneType InputRankingScene::Update()
@@ -178,7 +179,14 @@ void InputRankingScene::Draw() const
 	else
 	{
 		// 入力された名前を描画
-		DrawFormatStringToHandle(630 - name_num * 30, 63, 0x000000, font, "%s", name);
+		if (input_end == false)
+		{
+			DrawFormatStringToHandle(630 - name_num * 30, 63, 0x000000, font, "%s", name);
+		}
+		else
+		{
+			DrawFormatStringToHandle(630 - (name_num - 1) * 30, 63, 0x000000, font, "%s", name);
+		}
 	}
 }
 
@@ -272,8 +280,8 @@ bool InputRankingScene::InputName()
 			// 効果音を再生
 			PlaySoundMem(se[1], DX_PLAYTYPE_BACK, TRUE);
 
-			// 名前が9文字未満だったら
-			if (name[7] == NULL)
+			// 名前が5文字未満だったら
+			if (name[4] == NULL)
 			{
 				if (no_name == true)
 				{
@@ -298,6 +306,7 @@ bool InputRankingScene::InputName()
 
 					// 名前の最後に\0を入れる
 					name[++name_num] = '\0';
+					input_end = true;
 
 					return true;
 				}
