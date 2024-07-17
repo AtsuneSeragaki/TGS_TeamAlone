@@ -13,6 +13,7 @@ private:
 public:
 	int time;   // 制限時間(秒)
 	int time2;  // 制限時間(ミリ秒)
+	float time3;
 
 public:
 

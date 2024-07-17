@@ -334,7 +334,7 @@ void Player::Update()
 void Player::Draw()
 {
 	// コンボ数表示
-	if (combo < 10)
+	/*if (combo < 10)
 	{
 		DrawGraph(170, 105, combo_img[combo % 10], TRUE);
 	}
@@ -348,7 +348,10 @@ void Player::Draw()
 		DrawGraph(110, 105, combo_img[combo / 100], TRUE);
 		DrawGraph(165, 105, combo_img[(combo - combo / 100 * 100) / 10], TRUE);
 		DrawGraph(230, 105, combo_img[combo % 10], TRUE);
-	}
+	}*/
+
+	SetFontSize(75);
+	DrawFormatString(500, 60, 0x000000, "%d", combo);
 
 	// プレイヤーが入力したものを表示
 	for (int i = 0; i < INPUT_MAX; i++)
