@@ -39,6 +39,9 @@ public:
 	// フラグの設定
 	void SetDispFlg(bool flg) { disp_flg = flg; }
 
+	// フラグの値を返す
+	bool GetDispFlg() { return disp_flg; }
+
 	// プレイヤーとお題の数の設定
 	void SetNum(int p, int t) { p_num = p, t_num = t; }
 

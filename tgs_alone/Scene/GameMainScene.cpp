@@ -263,6 +263,7 @@ eSceneType GameMainScene::Update()
 
 					return eSceneType::E_RESULT;
 				}
+				
 			}
 			else
 			{
@@ -272,9 +273,12 @@ eSceneType GameMainScene::Update()
 				// お題の更新処理
 				theme->Update();
 
-				// タイムの更新処理
-				time->Update();
-
+				if (comment->GetDispFlg() == false)
+				{
+					// タイムの更新処理
+					time->Update();
+				}
+				
 				// プレイヤーの更新処理
 				player->Update();
 
@@ -287,10 +291,34 @@ eSceneType GameMainScene::Update()
 					comment->SetNum(Player::mis_num, Theme::theme_num);
 					comment->SetComNum();
 					comment->SetDispFlg(true);
+
 					player->SetPlayerInput(true);
-					
-					if (draw_cnt == 10)
+
+					if (draw_cnt == 55)
 					{
+						// ノーミスでレベルをクリアしたら時間追加
+						if (Player::mis_num == 0)
+						{
+							if (Theme::theme_num < 6)
+							{
+								time->SetTime(1);
+							}
+							else if (Theme::theme_num < 10)
+							{
+								time->SetTime(2);
+							}
+							else if (Theme::theme_num < 13)
+							{
+								time->SetTime(3);
+							}
+							else
+							{
+								time->SetTime(4);
+							}
+						}
+
+						time->Update();
+
 						player->ResetPlayerState();
 						theme->SetThemeNum();
 						draw_cnt = 0;

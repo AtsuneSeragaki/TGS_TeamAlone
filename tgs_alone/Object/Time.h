@@ -42,5 +42,5 @@ public:
 	int GetTime() { return time; } 
 
 	// 制限時間から1秒マイナス
-	void SetTime() { time--; } 
+	void SetTime(int num) { time += num, time3 -= 16.2f * num; }
 };

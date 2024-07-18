@@ -86,7 +86,7 @@ void Comment::Update()
 		cnt++;
 
 		// cntが60より大きかったら
-		if (cnt > 60)
+		if (cnt > 55)
 		{
 			cnt = 0;
 			disp_flg = false;
@@ -143,9 +143,9 @@ void Comment::Draw()
 		}
 	}
 
-	DrawGraph(360, 300, char_img[0], TRUE);
+	/*DrawGraph(360, 300, char_img[0], TRUE);
 	DrawGraph(0, 0, com_img[0], TRUE);
-	DrawStringToHandle(SB_X - 25, SB_Y + 5, "You can do it!", 0x000000, font2);
+	DrawStringToHandle(SB_X - 25, SB_Y + 5, "You can do it!", 0x000000, font2);*/
 
 }
 
