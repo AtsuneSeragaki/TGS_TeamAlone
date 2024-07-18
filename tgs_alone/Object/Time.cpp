@@ -158,17 +158,17 @@ void Time::Draw()
 
 	if (time > 5)
 	{
-		DrawBoxAA(350.0f, 245.0f, 1000.0f - time3, 260.0f, 0xffd700, TRUE);
-		DrawBox(350, 245, 1000, 260, 0x000000, FALSE);
+		DrawBoxAA(340.0f, 255.0f, 990.0f - time3, 270.0f, 0xffe699, TRUE);
+		DrawBox(340, 255, 990, 270, 0x000000, FALSE);
 	}
 	else if(time > 0)
 	{
-		DrawBoxAA(350.0f, 245.0f, 1000.0f - time3, 260.0f, 0xff0000, TRUE);
-		DrawBox(350, 245, 1000, 260, 0x000000, FALSE);
+		DrawBoxAA(340.0f, 255.0f, 990.0f - time3, 270.0f, 0xff0000, TRUE);
+		DrawBox(340, 255, 990, 270, 0x000000, FALSE);
 	}
 	else
 	{
-		DrawBox(350, 245, 1000, 260, 0x000000, FALSE);
+		DrawBox(340, 255, 990, 270, 0x000000, FALSE);
 	}
 	
 }

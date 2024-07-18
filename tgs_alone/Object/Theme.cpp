@@ -91,7 +91,7 @@ void Theme::Draw()
 	}*/
 
 	SetFontSize(75);
-	DrawFormatString(220, 60, 0x000000, "%d", theme_num - 2);
+	DrawFormatString(150, 85, 0x000000, "%d", theme_num - 2);
 
 	if (theme_num < 10)
 	{

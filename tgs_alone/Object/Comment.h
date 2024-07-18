@@ -1,7 +1,7 @@
 #pragma once
 
-#define SB_X 30   // 吹き出しのX座標
-#define SB_Y 520  // 吹き出しのY座標
+#define SB_X 780   // 吹き出しのX座標
+#define SB_Y 400  // 吹き出しのY座標
 
 class Comment
 {

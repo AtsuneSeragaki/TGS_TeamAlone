@@ -33,7 +33,8 @@ public:
 	bool button_flg;            // プレイヤーの入力があるかどうか
 	static int combo;           // 連続で当たった数保存用
 	static int correct_num;     // プレイヤーが正解した数
-	static int mis_num;         // プレイヤーが間違えた数
+	static int mis_num;         // プレイヤーが間違えた数（1レベルで）
+	static int all_mis;         // プレイヤーが間違えた数の合計
 
 public:
 

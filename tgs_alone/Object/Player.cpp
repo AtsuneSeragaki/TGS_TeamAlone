@@ -6,6 +6,7 @@
 int Player::combo = 0;
 int Player::correct_num = 0;
 int Player::mis_num = 0;
+int Player::all_mis = 0;
 
 Player::Player() :input_flg(false), mistake_cnt(0), cnt(0), button_flg(false)
 {
@@ -179,6 +180,7 @@ void Player::Initialize()
 	combo = 0;
 	correct_num = 0;
 	mis_num = 0;
+	all_mis = 0;
 }
 
 void Player::Update()
@@ -350,8 +352,13 @@ void Player::Draw()
 		DrawGraph(230, 105, combo_img[combo % 10], TRUE);
 	}*/
 
+	// コンボ数の表示
 	SetFontSize(75);
-	DrawFormatString(500, 60, 0x000000, "%d", combo);
+	DrawFormatString(325, 85, 0x000000, "%d", combo);
+
+	// 間違えた数の表示
+	SetFontSize(75);
+	DrawFormatString(500, 85, 0x000000, "%d", all_mis);
 
 	// プレイヤーが入力したものを表示
 	for (int i = 0; i < INPUT_MAX; i++)
@@ -921,6 +928,7 @@ void Player::Comparison()
 	{// 異なる場合
 		PlaySoundMem(sound[1], DX_PLAYTYPE_BACK, TRUE);
 		mis_num++;
+		all_mis++;
 		combo = 0;
 		mis_data[correct_num] = ip;
 		mis_draw[correct_num] = false;
