@@ -297,27 +297,26 @@ eSceneType GameMainScene::Update()
 					if (draw_cnt == 35)
 					{
 						// ノーミスでレベルをクリアしたら時間追加
-						if (Player::combo >= 10)
+						if (Player::mis_num != 0)
 						{
-							if (Player::combo % 10 == 0)
+							
+							if (Player::combo == 10 || Player::combo == 20)
 							{
-								if (Player::combo <= 20)
-								{
-									time->SetTime(1);
-								}
-								else if (Player::combo <= 40)
-								{
-									time->SetTime(2);
-								}
-								else if (Player::combo <= 60)
-								{
-									time->SetTime(2);
-								}
-								else
-								{
-									time->SetTime(3);
-								}
+								time->SetTime(1);
 							}
+							else if (Player::combo <= 40)
+							{
+								time->SetTime(2);
+							}
+							else if (Player::combo <= 60)
+							{
+								time->SetTime(2);
+							}
+							else
+							{
+								time->SetTime(3);
+							}
+							
 						}
 
 						time->Update();
@@ -469,7 +468,6 @@ void GameMainScene::Draw() const
 
 void GameMainScene::Finalize()
 {
-	
 	// オブジェクトの削除
 	player->Finalize();
 	delete player;
