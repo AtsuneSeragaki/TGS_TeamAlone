@@ -233,7 +233,7 @@ eSceneType GameMainScene::Update()
 		if (begin_time == -1)
 		{
 			//制限時間が0になったら
-			if (time->GetTime() <= 0.0f || Player::correct_num == THEME_MAX)
+			if (time->GetTime() <= 0.0f)
 			{
 				if (Player::correct_num == theme->GetThemeNum())
 				{
@@ -294,26 +294,29 @@ eSceneType GameMainScene::Update()
 
 					player->SetPlayerInput(true);
 
-					if (draw_cnt == 55)
+					if (draw_cnt == 35)
 					{
 						// ノーミスでレベルをクリアしたら時間追加
-						if (Player::mis_num == 0)
+						if (Player::combo >= 10)
 						{
-							if (Theme::theme_num < 6)
+							if (Player::combo % 10 == 0)
 							{
-								time->SetTime(1);
-							}
-							else if (Theme::theme_num < 10)
-							{
-								time->SetTime(2);
-							}
-							else if (Theme::theme_num < 13)
-							{
-								time->SetTime(3);
-							}
-							else
-							{
-								time->SetTime(4);
+								if (Player::combo <= 20)
+								{
+									time->SetTime(1);
+								}
+								else if (Player::combo <= 40)
+								{
+									time->SetTime(2);
+								}
+								else if (Player::combo <= 60)
+								{
+									time->SetTime(2);
+								}
+								else
+								{
+									time->SetTime(3);
+								}
 							}
 						}
 
@@ -329,6 +332,29 @@ eSceneType GameMainScene::Update()
 					else
 					{
 						draw_cnt++;
+					}
+				}
+				else if (Player::correct_num == Theme::theme_num && Theme::theme_num == THEME_MAX)
+				{
+					player->SetPlayerAnim();
+
+					time->SetTimeFlg(false);
+					
+					// BGMを止める
+					StopSoundMem(sound[0]);
+
+					// 終了の表示
+					TimeupAnim();
+
+					// 終了の表示後、リザルト画面へ
+					if (timeup_flg == true)
+					{
+						if (draw_cnt != 0)
+						{
+							draw_cnt = 0;
+						}
+
+						return eSceneType::E_RESULT;
 					}
 				}
 			}
@@ -370,7 +396,7 @@ void GameMainScene::Draw() const
 
 	if (timeup_cnt != 0)
 	{
-		if (Player::correct_num == THEME_MAX)
+		if (Player::correct_num == Theme::theme_num && Theme::theme_num == THEME_MAX)
 		{// お題を全てクリアしたら
 
 			// 背景の描画

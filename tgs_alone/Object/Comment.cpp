@@ -86,7 +86,7 @@ void Comment::Update()
 		cnt++;
 
 		// cntが60より大きかったら
-		if (cnt > 55)
+		if (cnt > 35)
 		{
 			cnt = 0;
 			disp_flg = false;
