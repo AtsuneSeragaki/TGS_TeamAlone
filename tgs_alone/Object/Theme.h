@@ -9,6 +9,7 @@ private:
 	int img[4]; // お題画像
 	int level_img[10]; // レベル数字画像のデータ
 	bool theme_flg;    // お題の生成フラグ
+	int 
 
 public:
 	static int theme[THEME_MAX]; // お題 
