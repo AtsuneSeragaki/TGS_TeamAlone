@@ -55,7 +55,7 @@ void ResultScene::Initialize()
 	// 画像データの読み込み
 	back_img[0] = LoadGraph("Resource/images/result/result.png");
 	back_img[1] = LoadGraph("Resource/images/result/result2.png");
-	LoadDivGraph("Resource/images/result/result_num.png", 10, 5, 2, 75, 75, num_img);
+	LoadDivGraph("Resource/images/result/result_num1.png", 10, 5, 2, 50, 50, num_img);
 	rank_img[0] = LoadGraph("Resource/images/result/rank1.png");
 	rank_img[1] = LoadGraph("Resource/images/result/rank2.png");
 	rank_img[2] = LoadGraph("Resource/images/result/rank3.png");
@@ -174,8 +174,13 @@ eSceneType ResultScene::Update()
 void ResultScene::Draw() const
 {
 	// 比較用のデータを格納
-	int i = Theme::theme_num - 3;
+	/*int i = Theme::theme_num - 3;
 	int j = Player::combo;
+	int k = Player::all_mis;*/
+
+	int i = 12;
+	int j = 200;
+	int k = 100;
 
 	// 背景画像表示
 	// 名前入力画面に行くか行かないかで変える
@@ -198,81 +203,101 @@ void ResultScene::Draw() const
 	DrawRotaGraph(120, 640, 1.0, PI / 180 * (-star_cnt * 2), star_img, TRUE);
 	DrawRotaGraph(1160, 640, 1.0, PI / 180 * (star_cnt * 2), star_img, TRUE);
 
+	SetFontSize(110);
+
 	// ランクの表示
 	if (i <= 1)
 	{// D
-		DrawGraph(625, 253, rank_img[0], TRUE);
-		DrawString(625, 253, "D", 0x000000);
+		//DrawGraph(RANK_X, RANK_Y, rank_img[0], TRUE);
+		DrawString(RANK_X, RANK_Y, "D", 0x000000);
 	}
 	else if (i <= 3)
 	{// C
-		DrawGraph(573, 258, rank_img[1], TRUE);
-		DrawString(625, 253, "C", 0x000000);
+		//DrawGraph(RANK_X, RANK_Y, rank_img[1], TRUE);
+		DrawString(RANK_X, RANK_Y, "C", 0x000000);
 	}
 	else if (i <= 5)
 	{// B
-		DrawGraph(573, 258, rank_img[2], TRUE);
-		DrawString(625, 253, "B", 0x000000);
+		//DrawGraph(RANK_X, RANK_Y, rank_img[2], TRUE);
+		DrawString(RANK_X, RANK_Y, "B", 0x000000);
 	}
 	else if (i <= 7)
 	{// A
-		DrawGraph(573, 258, rank_img[3], TRUE);
-		DrawString(625, 253, "A", 0x000000);
+		//DrawGraph(RANK_X, RANK_Y, rank_img[3], TRUE);
+		DrawString(RANK_X, RANK_Y, "A", 0x000000);
 	}
 	else if (i <= 9)
 	{// S
-		DrawGraph(573, 258, rank_img[4], TRUE);
-		DrawString(625, 253, "S", 0x000000);
+		//DrawGraph(RANK_X, RANK_Y rank_img[4], TRUE);
+		DrawString(RANK_X, RANK_Y, "S", 0x000000);
 	}
 	else if (i == 10)
 	{// Fairy
-		DrawGraph(573, 258, rank_img[5], TRUE);
-		DrawString(625, 253, "Fairy", 0x000000);
+		//DrawGraph(573, RANK_Y, rank_img[5], TRUE);
+		DrawString(625, RANK_Y, "Fairy", 0x000000);
 	}
 	else if (i == 11)
 	{// Princess
-		DrawGraph(573, 258, rank_img[6], TRUE);
-		DrawString(625, 253, "Princess", 0x000000);
+		//DrawGraph(573, RANK_Y, rank_img[6], TRUE);
+		DrawString(555, RANK_Y, "Princess", 0x000000);
 	}
 	else if (i == 12)
 	{// Mermaid
-		DrawGraph(573, 258, rank_img[7], TRUE);
-		DrawString(625, 253, "Mermaid", 0x000000);
+		//DrawGraph(573, RANK_Y, rank_img[7], TRUE);
+		DrawString(580, RANK_Y, "Mermaid", 0x000000);
 	}
 	else
 	{// Angel
-		DrawGraph(573, 258, rank_img[8], TRUE);
-		DrawString(625, 253, "Angel", 0x000000);
+		//DrawGraph(573, RANK_Y, rank_img[8], TRUE);
+		DrawString(625, RANK_Y, "Angel", 0x000000);
 	}
 
 	// クリアした最大レベルを表示
 	if (i < 10)
 	{
-		DrawGraph(428, NUM_Y, num_img[0], TRUE);
-		DrawGraph(490, NUM_Y, num_img[i % 10], TRUE);
+		//DrawGraph(315, NUM_Y, num_img[0], TRUE);
+		DrawGraph(350, NUM_Y, num_img[i % 10], TRUE);
 	}
 	else
 	{
-		DrawGraph(422, NUM_Y, num_img[i / 10], TRUE);
-		DrawGraph(482, NUM_Y, num_img[i % 10], TRUE);
+		DrawGraph(335, NUM_Y, num_img[i / 10], TRUE);
+		DrawGraph(370, NUM_Y, num_img[i % 10], TRUE);
 	}
 
 	// 最終的なコンボの表示
 	if (j < 10)
 	{
-		DrawGraph(898, NUM_Y, num_img[0], TRUE);
-		DrawGraph(960, NUM_Y, num_img[j % 10], TRUE);
+		//DrawGraph(590, NUM_Y, num_img[0], TRUE);
+		DrawGraph(645, NUM_Y, num_img[j % 10], TRUE);
 	}
 	else if (j < 100)
 	{
-		DrawGraph(898, NUM_Y, num_img[j / 10], TRUE);
-		DrawGraph(960, NUM_Y, num_img[j % 10], TRUE);
+		DrawGraph(625, NUM_Y, num_img[j / 10], TRUE);
+		DrawGraph(660, NUM_Y, num_img[j % 10], TRUE);
 	}
 	else
 	{
-		DrawGraph(856, NUM_Y, num_img[j / 100], TRUE);
-		DrawGraph(913, NUM_Y, num_img[(j - j / 100 * 100) / 10], TRUE);
-		DrawGraph(980, NUM_Y, num_img[j % 10], TRUE);
+		DrawGraph(608, NUM_Y, num_img[j / 100], TRUE);
+		DrawGraph(643, NUM_Y, num_img[(j - j / 100 * 100) / 10], TRUE);
+		DrawGraph(685, NUM_Y, num_img[j % 10], TRUE);
+	}
+
+	// 最終的な間違えた数の表示
+	if (k < 10)
+	{
+		//DrawGraph(930, NUM_Y, num_img[0], TRUE);
+		DrawGraph(980, NUM_Y, num_img[k % 10], TRUE);
+	}
+	else if (k < 100)
+	{
+		DrawGraph(965, NUM_Y, num_img[k / 10], TRUE);
+		DrawGraph(1000, NUM_Y, num_img[k % 10], TRUE);
+	}
+	else
+	{
+		DrawGraph(930, NUM_Y, num_img[k / 100], TRUE);
+		DrawGraph(980, NUM_Y, num_img[(k - k / 100 * 100) / 10], TRUE);
+		DrawGraph(1020, NUM_Y, num_img[k % 10], TRUE);
 	}
 }
 

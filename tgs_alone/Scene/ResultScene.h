@@ -2,7 +2,9 @@
 
 #include "SceneBase.h"
 
-#define NUM_Y 405
+#define NUM_Y 430
+#define RANK_X 730
+#define RANK_Y 235
 
 class ResultScene : public SceneBase
 {
