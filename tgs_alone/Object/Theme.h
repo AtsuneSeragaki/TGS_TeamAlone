@@ -9,7 +9,7 @@ private:
 	int img[4]; // お題画像
 	int level_img[10]; // レベル数字画像のデータ
 	bool theme_flg;    // お題の生成フラグ
-	int 
+	int same_num; // 同じお題の数をクリアした回数
 
 public:
 	static int theme[THEME_MAX]; // お題 
@@ -45,7 +45,7 @@ public:
 	bool GetThemeFlg() { return theme_flg; } 
 
 	// お題の数を増やす
-	void SetThemeNum() { theme_num++; } 
+	void SetThemeNum();
 
 	// お題の生成フラグを設定
 	void SetThemeFlg(bool flg) { theme_flg = flg; }  

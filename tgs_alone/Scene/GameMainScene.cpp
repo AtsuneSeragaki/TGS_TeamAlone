@@ -286,39 +286,36 @@ eSceneType GameMainScene::Update()
 				comment->Update();
 
 				// プレイヤーがお題を全てクリアしたら次のお題へ
-				if (Player::correct_num == Theme::theme_num && Theme::theme_num < THEME_MAX && player->GetInputDraw(Player::correct_num - 1) == true)
+				if (Player::correct_num == Theme::theme_num && player->GetInputDraw(Player::correct_num - 1) == true)
 				{
 					comment->SetNum(Player::mis_num, Theme::theme_num);
 					comment->SetComNum();
 					comment->SetDispFlg(true);
 
-					player->SetPlayerInput(true);
-
-					if (draw_cnt == 35)
+					if (draw_cnt == 0)
 					{
 						// ノーミスでレベルをクリアしたら時間追加
-						if (Player::mis_num != 0)
+						if (Player::mis_num == 0)
 						{
-							
-							if (Player::combo == 10 || Player::combo == 20)
+							if (Theme::theme_num - 2 < 6)
 							{
-								time->SetTime(1);
+								time->SetAddTime(true, 1);
 							}
-							else if (Player::combo <= 40)
+							else if (Theme::theme_num - 2 < 10)
 							{
-								time->SetTime(2);
-							}
-							else if (Player::combo <= 60)
-							{
-								time->SetTime(2);
+								time->SetAddTime(true, 2);
 							}
 							else
 							{
-								time->SetTime(3);
+								time->SetAddTime(true, 3);
 							}
-							
 						}
+					}
 
+					player->SetPlayerInput(true);
+
+					if (draw_cnt == 50)
+					{
 						time->Update();
 
 						player->ResetPlayerState();
@@ -374,13 +371,14 @@ void GameMainScene::Draw() const
 		time->Draw();
 
 		// お題の描画
-		theme->Draw();	
+		theme->Draw();
 
 		// プレイヤーの入力を描画
 		player->Draw();
 
 		// コメントの描画
 		comment->Draw();
+
 	}
 	else if (begin_time == 0)
 	{

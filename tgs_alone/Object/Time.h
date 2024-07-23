@@ -9,11 +9,14 @@ private:
 	bool time_flg;     // 1秒減らすタイミングをカウント
 	int img_b[11];     // 画像データ
 	int img_r[11];     // 画像データ
+	bool add_flg;      // 追加する時間表示（false:しない true:する）
+	int add_time;      // 追加する時間
+	int add_cnt;       // 追加する時間表示の時間
 
 public:
-	int time;   // 制限時間(秒)
-	int time2;  // 制限時間(ミリ秒)
-	float time3;
+	int time;    // 制限時間(秒)
+	int time2;   // 制限時間(ミリ秒)
+	float time3; // バーの値
 
 public:
 
@@ -41,6 +44,6 @@ public:
 	// 制限時間を返す
 	int GetTime() { return time; } 
 
-	// 制限時間から1秒マイナス
-	void SetTime(int num) { time += num, time3 -= 16.2f * num; }
+	// 追加する時間と表示フラグの設定
+	void SetAddTime(bool flg, int num);
 };

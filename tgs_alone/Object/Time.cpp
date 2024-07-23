@@ -2,7 +2,7 @@
 #include "DxLib.h"
 #include <tgmath.h>
 
-Time::Time() :time(0),time_flg(false), time2(0),time3(0.0f)
+Time::Time() :time(0),time_flg(false), time2(0),time3(0.0f),add_flg(false),add_time(0),add_cnt(0)
 {
 	for (int i = 0; i < 10; i++)
 	{
@@ -41,8 +41,10 @@ void Time::Initialize()
 	time = 40;
 	time2 = 0;
 	time3 = 0.0f;
-	//time2 = 99;
 	time_flg = true;
+	add_flg = false;
+	add_time = 0;
+	add_cnt = 0;
 }
 
 void Time::Update()
@@ -50,31 +52,6 @@ void Time::Update()
 	//	フラグがtrueのときカウントダウン
 	if (time_flg == true)
 	{
-		/*if (time2 > 0)
-		{
-			 1フレームミリ秒を1ずつマイナス
-			if (time2 % 3 == 0)
-			{
-				time2 -= 2;
-			}
-			else
-			{
-				time2--;
-			}
-		}
-		else
-		{
-			time--;
-			if (time == 0)
-			{
-				time2 = 0;
-			}
-			else
-			{
-				time2 = 99;
-			}
-		}*/
-
 		time2++;
 
 		if (time2 == 60)
@@ -84,6 +61,11 @@ void Time::Update()
 		}
 
 		time3 += 0.27f;
+	}
+
+	if (add_flg == true)
+	{
+		add_flg = false;
 	}
 }
 
@@ -159,18 +141,21 @@ void Time::Draw()
 	if (time > 5)
 	{
 		DrawBoxAA(340.0f, 255.0f, 990.0f - time3, 270.0f, 0xffe699, TRUE);
-		DrawBox(340, 255, 990, 270, 0x000000, FALSE);
 	}
 	else if(time > 0)
 	{
 		DrawBoxAA(340.0f, 255.0f, 990.0f - time3, 270.0f, 0xff0000, TRUE);
-		DrawBox(340, 255, 990, 270, 0x000000, FALSE);
 	}
-	else
+
+	if (add_flg == true)
 	{
-		DrawBox(340, 255, 990, 270, 0x000000, FALSE);
+		SetFontSize(30);
+		DrawFormatString(700, 215, 0xff000000, "+%d", add_time);
+
+		DrawBoxAA(990.0f - time3, 255.0f, (990.0f - time3) - (16.2f * (float)add_time), 270.0f, 0x7fbfff, TRUE);
 	}
-	
+
+	DrawBox(340, 255, 990, 270, 0x000000, FALSE);
 }
 
 void Time::Finalize()
@@ -181,4 +166,12 @@ void Time::Finalize()
 		DeleteGraph(img_b[i]);
 		DeleteGraph(img_r[i]);
 	}
+}
+
+void Time::SetAddTime(bool flg, int num)
+{
+	add_flg = flg;
+	add_time = num;
+	time += num;
+	time3 -= 16.2f * num;
 }

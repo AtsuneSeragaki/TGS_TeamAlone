@@ -11,7 +11,7 @@ ResultScene::ResultScene():back_img{0},bgm(0),se(0), star_img(0), star_cnt(0)
 		num_img[i] = 0;
 	}
 
-	for (int i = 0; i < 3; i++)
+	for (int i = 0; i < 9; i++)
 	{
 		rank_img[i] = 0;
 	}
@@ -40,7 +40,7 @@ ResultScene::~ResultScene()
 		DeleteGraph(num_img[i]);
 	}
 
-	for (int i = 0; i < 3; i++)
+	for (int i = 0; i < 9; i++)
 	{
 		DeleteGraph(rank_img[i]);
 	}
@@ -59,6 +59,12 @@ void ResultScene::Initialize()
 	rank_img[0] = LoadGraph("Resource/images/result/rank1.png");
 	rank_img[1] = LoadGraph("Resource/images/result/rank2.png");
 	rank_img[2] = LoadGraph("Resource/images/result/rank3.png");
+	rank_img[3] = LoadGraph("Resource/images/result/rank3.png");
+	rank_img[4] = LoadGraph("Resource/images/result/rank3.png");
+	rank_img[5] = LoadGraph("Resource/images/result/rank3.png");
+	rank_img[6] = LoadGraph("Resource/images/result/rank3.png");
+	rank_img[7] = LoadGraph("Resource/images/result/rank3.png");
+	rank_img[8] = LoadGraph("Resource/images/result/rank3.png");
 	star_img = LoadGraph("Resource/images/help/star.png");
 
 	// 音データの読み込み
@@ -193,19 +199,51 @@ void ResultScene::Draw() const
 	DrawRotaGraph(1160, 640, 1.0, PI / 180 * (star_cnt * 2), star_img, TRUE);
 
 	// ランクの表示
-	if (i < 6)
-	{
+	if (i <= 1)
+	{// D
 		DrawGraph(625, 253, rank_img[0], TRUE);
+		DrawString(625, 253, "D", 0x000000);
 	}
-	else if (i < 12)
-	{
+	else if (i <= 3)
+	{// C
 		DrawGraph(573, 258, rank_img[1], TRUE);
+		DrawString(625, 253, "C", 0x000000);
+	}
+	else if (i <= 5)
+	{// B
+		DrawGraph(573, 258, rank_img[2], TRUE);
+		DrawString(625, 253, "B", 0x000000);
+	}
+	else if (i <= 7)
+	{// A
+		DrawGraph(573, 258, rank_img[3], TRUE);
+		DrawString(625, 253, "A", 0x000000);
+	}
+	else if (i <= 9)
+	{// S
+		DrawGraph(573, 258, rank_img[4], TRUE);
+		DrawString(625, 253, "S", 0x000000);
+	}
+	else if (i == 10)
+	{// Fairy
+		DrawGraph(573, 258, rank_img[5], TRUE);
+		DrawString(625, 253, "Fairy", 0x000000);
+	}
+	else if (i == 11)
+	{// Princess
+		DrawGraph(573, 258, rank_img[6], TRUE);
+		DrawString(625, 253, "Princess", 0x000000);
+	}
+	else if (i == 12)
+	{// Mermaid
+		DrawGraph(573, 258, rank_img[7], TRUE);
+		DrawString(625, 253, "Mermaid", 0x000000);
 	}
 	else
-	{
-		DrawGraph(595, 242, rank_img[2], TRUE);
+	{// Angel
+		DrawGraph(573, 258, rank_img[8], TRUE);
+		DrawString(625, 253, "Angel", 0x000000);
 	}
-	
 
 	// クリアした最大レベルを表示
 	if (i < 10)

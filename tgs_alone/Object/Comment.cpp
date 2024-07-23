@@ -24,12 +24,12 @@ void Comment::Initialize()
 {
 	// 画像データの読み込み
 	//char_img[0] = LoadGraph("Resource/images/main/comment/char1.png");
-	char_img[0] = LoadGraph("Resource/images/main/comment/fchar.png");
+	char_img[0] = LoadGraph("Resource/images/main/comment/char1.png");
 	char_img[1] = LoadGraph("Resource/images/main/comment/char2.png");
 	char_img[2] = LoadGraph("Resource/images/main/comment/char3.png");
 	char_img[3] = LoadGraph("Resource/images/main/comment/char4.png");
 	char_img[4] = LoadGraph("Resource/images/main/comment/char5.png");
-	char_img[5] = LoadGraph("Resource/images/main/comment/char6.png");
+	char_img[5] = LoadGraph("Resource/images/main/comment/fchar.png");
 	char_img[6] = LoadGraph("Resource/images/main/comment/char7.png");
 	
 	//com_img[0] = LoadGraph("Resource/images/main/comment/comment1.png");
@@ -86,7 +86,7 @@ void Comment::Update()
 		cnt++;
 
 		// cntが60より大きかったら
-		if (cnt > 35)
+		if (cnt > 50)
 		{
 			cnt = 0;
 			disp_flg = false;
@@ -96,45 +96,36 @@ void Comment::Update()
 
 void Comment::Draw()
 {
-	// 猫の描画
-	//DrawGraph(55, 570, char_img[0], TRUE);
-	
-	// コメント表示フラグがtrueのときコメントを描画
 	if (disp_flg == true)
 	{
-
-		DrawGraph(360, 300, char_img[0], TRUE);
+		// キャラクターを描画
 		DrawGraph(0, 0, com_img[0], TRUE);
 
+		// コメントを描画
 		switch (com_num)
 		{
 		case 0:
-			//DrawGraph(SB_X, SB_Y, com_img[3], TRUE);
-			//DrawStringToHandle(SB_X + 55, SB_Y + 20, "Genius!", 0x000000, font);
+			DrawGraph(360, 300, char_img[5], TRUE);
 			DrawStringToHandle(SB_X, SB_Y , "Genius!", 0x000000, font);
 			break;
 
 		case 1:
-			//DrawGraph(SB_X, SB_Y, com_img[0], TRUE);
-			//DrawStringToHandle(SB_X + 35, SB_Y + 20, "Excellent!", 0x000000, font);
+			DrawGraph(360, 300, char_img[5], TRUE);
 			DrawStringToHandle(SB_X - 15, SB_Y, "Excellent!", 0x000000, font);
 			break;
 
 		case 2:
-			//DrawGraph(SB_X, SB_Y, com_img[2], TRUE);
-			//DrawStringToHandle(SB_X + 70, SB_Y + 20, "Great!", 0x000000, font);
+			DrawGraph(360, 300, char_img[5], TRUE);
 			DrawStringToHandle(SB_X + 15, SB_Y, "Great!", 0x000000, font);
 			break;
 
 		case 3:
-			//DrawGraph(SB_X, SB_Y, com_img[1], TRUE);
-			//DrawStringToHandle(SB_X + 85, SB_Y + 22, "Nice!", 0x000000, font);
+			DrawGraph(360, 300, char_img[5], TRUE);
 			DrawStringToHandle(SB_X + 30, SB_Y, "Nice!", 0x000000, font);
 			break;
 
 		case 4:
-			//DrawGraph(SB_X, SB_Y, com_img[4], TRUE);
-			//DrawStringToHandle(SB_X + 30, SB_Y + 25, "You can do it!", 0x000000, font2);
+			DrawGraph(360, 300, char_img[5], TRUE);
 			DrawStringToHandle(SB_X - 25, SB_Y + 5, "You can do it!", 0x000000, font2);
 			break;
 			
@@ -142,11 +133,6 @@ void Comment::Draw()
 			break;
 		}
 	}
-
-	/*DrawGraph(360, 300, char_img[0], TRUE);
-	DrawGraph(0, 0, com_img[0], TRUE);
-	DrawStringToHandle(SB_X - 25, SB_Y + 5, "You can do it!", 0x000000, font2);*/
-
 }
 
 void Comment::Finalize()

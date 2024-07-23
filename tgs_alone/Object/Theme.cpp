@@ -4,7 +4,7 @@
 int Theme::theme_num = 0;
 int Theme::theme[THEME_MAX] = { -1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1};
 
-Theme::Theme() : img{0},theme_flg(false),sound(0)
+Theme::Theme() : img{0},theme_flg(false),sound(0),same_num(0)
 {
 	for (int i = 0; i < 10; i++)
 	{
@@ -53,6 +53,7 @@ void Theme::Initialize()
 	// 変数の初期化
 	theme_flg = true;
 	theme_num = 3;
+	same_num = 0;
 
 	for (int i = 0; i < THEME_MAX; i++)
 	{
@@ -238,5 +239,16 @@ void Theme::Finalize()
 	for (int i = 0; i < 10; i++)
 	{
 		DeleteGraph(level_img[i]);
+	}
+}
+
+void Theme::SetThemeNum()
+{
+	same_num++;
+
+	if (same_num == 2)
+	{
+		theme_num++;
+		same_num = 0;
 	}
 }

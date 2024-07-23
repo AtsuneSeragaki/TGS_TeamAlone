@@ -9,7 +9,7 @@ class ResultScene : public SceneBase
 private:
 	int back_img[2];   // 背景画像 
 	int num_img[10];   // 数字画像
-	int rank_img[3];   // ランク画像
+	int rank_img[9];   // ランク画像
 	int star_img;      // 星画像
 	int se;            // 効果音
 	int bgm;           // BGM
