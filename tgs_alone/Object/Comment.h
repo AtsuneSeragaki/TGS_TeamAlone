@@ -15,6 +15,7 @@ private:
 	int p_num;        // プレイヤーが間違えた数
 	int t_num;        // お題の数
 	int cnt;          // 表示時間カウント用
+	int transparency;      // 画像の透明度を保存用
 
 public:
 
@@ -47,4 +48,7 @@ public:
 
 	// どのコメントを出すか決める
 	void SetComNum();  
+
+	// フェードアウトとフェードインさせる（false:フェードイン true:フェードアウト ）
+	void FadeInOut(bool flg);
 };

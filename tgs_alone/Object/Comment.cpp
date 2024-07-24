@@ -3,7 +3,7 @@
 #include "Theme.h"
 #include "DxLib.h"
 
-Comment::Comment():disp_flg(false),com_num(0),p_num(0),t_num(0),cnt(0),font(0),font2(0)
+Comment::Comment():disp_flg(false),com_num(0),p_num(0),t_num(0),cnt(0),font(0),font2(0), transparency(0)
 {
 	for (int i = 0; i < 7; i++)
 	{
@@ -76,6 +76,7 @@ void Comment::Initialize()
 	p_num = 0;
 	cnt = 0;
 	com_num = -1;
+	transparency = 0;
 }
 
 void Comment::Update()
@@ -85,11 +86,18 @@ void Comment::Update()
 	{
 		cnt++;
 
-		// cntが60より大きかったら
-		if (cnt > 50)
+		// cntが50より大きかったら
+		if (cnt > 71)
 		{
 			cnt = 0;
 			disp_flg = false;
+		}
+	}
+	else
+	{
+		if (transparency != 0)
+		{
+			transparency = 0;
 		}
 	}
 }
@@ -98,6 +106,8 @@ void Comment::Draw()
 {
 	if (disp_flg == true)
 	{
+		SetDrawBlendMode(DX_BLENDMODE_ALPHA, transparency);
+
 		// キャラクターを描画
 		DrawGraph(0, 0, com_img[0], TRUE);
 
@@ -132,6 +142,8 @@ void Comment::Draw()
 		default:
 			break;
 		}
+
+		SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 	}
 }
 
@@ -541,4 +553,30 @@ void Comment::SetComNum()
 		break;
 	}
 	
+}
+
+void Comment::FadeInOut(bool flg)
+{
+	if (flg == false)
+	{
+		if (transparency <= 230)
+		{
+			transparency += 25;
+		}
+		else
+		{
+			transparency = 255;
+		}
+	}
+	else
+	{
+		if (transparency >= 13)
+		{
+			transparency -= 13;
+		}
+		else
+		{
+			transparency = 0;
+		}
+	}
 }

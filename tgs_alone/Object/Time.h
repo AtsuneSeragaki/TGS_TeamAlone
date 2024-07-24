@@ -12,6 +12,7 @@ private:
 	bool add_flg;      // 追加する時間表示（false:しない true:する）
 	int add_time;      // 追加する時間
 	int add_cnt;       // 追加する時間表示の時間
+	int transparency;      // 画像の透明度を保存用
 
 public:
 	int time;    // 制限時間(秒)
@@ -46,4 +47,8 @@ public:
 
 	// 追加する時間と表示フラグの設定
 	void SetAddTime(bool flg, int num);
+
+	// フェードアウトとフェードインさせる（false:フェードイン true:フェードアウト ）
+	void FadeInOut(bool flg);
+
 };

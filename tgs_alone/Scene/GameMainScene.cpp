@@ -288,20 +288,30 @@ eSceneType GameMainScene::Update()
 				// プレイヤーがお題を全てクリアしたら次のお題へ
 				if (Player::correct_num == Theme::theme_num && player->GetInputDraw(Player::correct_num - 1) == true)
 				{
+					player->SetPlayerInput(true);
 					comment->SetNum(Player::mis_num, Theme::theme_num);
 					comment->SetComNum();
 					comment->SetDispFlg(true);
 
+					if (draw_cnt <= 10)
+					{
+						comment->FadeInOut(false);
+					}
+					else if (draw_cnt >= 50 && draw_cnt <= 70)
+					{
+						comment->FadeInOut(true);
+					}
+					
 					if (draw_cnt == 0)
 					{
 						// ノーミスでレベルをクリアしたら時間追加
 						if (Player::mis_num == 0)
 						{
-							if (Theme::theme_num - 2 < 6)
+							if (Theme::theme_num - 2 < 10)
 							{
 								time->SetAddTime(true, 1);
 							}
-							else if (Theme::theme_num - 2 < 10)
+							else if (Theme::theme_num - 2 < 12)
 							{
 								time->SetAddTime(true, 2);
 							}
@@ -312,12 +322,22 @@ eSceneType GameMainScene::Update()
 						}
 					}
 
-					player->SetPlayerInput(true);
-
-					if (draw_cnt == 50)
+					if (draw_cnt <= 10)
 					{
-						time->Update();
+						time->FadeInOut(false);
+					}
+					else if (draw_cnt >= 50 && draw_cnt <= 70)
+					{
+						time->FadeInOut(true);
 
+						if (draw_cnt == 68)
+						{
+							time->Update();
+						}	
+					}
+
+					if (draw_cnt == 71)
+					{
 						player->ResetPlayerState();
 						theme->SetThemeNum();
 						draw_cnt = 0;

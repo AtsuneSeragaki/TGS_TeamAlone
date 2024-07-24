@@ -2,7 +2,7 @@
 #include "DxLib.h"
 #include <tgmath.h>
 
-Time::Time() :time(0),time_flg(false), time2(0),time3(0.0f),add_flg(false),add_time(0),add_cnt(0)
+Time::Time() :time(0),time_flg(false), time2(0),time3(0.0f),add_flg(false),add_time(0),add_cnt(0), transparency(0)
 {
 	for (int i = 0; i < 10; i++)
 	{
@@ -45,6 +45,7 @@ void Time::Initialize()
 	add_flg = false;
 	add_time = 0;
 	add_cnt = 0;
+	transparency = 0;
 }
 
 void Time::Update()
@@ -66,6 +67,13 @@ void Time::Update()
 	if (add_flg == true)
 	{
 		add_flg = false;
+	}
+	else
+	{
+		if (transparency != 0)
+		{
+			transparency = 0;
+		}
 	}
 }
 
@@ -140,7 +148,15 @@ void Time::Draw()
 
 	if (time > 5)
 	{
-		DrawBoxAA(340.0f, 255.0f, 990.0f - time3, 270.0f, 0xffe699, TRUE);
+		if (time3 <= 0.0f)
+		{
+			DrawBoxAA(340.0f, 255.0f, 990.0f, 270.0f, 0xffe699, TRUE);
+		}
+		else
+		{
+			DrawBoxAA(340.0f, 255.0f, 990.0f - time3, 270.0f, 0xffe699, TRUE);
+		}
+		
 	}
 	else if(time > 0)
 	{
@@ -150,9 +166,18 @@ void Time::Draw()
 	if (add_flg == true)
 	{
 		SetFontSize(30);
-		DrawFormatString(700, 215, 0xff000000, "+%d", add_time);
+		SetDrawBlendMode(DX_BLENDMODE_ALPHA, transparency);
+		DrawFormatString(700, 215, 0xff0000, "+%d", add_time);
+		SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 
-		DrawBoxAA(990.0f - time3, 255.0f, (990.0f - time3) - (16.2f * (float)add_time), 270.0f, 0x7fbfff, TRUE);
+		if (time3 <= 0.0f)
+		{
+			DrawBoxAA(970.0f, 255.0f, 990.0f, 270.0f, 0x7fbfff, TRUE);
+		}
+		else
+		{
+			DrawBoxAA(990.0f - time3, 255.0f, (990.0f - time3) - (16.2f * (float)add_time), 270.0f, 0x7fbfff, TRUE);
+		}
 	}
 
 	DrawBox(340, 255, 990, 270, 0x000000, FALSE);
@@ -174,4 +199,30 @@ void Time::SetAddTime(bool flg, int num)
 	add_time = num;
 	time += num;
 	time3 -= 16.2f * num;
+}
+
+void Time::FadeInOut(bool flg)
+{
+	if (flg == false)
+	{
+		if (transparency <= 230)
+		{
+			transparency += 25;
+		}
+		else
+		{
+			transparency = 255;
+		}
+	}
+	else
+	{
+		if (transparency >= 13)
+		{
+			transparency -= 13;
+		}
+		else
+		{
+			transparency = 0;
+		}
+	}
 }

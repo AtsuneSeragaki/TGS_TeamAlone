@@ -9,7 +9,7 @@ class HelpScene : public SceneBase
 {
 private:
 	int back_img[6];      // 背景画像 
-	int button_img[4][6]; // ボタン画像
+	int button_img[4][5]; // ボタン画像
 	int star_img;         // 星画像
 	int se;               // 効果音
 	int bgm;              // BGM用

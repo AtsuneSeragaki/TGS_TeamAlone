@@ -174,13 +174,13 @@ eSceneType ResultScene::Update()
 void ResultScene::Draw() const
 {
 	// 比較用のデータを格納
-	/*int i = Theme::theme_num - 3;
+	int i = Theme::theme_num - 3;
 	int j = Player::combo;
-	int k = Player::all_mis;*/
+	int k = Player::all_mis;
 
-	int i = 12;
+	/*int i = 12;
 	int j = 200;
-	int k = 100;
+	int k = 200;*/
 
 	// 背景画像表示
 	// 名前入力画面に行くか行かないかで変える
@@ -255,49 +255,46 @@ void ResultScene::Draw() const
 	// クリアした最大レベルを表示
 	if (i < 10)
 	{
-		//DrawGraph(315, NUM_Y, num_img[0], TRUE);
 		DrawGraph(350, NUM_Y, num_img[i % 10], TRUE);
 	}
 	else
 	{
-		DrawGraph(335, NUM_Y, num_img[i / 10], TRUE);
-		DrawGraph(370, NUM_Y, num_img[i % 10], TRUE);
+		DrawGraph(325, NUM_Y, num_img[i / 10], TRUE);
+		DrawGraph(375, NUM_Y, num_img[i % 10], TRUE);
 	}
 
 	// 最終的なコンボの表示
 	if (j < 10)
 	{
-		//DrawGraph(590, NUM_Y, num_img[0], TRUE);
 		DrawGraph(645, NUM_Y, num_img[j % 10], TRUE);
 	}
 	else if (j < 100)
 	{
-		DrawGraph(625, NUM_Y, num_img[j / 10], TRUE);
-		DrawGraph(660, NUM_Y, num_img[j % 10], TRUE);
+		DrawGraph(620, NUM_Y, num_img[j / 10], TRUE);
+		DrawGraph(670, NUM_Y, num_img[j % 10], TRUE);
 	}
 	else
 	{
-		DrawGraph(608, NUM_Y, num_img[j / 100], TRUE);
-		DrawGraph(643, NUM_Y, num_img[(j - j / 100 * 100) / 10], TRUE);
-		DrawGraph(685, NUM_Y, num_img[j % 10], TRUE);
+		DrawGraph(595, NUM_Y, num_img[j / 100], TRUE);
+		DrawGraph(645, NUM_Y, num_img[(j - j / 100 * 100) / 10], TRUE);
+		DrawGraph(695, NUM_Y, num_img[j % 10], TRUE);
 	}
 
 	// 最終的な間違えた数の表示
 	if (k < 10)
 	{
-		//DrawGraph(930, NUM_Y, num_img[0], TRUE);
 		DrawGraph(980, NUM_Y, num_img[k % 10], TRUE);
 	}
 	else if (k < 100)
 	{
-		DrawGraph(965, NUM_Y, num_img[k / 10], TRUE);
-		DrawGraph(1000, NUM_Y, num_img[k % 10], TRUE);
+		DrawGraph(960, NUM_Y, num_img[k / 10], TRUE);
+		DrawGraph(1010, NUM_Y, num_img[k % 10], TRUE);
 	}
 	else
 	{
-		DrawGraph(930, NUM_Y, num_img[k / 100], TRUE);
-		DrawGraph(980, NUM_Y, num_img[(k - k / 100 * 100) / 10], TRUE);
-		DrawGraph(1020, NUM_Y, num_img[k % 10], TRUE);
+		DrawGraph(933, NUM_Y, num_img[k / 100], TRUE);
+		DrawGraph(983, NUM_Y, num_img[(k - k / 100 * 100) / 10], TRUE);
+		DrawGraph(1033, NUM_Y, num_img[k % 10], TRUE);
 	}
 }
 

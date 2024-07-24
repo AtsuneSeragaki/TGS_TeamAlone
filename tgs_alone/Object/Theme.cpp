@@ -19,10 +19,10 @@ Theme::~Theme()
 void Theme::Initialize()
 {
 	// 画像の読み込み
-	img[0] = LoadGraph("Resource/images/main/button/Abotton.png");
-	img[1] = LoadGraph("Resource/images/main/button/Bbotton.png");
-	img[2] = LoadGraph("Resource/images/main/button/Ybotton.png");
-	img[3] = LoadGraph("Resource/images/main/button/Xbotton.png");
+	img[0] = LoadGraph("Resource/images/main/button/Abotton0.png");
+	img[1] = LoadGraph("Resource/images/main/button/Bbotton0.png");
+	img[2] = LoadGraph("Resource/images/main/button/Ybotton0.png");
+	img[3] = LoadGraph("Resource/images/main/button/Xbotton0.png");
 	LoadDivGraph("Resource/images/main/number/level.png", 10, 5, 2, 50, 50, level_img);
 
 	// サウンド読み込み

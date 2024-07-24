@@ -12,7 +12,7 @@ HelpScene::HelpScene():cnt(0),anim(0),cnt_flg(false),se(0),bgm(0), star_img(0),s
 
 	for (int i = 0; i < 4; i++)
 	{
-		for (int j = 0; j < 6; j++)
+		for (int j = 0; j < 5; j++)
 		{
 			button_img[i][j] = 0;
 		}
@@ -29,7 +29,7 @@ HelpScene::~HelpScene()
 
 	for (int i = 0; i < 4; i++)
 	{
-		for (int j = 0; j < 6; j++)
+		for (int j = 0; j < 5; j++)
 		{
 			DeleteGraph(button_img[i][j]);
 		}
@@ -57,28 +57,24 @@ void HelpScene::Initialize()
 	button_img[0][2] = LoadGraph("Resource/images/main/button/Abotton6.png");
 	button_img[0][3] = LoadGraph("Resource/images/main/button/Abotton7.png");
 	button_img[0][4] = LoadGraph("Resource/images/main/button/Abotton8.png");
-	button_img[0][5] = LoadGraph("Resource/images/main/button/Abotton.png");
 
 	button_img[1][0] = LoadGraph("Resource/images/main/button/Bbotton0.png");
 	button_img[1][1] = LoadGraph("Resource/images/main/button/Bbotton5.png");
 	button_img[1][2] = LoadGraph("Resource/images/main/button/Bbotton6.png");
 	button_img[1][3] = LoadGraph("Resource/images/main/button/Bbotton7.png");
 	button_img[1][4] = LoadGraph("Resource/images/main/button/Bbotton8.png");
-	button_img[1][5] = LoadGraph("Resource/images/main/button/Bbotton.png");
 
 	button_img[2][0] = LoadGraph("Resource/images/main/button/Ybotton0.png");
 	button_img[2][1] = LoadGraph("Resource/images/main/button/Ybotton5.png");
 	button_img[2][2] = LoadGraph("Resource/images/main/button/Ybotton6.png");
 	button_img[2][3] = LoadGraph("Resource/images/main/button/Ybotton7.png");
 	button_img[2][4] = LoadGraph("Resource/images/main/button/Ybotton8.png");
-	button_img[2][5] = LoadGraph("Resource/images/main/button/Ybotton.png");
 
 	button_img[3][0] = LoadGraph("Resource/images/main/button/Xbotton0.png");
 	button_img[3][1] = LoadGraph("Resource/images/main/button/Xbotton5.png");
 	button_img[3][2] = LoadGraph("Resource/images/main/button/Xbotton6.png");
 	button_img[3][3] = LoadGraph("Resource/images/main/button/Xbotton7.png");
 	button_img[3][4] = LoadGraph("Resource/images/main/button/Xbotton8.png");
-	button_img[3][5] = LoadGraph("Resource/images/main/button/Xbotton.png");
 
 	star_img = LoadGraph("Resource/images/help/star.png");
 
@@ -97,7 +93,7 @@ void HelpScene::Initialize()
 
 	for (int i = 0; i < 4; i++)
 	{
-		for (int j = 0; j < 6; j++)
+		for (int j = 0; j < 5; j++)
 		{
 			if (button_img[i][j] == -1)
 			{
@@ -193,7 +189,7 @@ void HelpScene::Draw() const
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 122);
 	for (int i = 0; i < 4; i++)
 	{
-		DrawGraph(BUTTON_X + i * 120, BUTTON_Y, button_img[i][5], TRUE);
+		DrawGraph(BUTTON_X + i * 120, BUTTON_Y, button_img[i][0], TRUE);
 	}
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 
