@@ -2,7 +2,7 @@
 #include "../Utility/InputControl.h"
 #include "DxLib.h"
 
-GameMainScene::GameMainScene() :player(nullptr), time(nullptr), theme(nullptr),comment(nullptr), begin_time(0),begin_cnt(0),draw_cnt(0),timeup_flg(false),timeup_cnt(0),pause(false),pause_cursor(0)
+GameMainScene::GameMainScene() :player(nullptr), time(nullptr), theme(nullptr),comment(nullptr), begin_time(0),begin_cnt(0),draw_cnt(0),timeup_flg(false),timeup_cnt(0),pause(false),pause_cursor(0), transition(0.0f), tran_img(0), tran_flg(false)
 {
 	se[0] = 0;
 	se[1] = 0;
@@ -37,6 +37,8 @@ GameMainScene::~GameMainScene()
 	{
 		DeleteGraph(img[i]);
 	}
+
+	DeleteGraph(tran_img);
 }
 
 void GameMainScene::Initialize()
@@ -60,8 +62,10 @@ void GameMainScene::Initialize()
 	pause_img[6] = LoadGraph("Resource/images/pause/back.png");
 	pause_img[7] = LoadGraph("Resource/images/pause/updownUI.png");
 
+	tran_img = LoadGraph("Resource/images/tansition/transition.png");
+
 	// サウンド読み込み
-	sound[0] = LoadSoundMem("Resource/sounds/main/maou_bgm_cyber44.ogg");
+	sound[0] = LoadSoundMem("Resource/sounds/main/maou_bgm_cyber44.mp3");
 	sound[1] = LoadSoundMem("Resource/sounds/main/se/countdown.mp3");
 	sound[2] = LoadSoundMem("Resource/sounds/main/se/start.mp3");
 	sound[3] = LoadSoundMem("Resource/sounds/main/se/game_end.mp3");
@@ -85,6 +89,11 @@ void GameMainScene::Initialize()
 		{
 			throw("pause_img[%d]がありません\n", i);
 		}
+	}
+
+	if (tran_img == -1)
+	{
+		throw("Resource/images/tansition/transition.pngがありません");
 	}
 
 	for (int i = 0; i < 5; i++)
@@ -112,6 +121,8 @@ void GameMainScene::Initialize()
 	timeup_cnt = 0;
 	pause = false;
 	pause_cursor = 0;
+	transition = -110.0f;
+	tran_flg = true;
 
 	// オブジェクトの生成
 	player = new Player;
@@ -131,231 +142,137 @@ void GameMainScene::Initialize()
 
 eSceneType GameMainScene::Update()
 {
-	if (pause == true)
-	{// ポーズ中だったら
-
-		// BGMの再生を止める
-		StopSoundMem(sound[0]);
-
-		if (InputControl::GetButtonDown(XINPUT_BUTTON_A) == true)
+	if (tran_flg == true)
+	{
+		if (transition <= 1934.0f)
 		{
-			// 効果音の再生
-			PlaySoundMem(se[0], DX_PLAYTYPE_BACK, TRUE);
-
-			pause_cursor++;
-
-			if (pause_cursor > 2)
-			{
-				pause_cursor = 0;
-			}
+			// トランジション
+			Transition();
 		}
-
-		if (InputControl::GetButtonDown(XINPUT_BUTTON_Y) == true)
+		else
 		{
-			// 効果音の再生
-			PlaySoundMem(se[0], DX_PLAYTYPE_BACK, TRUE);
-
-			pause_cursor--;
-
-			if (pause_cursor < 0)
-			{
-				pause_cursor = 2;
-			}
-		}
-
-		if (InputControl::GetButtonDown(XINPUT_BUTTON_B) == true)
-		{
-			// 効果音の再生
-			PlaySoundMem(se[1], DX_PLAYTYPE_NORMAL, TRUE);
-
-			switch (pause_cursor)
-			{
-			case 0:
-				pause = false;
-				break;
-
-			case 1:
-				pause = false;
-				Finalize();
-				Initialize();
-				break;
-
-			case 2:
-				return eSceneType::E_TITLE;
-
-			default:
-				break;
-			}
+			tran_flg = false;
 		}
 	}
 	else
-	{// ポーズ中じゃなかったら
+	{
 
-		// STARTボタンが押されたら
-		if (InputControl::GetButtonDown(XINPUT_BUTTON_START) == true)
-		{
-			// 効果音の再生
-			PlaySoundMem(se[1], DX_PLAYTYPE_BACK, TRUE);
+		if (pause == true)
+		{// ポーズ中だったら
 
-			// ポーズ中にする
-			pause = true;
-		}
+			// BGMの再生を止める
+			StopSoundMem(sound[0]);
 
-		// 開始のカウントダウン
-		if (begin_time != -1)
-		{
-			if (begin_time == 3 && begin_cnt == 0)
+			if (InputControl::GetButtonDown(XINPUT_BUTTON_A) == true)
 			{
 				// 効果音の再生
-				PlaySoundMem(sound[1], DX_PLAYTYPE_BACK, TRUE);
+				PlaySoundMem(se[0], DX_PLAYTYPE_BACK, TRUE);
+
+				pause_cursor++;
+
+				if (pause_cursor > 2)
+				{
+					pause_cursor = 0;
+				}
 			}
 
-			begin_cnt++;
-
-			if (begin_cnt % 60 == 0)
+			if (InputControl::GetButtonDown(XINPUT_BUTTON_Y) == true)
 			{
-				begin_time--;
+				// 効果音の再生
+				PlaySoundMem(se[0], DX_PLAYTYPE_BACK, TRUE);
 
-				if (begin_time > 0)
+				pause_cursor--;
+
+				if (pause_cursor < 0)
+				{
+					pause_cursor = 2;
+				}
+			}
+
+			if (InputControl::GetButtonDown(XINPUT_BUTTON_B) == true)
+			{
+				// 効果音の再生
+				PlaySoundMem(se[1], DX_PLAYTYPE_NORMAL, TRUE);
+
+				switch (pause_cursor)
+				{
+				case 0:
+					pause = false;
+					break;
+
+				case 1:
+					pause = false;
+					Finalize();
+					Initialize();
+					break;
+
+				case 2:
+					return eSceneType::E_TITLE;
+
+				default:
+					break;
+				}
+			}
+		}
+		else
+		{// ポーズ中じゃなかったら
+
+			// STARTボタンが押されたら
+			if (InputControl::GetButtonDown(XINPUT_BUTTON_START) == true)
+			{
+				// 効果音の再生
+				PlaySoundMem(se[1], DX_PLAYTYPE_BACK, TRUE);
+
+				// ポーズ中にする
+				pause = true;
+			}
+
+			// 開始のカウントダウン
+			if (begin_time != -1)
+			{
+				if (begin_time == 3 && begin_cnt == 0)
 				{
 					// 効果音の再生
 					PlaySoundMem(sound[1], DX_PLAYTYPE_BACK, TRUE);
 				}
-				else if (begin_time == 0)
+
+				begin_cnt++;
+
+				if (begin_cnt % 60 == 0)
 				{
-					// 効果音の再生
-					PlaySoundMem(sound[2], DX_PLAYTYPE_BACK, TRUE);
+					begin_time--;
+
+					if (begin_time > 0)
+					{
+						// 効果音の再生
+						PlaySoundMem(sound[1], DX_PLAYTYPE_BACK, TRUE);
+					}
+					else if (begin_time == 0)
+					{
+						// 効果音の再生
+						PlaySoundMem(sound[2], DX_PLAYTYPE_BACK, TRUE);
+					}
 				}
 			}
-		}
 
-		// カウントダウン後に開始
-		if (begin_time == -1)
-		{
-			//制限時間が0になったら
-			if (time->GetTime() <= 0.0f)
+			// カウントダウン後に開始
+			if (begin_time == -1)
 			{
-				if (Player::correct_num == theme->GetThemeNum())
+				//制限時間が0になったら
+				if (time->GetTime() <= 0.0f)
 				{
-					Player::correct_num++;
-				}
-
-				player->SetPlayerAnim();
-
-				if (Player::correct_num == THEME_MAX)
-				{
-					time->SetTimeFlg(false);
-				}
-
-				// BGMを止める
-				StopSoundMem(sound[0]);
-
-				// 終了の表示
-				TimeupAnim();
-
-				// 終了の表示後、リザルト画面へ
-				if (timeup_flg == true)
-				{
-					if (draw_cnt != 0)
+					if (Player::correct_num == theme->GetThemeNum())
 					{
-						draw_cnt = 0;
+						Player::correct_num++;
 					}
 
-					return eSceneType::E_RESULT;
-				}
-				
-			}
-			else
-			{
-				// BGMの再生
-				PlaySoundMem(sound[0], DX_PLAYTYPE_LOOP, FALSE);
-
-				// お題の更新処理
-				theme->Update();
-
-				if (comment->GetDispFlg() == false)
-				{
-					// タイムの更新処理
-					time->Update();
-				}
-				
-				// プレイヤーの更新処理
-				player->Update();
-
-				// コメントの更新処理
-				comment->Update();
-
-				// プレイヤーがお題を全てクリアしたら次のお題へ
-				if (Player::correct_num == Theme::theme_num && player->GetInputDraw(Player::correct_num - 1) == true)
-				{
-					player->SetPlayerInput(true);
-					comment->SetNum(Player::mis_num, Theme::theme_num);
-					comment->SetComNum();
-					comment->SetDispFlg(true);
-
-					if (draw_cnt <= 10)
-					{
-						comment->FadeInOut(false);
-					}
-					else if (draw_cnt >= 50 && draw_cnt <= 70)
-					{
-						comment->FadeInOut(true);
-					}
-					
-					if (draw_cnt == 0)
-					{
-						// ノーミスでレベルをクリアしたら時間追加
-						if (Player::mis_num == 0)
-						{
-							if (Theme::theme_num - 2 < 10)
-							{
-								time->SetAddTime(true, 1);
-							}
-							else if (Theme::theme_num - 2 < 12)
-							{
-								time->SetAddTime(true, 2);
-							}
-							else
-							{
-								time->SetAddTime(true, 3);
-							}
-						}
-					}
-
-					if (draw_cnt <= 10)
-					{
-						time->FadeInOut(false);
-					}
-					else if (draw_cnt >= 50 && draw_cnt <= 70)
-					{
-						time->FadeInOut(true);
-
-						if (draw_cnt == 68)
-						{
-							time->Update();
-						}	
-					}
-
-					if (draw_cnt == 71)
-					{
-						player->ResetPlayerState();
-						theme->SetThemeNum();
-						draw_cnt = 0;
-						theme->SetThemeFlg(true);
-
-						player->SetPlayerInput(false);
-					}
-					else
-					{
-						draw_cnt++;
-					}
-				}
-				else if (Player::correct_num == Theme::theme_num && Theme::theme_num == THEME_MAX)
-				{
 					player->SetPlayerAnim();
 
-					time->SetTimeFlg(false);
-					
+					if (Player::correct_num == THEME_MAX)
+					{
+						time->SetTimeFlg(false);
+					}
+
 					// BGMを止める
 					StopSoundMem(sound[0]);
 
@@ -371,6 +288,116 @@ eSceneType GameMainScene::Update()
 						}
 
 						return eSceneType::E_RESULT;
+					}
+
+				}
+				else
+				{
+					// BGMの再生
+					PlaySoundMem(sound[0], DX_PLAYTYPE_LOOP, FALSE);
+
+					// お題の更新処理
+					theme->Update();
+
+					if (comment->GetDispFlg() == false)
+					{
+						// タイムの更新処理
+						time->Update();
+					}
+
+					// プレイヤーの更新処理
+					player->Update();
+
+					// コメントの更新処理
+					comment->Update();
+
+					// プレイヤーがお題を全てクリアしたら次のお題へ
+					if (Player::correct_num == Theme::theme_num && player->GetInputDraw(Player::correct_num - 1) == true)
+					{
+						player->SetPlayerInput(true);
+						comment->SetNum(Player::mis_num, Theme::theme_num);
+						comment->SetComNum();
+						comment->SetDispFlg(true);
+
+						if (draw_cnt <= 10)
+						{
+							comment->FadeInOut(false);
+						}
+						else if (draw_cnt >= 50 && draw_cnt <= 70)
+						{
+							comment->FadeInOut(true);
+						}
+
+						if (draw_cnt == 0)
+						{
+							// ノーミスでレベルをクリアしたら時間追加
+							if (Player::mis_num == 0)
+							{
+								if (Theme::theme_num - 2 < 10)
+								{
+									time->SetAddTime(true, 1);
+								}
+								else if (Theme::theme_num - 2 < 12)
+								{
+									time->SetAddTime(true, 2);
+								}
+								else
+								{
+									time->SetAddTime(true, 3);
+								}
+							}
+						}
+
+						if (draw_cnt <= 10)
+						{
+							time->FadeInOut(false);
+						}
+						else if (draw_cnt >= 50 && draw_cnt <= 70)
+						{
+							time->FadeInOut(true);
+
+							if (draw_cnt == 68)
+							{
+								time->Update();
+							}
+						}
+
+						if (draw_cnt == 71)
+						{
+							player->ResetPlayerState();
+							theme->SetThemeNum();
+							draw_cnt = 0;
+							theme->SetThemeFlg(true);
+
+							player->SetPlayerInput(false);
+						}
+						else
+						{
+							draw_cnt++;
+						}
+					}
+					else if (Player::correct_num == Theme::theme_num && Theme::theme_num == THEME_MAX)
+					{
+						player->SetPlayerAnim();
+
+						time->SetTimeFlg(false);
+
+						// BGMを止める
+						StopSoundMem(sound[0]);
+
+						// 終了の表示
+						TimeupAnim();
+
+						// 終了の表示後、リザルト画面へ
+						if (timeup_flg == true)
+						{
+							if (draw_cnt != 0)
+							{
+								draw_cnt = 0;
+							}
+
+							return eSceneType::E_RESULT;
+						}
 					}
 				}
 			}
@@ -482,6 +509,11 @@ void GameMainScene::Draw() const
 			break;
 		}
 	}
+
+	if (tran_flg == true)
+	{
+		DrawGraph(transition, 0, tran_img, TRUE);
+	}
 }
 
 void GameMainScene::Finalize()
@@ -521,5 +553,13 @@ void GameMainScene::TimeupAnim()
 	if (timeup_cnt == 200)
 	{
 		timeup_flg = true;
+	}
+}
+
+void GameMainScene::Transition()
+{
+	if (transition <= 1934.0f)
+	{
+		transition += 30.0f;
 	}
 }

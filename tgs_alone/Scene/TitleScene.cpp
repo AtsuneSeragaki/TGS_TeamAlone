@@ -4,7 +4,7 @@
 
 int TitleScene::menu_cursor = 0;
 
-TitleScene::TitleScene() : back_img(0),bgm(0),star_img(0),star_cnt(0)
+TitleScene::TitleScene() : back_img(0), bgm(0), star_img(0), star_cnt(0), transition(0.0f), tran_img(0),tran_flg(false)
 {
 	se[0] = 0;
 	se[1] = 0;
@@ -27,6 +27,8 @@ TitleScene::~TitleScene()
 
 	DeleteGraph(star_img);
 
+	DeleteGraph(tran_img);
+
 	// 音データの削除
 	DeleteSoundMem(se[0]);
 	DeleteSoundMem(se[1]);
@@ -48,6 +50,8 @@ void TitleScene::Initialize()
 	menu_img[7] = LoadGraph("Resource/images/title/end.png");
 	
 	star_img = LoadGraph("Resource/images/help/star.png");
+
+	tran_img = LoadGraph("Resource/images/tansition/transition.png");
 
 	// 音データの読み込み
 	se[0] = LoadSoundMem("Resource/sounds/title/move.mp3");
@@ -73,6 +77,10 @@ void TitleScene::Initialize()
 	{
 		throw("Resource/images/help/star.pngがありません");
 	}
+	if (tran_img == -1)
+	{
+		throw("Resource/images/tansition/transition.pngがありません");
+	}
 	if (se[0] == -1)
 	{
 		throw("Resource/sounds/title/move.mp3がありません");
@@ -91,6 +99,8 @@ void TitleScene::Initialize()
 
 	// 変数の初期化
 	star_cnt = 0;
+	transition = -1943.0f;
+	tran_flg = false;
 }
 
 eSceneType TitleScene::Update()
@@ -140,19 +150,32 @@ eSceneType TitleScene::Update()
 		// BGMの再生を止める
 		StopSoundMem(bgm);
 
-		// カーソルがある場所に遷移
-		switch (menu_cursor)
+		tran_flg = true;
+	}
+
+	if (tran_flg == true)
+	{
+		if (transition <= -120.0f)
 		{
-		case 0:
-			return eSceneType::E_MAIN;
-		case 1:
-			return eSceneType::E_HELP;
-		case 2:
-			return eSceneType::E_RANKING;
-		case 3:
-			return eSceneType::E_END;
-		default:
-			break;
+			// トランジション
+			Transition();
+		}
+		else
+		{
+			// カーソルがある場所に遷移
+			switch (menu_cursor)
+			{
+			case 0:
+				return eSceneType::E_MAIN;
+			case 1:
+				return eSceneType::E_HELP;
+			case 2:
+				return eSceneType::E_RANKING;
+			case 3:
+				return eSceneType::E_END;
+			default:
+				break;
+			}
 		}
 	}
 
@@ -204,6 +227,11 @@ void TitleScene::Draw() const
 	default:
 		break;
 	}
+
+	if (tran_flg == true)
+	{
+		DrawGraph(transition, 0, tran_img, TRUE);
+	}
 }
 
 void TitleScene::Finalize()
@@ -224,5 +252,13 @@ void TitleScene::StarAnim()
 	if (star_cnt > 180)
 	{
 		star_cnt = 0;
+	}
+}
+
+void TitleScene::Transition()
+{
+	if (transition <= -120.0f)
+	{
+		transition += 30.0f;
 	}
 }

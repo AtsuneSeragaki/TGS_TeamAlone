@@ -11,6 +11,7 @@ class GameMainScene : public SceneBase
 private:
 	int img[7];       // 画像データ
 	int pause_img[8]; // ポーズ画面の画像
+	int tran_img;     // トランジション画像
 	int sound[5];     // 音データ
 	int se[2];        // 効果音
 	int begin_time;   // 開始までのカウントダウン
@@ -20,6 +21,8 @@ private:
 	int timeup_cnt;   // タイムアップのアニメーション用
 	bool pause;       // ポーズフラグ
 	int pause_cursor; // ポーズ画面のカーソル
+	bool tran_flg;    // 画面遷移 false:しない true:する
+	float transition; // トランジションの値保存用
 	
     Player* player;   // プレイヤーのオブジェクト
 	Time* time;       // 制限時間のオブジェクト
@@ -51,4 +54,7 @@ public:
 
 	// タイムアップアニメーション
 	void TimeupAnim(); 
+
+	// トランジション処理
+	void Transition();
 };
