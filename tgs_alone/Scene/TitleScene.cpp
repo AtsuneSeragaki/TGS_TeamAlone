@@ -259,6 +259,6 @@ void TitleScene::Transition()
 {
 	if (transition <= -120.0f)
 	{
-		transition += 30.0f;
+		transition += 50.0f;
 	}
 }

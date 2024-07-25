@@ -560,6 +560,6 @@ void GameMainScene::Transition()
 {
 	if (transition <= 1934.0f)
 	{
-		transition += 30.0f;
+		transition += 50.0f;
 	}
 }
