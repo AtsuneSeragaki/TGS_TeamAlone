@@ -2,6 +2,8 @@
 #include "../Utility/InputControl.h"
 #include "DxLib.h"
 
+bool RankingScene::back_title = false;
+
 RankingScene::RankingScene():back_img(0),ranking(nullptr),font(0),bgm(0), star_img(0), star_cnt(0), transition(0.0f), tran_img(0), tran_flg(false)
 {
 	se[0] = 0;
@@ -79,6 +81,7 @@ void RankingScene::Initialize()
 	// 変数の初期化
 	transition = -110.0f;
 	tran_flg = true;
+	back_title = false;
 }
 
 eSceneType RankingScene::Update()
@@ -91,7 +94,17 @@ eSceneType RankingScene::Update()
 
 	if (tran_flg == true)
 	{
-		if (transition <= 1934.0f)
+		if (back_title == true && transition <= -120.0f)
+		{
+			// トランジション
+			Transition();
+		}
+		else if (back_title == true && transition > -120.0f)
+		{
+			// タイトル画面に遷移
+			return eSceneType::E_TITLE;
+		}
+		else if (back_title == false && transition <= 1934.0f)
 		{
 			// トランジション
 			Transition();
@@ -112,8 +125,9 @@ eSceneType RankingScene::Update()
 			// BGMを止める
 			StopSoundMem(bgm);
 
-			// タイトル画面に遷移
-			return eSceneType::E_TITLE;
+			back_title = true;
+			transition = -1943.0f;
+			tran_flg = true;
 		}
 	}
 

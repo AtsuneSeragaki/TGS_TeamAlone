@@ -1,5 +1,6 @@
 ﻿#include "TitleScene.h"
 #include "../Utility/InputControl.h"
+#include "RankingScene.h"
 #include "DxLib.h"
 
 int TitleScene::menu_cursor = 0;
@@ -111,6 +112,40 @@ eSceneType TitleScene::Update()
 	// 星を回転させる
 	StarAnim();
 
+	if (RankingScene::back_title == true)
+	{
+		tran_flg = true;
+
+	}
+	else
+	{
+		if (tran_flg == true)
+		{
+			if (transition <= -120.0f)
+			{
+				// トランジション
+				Transition();
+			}
+			else
+			{
+				// カーソルがある場所に遷移
+				switch (menu_cursor)
+				{
+				case 0:
+					return eSceneType::E_MAIN;
+				case 1:
+					return eSceneType::E_HELP;
+				case 2:
+					return eSceneType::E_RANKING;
+				case 3:
+					return eSceneType::E_END;
+				default:
+					break;
+				}
+			}
+		}
+	}
+
 	if (InputControl::GetButtonDown(XINPUT_BUTTON_A))
 	{// Aボタンを押したら
 
@@ -153,31 +188,7 @@ eSceneType TitleScene::Update()
 		tran_flg = true;
 	}
 
-	if (tran_flg == true)
-	{
-		if (transition <= -120.0f)
-		{
-			// トランジション
-			Transition();
-		}
-		else
-		{
-			// カーソルがある場所に遷移
-			switch (menu_cursor)
-			{
-			case 0:
-				return eSceneType::E_MAIN;
-			case 1:
-				return eSceneType::E_HELP;
-			case 2:
-				return eSceneType::E_RANKING;
-			case 3:
-				return eSceneType::E_END;
-			default:
-				break;
-			}
-		}
-	}
+	
 
 	return GetNowScene();
 }
