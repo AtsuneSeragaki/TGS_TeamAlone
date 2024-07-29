@@ -2,7 +2,7 @@
 #include "../Utility/InputControl.h"
 #include "DxLib.h"
 
-RankingScene::RankingScene():back_img(0),ranking(nullptr),font(0),bgm(0), star_img(0), star_cnt(0)
+RankingScene::RankingScene():back_img(0),ranking(nullptr),font(0),bgm(0), star_img(0), star_cnt(0), transition(0.0f), tran_img(0), tran_flg(false)
 {
 	se[0] = 0;
 	se[1] = 0;
@@ -16,6 +16,7 @@ RankingScene::~RankingScene()
 	// 画像データの削除
 	DeleteGraph(back_img);
 	DeleteGraph(star_img);
+	DeleteGraph(tran_img);
 
 	// 音データの削除
 	DeleteSoundMem(se[0]);
@@ -28,6 +29,7 @@ void RankingScene::Initialize()
 	// 画像データの読み込み
 	back_img = LoadGraph("Resource/images/ranking/ranking.png");
 	star_img = LoadGraph("Resource/images/help/star.png");
+	tran_img = LoadGraph("Resource/images/tansition/transition.png");
 
 	// フォントデータの読み込み
 	font = CreateFontToHandle("Segoe UI", 45, 7, DX_FONTTYPE_ANTIALIASING);
@@ -45,6 +47,10 @@ void RankingScene::Initialize()
 	if (star_img == -1)
 	{
 		throw("Resource/images/help/star.pngがありません");
+	}
+	if (tran_img == -1)
+	{
+		throw("Resource/images/tansition/transition.pngがありません");
 	}
 	if (se[0] == -1)
 	{
@@ -69,6 +75,10 @@ void RankingScene::Initialize()
 	// ランキング情報を取得
 	ranking = new RankingData;
 	ranking->Initialize();
+
+	// 変数の初期化
+	transition = -110.0f;
+	tran_flg = true;
 }
 
 eSceneType RankingScene::Update()
@@ -79,17 +89,32 @@ eSceneType RankingScene::Update()
 	// 星を回転させる
 	StarAnim();
 
-	// Bボタンが押されたら
-	if (InputControl::GetButtonDown(XINPUT_BUTTON_B))
+	if (tran_flg == true)
 	{
-		// 効果音の再生
-		PlaySoundMem(se[1], DX_PLAYTYPE_NORMAL, TRUE);
+		if (transition <= 1934.0f)
+		{
+			// トランジション
+			Transition();
+		}
+		else
+		{
+			tran_flg = false;
+		}
+	}
+	else
+	{
+		// Bボタンが押されたら
+		if (InputControl::GetButtonDown(XINPUT_BUTTON_B))
+		{
+			// 効果音の再生
+			PlaySoundMem(se[1], DX_PLAYTYPE_NORMAL, TRUE);
 
-		// BGMを止める
-		StopSoundMem(bgm);
+			// BGMを止める
+			StopSoundMem(bgm);
 
-		// タイトル画面に遷移
-		return eSceneType::E_TITLE;
+			// タイトル画面に遷移
+			return eSceneType::E_TITLE;
+		}
 	}
 
 	return GetNowScene();
@@ -122,6 +147,11 @@ void RankingScene::Draw() const
 		// コンボの描画
 		DrawFormatStringToHandle(1028, 242 + i * 100, 0x000000, font, "%03d", ranking->GetCombo(i));
 	}
+
+	if (tran_flg == true)
+	{
+		DrawGraph(transition, 0, tran_img, TRUE);
+	}
 }
 
 void RankingScene::Finalize()
@@ -145,4 +175,9 @@ void RankingScene::StarAnim()
 	{
 		star_cnt = 0;
 	}
+}
+
+void RankingScene::Transition()
+{
+	transition += 50.0f;
 }

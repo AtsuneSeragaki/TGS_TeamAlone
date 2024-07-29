@@ -3,7 +3,7 @@
 #include "TitleScene.h"
 #include "DxLib.h"
 
-HelpScene::HelpScene():cnt(0),anim(0),cnt_flg(false),se(0),bgm(0), star_img(0),star_cnt(0)
+HelpScene::HelpScene():cnt(0),anim(0),cnt_flg(false),se(0),bgm(0), star_img(0),star_cnt(0), transition(0.0f), tran_img(0), tran_flg(false)
 {
 	for (int i = 0; i < 6; i++)
 	{
@@ -36,6 +36,8 @@ HelpScene::~HelpScene()
 	}
 
 	DeleteGraph(star_img);
+
+	DeleteGraph(tran_img);
 
 	// 音データの削除
 	DeleteSoundMem(se);
@@ -78,6 +80,8 @@ void HelpScene::Initialize()
 
 	star_img = LoadGraph("Resource/images/help/star.png");
 
+	tran_img = LoadGraph("Resource/images/tansition/transition.png");
+
 	// 音データの読み込み
 	se = LoadSoundMem("Resource/sounds/title/ok.mp3");
 	bgm = LoadSoundMem("Resource/sounds/title/bgm2.mp3");
@@ -106,6 +110,10 @@ void HelpScene::Initialize()
 	{
 		throw("Resource/images/help/star.pngがありません");
 	}
+	if (tran_img == -1)
+	{
+		throw("Resource/images/tansition/transition.pngがありません");
+	}
 	if (se == -1)
 	{
 		throw("Resource/sounds/title/ok.mp3がありません");
@@ -123,46 +131,63 @@ void HelpScene::Initialize()
 	cnt_flg = false;
 	anim = 1;
 	star_cnt = 0;
+	transition = -110.0f;
+	tran_flg = true;
 }
 
 eSceneType HelpScene::Update()
 {
-	// BGMの再生
-	PlaySoundMem(bgm, DX_PLAYTYPE_LOOP, FALSE);
-
 	// 星を回転させる
 	StarAnim();
 
 	// ボタンのアニメーション
 	ButtonAnim();
 
-	if (InputControl::GetButtonDown(XINPUT_BUTTON_B))
-	{// Bボタンが押されたら
-
-		// 効果音の再生
-		PlaySoundMem(se, DX_PLAYTYPE_NORMAL, TRUE);
-
-		// BGMの再生を止める
-		StopSoundMem(bgm);
-
-		// タイトル画面に遷移
-		return eSceneType::E_TITLE;
+	if (tran_flg == true)
+	{
+		if (transition <= 1934.0f)
+		{
+			// トランジション
+			Transition();
+		}
+		else
+		{
+			tran_flg = false;
+		}
 	}
+	else
+	{
+		// BGMの再生
+		PlaySoundMem(bgm, DX_PLAYTYPE_LOOP, FALSE);
 
-	if (InputControl::GetButtonDown(XINPUT_BUTTON_X))
-	{// Xボタンが押されたら
+		if (InputControl::GetButtonDown(XINPUT_BUTTON_B))
+		{// Bボタンが押されたら
 
-		// 効果音の再生
-		PlaySoundMem(se, DX_PLAYTYPE_NORMAL, TRUE);
+			// 効果音の再生
+			PlaySoundMem(se, DX_PLAYTYPE_NORMAL, TRUE);
 
-		// BGMの再生を止める
-		StopSoundMem(bgm);
+			// BGMの再生を止める
+			StopSoundMem(bgm);
 
-		// タイトル画面のメニューカーソルの位置を0に戻す
-		TitleScene::menu_cursor = 0;
+			// タイトル画面に遷移
+			return eSceneType::E_TITLE;
+		}
 
-		// ゲームメイン画面に遷移
-		return eSceneType::E_MAIN;
+		if (InputControl::GetButtonDown(XINPUT_BUTTON_X))
+		{// Xボタンが押されたら
+
+			// 効果音の再生
+			PlaySoundMem(se, DX_PLAYTYPE_NORMAL, TRUE);
+
+			// BGMの再生を止める
+			StopSoundMem(bgm);
+
+			// タイトル画面のメニューカーソルの位置を0に戻す
+			TitleScene::menu_cursor = 0;
+
+			// ゲームメイン画面に遷移
+			return eSceneType::E_MAIN;
+		}
 	}
 
 	return GetNowScene();
@@ -304,6 +329,11 @@ void HelpScene::Draw() const
 		DrawGraph(BUTTON_X + 240, BUTTON_Y, button_img[2][0], TRUE);
 		DrawGraph(BUTTON_X + 360, BUTTON_Y, button_img[3][0], TRUE);
 	}
+
+	if (tran_flg == true)
+	{
+		DrawGraph(transition, 0, tran_img, TRUE);
+	}
 }
 
 void HelpScene::Finalize()
@@ -355,4 +385,9 @@ void HelpScene::StarAnim()
 	{
 		star_cnt = 0;
 	}
+}
+
+void HelpScene::Transition()
+{
+	transition += 50.0f;
 }

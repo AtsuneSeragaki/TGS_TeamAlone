@@ -76,7 +76,7 @@ void Comment::Initialize()
 	p_num = 0;
 	cnt = 0;
 	com_num = -1;
-	transparency = 0;
+	transparency = 255;
 }
 
 void Comment::Update()
@@ -93,13 +93,13 @@ void Comment::Update()
 			disp_flg = false;
 		}
 	}
-	else
+	/*else
 	{
 		if (transparency != 0)
 		{
 			transparency = 0;
 		}
-	}
+	}*/
 }
 
 void Comment::Draw()

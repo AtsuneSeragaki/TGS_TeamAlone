@@ -11,12 +11,15 @@ private:
 	int back_img[6];      // 背景画像 
 	int button_img[4][5]; // ボタン画像
 	int star_img;         // 星画像
+	int tran_img;         // トランジション画像
 	int se;               // 効果音
 	int bgm;              // BGM用
 	int cnt;              // ボタンアニメーションカウント用
 	bool cnt_flg;         // ボタンアニメーションのカウントをするかしないかフラグ
 	int anim;             // ボタンの動き用
 	int star_cnt;         // 星の回転用
+	bool tran_flg;        // 画面遷移 false:しない true:する
+	float transition;     // トランジションの値保存用
 
 public:
 
@@ -46,4 +49,7 @@ public:
 
 	// 星の回転処理
 	void StarAnim();
+
+	// トランジション処理
+	void Transition();
 };
