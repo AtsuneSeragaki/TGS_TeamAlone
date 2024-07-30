@@ -79,7 +79,7 @@ void RankingScene::Initialize()
 	ranking->Initialize();
 
 	// 変数の初期化
-	transition = -110.0f;
+	transition = -93.0f;
 	tran_flg = true;
 	back_title = false;
 }

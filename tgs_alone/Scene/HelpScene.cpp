@@ -3,6 +3,9 @@
 #include "TitleScene.h"
 #include "DxLib.h"
 
+bool HelpScene::back_title = false;
+bool HelpScene::game_start = false;
+
 HelpScene::HelpScene():cnt(0),anim(0),cnt_flg(false),se(0),bgm(0), star_img(0),star_cnt(0), transition(0.0f), tran_img(0), tran_flg(false)
 {
 	for (int i = 0; i < 6; i++)
@@ -131,8 +134,10 @@ void HelpScene::Initialize()
 	cnt_flg = false;
 	anim = 1;
 	star_cnt = 0;
-	transition = -110.0f;
+	transition = -93.0f;
 	tran_flg = true;
+	back_title = false;
+	game_start = false;
 }
 
 eSceneType HelpScene::Update()

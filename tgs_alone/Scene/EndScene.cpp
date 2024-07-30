@@ -38,7 +38,7 @@ void EndScene::Initialize()
 	// 変数の初期化
 	cnt = 0;
 	star_cnt = 0;
-	transition = -110.0f;
+	transition = -93.0f;
 	tran_flg = true;
 }
 

@@ -121,7 +121,7 @@ void GameMainScene::Initialize()
 	timeup_cnt = 0;
 	pause = false;
 	pause_cursor = 0;
-	transition = -110.0f;
+	transition = -93.0f;
 	tran_flg = true;
 
 	// オブジェクトの生成

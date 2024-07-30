@@ -114,8 +114,22 @@ eSceneType TitleScene::Update()
 
 	if (RankingScene::back_title == true)
 	{
-		tran_flg = true;
-
+		if (tran_flg == false)
+		{
+			tran_flg = true;
+			transition = -93.0f;
+		}
+		
+		if (transition <= 1934.0f)
+		{
+			// トランジション
+			Transition();
+		}
+		else
+		{
+			RankingScene::back_title = false;
+			tran_flg = false;
+		}
 	}
 	else
 	{
@@ -188,8 +202,6 @@ eSceneType TitleScene::Update()
 		tran_flg = true;
 	}
 
-	
-
 	return GetNowScene();
 }
 
@@ -243,6 +255,8 @@ void TitleScene::Draw() const
 	{
 		DrawGraph(transition, 0, tran_img, TRUE);
 	}
+
+	DrawFormatString(0, 0, 0x000000, "%f", transition);
 }
 
 void TitleScene::Finalize()
@@ -268,8 +282,5 @@ void TitleScene::StarAnim()
 
 void TitleScene::Transition()
 {
-	if (transition <= -120.0f)
-	{
-		transition += 50.0f;
-	}
+	transition += 50.0f;
 }
