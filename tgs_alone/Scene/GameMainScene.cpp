@@ -1,6 +1,7 @@
 ﻿#include "GameMainScene.h"
 #include "../Utility/InputControl.h"
 #include "TitleScene.h"
+#include "ResultScene.h"
 #include "DxLib.h"
 
 GameMainScene::GameMainScene() :player(nullptr), time(nullptr), theme(nullptr),comment(nullptr), begin_time(0),begin_cnt(0),draw_cnt(0),timeup_flg(false),timeup_cnt(0),pause(false),pause_cursor(0), transition(0.0f), tran_img(0), tran_flg(false),restart(false)
@@ -163,6 +164,14 @@ eSceneType GameMainScene::Update()
 			restart = false;
 			tran_flg = false;
 		}
+		else if (ResultScene::result == true && transition <= -120.0f)
+		{
+			Transition();
+		}
+		else if (ResultScene::result == true && transition > -120.0f)
+		{
+			return eSceneType::E_RESULT;
+		}
 		else if (TitleScene::back_title == false && transition <= 1934.0f)
 		{
 			Transition();
@@ -310,7 +319,9 @@ eSceneType GameMainScene::Update()
 							draw_cnt = 0;
 						}
 
-						return eSceneType::E_RESULT;
+						tran_flg = true;
+						ResultScene::result = true;
+						transition = -1943.0f;
 					}
 
 				}
@@ -419,7 +430,9 @@ eSceneType GameMainScene::Update()
 								draw_cnt = 0;
 							}
 
-							return eSceneType::E_RESULT;
+							tran_flg = true;
+							ResultScene::result = true;
+							transition = -1943.0f;
 						}
 					}
 				}

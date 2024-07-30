@@ -39,6 +39,7 @@ void Time::Initialize()
 
 	// 制限時間の初期化
 	time = 40;
+	//time = 0;
 	time2 = 0;
 	time3 = 0.0f;
 	time_flg = true;

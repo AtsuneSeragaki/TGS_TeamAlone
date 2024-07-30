@@ -8,6 +8,7 @@ class InputRankingScene : public SceneBase
 private:
 	int img[7];     // 画像データ用
 	int star_img;   // 星画像
+	int tran_img;         // トランジション画像
 	int font;       // フォントデータ
 	int se[3];      // 効果音
 	int bgm;        // BGM
@@ -20,6 +21,8 @@ private:
 	bool no_name;   // 名前が入力されてない場合はtrue 
 	int star_cnt;   // 星の回転用
 	bool input_end; // 名前入力終了フラグ
+	bool tran_flg;        // 画面遷移 false:しない true:する
+	float transition;     // トランジションの値保存用
 	RankingData* ranking; // ランキング情報
 
 public:
@@ -50,4 +53,7 @@ public:
 
 	// 星の回転処理
 	void StarAnim();
+
+	// トランジション処理
+	void Transition();
 };

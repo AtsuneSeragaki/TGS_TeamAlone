@@ -4,7 +4,7 @@
 #include "../Object/Theme.h"
 #include "DxLib.h"
 
-InputRankingScene::InputRankingScene():ranking(nullptr),level(0),combo(0),name_num(0),cursor_x(0),cursor_y(0),no_name(false),font(0),bgm(0), star_img(0), star_cnt(0),input_end(false)
+InputRankingScene::InputRankingScene():ranking(nullptr),level(0),combo(0),name_num(0),cursor_x(0),cursor_y(0),no_name(false),font(0),bgm(0), star_img(0), star_cnt(0),input_end(false), transition(0.0f), tran_img(0), tran_flg(false)
 {
 	memset(name, NULL, (sizeof(char) * 6));
 
@@ -32,6 +32,8 @@ InputRankingScene::~InputRankingScene()
 		DeleteGraph(img[i]);
 	}
 
+	DeleteGraph(tran_img);
+
 	// 音データの削除
 	DeleteSoundMem(se[0]);
 	DeleteSoundMem(se[1]);
@@ -50,6 +52,8 @@ void InputRankingScene::Initialize()
 	img[6] = LoadGraph("Resource/images/ranking/cursor.png");
 
 	star_img = LoadGraph("Resource/images/help/star.png");
+
+	tran_img = LoadGraph("Resource/images/tansition/transition.png");
 
 	// 音データの読み込み
 	se[0] = LoadSoundMem("Resource/sounds/title/move.mp3");
@@ -71,6 +75,10 @@ void InputRankingScene::Initialize()
 	if (star_img == -1)
 	{
 		throw("Resource/images/help/star.pngがありません");
+	}
+	if (tran_img == -1)
+	{
+		throw("Resource/images/tansition/transition.pngがありません");
 	}
 	if (font == -1)
 	{
@@ -103,6 +111,8 @@ void InputRankingScene::Initialize()
 	name_num = -1;
 	star_cnt = 0;
 	input_end = false;
+	transition = -93.0f;
+	tran_flg = true;
 }
 
 eSceneType InputRankingScene::Update()
@@ -187,6 +197,11 @@ void InputRankingScene::Draw() const
 		{
 			DrawFormatStringToHandle(630 - (name_num - 1) * 30, 63, 0x000000, font, "%s", name);
 		}
+	}
+
+	if (tran_flg == true)
+	{
+		DrawGraph(transition, 0, tran_img, TRUE);
 	}
 }
 
@@ -344,4 +359,9 @@ void InputRankingScene::StarAnim()
 	{
 		star_cnt = 0;
 	}
+}
+
+void InputRankingScene::Transition()
+{
+	transition += 50.0f;
 }

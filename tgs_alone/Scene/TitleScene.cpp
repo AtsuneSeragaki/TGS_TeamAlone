@@ -257,8 +257,6 @@ void TitleScene::Draw() const
 	{
 		DrawGraph(transition, 0, tran_img, TRUE);
 	}
-
-	DrawFormatString(0, 0, 0x000000, "%f", transition);
 }
 
 void TitleScene::Finalize()

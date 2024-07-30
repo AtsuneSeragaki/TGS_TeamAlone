@@ -2,9 +2,12 @@
 #include "../Object/Player.h"
 #include "../Object/Theme.h"
 #include "../Utility/InputControl.h"
+#include "TitleScene.h"
 #include "DxLib.h"
 
-ResultScene::ResultScene():back_img{0},bgm(0),se(0), star_img(0), star_cnt(0)
+bool ResultScene::result = false;
+
+ResultScene::ResultScene():back_img{0},bgm(0),se(0), star_img(0), star_cnt(0), transition(0.0f), tran_img(0), tran_flg(false)
 {
 	for (int i = 0; i < 10; i++)
 	{
@@ -45,6 +48,8 @@ ResultScene::~ResultScene()
 		DeleteGraph(rank_img[i]);
 	}
 
+	DeleteGraph(tran_img);
+
 	// 音データの削除
 	DeleteSoundMem(se);
 	DeleteSoundMem(bgm);
@@ -67,6 +72,8 @@ void ResultScene::Initialize()
 	rank_img[8] = LoadGraph("Resource/images/result/rank3.png");
 	star_img = LoadGraph("Resource/images/help/star.png");
 
+	tran_img = LoadGraph("Resource/images/tansition/transition.png");
+
 	// 音データの読み込み
 	se = LoadSoundMem("Resource/sounds/title/ok.mp3");
 	bgm = LoadSoundMem("Resource/sounds/title/bgm.mp3");
@@ -83,6 +90,10 @@ void ResultScene::Initialize()
 	if (star_img == -1)
 	{
 		throw("Resource/images/help/star.pngがありません");
+	}
+	if (tran_img == -1)
+	{
+		throw("Resource/images/tansition/transition.pngがありません");
 	}
 	if (se == -1)
 	{
@@ -135,6 +146,9 @@ void ResultScene::Initialize()
 
 	// 変数の初期化
 	star_cnt = 0;
+	transition = -93.0f;
+	tran_flg = true;
+	result = true;
 }
 
 eSceneType ResultScene::Update()
@@ -144,27 +158,62 @@ eSceneType ResultScene::Update()
 
 	// 星を回転させる
 	StarAnim();
-	
-	// Bボタンを押したとき
-	if (InputControl::GetButtonDown(XINPUT_BUTTON_B))
-	{
-		// 効果音の再生
-		PlaySoundMem(se, DX_PLAYTYPE_NORMAL, TRUE);
 
-		// BGMの再生を止める
-		StopSoundMem(bgm);
-		
-		if (level[2] < Theme::theme_num - 3)
-		{// ランキングに載る成績なら、名前入力画面に遷移
-			return eSceneType::E_INPUT_RANKING;
+	if (tran_flg == true)
+	{
+		if (result == true  && transition <= 1943.0f)
+		{
+			Transition();
 		}
-		else if (level[2] == Theme::theme_num - 3 && combo[2] < Player::combo)
-		{// ランキングに載る成績なら、名前入力画面に遷移
-			return eSceneType::E_INPUT_RANKING;
+		else if (result == true && transition > 1943.0f)
+		{
+			result = false;
+			tran_flg = false;
+		}
+		else if (TitleScene::back_title == true && transition <= -120.0f)
+		{
+			Transition();
+		}
+		else if (TitleScene::back_title = true && transition > -120.0f)
+		{
+			return eSceneType::E_TITLE;
+		}
+		else if (transition <= -120.0f)
+		{
+			Transition();
 		}
 		else
-		{// ランキングに載らない場合、タイトル画面に遷移
-			return eSceneType::E_TITLE;
+		{
+			return eSceneType::E_INPUT_RANKING;
+		}
+	}
+	else
+	{
+		// Bボタンを押したとき
+		if (InputControl::GetButtonDown(XINPUT_BUTTON_B))
+		{
+			// 効果音の再生
+			PlaySoundMem(se, DX_PLAYTYPE_NORMAL, TRUE);
+
+			// BGMの再生を止める
+			StopSoundMem(bgm);
+
+			if (level[2] < Theme::theme_num - 3)
+			{// ランキングに載る成績なら、名前入力画面に遷移
+				tran_flg = true;
+				transition = -1943.0f;
+			}
+			else if (level[2] == Theme::theme_num - 3 && combo[2] < Player::combo)
+			{// ランキングに載る成績なら、名前入力画面に遷移
+				tran_flg = true;
+				transition = -1943.0f;
+			}
+			else
+			{// ランキングに載らない場合、タイトル画面に遷移
+				TitleScene::back_title = true;
+				tran_flg = true;
+				transition = -1943.0f;
+			}
 		}
 	}
 	
@@ -296,6 +345,11 @@ void ResultScene::Draw() const
 		DrawGraph(983, NUM_Y, num_img[(k - k / 100 * 100) / 10], TRUE);
 		DrawGraph(1033, NUM_Y, num_img[k % 10], TRUE);
 	}
+
+	if (tran_flg == true)
+	{
+		DrawGraph(transition, 0, tran_img, TRUE);
+	}
 }
 
 void ResultScene::Finalize()
@@ -316,4 +370,9 @@ void ResultScene::StarAnim()
 	{
 		star_cnt = 0;
 	}
+}
+
+void ResultScene::Transition()
+{
+	transition += 50.0f;
 }
