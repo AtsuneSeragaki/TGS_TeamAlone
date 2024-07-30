@@ -3,7 +3,6 @@
 #include "TitleScene.h"
 #include "DxLib.h"
 
-bool HelpScene::back_title = false;
 bool HelpScene::game_start = false;
 
 HelpScene::HelpScene():cnt(0),anim(0),cnt_flg(false),se(0),bgm(0), star_img(0),star_cnt(0), transition(0.0f), tran_img(0), tran_flg(false)
@@ -136,7 +135,6 @@ void HelpScene::Initialize()
 	star_cnt = 0;
 	transition = -93.0f;
 	tran_flg = true;
-	back_title = false;
 	game_start = false;
 }
 
@@ -150,7 +148,27 @@ eSceneType HelpScene::Update()
 
 	if (tran_flg == true)
 	{
-		if (transition <= 1934.0f)
+		if (TitleScene::back_title == true && transition <= -120.0f)
+		{
+			// トランジション
+			Transition();
+		}
+		else if (TitleScene::back_title == true && transition > -120.0f)
+		{
+			// タイトル画面に遷移
+			return eSceneType::E_TITLE;
+		}
+		else if (game_start == true && transition <= -120.0f)
+		{
+			// トランジション
+			Transition();
+		}
+		else if (game_start == true && transition > -120.0f)
+		{
+			// ゲームメイン画面に遷移
+			return eSceneType::E_MAIN;
+		}
+		else if (TitleScene::back_title == false && game_start == false && transition <= 1934.0f)
 		{
 			// トランジション
 			Transition();
@@ -174,8 +192,9 @@ eSceneType HelpScene::Update()
 			// BGMの再生を止める
 			StopSoundMem(bgm);
 
-			// タイトル画面に遷移
-			return eSceneType::E_TITLE;
+			tran_flg = true;
+			TitleScene::back_title = true;
+			transition = -1943.0f;
 		}
 
 		if (InputControl::GetButtonDown(XINPUT_BUTTON_X))
@@ -190,8 +209,9 @@ eSceneType HelpScene::Update()
 			// タイトル画面のメニューカーソルの位置を0に戻す
 			TitleScene::menu_cursor = 0;
 
-			// ゲームメイン画面に遷移
-			return eSceneType::E_MAIN;
+			tran_flg = true;
+			game_start = true;
+			transition = -1943.0f;
 		}
 	}
 

@@ -22,8 +22,6 @@ private:
 	float transition;     // トランジションの値保存用
 
 public:
-
-	static bool back_title;
 	static bool game_start;
 
 	// コンストラクタ

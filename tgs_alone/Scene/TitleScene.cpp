@@ -1,9 +1,11 @@
 ﻿#include "TitleScene.h"
 #include "../Utility/InputControl.h"
 #include "RankingScene.h"
+#include "HelpScene.h"
 #include "DxLib.h"
 
 int TitleScene::menu_cursor = 0;
+bool TitleScene::back_title = false;
 
 TitleScene::TitleScene() : back_img(0), bgm(0), star_img(0), star_cnt(0), transition(0.0f), tran_img(0),tran_flg(false)
 {
@@ -112,7 +114,7 @@ eSceneType TitleScene::Update()
 	// 星を回転させる
 	StarAnim();
 
-	if (RankingScene::back_title == true)
+	if (back_title == true)
 	{
 		if (tran_flg == false)
 		{
@@ -127,7 +129,7 @@ eSceneType TitleScene::Update()
 		}
 		else
 		{
-			RankingScene::back_title = false;
+			back_title = false;
 			tran_flg = false;
 		}
 	}

@@ -23,6 +23,7 @@ private:
 	int pause_cursor; // ポーズ画面のカーソル
 	bool tran_flg;    // 画面遷移 false:しない true:する
 	float transition; // トランジションの値保存用
+	bool restart;     // やり直し false:しない true:する
 	
     Player* player;   // プレイヤーのオブジェクト
 	Time* time;       // 制限時間のオブジェクト

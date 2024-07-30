@@ -18,7 +18,8 @@ private:
 	float transition; // トランジションの値保存用
 
 public:
-	static int menu_cursor;  // カーソルがどこにあるか 
+	static int menu_cursor;  // カーソルがどこにあるか
+	static bool back_title;  // タイトルに戻るか false:戻らない true:戻る
 
 public:
 

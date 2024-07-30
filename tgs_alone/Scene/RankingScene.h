@@ -21,8 +21,6 @@ private:
 
 public:
 
-	static bool back_title;      // タイトルに戻るか false:戻らない true:戻る
-
 	// コンストラクタ
 	RankingScene();
 
