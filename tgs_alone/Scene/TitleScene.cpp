@@ -2,6 +2,7 @@
 #include "../Utility/InputControl.h"
 #include "RankingScene.h"
 #include "HelpScene.h"
+#include "../Utility/Easing.h"
 #include "DxLib.h"
 
 int TitleScene::menu_cursor = 0;
