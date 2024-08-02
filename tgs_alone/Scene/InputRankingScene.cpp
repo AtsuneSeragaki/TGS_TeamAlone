@@ -14,7 +14,12 @@ InputRankingScene::InputRankingScene():ranking(nullptr),level(0),combo(0),name_n
 		img[i] = 0;
 	}
 
-	for (int i = 0; i < 3; i++)
+	for (int i = 0; i < 27; i++)
+	{
+		font_img[i] = 0;
+	}
+
+	for (int i = 0; i < 2; i++)
 	{
 		se[i] = 0;
 	}
@@ -31,6 +36,11 @@ InputRankingScene::~InputRankingScene()
 	for (int i = 0; i < 7; i++)
 	{
 		DeleteGraph(img[i]);
+	}
+
+	for (int i = 0; i < 27; i++)
+	{
+		DeleteGraph(font_img[i]);
 	}
 
 	DeleteGraph(tran_img);
@@ -56,6 +66,8 @@ void InputRankingScene::Initialize()
 
 	tran_img = LoadGraph("Resource/images/tansition/transition.png");
 
+	LoadDivGraph("Resource/images/ranking/moji.png", 27, 9, 3, 73, 73, font_img);
+
 	// 音データの読み込み
 	se[0] = LoadSoundMem("Resource/sounds/title/move.mp3");
 	se[1] = LoadSoundMem("Resource/sounds/title/ok.mp3");
@@ -70,6 +82,14 @@ void InputRankingScene::Initialize()
 		if (img[i] == -1)
 		{
 			throw("img[%d]がありません",i);
+		}
+	}
+
+	for (int i = 0; i < 27; i++)
+	{
+		if (font_img[i] == -1)
+		{
+			throw("font_img[%d]がありません", i);
 		}
 	}
 
@@ -201,7 +221,6 @@ void InputRankingScene::Draw() const
 
 	// 文字(キーボード？)の描画
 	DrawGraph(320, 250, img[5], TRUE);
-
 
 	if (no_name == true)
 	{// 名前が入力されていないとき
