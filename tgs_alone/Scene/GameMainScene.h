@@ -22,7 +22,7 @@ private:
 	bool pause;       // ポーズフラグ
 	int pause_cursor; // ポーズ画面のカーソル
 	bool tran_flg;    // 画面遷移 false:しない true:する
-	float transition; // トランジションの値保存用
+	int transition; // トランジションの値保存用
 	bool restart;     // やり直し false:しない true:する
 	
     Player* player;   // プレイヤーのオブジェクト
@@ -56,6 +56,6 @@ public:
 	// タイムアップアニメーション
 	void TimeupAnim(); 
 
-	// トランジション処理
+	// 画面切り替えアニメーション
 	void Transition();
 };

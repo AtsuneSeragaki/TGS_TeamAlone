@@ -3,7 +3,9 @@
 #include "TitleScene.h"
 #include "DxLib.h"
 
-RankingScene::RankingScene():back_img(0),ranking(nullptr),font(0),bgm(0), star_img(0), star_cnt(0), transition(0.0f), tran_img(0), tran_flg(false)
+bool RankingScene::to_ranking = false;
+
+RankingScene::RankingScene():back_img(0),ranking(nullptr),font(0),bgm(0), star_img(0), star_cnt(0), transition(0), tran_img(0), tran_flg(false)
 {
 	se[0] = 0;
 	se[1] = 0;
@@ -78,7 +80,7 @@ void RankingScene::Initialize()
 	ranking->Initialize();
 
 	// 変数の初期化
-	transition = -93.0f;
+	transition = -93;
 	tran_flg = true;
 }
 
@@ -92,17 +94,21 @@ eSceneType RankingScene::Update()
 
 	if (tran_flg == true)
 	{
-		if (TitleScene::back_title == true && transition <= -120.0f)
+		if (TitleScene::back_title == true && transition <= -120)
 		{
 			// トランジション
 			Transition();
 		}
-		else if (TitleScene::back_title == true && transition > -120.0f)
+		else if (TitleScene::back_title == true && transition > -120)
 		{
 			// タイトル画面に遷移
 			return eSceneType::E_TITLE;
 		}
-		else if (TitleScene::back_title == false && transition <= 1934.0f)
+		else if (to_ranking == true && transition <= 1943)
+		{
+			Transition();
+		}
+		else if (TitleScene::back_title == false && transition <= 1943)
 		{
 			// トランジション
 			Transition();
@@ -124,7 +130,7 @@ eSceneType RankingScene::Update()
 			StopSoundMem(bgm);
 
 			TitleScene::back_title = true;
-			transition = -1943.0f;
+			transition = -1943;
 			tran_flg = true;
 		}
 	}
@@ -191,5 +197,5 @@ void RankingScene::StarAnim()
 
 void RankingScene::Transition()
 {
-	transition += 50.0f;
+	transition += 50;
 }

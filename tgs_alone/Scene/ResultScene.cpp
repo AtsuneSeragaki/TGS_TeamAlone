@@ -7,7 +7,7 @@
 
 bool ResultScene::result = false;
 
-ResultScene::ResultScene():back_img{0},bgm(0),se(0), star_img(0), star_cnt(0), transition(0.0f), tran_img(0), tran_flg(false)
+ResultScene::ResultScene():back_img{0},bgm(0),se(0), star_img(0), star_cnt(0), transition(0), tran_img(0), tran_flg(false)
 {
 	for (int i = 0; i < 10; i++)
 	{
@@ -146,7 +146,7 @@ void ResultScene::Initialize()
 
 	// 変数の初期化
 	star_cnt = 0;
-	transition = -93.0f;
+	transition = -93;
 	tran_flg = true;
 	result = true;
 }
@@ -161,24 +161,24 @@ eSceneType ResultScene::Update()
 
 	if (tran_flg == true)
 	{
-		if (result == true  && transition <= 1943.0f)
+		if (result == true  && transition <= 1943)
 		{
 			Transition();
 		}
-		else if (result == true && transition > 1943.0f)
+		else if (result == true && transition > 1943)
 		{
 			result = false;
 			tran_flg = false;
 		}
-		else if (TitleScene::back_title == true && transition <= -120.0f)
+		else if (TitleScene::back_title == true && transition <= -120)
 		{
 			Transition();
 		}
-		else if (TitleScene::back_title = true && transition > -120.0f)
+		else if (TitleScene::back_title == true && transition > -120)
 		{
 			return eSceneType::E_TITLE;
 		}
-		else if (transition <= -120.0f)
+		else if (transition <= -120)
 		{
 			Transition();
 		}
@@ -200,19 +200,21 @@ eSceneType ResultScene::Update()
 
 			if (level[2] < Theme::theme_num - 3)
 			{// ランキングに載る成績なら、名前入力画面に遷移
+				TitleScene::back_title = false;
 				tran_flg = true;
-				transition = -1943.0f;
+				transition = -1943;
 			}
 			else if (level[2] == Theme::theme_num - 3 && combo[2] < Player::combo)
 			{// ランキングに載る成績なら、名前入力画面に遷移
+				TitleScene::back_title = false;
 				tran_flg = true;
-				transition = -1943.0f;
+				transition = -1943;
 			}
 			else
 			{// ランキングに載らない場合、タイトル画面に遷移
 				TitleScene::back_title = true;
 				tran_flg = true;
-				transition = -1943.0f;
+				transition = -1943;
 			}
 		}
 	}
@@ -374,5 +376,5 @@ void ResultScene::StarAnim()
 
 void ResultScene::Transition()
 {
-	transition += 50.0f;
+	transition += 50;
 }

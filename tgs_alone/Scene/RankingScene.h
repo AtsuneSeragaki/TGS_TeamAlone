@@ -16,10 +16,12 @@ private:
 	int font;      // フォント用
 	int star_cnt;  // 星の回転用
 	bool tran_flg;        // 画面遷移 false:しない true:する
-	float transition;     // トランジションの値保存用
+	int transition;     // トランジションの値保存用
 	RankingData* ranking; // ランキングデータのオブジェクト
 
 public:
+
+	static bool to_ranking; //ランキングに遷移 false:しない true:する 
 
 	// コンストラクタ
 	RankingScene();
@@ -45,6 +47,6 @@ public:
 	// 星の回転処理
 	void StarAnim();
 
-	// トランジション処理
+	// 画面切り替えアニメーション
 	void Transition();
 };

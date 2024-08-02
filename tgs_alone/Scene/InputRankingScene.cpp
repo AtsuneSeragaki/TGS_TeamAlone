@@ -2,9 +2,10 @@
 #include "../Utility/InputControl.h"
 #include "../Object/Player.h"
 #include "../Object/Theme.h"
+#include "RankingScene.h"
 #include "DxLib.h"
 
-InputRankingScene::InputRankingScene():ranking(nullptr),level(0),combo(0),name_num(0),cursor_x(0),cursor_y(0),no_name(false),font(0),bgm(0), star_img(0), star_cnt(0),input_end(false), transition(0.0f), tran_img(0), tran_flg(false)
+InputRankingScene::InputRankingScene():ranking(nullptr),level(0),combo(0),name_num(0),cursor_x(0),cursor_y(0),no_name(false),font(0),bgm(0), star_img(0), star_cnt(0),input_end(false), transition(0), tran_img(0), tran_flg(false)
 {
 	memset(name, NULL, (sizeof(char) * 6));
 
@@ -111,7 +112,7 @@ void InputRankingScene::Initialize()
 	name_num = -1;
 	star_cnt = 0;
 	input_end = false;
-	transition = -93.0f;
+	transition = -93;
 	tran_flg = true;
 }
 
@@ -126,22 +127,44 @@ eSceneType InputRankingScene::Update()
 	// 画面遷移用フラグ
 	bool is_change = false;
 
-	// 名前入力処理
-	is_change = InputName();
-
-	// シーン変更は可能か？
-	if (is_change)
+	if (tran_flg == true)
 	{
-		// BGMの再生を止める
-		StopSoundMem(bgm);
-
-		// ランキングに遷移
-		return eSceneType::E_RANKING;
+		if (RankingScene::to_ranking == true && transition <= -120)
+		{
+			Transition();
+		}
+		else if (RankingScene::to_ranking == true && transition > -120)
+		{
+			// ランキングに遷移
+			return eSceneType::E_RANKING;
+		}
+		else if (transition <= 1943)
+		{
+			Transition();
+		}
+		else
+		{
+			tran_flg = false;
+			transition = -1943;
+		}
 	}
 	else
 	{
-		return GetNowScene();
+		// 名前入力処理
+		is_change = InputName();
+
+		// シーン変更は可能か？
+		if (is_change)
+		{
+			// BGMの再生を止める
+			StopSoundMem(bgm);
+
+			RankingScene::to_ranking = true;
+			tran_flg = true;
+		}
 	}
+
+	return GetNowScene();
 }
 
 void InputRankingScene::Draw() const
@@ -363,5 +386,5 @@ void InputRankingScene::StarAnim()
 
 void InputRankingScene::Transition()
 {
-	transition += 50.0f;
+	transition += 50;
 }

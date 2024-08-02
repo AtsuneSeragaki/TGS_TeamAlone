@@ -4,7 +4,7 @@
 #include "ResultScene.h"
 #include "DxLib.h"
 
-GameMainScene::GameMainScene() :player(nullptr), time(nullptr), theme(nullptr),comment(nullptr), begin_time(0),begin_cnt(0),draw_cnt(0),timeup_flg(false),timeup_cnt(0),pause(false),pause_cursor(0), transition(0.0f), tran_img(0), tran_flg(false),restart(false)
+GameMainScene::GameMainScene() :player(nullptr), time(nullptr), theme(nullptr),comment(nullptr), begin_time(0),begin_cnt(0),draw_cnt(0),timeup_flg(false),timeup_cnt(0),pause(false),pause_cursor(0), transition(0), tran_img(0), tran_flg(false),restart(false)
 {
 	se[0] = 0;
 	se[1] = 0;
@@ -123,7 +123,7 @@ void GameMainScene::Initialize()
 	timeup_cnt = 0;
 	pause = false;
 	pause_cursor = 0;
-	transition = -93.0f;
+	transition = -93;
 	tran_flg = true;
 
 	// オブジェクトの生成
@@ -146,39 +146,42 @@ eSceneType GameMainScene::Update()
 {
 	if (tran_flg == true)
 	{
-		if (TitleScene::back_title == true && transition <= -120.0f)
+		if (TitleScene::back_title == true && transition <= -120)
 		{
 			Transition();
 		}
-		else if (TitleScene::back_title == true && transition > -120.0f)
+		else if (TitleScene::back_title == true && transition > -120)
 		{
 			// タイトル画面に遷移
 			return eSceneType::E_TITLE;
 		}
-		else if (restart == true && transition <= 1934.0f)
+		else if (restart == true && transition <= -120)
 		{
 			Transition();
 		}
-		else if (restart == true && transition > 1934.0f)
+		else if (restart == true && transition > -120)
 		{
 			restart = false;
-			tran_flg = false;
+			pause = false;
+			Finalize();
+			Initialize();
 		}
-		else if (ResultScene::result == true && transition <= -120.0f)
+		else if (ResultScene::result == true && transition <= -120)
 		{
 			Transition();
 		}
-		else if (ResultScene::result == true && transition > -120.0f)
+		else if (ResultScene::result == true && transition > -120)
 		{
 			return eSceneType::E_RESULT;
 		}
-		else if (TitleScene::back_title == false && transition <= 1934.0f)
+		else if (transition <= 1934)
 		{
 			Transition();
 		}
 		else
 		{
 			tran_flg = false;
+			transition = -1943;
 		}
 	}
 	else
@@ -227,18 +230,15 @@ eSceneType GameMainScene::Update()
 					break;
 
 				case 1:
-					pause = false;
-					Finalize();
-					Initialize();
 					tran_flg = true;
 					restart = true;
-					transition = -1943.0f;
+					transition = -1943;
 					break;
 
 				case 2:
 					tran_flg = true;
 					TitleScene::back_title = true;
-					transition = -1943.0f;
+					transition = -1943;
 					break;
 
 				default:
@@ -321,7 +321,7 @@ eSceneType GameMainScene::Update()
 
 						tran_flg = true;
 						ResultScene::result = true;
-						transition = -1943.0f;
+						transition = -1943;
 					}
 
 				}
@@ -432,7 +432,7 @@ eSceneType GameMainScene::Update()
 
 							tran_flg = true;
 							ResultScene::result = true;
-							transition = -1943.0f;
+							transition = -1943;
 						}
 					}
 				}
@@ -594,8 +594,8 @@ void GameMainScene::TimeupAnim()
 
 void GameMainScene::Transition()
 {
-	if (transition <= 1934.0f)
+	if (transition <= 1934)
 	{
-		transition += 50.0f;
+		transition += 50;
 	}
 }

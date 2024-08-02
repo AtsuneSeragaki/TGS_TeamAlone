@@ -3,7 +3,7 @@
 
 int EndScene::cnt = 0;
 
-EndScene::EndScene():back_img(0), star_img(0), star_cnt(0), transition(0.0f), tran_img(0), tran_flg(false)
+EndScene::EndScene():back_img(0), star_img(0), star_cnt(0), transition(0), tran_img(0), tran_flg(false)
 {
 }
 
@@ -38,7 +38,7 @@ void EndScene::Initialize()
 	// 変数の初期化
 	cnt = 0;
 	star_cnt = 0;
-	transition = -93.0f;
+	transition = -93;
 	tran_flg = true;
 }
 
@@ -49,7 +49,7 @@ eSceneType EndScene::Update()
 
 	if (tran_flg == true)
 	{
-		if (transition <= 1934.0f)
+		if (transition <= 1943)
 		{
 			// トランジション
 			Transition();
@@ -112,5 +112,5 @@ void EndScene::StarAnim()
 
 void EndScene::Transition()
 {
-	transition += 50.0f;
+	transition += 50;
 }

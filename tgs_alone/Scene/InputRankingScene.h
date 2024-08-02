@@ -22,7 +22,7 @@ private:
 	int star_cnt;   // 星の回転用
 	bool input_end; // 名前入力終了フラグ
 	bool tran_flg;        // 画面遷移 false:しない true:する
-	float transition;     // トランジションの値保存用
+	int transition;     // トランジションの値保存用
 	RankingData* ranking; // ランキング情報
 
 public:
@@ -54,6 +54,6 @@ public:
 	// 星の回転処理
 	void StarAnim();
 
-	// トランジション処理
+	// 画面切り替えアニメーション
 	void Transition();
 };

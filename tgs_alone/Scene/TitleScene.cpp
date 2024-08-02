@@ -2,13 +2,12 @@
 #include "../Utility/InputControl.h"
 #include "RankingScene.h"
 #include "HelpScene.h"
-#include "../Utility/Easing.h"
 #include "DxLib.h"
 
 int TitleScene::menu_cursor = 0;
 bool TitleScene::back_title = false;
 
-TitleScene::TitleScene() : back_img(0), bgm(0), star_img(0), star_cnt(0), transition(0.0f), tran_img(0),tran_flg(false)
+TitleScene::TitleScene() : back_img(0), bgm(0), star_img(0), star_cnt(0), transition(0), tran_img(0),tran_flg(false)
 {
 	se[0] = 0;
 	se[1] = 0;
@@ -103,7 +102,7 @@ void TitleScene::Initialize()
 
 	// 変数の初期化
 	star_cnt = 0;
-	transition = -1943.0f;
+	transition = -1943;
 	tran_flg = false;
 }
 
@@ -120,10 +119,10 @@ eSceneType TitleScene::Update()
 		if (tran_flg == false)
 		{
 			tran_flg = true;
-			transition = -93.0f;
+			transition = -93;
 		}
 		
-		if (transition <= 1934.0f)
+		if (transition <= 1943)
 		{
 			// トランジション
 			Transition();
@@ -132,13 +131,14 @@ eSceneType TitleScene::Update()
 		{
 			back_title = false;
 			tran_flg = false;
+			transition = -1943;
 		}
 	}
 	else
 	{
 		if (tran_flg == true)
 		{
-			if (transition <= -120.0f)
+			if (transition <= -120)
 			{
 				// トランジション
 				Transition();
@@ -216,12 +216,12 @@ void TitleScene::Draw() const
 	// 星の描画
 	DrawRotaGraph(80, 220,1.0,PI / 180 * (star_cnt * 2), star_img, TRUE);
 	DrawRotaGraph(430, 220,1.0,PI / 180 * (-star_cnt * 2), star_img, TRUE);
-	DrawRotaGraph(800, 220, 1.0, PI / 180 * (star_cnt * 2), star_img, TRUE);
-	DrawRotaGraph(1200, 220, 1.0, PI / 180 * (-star_cnt * 2), star_img, TRUE);
-	DrawRotaGraph(250, 380, 1.0, PI / 180 * (star_cnt * 2), star_img, TRUE);
-	DrawRotaGraph(950, 380, 1.0, PI / 180 * (star_cnt * 2), star_img, TRUE);
-	DrawRotaGraph(450, 600, 1.0, PI / 180 * (-star_cnt * 2), star_img, TRUE);
-	DrawRotaGraph(830, 600, 1.0, PI / 180 * (-star_cnt * 2), star_img, TRUE);
+	DrawRotaGraph(800, 220, 1.0,PI / 180 * (star_cnt * 2), star_img, TRUE);
+	DrawRotaGraph(1200, 220, 1.0,PI / 180 * (-star_cnt * 2), star_img, TRUE);
+	DrawRotaGraph(250, 380, 1.0,PI / 180 * (star_cnt * 2), star_img, TRUE);
+	DrawRotaGraph(950, 380, 1.0,PI / 180 * (star_cnt * 2), star_img, TRUE);
+	DrawRotaGraph(450, 600, 1.0,PI / 180 * (-star_cnt * 2), star_img, TRUE);
+	DrawRotaGraph(830, 600, 1.0,PI / 180 * (-star_cnt * 2), star_img, TRUE);
 	
 	// メニューの描画
 	switch (menu_cursor)
@@ -283,5 +283,5 @@ void TitleScene::StarAnim()
 
 void TitleScene::Transition()
 {
-	transition += 50.0f;
+	transition += 50;
 }
