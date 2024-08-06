@@ -147,7 +147,7 @@ void ResultScene::Initialize()
 	// 変数の初期化
 	star_cnt = 0;
 	transition = -93;
-	tran_flg = true;
+	tran_flg = false;
 	result = true;
 }
 
@@ -225,13 +225,13 @@ eSceneType ResultScene::Update()
 void ResultScene::Draw() const
 {
 	// 比較用のデータを格納
-	int i = Theme::theme_num - 3;
+	/*int i = Theme::theme_num - 3;
 	int j = Player::combo;
-	int k = Player::all_mis;
+	int k = Player::all_mis;*/
 
-	/*int i = 12;
+	int i = 12;
 	int j = 200;
-	int k = 200;*/
+	int k = 200;
 
 	// 背景画像表示
 	// 名前入力画面に行くか行かないかで変える
@@ -310,8 +310,8 @@ void ResultScene::Draw() const
 	}
 	else
 	{
-		DrawGraph(325, NUM_Y, num_img[i / 10], TRUE);
-		DrawGraph(375, NUM_Y, num_img[i % 10], TRUE);
+		DrawGraph(328, NUM_Y, num_img[i / 10], TRUE);
+		DrawGraph(372, NUM_Y, num_img[i % 10], TRUE);
 	}
 
 	// 最終的なコンボの表示
@@ -321,14 +321,14 @@ void ResultScene::Draw() const
 	}
 	else if (j < 100)
 	{
-		DrawGraph(620, NUM_Y, num_img[j / 10], TRUE);
-		DrawGraph(670, NUM_Y, num_img[j % 10], TRUE);
+		DrawGraph(622, NUM_Y, num_img[j / 10], TRUE);
+		DrawGraph(667, NUM_Y, num_img[j % 10], TRUE);
 	}
 	else
 	{
-		DrawGraph(595, NUM_Y, num_img[j / 100], TRUE);
+		DrawGraph(599, NUM_Y, num_img[j / 100], TRUE);
 		DrawGraph(645, NUM_Y, num_img[(j - j / 100 * 100) / 10], TRUE);
-		DrawGraph(695, NUM_Y, num_img[j % 10], TRUE);
+		DrawGraph(691, NUM_Y, num_img[j % 10], TRUE);
 	}
 
 	// 最終的な間違えた数の表示
@@ -338,14 +338,14 @@ void ResultScene::Draw() const
 	}
 	else if (k < 100)
 	{
-		DrawGraph(960, NUM_Y, num_img[k / 10], TRUE);
-		DrawGraph(1010, NUM_Y, num_img[k % 10], TRUE);
+		DrawGraph(963, NUM_Y, num_img[k / 10], TRUE);
+		DrawGraph(1008, NUM_Y, num_img[k % 10], TRUE);
 	}
 	else
 	{
-		DrawGraph(933, NUM_Y, num_img[k / 100], TRUE);
+		DrawGraph(937, NUM_Y, num_img[k / 100], TRUE);
 		DrawGraph(983, NUM_Y, num_img[(k - k / 100 * 100) / 10], TRUE);
-		DrawGraph(1033, NUM_Y, num_img[k % 10], TRUE);
+		DrawGraph(1029, NUM_Y, num_img[k % 10], TRUE);
 	}
 
 	if (tran_flg == true)

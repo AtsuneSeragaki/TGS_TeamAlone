@@ -81,18 +81,18 @@ void Theme::Update()
 void Theme::Draw()
 {
 	// レベルの表示
-	/*if ((theme_num - 2) < 10)
+	if ((theme_num - 2) < 10)
 	{
-		DrawGraph(300, 245, level_img[(theme_num - 2) % 10], TRUE);
+		DrawGraph(150, 90, level_img[(theme_num - 2) % 10], TRUE);
 	}
 	else
 	{
-		DrawGraph(277, 245, level_img[(theme_num - 2) / 10], TRUE);
-		DrawGraph(314, 245, level_img[(theme_num - 2) % 10], TRUE);
-	}*/
+		DrawGraph(125, 90, level_img[(theme_num - 2) / 10], TRUE);
+		DrawGraph(168, 90, level_img[(theme_num - 2) % 10], TRUE);
+	}
 
-	SetFontSize(75);
-	DrawFormatString(150, 85, 0x000000, "%d", theme_num - 2);
+	//SetFontSize(75);
+	//DrawFormatString(150, 85, 0x000000, "%d", theme_num - 2);
 
 	if (theme_num < 10)
 	{

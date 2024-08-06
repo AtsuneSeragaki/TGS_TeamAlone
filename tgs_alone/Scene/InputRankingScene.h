@@ -9,7 +9,7 @@ private:
 	int img[7];       // 背景画像
 	int star_img;     // 星画像
 	int tran_img;     // トランジション画像
-	int font_img[27]; // フォント画僧
+	int font_img[27]; // フォント画像
 	int font;         // フォントデータ
 	int se[2];        // 効果音データ
 	int bgm;          // BGMデータ

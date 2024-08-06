@@ -45,7 +45,7 @@ void SceneManager::Initialize()
 	}
 
 	// タイトルシーンから始める
-	ChangeScene(eSceneType::E_INPUT_RANKING);
+	ChangeScene(eSceneType::E_RESULT);
 }
 
 // シーンマネージャー機能：更新処理

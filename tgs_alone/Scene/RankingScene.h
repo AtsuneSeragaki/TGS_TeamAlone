@@ -8,15 +8,18 @@
 class RankingScene : public SceneBase
 {
 private:
-	int back_img;  // 背景画像 
-	int star_img;  // 星画像
-	int tran_img;  // トランジション画像
-	int se[2];     // 効果音
-	int bgm;       // BGM
-	int font;      // フォント用
-	int star_cnt;  // 星の回転用
-	bool tran_flg;        // 画面遷移 false:しない true:する
-	int transition;     // トランジションの値保存用
+	int back_img;     // 背景画像 
+	int star_img;     // 星画像
+	int tran_img;     // トランジション画像
+	int font_img[27]; // フォント画像
+	int num_img[10];  // 数字画像
+	int se[2];        // 効果音
+	int bgm;          // BGM
+	int font;         // フォント用
+	int star_cnt;     // 星の回転用
+	bool tran_flg;    // 画面遷移 false:しない true:する
+	int transition;   // トランジションの値保存用
+
 	RankingData* ranking; // ランキングデータのオブジェクト
 
 public:

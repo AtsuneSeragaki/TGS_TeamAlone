@@ -1,6 +1,7 @@
 ﻿#include "RankingScene.h"
 #include "../Utility/InputControl.h"
 #include "TitleScene.h"
+#include "InputRankingScene.h"
 #include "DxLib.h"
 
 bool RankingScene::to_ranking = false;
@@ -9,6 +10,16 @@ RankingScene::RankingScene():back_img(0),ranking(nullptr),font(0),bgm(0), star_i
 {
 	se[0] = 0;
 	se[1] = 0;
+
+	for (int i = 0; i < 27; i++)
+	{
+		font_img[i] = 0;
+	}
+
+	for (int i = 0; i < 10; i++)
+	{
+		num_img[i] = 0;
+	}
 }
 
 RankingScene::~RankingScene()
@@ -20,6 +31,16 @@ RankingScene::~RankingScene()
 	DeleteGraph(back_img);
 	DeleteGraph(star_img);
 	DeleteGraph(tran_img);
+
+	for (int i = 0; i < 27; i++)
+	{
+		DeleteGraph(font_img[i]);
+	}
+
+	for (int i = 0; i < 10; i++)
+	{
+		DeleteGraph(num_img[i]);
+	}
 
 	// 音データの削除
 	DeleteSoundMem(se[0]);
@@ -33,6 +54,8 @@ void RankingScene::Initialize()
 	back_img = LoadGraph("Resource/images/ranking/ranking.png");
 	star_img = LoadGraph("Resource/images/help/star.png");
 	tran_img = LoadGraph("Resource/images/tansition/transition.png");
+	LoadDivGraph("Resource/images/ranking/moji2.png", 27, 9, 3, 50, 50, font_img);
+	LoadDivGraph("Resource/images/ranking/rank_num.png", 10, 5, 2, 50, 50, num_img);
 
 	// フォントデータの読み込み
 	font = CreateFontToHandle("Segoe UI", 45, 7, DX_FONTTYPE_ANTIALIASING);
@@ -43,6 +66,23 @@ void RankingScene::Initialize()
 	bgm = LoadSoundMem("Resource/sounds/title/bgm2.mp3");
 
 	// エラーチェック
+
+	for (int i = 0; i < 27; i++)
+	{
+		if (font_img[i] == -1)
+		{
+			throw("font_img[%d]がありません", i);
+		}
+	}
+
+	for (int i = 0; i < 10; i++)
+	{
+		if (num_img[i] == -1)
+		{
+			throw("num_img[%d]がありません", i);
+		}
+	}
+
 	if (back_img == -1)
 	{
 		throw("Resource/images/ranking/ranking.pngがありません");
@@ -155,15 +195,33 @@ void RankingScene::Draw() const
 		// ランキングデータの名前の長さを取得
 		const char* name = ranking->GetName(i);
 		int name_num = (int)strlen(name);
+
+		// ランキングデータのレベルを取得
+		int level = ranking->GetLevel(i);
+
+		// ランキングデータのコンボを取得
+		int combo = ranking->GetCombo(i);
 		
 		// 名前の描画
-		DrawFormatStringToHandle(450 - (name_num - 1) * 15, 242 + i * 100, 0x000000, font, "%s", name);
+		//DrawFormatStringToHandle(450 - (name_num - 1) * 15, 242 + i * 100, 0x000000, font, "%s", name);
+
+		for (int j = 0; j < name_num; j++)
+		{
+			DrawGraph((450 - (name_num - 1) * 23) + j * 43, 242 + i * 100, font_img[(int)name[j] - 65], TRUE);
+		}
+		
+		//DrawFormatString(0, 0 + i * 20, 0x000000, "%d", name_num);
 
 		// レベルの描画
-		DrawFormatStringToHandle(810, 242 + i * 100, 0x000000, font, "%02d", ranking->GetLevel(i));
+		//DrawFormatStringToHandle(810, 242 + i * 100, 0x000000, font, "%02d", ranking->GetLevel(i));
+		DrawGraph(789, 242 + i * 100, num_img[level / 10], TRUE);
+		DrawGraph(835, 242 + i * 100, num_img[level % 10], TRUE);
 
 		// コンボの描画
-		DrawFormatStringToHandle(1028, 242 + i * 100, 0x000000, font, "%03d", ranking->GetCombo(i));
+		//DrawFormatStringToHandle(1028, 242 + i * 100, 0x000000, font, "%03d", ranking->GetCombo(i));
+		DrawGraph(1000, 242 + i * 100, num_img[combo / 100], TRUE);
+		DrawGraph(1045, 242 + i * 100, num_img[(combo - combo / 100 * 100) / 10], TRUE);
+		DrawGraph(1090, 242 + i * 100, num_img[combo % 10], TRUE);
 	}
 
 	if (tran_flg == true)

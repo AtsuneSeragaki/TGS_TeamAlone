@@ -89,7 +89,7 @@ void Player::Initialize()
 	mis_img[2] = LoadGraph("Resource/images/main/button/misbuttonY.png");
 	mis_img[3] = LoadGraph("Resource/images/main/button/misbuttonX.png");
 
-	LoadDivGraph("Resource/images/main/number/combo.png", 10, 5, 2, 75, 75, combo_img);
+	LoadDivGraph("Resource/images/main/number/level.png", 10, 5, 2, 50, 50, combo_img);
 
 	comment[0] = LoadGraph("Resource/images/main/string/great.png");
 	comment[1] = LoadGraph("Resource/images/main/string/bad.png");
@@ -336,29 +336,46 @@ void Player::Update()
 void Player::Draw()
 {
 	// コンボ数表示
-	/*if (combo < 10)
+	if (combo < 10)
 	{
-		DrawGraph(170, 105, combo_img[combo % 10], TRUE);
+		DrawGraph(325, 90, combo_img[combo % 10], TRUE);
 	}
 	else if (combo < 100)
 	{
-		DrawGraph(143, 105, combo_img[combo / 10], TRUE);
-		DrawGraph(207, 105, combo_img[combo % 10], TRUE);
+		DrawGraph(300, 90, combo_img[combo / 10], TRUE);
+		DrawGraph(343, 90, combo_img[combo % 10], TRUE);
 	}
 	else
 	{
-		DrawGraph(110, 105, combo_img[combo / 100], TRUE);
-		DrawGraph(165, 105, combo_img[(combo - combo / 100 * 100) / 10], TRUE);
-		DrawGraph(230, 105, combo_img[combo % 10], TRUE);
-	}*/
-
-	// コンボ数の表示
-	SetFontSize(75);
-	DrawFormatString(325, 85, 0x000000, "%d", combo);
+		DrawGraph(278, 90, combo_img[combo / 100], TRUE);
+		DrawGraph(320, 90, combo_img[(combo - combo / 100 * 100) / 10], TRUE);
+		DrawGraph(364, 90, combo_img[combo % 10], TRUE);
+	}
 
 	// 間違えた数の表示
-	SetFontSize(75);
-	DrawFormatString(500, 85, 0x000000, "%d", all_mis);
+	if (all_mis < 10)
+	{
+		DrawGraph(500, 90, combo_img[all_mis % 10], TRUE);
+	}
+	else if (all_mis < 100)
+	{
+		DrawGraph(475, 90, combo_img[all_mis / 10], TRUE);
+		DrawGraph(518, 90, combo_img[all_mis % 10], TRUE);
+	}
+	else
+	{
+		DrawGraph(453, 90, combo_img[all_mis / 100], TRUE);
+		DrawGraph(495, 90, combo_img[(all_mis - all_mis / 100 * 100) / 10], TRUE);
+		DrawGraph(539, 90, combo_img[all_mis % 10], TRUE);
+	}
+
+	// コンボ数の表示
+	//SetFontSize(75);
+	//DrawFormatString(325, 85, 0x000000, "%d", combo);
+
+	// 間違えた数の表示
+	//SetFontSize(75);
+	//DrawFormatString(500, 85, 0x000000, "%d", all_mis);
 
 	// プレイヤーが入力したものを表示
 	for (int i = 0; i < INPUT_MAX; i++)

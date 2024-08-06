@@ -5,7 +5,7 @@
 #include "RankingScene.h"
 #include "DxLib.h"
 
-InputRankingScene::InputRankingScene():ranking(nullptr),level(0),combo(0),name_num(0),cursor_x(0),cursor_y(0),no_name(false),font(0),bgm(0), star_img(0), star_cnt(0),input_end(false), transition(0), tran_img(0), tran_flg(false)
+InputRankingScene::InputRankingScene():ranking(nullptr),level(0),combo(0),cursor_x(0),cursor_y(0),no_name(false),name_num(0),font(0),bgm(0), star_img(0), star_cnt(0),input_end(false), transition(0), tran_img(0), tran_flg(false)
 {
 	memset(name, NULL, (sizeof(char) * 6));
 
@@ -226,7 +226,8 @@ void InputRankingScene::Draw() const
 	{// 名前が入力されていないとき
 
 		// 名前を入力してくださいの文字を描画
-		//DrawGraph(0, -37, img[4], TRUE);
+		DrawGraph(0, -37, img[4], TRUE);
+
 		/*DrawGraph(530 - 35, 63, font_img[0], TRUE);
 		DrawGraph(590 - 35, 63, font_img[1], TRUE);
 		DrawGraph(650 - 35, 63, font_img[2], TRUE);
@@ -240,7 +241,7 @@ void InputRankingScene::Draw() const
 			DrawFormatString(0 + i * 30, 0, 0x000000, "%d", (int)name[i]);
 		}
 
-		DrawFormatString(0, 30, 0x000000, "%d", name_num);
+		//DrawFormatString(0, 30, 0x000000, "%d", name_num);
 
 		// 入力された名前を描画
 		if (input_end == false)
@@ -256,7 +257,7 @@ void InputRankingScene::Draw() const
 		{
 			for (int i = 0; i < name_num; i++)
 			{
-				DrawGraph(497 + i * 60, 63, font_img[(int)name[i] - 65], TRUE);
+				DrawGraph((605 - ((name_num - 1) * 27)) + i * 60, 63, font_img[(int)name[i] - 65], TRUE);
 			}
 
 			//DrawFormatStringToHandle(630 - (name_num - 1) * 30, 63, 0x000000, font, "%s", name);
