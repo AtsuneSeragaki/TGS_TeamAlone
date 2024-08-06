@@ -47,6 +47,8 @@ public:
 	// 星の回転処理
 	void StarAnim();
 
+	// 
+
 	// 画面切り替えアニメーション
 	void Transition();
 };
