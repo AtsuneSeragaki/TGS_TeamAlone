@@ -7,7 +7,7 @@
 int TitleScene::menu_cursor = 0;
 bool TitleScene::back_title = false;
 
-TitleScene::TitleScene() : back_img(0), bgm(0), star_img(0), star_cnt(0), transition(0), tran_img(0),tran_flg(false)
+TitleScene::TitleScene() : back_img(0), bgm(0), star_img(0), star_cnt(0), transition(0), tran_img(0),tran_flg(false),rota_flg(false)
 {
 	se[0] = 0;
 	se[1] = 0;
@@ -52,7 +52,7 @@ void TitleScene::Initialize()
 	menu_img[6] = LoadGraph("Resource/images/title/endy.png");
 	menu_img[7] = LoadGraph("Resource/images/title/end.png");
 	
-	star_img = LoadGraph("Resource/images/help/star.png");
+	star_img = LoadGraph("Resource/images/help/star2.png");
 
 	tran_img = LoadGraph("Resource/images/tansition/transition.png");
 
@@ -214,14 +214,23 @@ void TitleScene::Draw() const
 	DrawGraph(0, 0, back_img, TRUE);
 
 	// 星の描画
-	DrawRotaGraph(80, 220,1.0,PI / 180 * (star_cnt * 2), star_img, TRUE);
+	/*DrawRotaGraph(80, 220,1.0,PI / 180 * (star_cnt * 2), star_img, TRUE);
 	DrawRotaGraph(430, 220,1.0,PI / 180 * (-star_cnt * 2), star_img, TRUE);
 	DrawRotaGraph(800, 220, 1.0,PI / 180 * (star_cnt * 2), star_img, TRUE);
 	DrawRotaGraph(1200, 220, 1.0,PI / 180 * (-star_cnt * 2), star_img, TRUE);
 	DrawRotaGraph(250, 380, 1.0,PI / 180 * (star_cnt * 2), star_img, TRUE);
 	DrawRotaGraph(950, 380, 1.0,PI / 180 * (star_cnt * 2), star_img, TRUE);
 	DrawRotaGraph(450, 600, 1.0,PI / 180 * (-star_cnt * 2), star_img, TRUE);
-	DrawRotaGraph(830, 600, 1.0,PI / 180 * (-star_cnt * 2), star_img, TRUE);
+	DrawRotaGraph(830, 600, 1.0,PI / 180 * (-star_cnt * 2), star_img, TRUE);*/
+
+	DrawRotaGraph(80, 220, 1.0, PI / 180 * star_cnt, star_img, TRUE);
+	/*DrawRotaGraph(430, 220, 1.0, PI / (-star_cnt * 2), star_img, TRUE);
+	DrawRotaGraph(800, 220, 1.0, PI / (star_cnt * 2), star_img, TRUE);
+	DrawRotaGraph(1200, 220, 1.0, PI / (-star_cnt * 2), star_img, TRUE);
+	DrawRotaGraph(250, 380, 1.0, PI / (star_cnt * 2), star_img, TRUE);
+	DrawRotaGraph(950, 380, 1.0, PI / (star_cnt * 2), star_img, TRUE);
+	DrawRotaGraph(450, 600, 1.0, PI / (-star_cnt * 2), star_img, TRUE);
+	DrawRotaGraph(830, 600, 1.0, PI /(-star_cnt * 2), star_img, TRUE);*/
 	
 	// メニューの描画
 	switch (menu_cursor)
@@ -272,13 +281,37 @@ eSceneType TitleScene::GetNowScene() const
 
 void TitleScene::StarAnim()
 {
-	star_cnt++;
+	//star_cnt++;
 
-	// 180より大きくなったら0にする
-	if (star_cnt > 180)
+	//// 180より大きくなったら0にする
+	//if (star_cnt > 180)
+	//{
+	//	star_cnt = 0;
+	//}
+
+	//star_cnt++;
+
+	//// 180より大きくなったら0にする
+	//if (star_cnt > 90)
+	//{
+	//	star_cnt = 0;
+	//}
+
+	if (star_cnt >= 0 && star_cnt <= 90)
 	{
-		star_cnt = 0;
+		star_cnt++;
 	}
+	else
+	{
+		star_cnt--;
+	}
+}
+
+void TitleScene::StarAnim2()
+{
+	star_cnt--;
+
+	if()
 }
 
 void TitleScene::Transition()

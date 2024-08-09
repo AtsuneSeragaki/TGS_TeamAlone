@@ -15,7 +15,8 @@ private:
 	int bgm;          // BGM
 	int star_cnt;     // 星の回転用
 	bool tran_flg;    // 画面遷移 false:しない true:する
-	int transition; // トランジションの値保存用
+	int transition;   // トランジションの値保存用
+	bool rota_flg;    // 回転変数 false:プラス true:マイナス
 
 public:
 	static int menu_cursor;  // カーソルがどこにあるか
@@ -47,7 +48,7 @@ public:
 	// 星の回転処理
 	void StarAnim();
 
-	// 
+	void StarAnim2();
 
 	// 画面切り替えアニメーション
 	void Transition();
