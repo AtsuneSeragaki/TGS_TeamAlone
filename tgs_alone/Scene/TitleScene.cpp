@@ -7,7 +7,7 @@
 int TitleScene::menu_cursor = 0;
 bool TitleScene::back_title = false;
 
-TitleScene::TitleScene() : back_img(0), bgm(0), star_img(0), star_cnt(0), transition(0), tran_img(0),tran_flg(false),rota_flg(false)
+TitleScene::TitleScene() : back_img(0), bgm(0), star_cnt(0), transition(0), tran_img(0),tran_flg(false),rota_flg(false)
 {
 	se[0] = 0;
 	se[1] = 0;
@@ -15,6 +15,12 @@ TitleScene::TitleScene() : back_img(0), bgm(0), star_img(0), star_cnt(0), transi
 	for (int i = 0; i < 8; i++)
 	{
 		menu_img[i] = 0;
+		star_x[i] = 0;
+	}
+
+	for (int i = 0; i < 4; i++)
+	{
+		star_img[i] = 0;
 	}
 }
 
@@ -28,7 +34,10 @@ TitleScene::~TitleScene()
 		DeleteGraph(menu_img[i]);
 	}
 
-	DeleteGraph(star_img);
+	for (int i = 0; i < 4; i++)
+	{
+		DeleteGraph(star_img[i]);
+	}
 
 	DeleteGraph(tran_img);
 
@@ -52,7 +61,10 @@ void TitleScene::Initialize()
 	menu_img[6] = LoadGraph("Resource/images/title/endy.png");
 	menu_img[7] = LoadGraph("Resource/images/title/end.png");
 	
-	star_img = LoadGraph("Resource/images/help/star2.png");
+	star_img[0] = LoadGraph("Resource/images/help/star2.png");
+	star_img[1] = LoadGraph("Resource/images/help/cloud.png");
+	star_img[2] = LoadGraph("Resource/images/help/rainbow.png");
+	star_img[3] = LoadGraph("Resource/images/help/candy.png");
 
 	tran_img = LoadGraph("Resource/images/tansition/transition.png");
 
@@ -76,10 +88,14 @@ void TitleScene::Initialize()
 		}
 	}
 
-	if (star_img == -1)
+	for (int i = 0; i < 4; i++)
 	{
-		throw("Resource/images/help/star.pngがありません");
+		if (star_img[i] == -1)
+		{
+			throw("star_img[%d]がありません",i);
+		}
 	}
+
 	if (tran_img == -1)
 	{
 		throw("Resource/images/tansition/transition.pngがありません");
@@ -104,6 +120,16 @@ void TitleScene::Initialize()
 	star_cnt = 0;
 	transition = -1943;
 	tran_flg = false;
+	rota_flg = false;
+
+	star_x[0] = 80;
+	star_x[1] = 430;
+	star_x[2] = 800;
+	star_x[3] = 1200;
+	star_x[4] = 250;
+	star_x[5] = 950;
+	star_x[6] = 450;
+	star_x[7] = 830;
 }
 
 eSceneType TitleScene::Update()
@@ -112,7 +138,18 @@ eSceneType TitleScene::Update()
 	PlaySoundMem(bgm, DX_PLAYTYPE_LOOP, FALSE);
 
 	// 星を回転させる
-	StarAnim();
+	//StarAnim();
+
+	StarMove();
+
+	if (rota_flg == false)
+	{
+		StarAnim();
+	}
+	else
+	{
+		StarAnim2();
+	}
 
 	if (back_title == true)
 	{
@@ -223,14 +260,14 @@ void TitleScene::Draw() const
 	DrawRotaGraph(450, 600, 1.0,PI / 180 * (-star_cnt * 2), star_img, TRUE);
 	DrawRotaGraph(830, 600, 1.0,PI / 180 * (-star_cnt * 2), star_img, TRUE);*/
 
-	DrawRotaGraph(80, 220, 1.0, PI / 180 * star_cnt, star_img, TRUE);
-	/*DrawRotaGraph(430, 220, 1.0, PI / (-star_cnt * 2), star_img, TRUE);
-	DrawRotaGraph(800, 220, 1.0, PI / (star_cnt * 2), star_img, TRUE);
-	DrawRotaGraph(1200, 220, 1.0, PI / (-star_cnt * 2), star_img, TRUE);
-	DrawRotaGraph(250, 380, 1.0, PI / (star_cnt * 2), star_img, TRUE);
-	DrawRotaGraph(950, 380, 1.0, PI / (star_cnt * 2), star_img, TRUE);
-	DrawRotaGraph(450, 600, 1.0, PI / (-star_cnt * 2), star_img, TRUE);
-	DrawRotaGraph(830, 600, 1.0, PI /(-star_cnt * 2), star_img, TRUE);*/
+	DrawRotaGraph(star_x[0], 220, 1.0, PI / 180 * -star_cnt, star_img[0], TRUE);
+	DrawRotaGraph(star_x[1], 220, 1.0, PI / 180 * -star_cnt, star_img[1], TRUE);
+	DrawRotaGraph(star_x[2], 220, 1.0, PI / 180 * -star_cnt, star_img[2], TRUE);
+	DrawRotaGraph(star_x[3], 220, 1.0, PI / 180 * -star_cnt, star_img[3], TRUE);
+	DrawRotaGraph(star_x[4], 380, 1.0, PI / 180 * -star_cnt, star_img[3], TRUE);
+	DrawRotaGraph(star_x[5], 380, 1.0, PI / 180 * -star_cnt, star_img[1], TRUE);
+	DrawRotaGraph(star_x[6], 600, 1.0, PI / 180 * -star_cnt, star_img[2], TRUE);
+	DrawRotaGraph(star_x[7], 600, 1.0, PI / 180 * -star_cnt, star_img[0], TRUE);
 	
 	// メニューの描画
 	switch (menu_cursor)
@@ -297,13 +334,11 @@ void TitleScene::StarAnim()
 	//	star_cnt = 0;
 	//}
 
-	if (star_cnt >= 0 && star_cnt <= 90)
+	star_cnt++;
+
+	if (star_cnt > 25)
 	{
-		star_cnt++;
-	}
-	else
-	{
-		star_cnt--;
+		rota_flg = true;
 	}
 }
 
@@ -311,10 +346,26 @@ void TitleScene::StarAnim2()
 {
 	star_cnt--;
 
-	if()
+	if (star_cnt <= -20)
+	{
+		rota_flg = false;
+	}
 }
 
 void TitleScene::Transition()
 {
 	transition += 50;
+}
+
+void TitleScene::StarMove()
+{
+	for (int i = 0; i < 8; i++)
+	{
+		star_x[i]--;
+
+		if (star_x[i] <= -50)
+		{
+			star_x[i] = 1280;
+		}
+	}
 }
