@@ -8,13 +8,15 @@ class TitleScene : public SceneBase
 {
 private:
 	int back_img;     // 背景画像 
+	int logo_img;     // タイトルロゴ画像
+	int ope_img;      // 操作説明画像
 	int menu_img[8];  // メニュー画像
-	int star_img[4];     // 星画像
+	int star_img[5];  // 星画像
 	int tran_img;     // トランジション画像
 	int se[2];        // 効果音
 	int bgm;          // BGM
 	int star_cnt;     // 星の回転用
-	int star_x[8];       // 星のx座標
+	float star_x[12]; // 星のx座標
 	bool tran_flg;    // 画面遷移 false:しない true:する
 	int transition;   // トランジションの値保存用
 	bool rota_flg;    // 回転変数 false:プラス true:マイナス
@@ -49,6 +51,7 @@ public:
 	// 星の回転処理
 	void StarAnim();
 
+	// 星とかの動き
 	void StarAnim2();
 
 	// 星の移動処理

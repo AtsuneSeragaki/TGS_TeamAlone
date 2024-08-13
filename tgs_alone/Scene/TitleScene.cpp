@@ -7,7 +7,7 @@
 int TitleScene::menu_cursor = 0;
 bool TitleScene::back_title = false;
 
-TitleScene::TitleScene() : back_img(0), bgm(0), star_cnt(0), transition(0), tran_img(0),tran_flg(false),rota_flg(false)
+TitleScene::TitleScene() : back_img(0), bgm(0), star_cnt(0), transition(0), tran_img(0),tran_flg(false),rota_flg(false),logo_img(0),ope_img(0)
 {
 	se[0] = 0;
 	se[1] = 0;
@@ -15,10 +15,14 @@ TitleScene::TitleScene() : back_img(0), bgm(0), star_cnt(0), transition(0), tran
 	for (int i = 0; i < 8; i++)
 	{
 		menu_img[i] = 0;
-		star_x[i] = 0;
 	}
 
-	for (int i = 0; i < 4; i++)
+	for (int i = 0; i < 12; i++)
+	{
+		star_x[i] = 0.0f;
+	}
+	
+	for (int i = 0; i < 5; i++)
 	{
 		star_img[i] = 0;
 	}
@@ -34,12 +38,14 @@ TitleScene::~TitleScene()
 		DeleteGraph(menu_img[i]);
 	}
 
-	for (int i = 0; i < 4; i++)
+	for (int i = 0; i < 5; i++)
 	{
 		DeleteGraph(star_img[i]);
 	}
 
 	DeleteGraph(tran_img);
+	DeleteGraph(logo_img);
+	DeleteGraph(ope_img);
 
 	// 音データの削除
 	DeleteSoundMem(se[0]);
@@ -50,7 +56,7 @@ TitleScene::~TitleScene()
 void TitleScene::Initialize()
 {
 	// 画像データの読み込み
-	back_img = LoadGraph("Resource/images/title/title.png");
+	back_img = LoadGraph("Resource/images/title/line.png");
 	
 	menu_img[0] = LoadGraph("Resource/images/title/starty.png");
 	menu_img[1] = LoadGraph("Resource/images/title/start.png");
@@ -65,8 +71,13 @@ void TitleScene::Initialize()
 	star_img[1] = LoadGraph("Resource/images/help/cloud.png");
 	star_img[2] = LoadGraph("Resource/images/help/rainbow.png");
 	star_img[3] = LoadGraph("Resource/images/help/candy.png");
+	star_img[4] = LoadGraph("Resource/images/help/star.png");
 
 	tran_img = LoadGraph("Resource/images/tansition/transition.png");
+
+	logo_img = LoadGraph("Resource/images/title/logo.png");
+
+	ope_img = LoadGraph("Resource/images/title/ui.png");
 
 	// 音データの読み込み
 	se[0] = LoadSoundMem("Resource/sounds/title/move.mp3");
@@ -88,7 +99,7 @@ void TitleScene::Initialize()
 		}
 	}
 
-	for (int i = 0; i < 4; i++)
+	for (int i = 0; i < 5; i++)
 	{
 		if (star_img[i] == -1)
 		{
@@ -99,6 +110,14 @@ void TitleScene::Initialize()
 	if (tran_img == -1)
 	{
 		throw("Resource/images/tansition/transition.pngがありません");
+	}
+	if (logo_img == -1)
+	{
+		throw("Resource/images/title/logo.pngがありません");
+	}
+	if (ope_img == -1)
+	{
+		throw("Resource/images/title/ui.pngがありません");
 	}
 	if (se[0] == -1)
 	{
@@ -122,14 +141,20 @@ void TitleScene::Initialize()
 	tran_flg = false;
 	rota_flg = false;
 
-	star_x[0] = 80;
-	star_x[1] = 430;
-	star_x[2] = 800;
-	star_x[3] = 1200;
-	star_x[4] = 250;
-	star_x[5] = 950;
-	star_x[6] = 450;
-	star_x[7] = 830;
+	star_x[0] = 80.0f;
+	star_x[1] = 430.0f;
+	star_x[2] = 780.0f;
+	star_x[3] = 1130.0f;
+
+	star_x[4] = 250.0f;
+	star_x[5] = 600.0f;
+	star_x[6] = 950.0f;
+	star_x[7] = 1300.0f;
+
+	star_x[8] = 80.0f;
+	star_x[9] = 430.0f;
+	star_x[10] = 780.0f;
+	star_x[11] = 1130.0f;
 }
 
 eSceneType TitleScene::Update()
@@ -140,16 +165,18 @@ eSceneType TitleScene::Update()
 	// 星を回転させる
 	//StarAnim();
 
-	StarMove();
+	//StarMove();
 
-	if (rota_flg == false)
+	/*if (rota_flg == false)
 	{
 		StarAnim();
 	}
 	else
 	{
 		StarAnim2();
-	}
+	}*/
+
+	StarAnim2();
 
 	if (back_title == true)
 	{
@@ -251,23 +278,34 @@ void TitleScene::Draw() const
 	DrawGraph(0, 0, back_img, TRUE);
 
 	// 星の描画
-	/*DrawRotaGraph(80, 220,1.0,PI / 180 * (star_cnt * 2), star_img, TRUE);
-	DrawRotaGraph(430, 220,1.0,PI / 180 * (-star_cnt * 2), star_img, TRUE);
-	DrawRotaGraph(800, 220, 1.0,PI / 180 * (star_cnt * 2), star_img, TRUE);
-	DrawRotaGraph(1200, 220, 1.0,PI / 180 * (-star_cnt * 2), star_img, TRUE);
-	DrawRotaGraph(250, 380, 1.0,PI / 180 * (star_cnt * 2), star_img, TRUE);
-	DrawRotaGraph(950, 380, 1.0,PI / 180 * (star_cnt * 2), star_img, TRUE);
-	DrawRotaGraph(450, 600, 1.0,PI / 180 * (-star_cnt * 2), star_img, TRUE);
-	DrawRotaGraph(830, 600, 1.0,PI / 180 * (-star_cnt * 2), star_img, TRUE);*/
+	/*DrawRotaGraph(80, 220,1.0,PI / 180 * (star_cnt * 2), star_img[4], TRUE);
+	DrawRotaGraph(430, 220,1.0,PI / 180 * (-star_cnt * 2), star_img[4], TRUE);
+	DrawRotaGraph(800, 220, 1.0,PI / 180 * (star_cnt * 2), star_img[4], TRUE);
+	DrawRotaGraph(1200, 220, 1.0,PI / 180 * (-star_cnt * 2), star_img[4], TRUE);
+	DrawRotaGraph(250, 380, 1.0,PI / 180 * (star_cnt * 2), star_img[4], TRUE);
+	DrawRotaGraph(950, 380, 1.0,PI / 180 * (star_cnt * 2), star_img[4], TRUE);
+	DrawRotaGraph(450, 600, 1.0,PI / 180 * (-star_cnt * 2), star_img[4], TRUE);
+	DrawRotaGraph(830, 600, 1.0,PI / 180 * (-star_cnt * 2), star_img[4], TRUE);*/
 
-	DrawRotaGraph(star_x[0], 220, 1.0, PI / 180 * -star_cnt, star_img[0], TRUE);
-	DrawRotaGraph(star_x[1], 220, 1.0, PI / 180 * -star_cnt, star_img[1], TRUE);
-	DrawRotaGraph(star_x[2], 220, 1.0, PI / 180 * -star_cnt, star_img[2], TRUE);
-	DrawRotaGraph(star_x[3], 220, 1.0, PI / 180 * -star_cnt, star_img[3], TRUE);
-	DrawRotaGraph(star_x[4], 380, 1.0, PI / 180 * -star_cnt, star_img[3], TRUE);
-	DrawRotaGraph(star_x[5], 380, 1.0, PI / 180 * -star_cnt, star_img[1], TRUE);
-	DrawRotaGraph(star_x[6], 600, 1.0, PI / 180 * -star_cnt, star_img[2], TRUE);
-	DrawRotaGraph(star_x[7], 600, 1.0, PI / 180 * -star_cnt, star_img[0], TRUE);
+	
+	/*DrawRotaGraphF(star_x[2], 100.0f, 1.0, PI / 180 * -star_cnt, star_img[2], TRUE);
+	DrawRotaGraphF(star_x[3], 100.0f, 1.0, PI / 180 * star_cnt, star_img[3], TRUE);
+
+	DrawRotaGraphF(star_x[4], 370.0f, 1.0, PI / 180 * star_cnt, star_img[3], TRUE);
+	DrawRotaGraphF(star_x[5], 370.0f, 1.0, PI / 180 * -star_cnt, star_img[2], TRUE);
+	DrawRotaGraphF(star_x[6], 370.0f, 1.0, PI / 180 * star_cnt, star_img[1], TRUE);
+	DrawRotaGraphF(star_x[7], 370.0f, 1.0, PI / 180 * -star_cnt, star_img[0], TRUE);
+
+	DrawRotaGraphF(star_x[8], 650.0f, 1.0, PI / 180 * star_cnt, star_img[2], TRUE);
+	DrawRotaGraphF(star_x[9], 650.0f, 1.0, PI / 180 * -star_cnt, star_img[0], TRUE);
+	DrawRotaGraphF(star_x[10], 650.0f, 1.0, PI / 180 * star_cnt, star_img[3], TRUE);
+	DrawRotaGraphF(star_x[11], 650.0f, 1.0, PI / 180 * -star_cnt, star_img[1], TRUE);*/
+
+	// タイトルロゴの描画
+	DrawGraph(380, 5, logo_img, TRUE);
+
+	// 操作説明の描画
+	DrawGraph(800, 650, ope_img, TRUE);
 	
 	// メニューの描画
 	switch (menu_cursor)
@@ -277,24 +315,32 @@ void TitleScene::Draw() const
 		DrawGraph(575, 340, menu_img[3], TRUE);
 		DrawGraph(510, 443, menu_img[5], TRUE);
 		DrawGraph(585, 540, menu_img[7], TRUE);
+		DrawRotaGraphF(522, 270.0f, 1.0, PI / 180 * -star_cnt, star_img[0], TRUE);
+		DrawRotaGraphF(780, 270.0f, 1.0, PI / 180 * star_cnt, star_img[0], TRUE);
 		break;
 	case 1:
 		DrawGraph(555, 240, menu_img[1], TRUE);
 		DrawGraph(575, 340, menu_img[2], TRUE);
 		DrawGraph(510, 443, menu_img[5], TRUE);
 		DrawGraph(585, 540, menu_img[7], TRUE);
+		DrawRotaGraphF(537, 370.0f, 1.0, PI / 180 * -star_cnt, star_img[1], TRUE);
+		DrawRotaGraphF(765, 370.0f, 1.0, PI / 180 * star_cnt, star_img[1], TRUE);
 		break;
 	case 2:
 		DrawGraph(555, 240, menu_img[1], TRUE);
 		DrawGraph(575, 340, menu_img[3], TRUE);
 		DrawGraph(510, 443, menu_img[4], TRUE);
 		DrawGraph(585, 540, menu_img[7], TRUE);
+		DrawRotaGraphF(475, 473.0f, 1.0, PI / 180 * -star_cnt, star_img[2], TRUE);
+		DrawRotaGraphF(845, 473.0f, 1.0, PI / 180 * star_cnt, star_img[2], TRUE);
 		break;
 	case 3:
 		DrawGraph(555, 240, menu_img[1], TRUE);
 		DrawGraph(575, 340, menu_img[3], TRUE);
 		DrawGraph(510, 443, menu_img[5], TRUE);
 		DrawGraph(585, 540, menu_img[6], TRUE);
+		DrawRotaGraphF(548, 575.0f, 1.0, PI / 180 * -star_cnt, star_img[3], TRUE);
+		DrawRotaGraphF(760, 575.0f, 1.0, PI / 180 * star_cnt, star_img[3], TRUE);
 		break;
 	default:
 		break;
@@ -344,11 +390,23 @@ void TitleScene::StarAnim()
 
 void TitleScene::StarAnim2()
 {
-	star_cnt--;
-
-	if (star_cnt <= -20)
+	if (rota_flg == false)
 	{
-		rota_flg = false;
+		star_cnt++;
+
+		if (star_cnt > 20)
+		{
+			rota_flg = true;
+		}
+	}
+	else
+	{
+		star_cnt--;
+
+		if (star_cnt <= -15)
+		{
+			rota_flg = false;
+		}
 	}
 }
 
@@ -359,13 +417,33 @@ void TitleScene::Transition()
 
 void TitleScene::StarMove()
 {
-	for (int i = 0; i < 8; i++)
+	for (int i = 0; i < 4; i++)
 	{
-		star_x[i]--;
+		star_x[i] -= 0.3f;
 
-		if (star_x[i] <= -50)
+		if (star_x[i] <= -335.0f)
 		{
-			star_x[i] = 1280;
+			star_x[i] = 1330.0f;
+		}
+	}
+
+	for (int i = 4; i < 8; i++)
+	{
+		star_x[i] += 0.3f;
+
+		if (star_x[i] >= 1330.0f)
+		{
+			star_x[i] = -335.0f;
+		}
+	}
+
+	for (int i = 8; i < 12; i++)
+	{
+		star_x[i] -= 0.3f;
+
+		if (star_x[i] <= -335.0f)
+		{
+			star_x[i] = 1330.0f;
 		}
 	}
 }
