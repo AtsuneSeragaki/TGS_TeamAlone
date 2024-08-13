@@ -13,13 +13,18 @@ private:
 	int menu_img[8];  // メニュー画像
 	int star_img[5];  // 星画像
 	int tran_img;     // トランジション画像
+	int deco_img[5];  // メニュー飾り画像
 	int se[2];        // 効果音
 	int bgm;          // BGM
 	int star_cnt;     // 星の回転用
-	float star_x[12]; // 星のx座標
 	bool tran_flg;    // 画面遷移 false:しない true:する
 	int transition;   // トランジションの値保存用
 	bool rota_flg;    // 回転変数 false:プラス true:マイナス
+	bool star_flg;    // 流れ星の表示 false:しない true:する
+	int shoot_num;    // 表示する流れ星画像の番号
+	int shoot_cnt;    // 流れ星を表示するまでの時間をカウント
+	int shoot_x;      // 流れ星のX座標
+	int shoot_y;      // 流れ星のY座標
 
 public:
 	static int menu_cursor;  // カーソルがどこにあるか
@@ -59,4 +64,7 @@ public:
 
 	// 画面切り替えアニメーション
 	void Transition();
+
+	// 流れ星アニメーション
+	void ShootStarAnim();
 };
