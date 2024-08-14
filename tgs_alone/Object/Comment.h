@@ -6,8 +6,8 @@
 class Comment
 {
 private:
-	int char_img[7];  // キャラクター画像用
-	int com_img[5];   // 吹き出し画像用
+	int char_img[5][10];  // キャラクター画像用
+	int com_img;   // 吹き出し画像用
 	int font;         // フォント用
 	int font2;        // サイズ違いのフォント用
 	bool disp_flg;    // コメントを表示するかしないかのフラグ
@@ -15,7 +15,9 @@ private:
 	int p_num;        // プレイヤーが間違えた数
 	int t_num;        // お題の数
 	int cnt;          // 表示時間カウント用
-	int transparency;      // 画像の透明度を保存用
+	int transparency; // 画像の透明度を保存用
+	int char_num;     // 表示するキャラクターの番号（番号によって画像の大きさが変わる）
+	bool char_flg;    // 拡大画像表示 false:まだ true:し終わった 
 
 public:
 

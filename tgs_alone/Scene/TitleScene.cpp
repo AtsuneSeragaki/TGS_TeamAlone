@@ -61,7 +61,9 @@ TitleScene::~TitleScene()
 void TitleScene::Initialize()
 {
 	// 画像データの読み込み
-	back_img = LoadGraph("Resource/images/title/back2.png");
+	//back_img = LoadGraph("Resource/images/title/back2.png");
+	back_img = LoadGraph("Resource/images/title/title1.png");
+
 	
 	menu_img[0] = LoadGraph("Resource/images/title/starty.png");
 	menu_img[1] = LoadGraph("Resource/images/title/start.png");
@@ -306,21 +308,21 @@ void TitleScene::Draw() const
 	DrawRotaGraphF(star_x[11], 650.0f, 1.0, PI / 180 * -star_cnt, star_img[1], TRUE);*/
 
 	// タイトルロゴの描画
-	DrawGraph(380, 5, logo_img, TRUE);
+	//DrawGraph(380, 5, logo_img, TRUE);
 
 	// 操作説明の描画
-	DrawGraph(800, 650, ope_img, TRUE);
+	//DrawGraph(800, 650, ope_img, TRUE);
 	
 	// メニューの描画
 	switch (menu_cursor)
 	{
 	case 0:
-		DrawGraph(555, 240, menu_img[0], TRUE);
-		DrawGraph(575, 340, menu_img[3], TRUE);
-		DrawGraph(510, 443, menu_img[5], TRUE);
-		DrawGraph(585, 540, menu_img[7], TRUE);
-		DrawRotaGraphF(522, 270.0f, 1.0, PI / 180 * -star_cnt, deco_img[0], TRUE);
-		DrawRotaGraphF(780, 270.0f, 1.0, PI / 180 * star_cnt, deco_img[0], TRUE);
+		DrawGraph(555, 240 + 20, menu_img[0], TRUE);
+		DrawGraph(575, 340 + 20, menu_img[3], TRUE);
+		DrawGraph(510, 443 + 20, menu_img[5], TRUE);
+		DrawGraph(585, 540 + 20, menu_img[7], TRUE);
+		DrawRotaGraphF(522, 270.0f + 20.0f, 1.0, PI / 180 * -star_cnt, deco_img[0], TRUE);
+		DrawRotaGraphF(780, 270.0f + 20.0f, 1.0, PI / 180 * star_cnt, deco_img[0], TRUE);
 		break;
 	case 1:
 		DrawGraph(555, 240, menu_img[1], TRUE);
@@ -460,7 +462,6 @@ void TitleScene::ShootStarAnim()
 
 		if (shoot_cnt >= 120)
 		{
-
 			star_flg = true;
 			shoot_cnt = 0;
 		}
