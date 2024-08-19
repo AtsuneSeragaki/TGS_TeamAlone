@@ -14,6 +14,7 @@ private:
 	int star_img[5];  // 星画像
 	int tran_img;     // トランジション画像
 	int deco_img[5];  // メニュー飾り画像
+	int cloud_img;    // 雲画像 
 	int se[2];        // 効果音
 	int bgm;          // BGM
 	int star_cnt;     // 星の回転用

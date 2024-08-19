@@ -7,7 +7,7 @@
 int TitleScene::menu_cursor = 0;
 bool TitleScene::back_title = false;
 
-TitleScene::TitleScene() : back_img(0), bgm(0), star_cnt(0), transition(0), tran_img(0),tran_flg(false),rota_flg(false),logo_img(0),ope_img(0),star_flg(false),shoot_num(0),shoot_cnt(0),shoot_x(0),shoot_y(0)
+TitleScene::TitleScene() : back_img(0), bgm(0), star_cnt(0), transition(0), tran_img(0),tran_flg(false),rota_flg(false),logo_img(0),ope_img(0),star_flg(false),shoot_num(0),shoot_cnt(0),shoot_x(0),shoot_y(0),cloud_img(0)
 {
 	se[0] = 0;
 	se[1] = 0;
@@ -51,6 +51,7 @@ TitleScene::~TitleScene()
 	DeleteGraph(tran_img);
 	DeleteGraph(logo_img);
 	DeleteGraph(ope_img);
+	DeleteGraph(cloud_img);
 
 	// 音データの削除
 	DeleteSoundMem(se[0]);
@@ -62,8 +63,7 @@ void TitleScene::Initialize()
 {
 	// 画像データの読み込み
 	//back_img = LoadGraph("Resource/images/title/back2.png");
-	back_img = LoadGraph("Resource/images/title/title1.png");
-
+	back_img = LoadGraph("Resource/images/title/title2.png");
 	
 	menu_img[0] = LoadGraph("Resource/images/title/starty.png");
 	menu_img[1] = LoadGraph("Resource/images/title/start.png");
@@ -90,7 +90,9 @@ void TitleScene::Initialize()
 
 	logo_img = LoadGraph("Resource/images/title/logo.png");
 
-	ope_img = LoadGraph("Resource/images/title/ui.png");
+	ope_img = LoadGraph("Resource/images/title/up-down-select.png");
+
+	cloud_img = LoadGraph("Resource/images/title/cloud1.png");
 
 	// 音データの読み込み
 	se[0] = LoadSoundMem("Resource/sounds/title/move.mp3");
@@ -139,6 +141,10 @@ void TitleScene::Initialize()
 	if (ope_img == -1)
 	{
 		throw("Resource/images/title/ui.pngがありません");
+	}
+	if (cloud_img == -1)
+	{
+		throw("Resource/images/title/cloud1.pngがありません");
 	}
 	if (se[0] == -1)
 	{
@@ -310,8 +316,11 @@ void TitleScene::Draw() const
 	// タイトルロゴの描画
 	//DrawGraph(380, 5, logo_img, TRUE);
 
+	// 雲の描画
+	DrawGraph(0, 0, cloud_img, TRUE);
+
 	// 操作説明の描画
-	//DrawGraph(800, 650, ope_img, TRUE);
+	DrawGraph(800, 650, ope_img, TRUE);
 	
 	// メニューの描画
 	switch (menu_cursor)

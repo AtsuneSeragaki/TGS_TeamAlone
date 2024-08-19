@@ -147,23 +147,25 @@ void Time::Draw()
 	//	}
 	//}
 
+	// 減る時間の描画
 	if (time > 5)
 	{
 		if (time3 <= 0.0f)
 		{
-			DrawBoxAA(340.0f, 255.0f, 990.0f, 270.0f, 0xffe699, TRUE);
+			DrawBoxAA(340.0f, 260.0f, 990.0f, 275.0f, 0xffe699, TRUE);
 		}
 		else
 		{
-			DrawBoxAA(340.0f, 255.0f, 990.0f - time3, 270.0f, 0xffe699, TRUE);
+			DrawBoxAA(340.0f, 260.0f, 990.0f - time3, 275.0f, 0xffe699, TRUE);
 		}
 		
 	}
 	else if(time > 0)
 	{
-		DrawBoxAA(340.0f, 255.0f, 990.0f - time3, 270.0f, 0xff0000, TRUE);
+		DrawBoxAA(340.0f, 260.0f, 990.0f - time3, 275.0f, 0xff0000, TRUE);
 	}
 
+	// 足す時間の描画
 	if (add_flg == true)
 	{
 		SetFontSize(30);
@@ -173,15 +175,16 @@ void Time::Draw()
 
 		if (time3 <= 0.0f)
 		{
-			DrawBoxAA(970.0f, 255.0f, 990.0f, 270.0f, 0x7fbfff, TRUE);
+			DrawBoxAA(970.0f, 260.0f, 990.0f, 275.0f, 0x7fbfff, TRUE);
 		}
 		else
 		{
-			DrawBoxAA(990.0f - time3, 255.0f, (990.0f - time3) - (16.2f * (float)add_time), 270.0f, 0x7fbfff, TRUE);
+			DrawBoxAA(990.0f - time3, 260.0f, (990.0f - time3) - (16.2f * (float)add_time), 275.0f, 0x7fbfff, TRUE);
 		}
 	}
 
-	DrawBox(340, 255, 990, 270, 0x000000, FALSE);
+	// 時間枠の描画
+	DrawBox(340, 260, 990, 275, 0x000000, FALSE);
 }
 
 void Time::Finalize()

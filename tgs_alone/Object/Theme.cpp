@@ -19,10 +19,16 @@ Theme::~Theme()
 void Theme::Initialize()
 {
 	// 画像の読み込み
-	img[0] = LoadGraph("Resource/images/main/button/Abotton0.png");
+	/*img[0] = LoadGraph("Resource/images/main/button/Abotton0.png");
 	img[1] = LoadGraph("Resource/images/main/button/Bbotton0.png");
 	img[2] = LoadGraph("Resource/images/main/button/Ybotton0.png");
-	img[3] = LoadGraph("Resource/images/main/button/Xbotton0.png");
+	img[3] = LoadGraph("Resource/images/main/button/Xbotton0.png");*/
+
+	img[0] = LoadGraph("Resource/images/main/button/a1.png");
+	img[1] = LoadGraph("Resource/images/main/button/b1.png");
+	img[2] = LoadGraph("Resource/images/main/button/y1.png");
+	img[3] = LoadGraph("Resource/images/main/button/x1.png");
+
 	LoadDivGraph("Resource/images/main/number/level.png", 10, 5, 2, 50, 50, level_img);
 
 	// サウンド読み込み
@@ -92,16 +98,16 @@ void Theme::Draw()
 	}
 
 	//SetFontSize(75);
-	//DrawFormatString(150, 85, 0x000000, "%d", theme_num - 2);
+	DrawFormatString(150, 85, 0x000000, "%d", theme_num - 2);
+
+	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 110);
 
 	if (theme_num < 10)
 	{
 		// お題表示
 		for (int i = 0; i < theme_num; i++)
 		{
-			SetDrawBlendMode(DX_BLENDMODE_ALPHA, 122);
-			DrawGraph((500 - 57 * (theme_num - 3)) + i * 110, 410, img[theme[i]], TRUE);
-			SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+			//DrawGraph((500 - 57 * (theme_num - 3)) + i * 110, 410 - 30, img[theme[i]], TRUE);
 		}
 	}
 	else if (theme_num == 10)
@@ -109,9 +115,7 @@ void Theme::Draw()
 		// お題表示
 		for (int i = 0; i < theme_num; i++)
 		{
-			SetDrawBlendMode(DX_BLENDMODE_ALPHA, 122);
-			DrawGraph(90 + i * 110, 410, img[theme[i]], TRUE);
-			SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+			DrawGraph(90 + i * 110, 410 - 30, img[theme[i]], TRUE);
 		}
 	}
 	else if(theme_num >= 11 && theme_num < 16)
@@ -121,15 +125,11 @@ void Theme::Draw()
 		{
 			if (i < 8)
 			{
-				SetDrawBlendMode(DX_BLENDMODE_ALPHA, 122);
-				DrawGraph(225 + i * 110, 355, img[theme[i]], TRUE);
-				SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+				DrawGraph(225 + i * 110, 355 - 30, img[theme[i]], TRUE);
 			}
 			else
 			{
-				SetDrawBlendMode(DX_BLENDMODE_ALPHA, 122);
-				DrawGraph((100 - 54 * (theme_num - 2)) + i * 110, 500, img[theme[i]], TRUE);
-				SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+				DrawGraph((100 - 54 * (theme_num - 2)) + i * 110, 500 - 30, img[theme[i]], TRUE);
 			}
 		}
 	}
@@ -139,15 +139,11 @@ void Theme::Draw()
 		{
 			if (i < 8)
 			{
-				SetDrawBlendMode(DX_BLENDMODE_ALPHA, 122);
-				DrawGraph(225 + i * 110, 355, img[theme[i]], TRUE);
-				SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+				DrawGraph(225 + i * 110, 355 - 30, img[theme[i]], TRUE);
 			}
 			else
 			{
-				SetDrawBlendMode(DX_BLENDMODE_ALPHA, 122);
-				DrawGraph(225 + (i - 8) * 110, 500, img[theme[i]], TRUE);
-				SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+				DrawGraph(225 + (i - 8) * 110, 500 - 30, img[theme[i]], TRUE);
 			}
 		}
 	}
@@ -157,15 +153,11 @@ void Theme::Draw()
 		{
 			if (i < 9)
 			{
-				SetDrawBlendMode(DX_BLENDMODE_ALPHA, 122);
-				DrawGraph(160 + i * 110, 355, img[theme[i]], TRUE);
-				SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+				DrawGraph(160 + i * 110, 355 - 30, img[theme[i]], TRUE);
 			}
 			else
 			{
-				SetDrawBlendMode(DX_BLENDMODE_ALPHA, 122);
-				DrawGraph(215 + (i - 9) * 110, 500, img[theme[i]], TRUE);
-				SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+				DrawGraph(215 + (i - 9) * 110, 500 - 30, img[theme[i]], TRUE);
 			}
 		}
 	}
@@ -175,15 +167,11 @@ void Theme::Draw()
 		{
 			if (i < 9)
 			{
-				SetDrawBlendMode(DX_BLENDMODE_ALPHA, 122);
-				DrawGraph(160 + i * 110, 355, img[theme[i]], TRUE);
-				SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+				DrawGraph(160 + i * 110, 355 - 30, img[theme[i]], TRUE);
 			}
 			else
 			{
-				SetDrawBlendMode(DX_BLENDMODE_ALPHA, 122);
-				DrawGraph(160 + (i - 9) * 110, 500, img[theme[i]], TRUE);
-				SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+				DrawGraph(160 + (i - 9) * 110, 500 - 30, img[theme[i]], TRUE);
 			}
 		}
 	}
@@ -193,15 +181,11 @@ void Theme::Draw()
 		{
 			if (i < 10)
 			{
-				SetDrawBlendMode(DX_BLENDMODE_ALPHA, 122);
-				DrawGraph(90 + i * 110, 355, img[theme[i]], TRUE);
-				SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+				DrawGraph(90 + i * 110, 355 - 30, img[theme[i]], TRUE);
 			}
 			else
 			{
-				SetDrawBlendMode(DX_BLENDMODE_ALPHA, 122);
-				DrawGraph(160 + (i - 10) * 110, 500, img[theme[i]], TRUE);
-				SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+				DrawGraph(160 + (i - 10) * 110, 500 - 30, img[theme[i]], TRUE);
 			}
 		}
 	}
@@ -211,18 +195,16 @@ void Theme::Draw()
 		{
 			if (i < 10)
 			{
-				SetDrawBlendMode(DX_BLENDMODE_ALPHA, 122);
-				DrawGraph(90 + i * 110, 355, img[theme[i]], TRUE);
-				SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+				DrawGraph(90 + i * 110, 355 - 30, img[theme[i]], TRUE);
 			}
 			else
 			{
-				SetDrawBlendMode(DX_BLENDMODE_ALPHA, 122);
-				DrawGraph(90 + (i - 10) * 110, 500, img[theme[i]], TRUE);
-				SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+				DrawGraph(90 + (i - 10) * 110, 500 - 30, img[theme[i]], TRUE);
 			}
 		}
 	}
+
+	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 }
 
 void Theme::Finalize()

@@ -1,13 +1,17 @@
 #pragma once
 
-#define SB_X 780   // 吹き出しのX座標
-#define SB_Y 400  // 吹き出しのY座標
+#define SB_X 660   // 吹き出しのX座標(SB:Speech Bubble)
+#define SB_Y 320   // 吹き出しのY座標
+#define CM_X 770   // 吹き出しのX座標
+#define CM_Y 400   // 吹き出しのY座標
+#define CH_X 330   // 吹き出しのX座標
+#define CH_Y 340   // 吹き出しのY座標
 
 class Comment
 {
 private:
 	int char_img[5][10];  // キャラクター画像用
-	int com_img;   // 吹き出し画像用
+	int com_img[5];   // 吹き出し画像用
 	int font;         // フォント用
 	int font2;        // サイズ違いのフォント用
 	bool disp_flg;    // コメントを表示するかしないかのフラグ

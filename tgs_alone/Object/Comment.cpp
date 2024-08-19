@@ -3,7 +3,7 @@
 #include "Theme.h"
 #include "DxLib.h"
 
-Comment::Comment():disp_flg(false),com_num(0),p_num(0),t_num(0),cnt(0),font(0),font2(0), transparency(0),char_num(0),char_flg(false),com_img(0)
+Comment::Comment():disp_flg(false),com_num(0),p_num(0),t_num(0),cnt(0),font(0),font2(0), transparency(0),char_num(0),char_flg(false)
 {
 	for (int i = 0; i < 5; i++)
 	{
@@ -11,6 +11,8 @@ Comment::Comment():disp_flg(false),com_num(0),p_num(0),t_num(0),cnt(0),font(0),f
 		{
 			char_img[i][j] = 0;
 		}
+
+		com_img[i] = 0;
 	}
 }
 
@@ -21,16 +23,16 @@ Comment::~Comment()
 void Comment::Initialize()
 {
 	// 画像データの読み込み
-	char_img[0][0] = LoadGraph("Resource/images/main/comment/char1-9.png");
-	char_img[0][1] = LoadGraph("Resource/images/main/comment/char1-8.png");
-	char_img[0][2] = LoadGraph("Resource/images/main/comment/char1-7.png");
-	char_img[0][3] = LoadGraph("Resource/images/main/comment/char1-6.png");
+	char_img[0][0] = LoadGraph("Resource/images/main/comment/char1-1.png");
+	char_img[0][1] = LoadGraph("Resource/images/main/comment/char1-2.png");
+	char_img[0][2] = LoadGraph("Resource/images/main/comment/char1-3.png");
+	char_img[0][3] = LoadGraph("Resource/images/main/comment/char1-4.png");
 	char_img[0][4] = LoadGraph("Resource/images/main/comment/char1-5.png");
 	char_img[0][5] = LoadGraph("Resource/images/main/comment/char1.png");
-	char_img[0][6] = LoadGraph("Resource/images/main/comment/char1-4.png");
-	char_img[0][7] = LoadGraph("Resource/images/main/comment/char1-3.png");
-	char_img[0][8] = LoadGraph("Resource/images/main/comment/char1-2.png");
-	char_img[0][9] = LoadGraph("Resource/images/main/comment/char1-1.png");
+	char_img[0][6] = LoadGraph("Resource/images/main/comment/char1-7.png");
+	char_img[0][7] = LoadGraph("Resource/images/main/comment/char1-8.png");
+	char_img[0][8] = LoadGraph("Resource/images/main/comment/char1.png");
+	char_img[0][9] = LoadGraph("Resource/images/main/comment/char1.png");
 
 	char_img[1][0] = LoadGraph("Resource/images/main/comment/char2.png");
 	char_img[1][1] = LoadGraph("Resource/images/main/comment/char2.png");
@@ -76,7 +78,12 @@ void Comment::Initialize()
 	char_img[4][8] = LoadGraph("Resource/images/main/comment/char5.png");
 	char_img[4][9] = LoadGraph("Resource/images/main/comment/char5.png");
 	
-	com_img = LoadGraph("Resource/images/main/comment/hukidasi.png");
+	//com_img = LoadGraph("Resource/images/main/comment/hukidasi.png");
+	com_img[0] = LoadGraph("Resource/images/main/comment/comment1.png");
+	com_img[1] = LoadGraph("Resource/images/main/comment/comment2.png");
+	com_img[2] = LoadGraph("Resource/images/main/comment/comment.png");
+	com_img[3] = LoadGraph("Resource/images/main/comment/comment3.png");
+	com_img[4] = LoadGraph("Resource/images/main/comment/comment4.png");
 
 	// フォントデータの読み込み
 	font = CreateFontToHandle("Segoe UI", 40, 7, DX_FONTTYPE_ANTIALIASING);
@@ -92,13 +99,12 @@ void Comment::Initialize()
 				throw("char_img[%d][%d]がありません", i,j);
 			}
 		}
-	}
 
-	if (com_img == -1)
-	{
-		throw("Resource/images/main/comment/hukidasi.pngがありません");
+		if (com_img[i] == -1)
+		{
+			throw("char_img[%d]がありません",i);
+		}
 	}
-	
 
 	if (font == -1)
 	{
@@ -128,19 +134,18 @@ void Comment::Update()
 	{
 		cnt++;
 		
-		if (char_flg == false)
+		if (cnt % 2 == 0 && char_flg == false)
 		{
 			char_num++;
 
-			if (char_num == 9)
+			if (char_num == 7)
 			{
 				char_flg = true;
 			}
 		}
-		else
+		else if(cnt % 2 == 0 && char_flg == true)
 		{
-
-			if (char_num <= 6)
+			if (char_num == 7 || char_num == 6)
 			{
 				char_num--;
 			}
@@ -168,48 +173,55 @@ void Comment::Draw()
 {
 	if (disp_flg == true)
 	{
-		SetDrawBlendMode(DX_BLENDMODE_ALPHA, transparency);
+		//SetDrawBlendMode(DX_BLENDMODE_ALPHA, transparency);
 
-		// キャラクターを描画
-		DrawGraph(0, 0, com_img, TRUE);
+		// 吹き出しを描画
+		if (char_num > 3)
+		{
+			//DrawGraph(SB_X, SB_Y, com_img, TRUE);
 
-		DrawGraph(340, 250, char_img[0][7], TRUE);
-		DrawStringToHandle(SB_X, SB_Y, "Genius!", 0x000000, font);
+			DrawGraph(SB_X + (150 - char_num * 20), SB_Y + (100 - char_num * 30), com_img, TRUE);
+		}
+		
+		DrawGraph(CH_X + (150 - char_num * 20), CH_Y + (100 - char_num * 30), char_img[0][char_num], TRUE);
+		DrawStringToHandle(SB_X + 75, SB_Y + 52, "Genius!", 0x000000, font);
 
-		// コメントを描画
+		// キャラクター＆コメントを描画
 		switch (com_num)
 		{
 		case 0:
-			DrawGraph(360 - char_num * 3, 270, char_img[0][7], TRUE);
-			DrawStringToHandle(SB_X, SB_Y , "Genius!", 0x000000, font);
+			DrawGraph(CH_X - char_num * 3, CH_Y, char_img[0][7], TRUE);
+			DrawStringToHandle(SB_X + 75, SB_Y + 52, "Genius!", 0x000000, font);
 			break;
 
 		case 1:
-			DrawGraph(360, 280, char_img[0][char_num], TRUE);
-			DrawStringToHandle(SB_X - 15, SB_Y, "Excellent!", 0x000000, font);
+			DrawGraph(CH_X, CH_Y, char_img[0][char_num], TRUE);
+			DrawStringToHandle(SB_X + 55, SB_Y + 55, "Excellent!", 0x000000, font);
 			break;
 
 		case 2:
-			DrawGraph(360, 280, char_img[2][char_num], TRUE);
-			DrawStringToHandle(SB_X + 15, SB_Y, "Great!", 0x000000, font);
+			DrawGraph(CH_X, CH_Y, char_img[2][char_num], TRUE);
+			DrawStringToHandle(SB_X + 85, SB_Y + 52, "Great!", 0x000000, font);
 			break;
 
 		case 3:
-			DrawGraph(360, 280, char_img[1][char_num], TRUE);
-			DrawStringToHandle(SB_X + 30, SB_Y, "Nice!", 0x000000, font);
+			DrawGraph(CH_X, CH_Y, char_img[1][char_num], TRUE);
+			DrawStringToHandle(SB_X + 100, SB_Y + 52, "Nice!", 0x000000, font);
 			break;
 
 		case 4:
-			DrawGraph(360, 280, char_img[0][char_num], TRUE);
-			DrawStringToHandle(SB_X - 25, SB_Y + 5, "You can do it!", 0x000000, font2);
+			DrawGraph(CH_X, CH_Y, char_img[0][char_num], TRUE);
+			DrawStringToHandle(SB_X + 47, SB_Y + 58, "You can do it!", 0x000000, font2);
 			break;
 			
 		default:
 			break;
 		}
 
-		SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+		//SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 	}
+
+	DrawFormatString(0, 0, 0x000000, "%d", char_num);
 }
 
 void Comment::Finalize()

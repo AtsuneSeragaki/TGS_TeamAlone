@@ -51,7 +51,7 @@ void GameMainScene::Initialize()
 	img[1] = LoadGraph("Resource/images/main/count1.png");
 	img[0] = LoadGraph("Resource/images/main/start.png");
 	//img[4] = LoadGraph("Resource/images/main/main.png");
-	img[4] = LoadGraph("Resource/images/main/main4.png");
+	img[4] = LoadGraph("Resource/images/main/main5.png");
 	img[5] = LoadGraph("Resource/images/main/string/timeup.png");
 	img[6] = LoadGraph("Resource/images/main/string/perfect.png");
 
