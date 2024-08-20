@@ -660,7 +660,7 @@ void Player::Draw()
 							DrawGraph(225 + i * 110 - 13, 355 - 10 - 30, effect_img[effect[i]], TRUE);
 						}
 
-						DrawGraph(225 + i * 110, 355, img[input[i]][0], TRUE);
+						DrawGraph(225 + i * 110, 355 - 30, img[input[i]][0], TRUE);
 					}
 					else
 					{

@@ -5,7 +5,7 @@
 #include "TitleScene.h"
 #include "DxLib.h"
 
-bool ResultScene::result = false;
+bool ResultScene::result_tran = false;
 
 ResultScene::ResultScene():back_img{0},bgm(0),se(0), star_img(0), star_cnt(0), transition(0), tran_img(0), tran_flg(false)
 {
@@ -147,8 +147,8 @@ void ResultScene::Initialize()
 	// 変数の初期化
 	star_cnt = 0;
 	transition = -93;
-	tran_flg = false;
-	result = true;
+	tran_flg = true;
+	result_tran = true;
 }
 
 eSceneType ResultScene::Update()
@@ -161,13 +161,13 @@ eSceneType ResultScene::Update()
 
 	if (tran_flg == true)
 	{
-		if (result == true  && transition <= 1943)
+		if (result_tran == true  && transition <= 1943)
 		{
 			Transition();
 		}
-		else if (result == true && transition > 1943)
+		else if (result_tran == true && transition > 1943)
 		{
-			result = false;
+			result_tran = false;
 			tran_flg = false;
 		}
 		else if (TitleScene::back_title == true && transition <= -120)
@@ -225,13 +225,13 @@ eSceneType ResultScene::Update()
 void ResultScene::Draw() const
 {
 	// 比較用のデータを格納
-	/*int i = Theme::theme_num - 3;
+	int i = Theme::theme_num - 3;
 	int j = Player::combo;
-	int k = Player::all_mis;*/
+	int k = Player::all_mis;
 
-	int i = 12;
+	/*int i = 12;
 	int j = 200;
-	int k = 200;
+	int k = 200;*/
 
 	// 背景画像表示
 	// 名前入力画面に行くか行かないかで変える

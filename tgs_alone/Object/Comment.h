@@ -1,7 +1,7 @@
 #pragma once
 
-#define SB_X 660   // 吹き出しのX座標(SB:Speech Bubble)
-#define SB_Y 320   // 吹き出しのY座標
+#define SB_X 680   // 吹き出しのX座標(SB:Speech Bubble)
+#define SB_Y 310   // 吹き出しのY座標
 #define CM_X 770   // 吹き出しのX座標
 #define CM_Y 400   // 吹き出しのY座標
 #define CH_X 330   // 吹き出しのX座標

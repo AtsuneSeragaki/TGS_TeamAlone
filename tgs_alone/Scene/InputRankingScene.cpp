@@ -236,10 +236,10 @@ void InputRankingScene::Draw() const
 	}
 	else
 	{
-		for (int i = 0; i <= name_num; i++)
+		/*for (int i = 0; i <= name_num; i++)
 		{
 			DrawFormatString(0 + i * 30, 0, 0x000000, "%d", (int)name[i]);
-		}
+		}*/
 
 		//DrawFormatString(0, 30, 0x000000, "%d", name_num);
 

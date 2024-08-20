@@ -26,7 +26,7 @@ private:
 
 public:
 
-	static bool result;      // リザルトに遷移	 false:しない true:する
+	static bool result_tran;      // リザルトに遷移	 false:しない true:する
 
 	// コンストラクタ
 	ResultScene();

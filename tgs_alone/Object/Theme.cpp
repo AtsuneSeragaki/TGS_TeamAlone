@@ -98,7 +98,7 @@ void Theme::Draw()
 	}
 
 	//SetFontSize(75);
-	DrawFormatString(150, 85, 0x000000, "%d", theme_num - 2);
+	//DrawFormatString(150, 85, 0x000000, "%d", theme_num - 2);
 
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 110);
 
@@ -107,7 +107,7 @@ void Theme::Draw()
 		// お題表示
 		for (int i = 0; i < theme_num; i++)
 		{
-			//DrawGraph((500 - 57 * (theme_num - 3)) + i * 110, 410 - 30, img[theme[i]], TRUE);
+			DrawGraph((500 - 57 * (theme_num - 3)) + i * 110, 410 - 30, img[theme[i]], TRUE);
 		}
 	}
 	else if (theme_num == 10)

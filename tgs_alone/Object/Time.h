@@ -9,6 +9,7 @@ private:
 	bool time_flg;     // 1秒減らすタイミングをカウント
 	int img_b[11];     // 画像データ
 	int img_r[11];     // 画像データ
+	int plus_img;      // 時間プラス画像
 	bool add_flg;      // 追加する時間表示（false:しない true:する）
 	int add_time;      // 追加する時間
 	int add_cnt;       // 追加する時間表示の時間

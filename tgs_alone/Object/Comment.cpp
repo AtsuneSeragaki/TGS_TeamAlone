@@ -31,51 +31,51 @@ void Comment::Initialize()
 	char_img[0][5] = LoadGraph("Resource/images/main/comment/char1.png");
 	char_img[0][6] = LoadGraph("Resource/images/main/comment/char1-7.png");
 	char_img[0][7] = LoadGraph("Resource/images/main/comment/char1-8.png");
-	char_img[0][8] = LoadGraph("Resource/images/main/comment/char1.png");
+	char_img[0][8] = LoadGraph("Resource/images/main/comment/char1-9.png");
 	char_img[0][9] = LoadGraph("Resource/images/main/comment/char1.png");
 
-	char_img[1][0] = LoadGraph("Resource/images/main/comment/char2.png");
-	char_img[1][1] = LoadGraph("Resource/images/main/comment/char2.png");
-	char_img[1][2] = LoadGraph("Resource/images/main/comment/char2.png");
-	char_img[1][3] = LoadGraph("Resource/images/main/comment/char2.png");
-	char_img[1][4] = LoadGraph("Resource/images/main/comment/char2.png");
+	char_img[1][0] = LoadGraph("Resource/images/main/comment/char2-1.png");
+	char_img[1][1] = LoadGraph("Resource/images/main/comment/char2-2.png");
+	char_img[1][2] = LoadGraph("Resource/images/main/comment/char2-3.png");
+	char_img[1][3] = LoadGraph("Resource/images/main/comment/char2-4.png");
+	char_img[1][4] = LoadGraph("Resource/images/main/comment/char2-5.png");
 	char_img[1][5] = LoadGraph("Resource/images/main/comment/char2.png");
-	char_img[1][6] = LoadGraph("Resource/images/main/comment/char2.png");
-	char_img[1][7] = LoadGraph("Resource/images/main/comment/char2.png");
-	char_img[1][8] = LoadGraph("Resource/images/main/comment/char2.png");
+	char_img[1][6] = LoadGraph("Resource/images/main/comment/char2-7.png");
+	char_img[1][7] = LoadGraph("Resource/images/main/comment/char2-8.png");
+	char_img[1][8] = LoadGraph("Resource/images/main/comment/char2-9.png");
 	char_img[1][9] = LoadGraph("Resource/images/main/comment/char2.png");
 
-	char_img[2][0] = LoadGraph("Resource/images/main/comment/char3.png");
-	char_img[2][1] = LoadGraph("Resource/images/main/comment/char3.png");
-	char_img[2][2] = LoadGraph("Resource/images/main/comment/char3.png");
-	char_img[2][3] = LoadGraph("Resource/images/main/comment/char3.png");
-	char_img[2][4] = LoadGraph("Resource/images/main/comment/char3.png");
+	char_img[2][0] = LoadGraph("Resource/images/main/comment/char3-1.png");
+	char_img[2][1] = LoadGraph("Resource/images/main/comment/char3-2.png");
+	char_img[2][2] = LoadGraph("Resource/images/main/comment/char3-3.png");
+	char_img[2][3] = LoadGraph("Resource/images/main/comment/char3-4.png");
+	char_img[2][4] = LoadGraph("Resource/images/main/comment/char3-5.png");
 	char_img[2][5] = LoadGraph("Resource/images/main/comment/char3.png");
-	char_img[2][6] = LoadGraph("Resource/images/main/comment/char3.png");
-	char_img[2][7] = LoadGraph("Resource/images/main/comment/char3.png");
-	char_img[2][8] = LoadGraph("Resource/images/main/comment/char3.png");
+	char_img[2][6] = LoadGraph("Resource/images/main/comment/char3-7.png");
+	char_img[2][7] = LoadGraph("Resource/images/main/comment/char3-8.png");
+	char_img[2][8] = LoadGraph("Resource/images/main/comment/char3-9.png");
 	char_img[2][9] = LoadGraph("Resource/images/main/comment/char3.png");
 
-	char_img[3][0] = LoadGraph("Resource/images/main/comment/char4.png");
-	char_img[3][1] = LoadGraph("Resource/images/main/comment/char4.png");
-	char_img[3][2] = LoadGraph("Resource/images/main/comment/char4.png");
-	char_img[3][3] = LoadGraph("Resource/images/main/comment/char4.png");
-	char_img[3][4] = LoadGraph("Resource/images/main/comment/char4.png");
+	char_img[3][0] = LoadGraph("Resource/images/main/comment/char4-1.png");
+	char_img[3][1] = LoadGraph("Resource/images/main/comment/char4-2.png");
+	char_img[3][2] = LoadGraph("Resource/images/main/comment/char4-3.png");
+	char_img[3][3] = LoadGraph("Resource/images/main/comment/char4-4.png");
+	char_img[3][4] = LoadGraph("Resource/images/main/comment/char4-5.png");
 	char_img[3][5] = LoadGraph("Resource/images/main/comment/char4.png");
-	char_img[3][6] = LoadGraph("Resource/images/main/comment/char4.png");
-	char_img[3][7] = LoadGraph("Resource/images/main/comment/char4.png");
-	char_img[3][8] = LoadGraph("Resource/images/main/comment/char4.png");
+	char_img[3][6] = LoadGraph("Resource/images/main/comment/char4-7.png");
+	char_img[3][7] = LoadGraph("Resource/images/main/comment/char4-8.png");
+	char_img[3][8] = LoadGraph("Resource/images/main/comment/char4-9.png");
 	char_img[3][9] = LoadGraph("Resource/images/main/comment/char4.png");
 
-	char_img[4][0] = LoadGraph("Resource/images/main/comment/char5.png");
-	char_img[4][1] = LoadGraph("Resource/images/main/comment/char5.png");
-	char_img[4][2] = LoadGraph("Resource/images/main/comment/char5.png");
-	char_img[4][3] = LoadGraph("Resource/images/main/comment/char5.png");
-	char_img[4][4] = LoadGraph("Resource/images/main/comment/char5.png");
+	char_img[4][0] = LoadGraph("Resource/images/main/comment/char5-1.png");
+	char_img[4][1] = LoadGraph("Resource/images/main/comment/char5-2.png");
+	char_img[4][2] = LoadGraph("Resource/images/main/comment/char5-3.png");
+	char_img[4][3] = LoadGraph("Resource/images/main/comment/char5-4.png");
+	char_img[4][4] = LoadGraph("Resource/images/main/comment/char5-5.png");
 	char_img[4][5] = LoadGraph("Resource/images/main/comment/char5.png");
-	char_img[4][6] = LoadGraph("Resource/images/main/comment/char5.png");
-	char_img[4][7] = LoadGraph("Resource/images/main/comment/char5.png");
-	char_img[4][8] = LoadGraph("Resource/images/main/comment/char5.png");
+	char_img[4][6] = LoadGraph("Resource/images/main/comment/char5-7.png");
+	char_img[4][7] = LoadGraph("Resource/images/main/comment/char5-8.png");
+	char_img[4][8] = LoadGraph("Resource/images/main/comment/char5-9.png");
 	char_img[4][9] = LoadGraph("Resource/images/main/comment/char5.png");
 	
 	//com_img = LoadGraph("Resource/images/main/comment/hukidasi.png");
@@ -116,8 +116,8 @@ void Comment::Initialize()
 	}
 
 	// 変数の初期化
-	//disp_flg = false;
-	disp_flg = true;
+	disp_flg = false;
+	//disp_flg = true;
 	t_num = 0;
 	p_num = 0;
 	cnt = 0;
@@ -138,14 +138,14 @@ void Comment::Update()
 		{
 			char_num++;
 
-			if (char_num == 7)
+			if (char_num == 8)
 			{
 				char_flg = true;
 			}
 		}
 		else if(cnt % 2 == 0 && char_flg == true)
 		{
-			if (char_num == 7 || char_num == 6)
+			if (char_num == 8 || char_num == 7)
 			{
 				char_num--;
 			}
@@ -155,7 +155,7 @@ void Comment::Update()
 		if (cnt > 71)
 		{
 			cnt = 0;
-			//disp_flg = false;
+			disp_flg = false;
 			char_flg = false;
 			char_num = 0;
 		}
@@ -173,45 +173,66 @@ void Comment::Draw()
 {
 	if (disp_flg == true)
 	{
+		//DrawBox(80, 280, 1200, 650, 0xffffff, TRUE);
 		//SetDrawBlendMode(DX_BLENDMODE_ALPHA, transparency);
 
 		// 吹き出しを描画
-		if (char_num > 3)
+		if (char_flg == true && char_num == 6)
 		{
 			//DrawGraph(SB_X, SB_Y, com_img, TRUE);
 
-			DrawGraph(SB_X + (150 - char_num * 20), SB_Y + (100 - char_num * 30), com_img, TRUE);
+			DrawGraph(SB_X, SB_Y, com_img[2], TRUE);
+			//DrawStringToHandle(SB_X + 75, SB_Y + 52, "Genius!", 0x000000, font);
 		}
-		
-		DrawGraph(CH_X + (150 - char_num * 20), CH_Y + (100 - char_num * 30), char_img[0][char_num], TRUE);
-		DrawStringToHandle(SB_X + 75, SB_Y + 52, "Genius!", 0x000000, font);
+
+		//DrawGraph(CH_X + (150 - char_num * 20), CH_Y + (100 - char_num * 30), char_img[0][char_num], TRUE);
 
 		// キャラクター＆コメントを描画
 		switch (com_num)
 		{
 		case 0:
-			DrawGraph(CH_X - char_num * 3, CH_Y, char_img[0][7], TRUE);
-			DrawStringToHandle(SB_X + 75, SB_Y + 52, "Genius!", 0x000000, font);
+			DrawGraph(CH_X + (150 - char_num * 20), CH_Y + (100 - char_num * 30), char_img[4][char_num], TRUE);
+
+			if (char_flg == true && char_num == 6)
+			{
+				DrawStringToHandle(SB_X + 75, SB_Y + 52, "Genius!", 0x000000, font);
+			}
 			break;
 
 		case 1:
-			DrawGraph(CH_X, CH_Y, char_img[0][char_num], TRUE);
-			DrawStringToHandle(SB_X + 55, SB_Y + 55, "Excellent!", 0x000000, font);
+			DrawGraph(CH_X + (150 - char_num * 20), CH_Y + (100 - char_num * 30), char_img[3][char_num], TRUE);
+
+			if (char_flg == true && char_num == 6)
+			{
+				DrawStringToHandle(SB_X + 55, SB_Y + 55, "Excellent!", 0x000000, font);
+			}
 			break;
 
 		case 2:
-			DrawGraph(CH_X, CH_Y, char_img[2][char_num], TRUE);
-			DrawStringToHandle(SB_X + 85, SB_Y + 52, "Great!", 0x000000, font);
+			DrawGraph(CH_X + (150 - char_num * 20), CH_Y + (100 - char_num * 30), char_img[2][char_num], TRUE);
+
+			if (char_flg == true && char_num == 6)
+			{
+				DrawStringToHandle(SB_X + 85, SB_Y + 52, "Great!", 0x000000, font);
+			}
 			break;
 
 		case 3:
-			DrawGraph(CH_X, CH_Y, char_img[1][char_num], TRUE);
-			DrawStringToHandle(SB_X + 100, SB_Y + 52, "Nice!", 0x000000, font);
+			DrawGraph(CH_X + (150 - char_num * 20), CH_Y + (100 - char_num * 30), char_img[1][char_num], TRUE);
+
+			if (char_flg == true && char_num == 6)
+			{
+				DrawStringToHandle(SB_X + 100, SB_Y + 52, "Nice!", 0x000000, font);
+			}
 			break;
 
 		case 4:
-			DrawGraph(CH_X, CH_Y, char_img[0][char_num], TRUE);
-			DrawStringToHandle(SB_X + 47, SB_Y + 58, "You can do it!", 0x000000, font2);
+			DrawGraph(CH_X + (150 - char_num * 20), CH_Y + (100 - char_num * 30), char_img[0][char_num], TRUE);
+
+			if (char_flg == true && char_num == 6)
+			{
+				DrawStringToHandle(SB_X + 47, SB_Y + 58, "You can do it!", 0x000000, font2);
+			}
 			break;
 			
 		default:
@@ -221,7 +242,7 @@ void Comment::Draw()
 		//SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 	}
 
-	DrawFormatString(0, 0, 0x000000, "%d", char_num);
+	//DrawFormatString(0, 0, 0x000000, "%d", char_num);
 }
 
 void Comment::Finalize()
@@ -239,7 +260,10 @@ void Comment::Finalize()
 		}
 	}
 
-	DeleteGraph(com_img);
+	for (int i = 0; i < 5; i++)
+	{
+		DeleteGraph(com_img[i]);
+	}
 }
 
 void Comment::SetComNum()

@@ -166,11 +166,11 @@ eSceneType GameMainScene::Update()
 			Finalize();
 			Initialize();
 		}
-		else if (ResultScene::result == true && transition <= -120)
+		else if (ResultScene::result_tran == true && transition <= -120)
 		{
 			Transition();
 		}
-		else if (ResultScene::result == true && transition > -120)
+		else if (ResultScene::result_tran == true && transition > -120)
 		{
 			return eSceneType::E_RESULT;
 		}
@@ -320,7 +320,7 @@ eSceneType GameMainScene::Update()
 						}
 
 						tran_flg = true;
-						ResultScene::result = true;
+						ResultScene::result_tran = true;
 						transition = -1943;
 					}
 
@@ -431,7 +431,7 @@ eSceneType GameMainScene::Update()
 							}
 
 							tran_flg = true;
-							ResultScene::result = true;
+							ResultScene::result_tran = true;
 							transition = -1943;
 						}
 					}
