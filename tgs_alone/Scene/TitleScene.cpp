@@ -2,12 +2,13 @@
 #include "../Utility/InputControl.h"
 #include "RankingScene.h"
 #include "HelpScene.h"
+#include <math.h>
 #include "DxLib.h"
 
 int TitleScene::menu_cursor = 0;
 bool TitleScene::back_title = false;
 
-TitleScene::TitleScene() : back_img(0), bgm(0), star_cnt(0), transition(0), tran_img(0),tran_flg(false),rota_flg(false),logo_img(0),ope_img(0),star_flg(false),shoot_num(0),shoot_cnt(0),shoot_x(0),shoot_y(0),cloud_img(0)
+TitleScene::TitleScene() : back_img(0), bgm(0), star_cnt(0), transition(0), tran_img(0),tran_flg(false),rota_flg(false),logo_img(0),ope_img(0),star_flg(false),shoot_num(0),shoot_cnt(0),shoot_x(0),shoot_y(0),cloud_img(0),cnt(0)
 {
 	se[0] = 0;
 	se[1] = 0;
@@ -173,6 +174,8 @@ void TitleScene::Initialize()
 	shoot_cnt = 0;
 	shoot_x = 0;
 	shoot_y = 0;
+
+	cnt = 0;
 }
 
 eSceneType TitleScene::Update()
@@ -181,6 +184,15 @@ eSceneType TitleScene::Update()
 	PlaySoundMem(bgm, DX_PLAYTYPE_LOOP, FALSE);
 
 	//StarAnim();
+
+	if (cnt >= 90)
+	{
+		cnt = 0;
+	}
+	else
+	{
+		cnt++;
+	}
 
 	StarAnim2();
 
@@ -326,36 +338,36 @@ void TitleScene::Draw() const
 	switch (menu_cursor)
 	{
 	case 0:
-		DrawGraph(555, 240 + 20, menu_img[0], TRUE);
+		DrawGraph(555, 240 + 20 + sin(PI * 2 / 90 * cnt) * 6, menu_img[0], TRUE);
 		DrawGraph(575, 340 + 20, menu_img[3], TRUE);
 		DrawGraph(510, 443 + 20, menu_img[5], TRUE);
 		DrawGraph(585, 540 + 20, menu_img[7], TRUE);
-		DrawRotaGraphF(522, 270.0f + 20.0f, 1.0, PI / 180 * -star_cnt, deco_img[0], TRUE);
-		DrawRotaGraphF(780, 270.0f + 20.0f, 1.0, PI / 180 * star_cnt, deco_img[0], TRUE);
+		DrawRotaGraphF(522, 270.0f + 20.0f + (float)sin(PI * 2 / 100 * cnt) * 5, 1.0, PI / 180 * -star_cnt, deco_img[0], TRUE);
+		DrawRotaGraphF(780, 270.0f + 20.0f + (float)sin(PI * 2 / 100 * cnt) * 5, 1.0, PI / 180 * star_cnt, deco_img[0], TRUE);
 		break;
 	case 1:
-		DrawGraph(555, 240, menu_img[1], TRUE);
-		DrawGraph(575, 340, menu_img[2], TRUE);
-		DrawGraph(510, 443, menu_img[5], TRUE);
-		DrawGraph(585, 540, menu_img[7], TRUE);
-		DrawRotaGraphF(537, 370.0f, 1.0, PI / 180 * -star_cnt, deco_img[1], TRUE);
-		DrawRotaGraphF(765, 370.0f, 1.0, PI / 180 * star_cnt, deco_img[1], TRUE);
+		DrawGraph(555, 240 + 20, menu_img[1], TRUE);
+		DrawGraph(575, 340 + 20 + sin(PI * 2 / 90 * cnt) * 6, menu_img[2], TRUE);
+		DrawGraph(510, 443 + 20, menu_img[5], TRUE);
+		DrawGraph(585, 540 + 20, menu_img[7], TRUE);
+		DrawRotaGraphF(537, 370.0f + 20.0f + (float)sin(PI * 2 / 90 * cnt) * 6, 1.0, PI / 180 * -star_cnt, deco_img[1], TRUE);
+		DrawRotaGraphF(765, 370.0f + 20.0f + (float)sin(PI * 2 / 90 * cnt) * 6, 1.0, PI / 180 * star_cnt, deco_img[1], TRUE);
 		break;
 	case 2:
-		DrawGraph(555, 240, menu_img[1], TRUE);
-		DrawGraph(575, 340, menu_img[3], TRUE);
-		DrawGraph(510, 443, menu_img[4], TRUE);
-		DrawGraph(585, 540, menu_img[7], TRUE);
-		DrawRotaGraphF(475, 473.0f, 1.0, PI / 180 * -star_cnt, deco_img[2], TRUE);
-		DrawRotaGraphF(845, 473.0f, 1.0, PI / 180 * star_cnt, deco_img[2], TRUE);
+		DrawGraph(555, 240 + 20, menu_img[1], TRUE);
+		DrawGraph(575, 340 + 20, menu_img[3], TRUE);
+		DrawGraph(510, 443 + 20 + sin(PI * 2 / 90 * cnt) * 6, menu_img[4], TRUE);
+		DrawGraph(585, 540 + 20, menu_img[7], TRUE);
+		DrawRotaGraphF(475, 473.0f + 20.0f + (float)sin(PI * 2 / 90 * cnt) * 6, 1.0, PI / 180 * -star_cnt, deco_img[2], TRUE);
+		DrawRotaGraphF(845, 473.0f + 20.0f + (float)sin(PI * 2 / 90 * cnt) * 6, 1.0, PI / 180 * star_cnt, deco_img[2], TRUE);
 		break;
 	case 3:
-		DrawGraph(555, 240, menu_img[1], TRUE);
-		DrawGraph(575, 340, menu_img[3], TRUE);
-		DrawGraph(510, 443, menu_img[5], TRUE);
-		DrawGraph(585, 540, menu_img[6], TRUE);
-		DrawRotaGraphF(548, 575.0f, 1.0, PI / 180 * -star_cnt, deco_img[3], TRUE);
-		DrawRotaGraphF(760, 575.0f, 1.0, PI / 180 * star_cnt, deco_img[3], TRUE);
+		DrawGraph(555, 240 + 20, menu_img[1], TRUE);
+		DrawGraph(575, 340 + 20, menu_img[3], TRUE);
+		DrawGraph(510, 443 + 20, menu_img[5], TRUE);
+		DrawGraph(585, 540 + 20 + sin(PI * 2 / 90 * cnt) * 6, menu_img[6], TRUE);
+		DrawRotaGraphF(548, 575.0f + 20.0f + (float)sin(PI * 2 / 90 * cnt) * 6, 1.0, PI / 180 * -star_cnt, deco_img[3], TRUE);
+		DrawRotaGraphF(760, 575.0f + 20.0f + (float)sin(PI * 2 / 90 * cnt) * 6, 1.0, PI / 180 * star_cnt, deco_img[3], TRUE);
 		break;
 	default:
 		break;

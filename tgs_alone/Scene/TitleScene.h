@@ -26,6 +26,7 @@ private:
 	int shoot_cnt;    // 流れ星を表示するまでの時間をカウント
 	int shoot_x;      // 流れ星のX座標
 	int shoot_y;      // 流れ星のY座標
+	int cnt;          // フレームカウント
 
 public:
 	static int menu_cursor;  // カーソルがどこにあるか

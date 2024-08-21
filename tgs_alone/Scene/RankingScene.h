@@ -13,13 +13,16 @@ private:
 	int tran_img;     // トランジション画像
 	int font_img[27]; // フォント画像
 	int num_img[10];  // 数字画像
+	int ope_img[3];   // 操作説明画像
 	int se[2];        // 効果音
 	int bgm;          // BGM
 	int font;         // フォント用
 	int star_cnt;     // 星の回転用
 	bool tran_flg;    // 画面遷移 false:しない true:する
 	int transition;   // トランジションの値保存用
-
+	int ope_num;      // 操作説明画像の表示する番号
+	int ope_x;      // 操作説明の画像のx座標 
+	bool ope_flg;     // false:上に移動 true:下に移動
 	RankingData* ranking; // ランキングデータのオブジェクト
 
 public:
@@ -52,4 +55,7 @@ public:
 
 	// 画面切り替えアニメーション
 	void Transition();
+
+	// 操作説明の画像を動かす
+	void OpeMove();
 };

@@ -2,14 +2,19 @@
 #include "../Utility/InputControl.h"
 #include "TitleScene.h"
 #include "InputRankingScene.h"
+#include <math.h>
 #include "DxLib.h"
 
 bool RankingScene::to_ranking = false;
 
-RankingScene::RankingScene():back_img(0),ranking(nullptr),font(0),bgm(0), star_img(0), star_cnt(0), transition(0), tran_img(0), tran_flg(false)
+RankingScene::RankingScene():back_img(0),ranking(nullptr),font(0),bgm(0), star_img(0), star_cnt(0), transition(0), tran_img(0), tran_flg(false),ope_num(0),ope_x(0),ope_flg(false)
 {
 	se[0] = 0;
 	se[1] = 0;
+
+	ope_img[0] = 0;
+	ope_img[1] = 0;
+	ope_img[2] = 0;
 
 	for (int i = 0; i < 27; i++)
 	{
@@ -42,6 +47,10 @@ RankingScene::~RankingScene()
 		DeleteGraph(num_img[i]);
 	}
 
+	DeleteGraph(ope_img[0]);
+	DeleteGraph(ope_img[1]);
+	DeleteGraph(ope_img[2]);
+
 	// 音データの削除
 	DeleteSoundMem(se[0]);
 	DeleteSoundMem(se[1]);
@@ -51,9 +60,12 @@ RankingScene::~RankingScene()
 void RankingScene::Initialize()
 {
 	// 画像データの読み込み
-	back_img = LoadGraph("Resource/images/ranking/ranking.png");
+	back_img = LoadGraph("Resource/images/ranking/ranking2.png");
 	star_img = LoadGraph("Resource/images/help/star.png");
 	tran_img = LoadGraph("Resource/images/tansition/transition.png");
+	ope_img[0] = LoadGraph("Resource/images/result/title1.png");
+	ope_img[1] = LoadGraph("Resource/images/result/title3.png");
+	ope_img[2] = LoadGraph("Resource/images/result/b.png");
 	LoadDivGraph("Resource/images/ranking/moji2.png", 27, 9, 3, 50, 50, font_img);
 	LoadDivGraph("Resource/images/ranking/rank_num.png", 10, 5, 2, 50, 50, num_img);
 
@@ -95,6 +107,14 @@ void RankingScene::Initialize()
 	{
 		throw("Resource/images/tansition/transition.pngがありません");
 	}
+	if (ope_img[0] == -1)
+	{
+		throw("Resource/images/result/title1.pngがありません");
+	}
+	if (ope_img[1] == -1)
+	{
+		throw("Resource/images/result/title2.pngがありません");
+	}
 	if (se[0] == -1)
 	{
 		throw("Resource/sounds/title/move.mp3がありません");
@@ -122,6 +142,9 @@ void RankingScene::Initialize()
 	// 変数の初期化
 	transition = -93;
 	tran_flg = true;
+	ope_num = 0;
+	ope_x = 0;
+	ope_flg = 0;
 }
 
 eSceneType RankingScene::Update()
@@ -131,6 +154,18 @@ eSceneType RankingScene::Update()
 
 	// 星を回転させる
 	StarAnim();
+
+	//OpeMove();
+
+	if (ope_x >= 70)
+	{
+		ope_x = 0;
+	}
+	else
+	{
+		ope_x++;
+	}
+	
 
 	if (tran_flg == true)
 	{
@@ -163,6 +198,8 @@ eSceneType RankingScene::Update()
 		// Bボタンが押されたら
 		if (InputControl::GetButtonDown(XINPUT_BUTTON_B))
 		{
+			ope_num++;
+
 			// 効果音の再生
 			PlaySoundMem(se[1], DX_PLAYTYPE_NORMAL, TRUE);
 
@@ -183,11 +220,21 @@ void RankingScene::Draw() const
 	// 背景の描画
 	DrawGraph(0, 0, back_img, TRUE);
 
+	// 操作説明の描画
+	DrawGraph(640, 610, ope_img[1], TRUE);
+	DrawGraph(565, 610 + sin(PI * 2 / 70 * ope_x) * 3, ope_img[2], TRUE);
+
+	//DrawFormatString(0, 0, 0x000000, "%d", sin(PI * 2 / 60 * ope_x));
+
 	// 星の描画
-	DrawRotaGraph(50, 50, 1.0, PI / 180 * (star_cnt * 2), star_img, TRUE);
-	DrawRotaGraph(1230, 50, 1.0, PI / 180 * (-star_cnt * 2), star_img, TRUE);
-	DrawRotaGraph(50, 670, 1.0, PI / 180 * (-star_cnt * 2), star_img, TRUE);
-	DrawRotaGraph(1230, 670, 1.0, PI / 180 * (star_cnt * 2), star_img, TRUE);
+	//SetDrawBlendMode(DX_BLENDMODE_ALPHA, transparency);
+	DrawRotaGraph(368, 95, 1.0, PI / 180 * (star_cnt * 2), star_img, TRUE);
+	DrawRotaGraph(935, 95, 1.0, PI / 180 * (star_cnt * 2), star_img, TRUE);
+	/*DrawGraph(345, 70, star_img, TRUE);
+	DrawGraph(907, 70, star_img, TRUE);*/
+	//DrawRotaGraph(80, 630, 1.0, PI / 180 * (-star_cnt * 2), star_img, TRUE);
+	//DrawRotaGraph(1200, 630, 1.0, PI / 180 * (star_cnt * 2), star_img, TRUE);
+	//SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 
 	// 取得したランキングデータを描画
 	for (int i = 0; i < 3; i++)
@@ -207,21 +254,21 @@ void RankingScene::Draw() const
 
 		for (int j = 0; j < name_num; j++)
 		{
-			DrawGraph((450 - (name_num - 1) * 23) + j * 43, 242 + i * 100, font_img[(int)name[j] - 65], TRUE);
+			DrawGraph((450 - (name_num - 1) * 23) + j * 43, 242 + i * 115 + 20, font_img[(int)name[j] - 65], TRUE);
 		}
 		
 		//DrawFormatString(0, 0 + i * 20, 0x000000, "%d", name_num);
 
 		// レベルの描画
 		//DrawFormatStringToHandle(810, 242 + i * 100, 0x000000, font, "%02d", ranking->GetLevel(i));
-		DrawGraph(789, 242 + i * 100, num_img[level / 10], TRUE);
-		DrawGraph(835, 242 + i * 100, num_img[level % 10], TRUE);
+		DrawGraph(789, 242 + i * 115 + 20, num_img[level / 10], TRUE);
+		DrawGraph(835, 242 + i * 115 + 20, num_img[level % 10], TRUE);
 
 		// コンボの描画
 		//DrawFormatStringToHandle(1028, 242 + i * 100, 0x000000, font, "%03d", ranking->GetCombo(i));
-		DrawGraph(1000, 242 + i * 100, num_img[combo / 100], TRUE);
-		DrawGraph(1045, 242 + i * 100, num_img[(combo - combo / 100 * 100) / 10], TRUE);
-		DrawGraph(1090, 242 + i * 100, num_img[combo % 10], TRUE);
+		DrawGraph(1000, 242 + i * 115 + 20, num_img[combo / 100], TRUE);
+		DrawGraph(1045, 242 + i * 115 + 20, num_img[(combo - combo / 100 * 100) / 10], TRUE);
+		DrawGraph(1090, 242 + i * 115 + 20, num_img[combo % 10], TRUE);
 	}
 
 	if (tran_flg == true)
@@ -256,4 +303,26 @@ void RankingScene::StarAnim()
 void RankingScene::Transition()
 {
 	transition += 50;
+}
+
+void RankingScene::OpeMove()
+{
+	if (ope_flg == false)
+	{
+		ope_x -= 0.6f;
+
+		if (ope_x <= -20.0f)
+		{
+			ope_flg = true;
+		}
+	}
+	else
+	{
+		ope_x += 0.6f;
+
+		if (ope_x >= 0.0f)
+		{
+			ope_flg = false;
+		}
+	}
 }

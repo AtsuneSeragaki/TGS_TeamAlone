@@ -177,7 +177,7 @@ void Time::Draw()
 	{
 		SetFontSize(30);
 		SetDrawBlendMode(DX_BLENDMODE_ALPHA, transparency);
-		DrawGraph(705, 210, plus_img, TRUE);
+		DrawGraph(705, 217, plus_img, TRUE);
 		//DrawFormatString(700, 215, 0xff0000, "+%d", add_time);
 		SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 
@@ -193,6 +193,8 @@ void Time::Draw()
 
 	// 時間枠の描画
 	DrawBox(340, 260, 990, 275, 0x000000, FALSE);
+
+	//DrawFormatString(700, 215, 0xff0000, "%d", transparency);
 }
 
 void Time::Finalize()

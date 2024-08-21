@@ -58,8 +58,11 @@ ResultScene::~ResultScene()
 void ResultScene::Initialize()
 {
 	// 画像データの読み込み
-	back_img[0] = LoadGraph("Resource/images/result/result.png");
-	back_img[1] = LoadGraph("Resource/images/result/result2.png");
+	/*back_img[0] = LoadGraph("Resource/images/result/result.png");
+	back_img[1] = LoadGraph("Resource/images/result/result2.png");*/
+
+	back_img[0] = LoadGraph("Resource/images/result/result4.png");
+	back_img[1] = LoadGraph("Resource/images/result/result3.png");
 	LoadDivGraph("Resource/images/result/result_num1.png", 10, 5, 2, 50, 50, num_img);
 	rank_img[0] = LoadGraph("Resource/images/result/rank1.png");
 	rank_img[1] = LoadGraph("Resource/images/result/rank2.png");
