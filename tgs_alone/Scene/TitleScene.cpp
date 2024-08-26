@@ -8,7 +8,7 @@
 int TitleScene::menu_cursor = 0;
 bool TitleScene::back_title = false;
 
-TitleScene::TitleScene() : back_img(0), bgm(0), star_cnt(0), transition(0), tran_img(0),tran_flg(false),rota_flg(false),logo_img(0),ope_img(0),star_flg(false),shoot_num(0),shoot_cnt(0),shoot_x(0),shoot_y(0),cloud_img(0),cnt(0)
+TitleScene::TitleScene() : back_img(0), bgm(0), star_cnt(0), transition(0), tran_img(0),tran_flg(false),rota_flg(false),logo_img(0),ope_img(0),star_flg(false),shoot_num(0),shoot_cnt(0),shoot_x(0),shoot_y(0),cloud_img(0),cnt(0),shoot_ran(0)
 {
 	se[0] = 0;
 	se[1] = 0;
@@ -169,12 +169,12 @@ void TitleScene::Initialize()
 	tran_flg = false;
 	rota_flg = false;
 
-	star_flg = true;
+	star_flg = false;
 	shoot_num = 0;
 	shoot_cnt = 0;
 	shoot_x = 0;
 	shoot_y = 0;
-
+	shoot_ran = 0;
 	cnt = 0;
 }
 
@@ -307,10 +307,23 @@ void TitleScene::Draw() const
 	DrawRotaGraph(450, 600, 1.0,PI / 180 * (-star_cnt * 2), star_img[4], TRUE);
 	DrawRotaGraph(830, 600, 1.0,PI / 180 * (-star_cnt * 2), star_img[4], TRUE);*/
 
+	// 流れ星の描画
 	if (star_flg == true)
 	{
-		DrawGraph(10, 10, star_img[shoot_num], TRUE);
+		DrawGraph(shoot_x, shoot_y, star_img[shoot_num], TRUE);
 	}
+
+	/*DrawGraph(50, 30, star_img[shoot_num], TRUE);
+	DrawGraph(200, 170, star_img[shoot_num], TRUE);
+	DrawGraph(70, 400, star_img[shoot_num], TRUE);
+	DrawGraph(280, 550, star_img[shoot_num], TRUE);
+	DrawGraph(450, 300, star_img[shoot_num], TRUE);
+	DrawGraph(700, 450, star_img[shoot_num], TRUE);
+	DrawGraph(1100, 30, star_img[shoot_num], TRUE);
+	DrawGraph(850, 200, star_img[shoot_num], TRUE);
+	DrawGraph(1200, 250, star_img[shoot_num], TRUE);
+	DrawGraph(980, 350, star_img[shoot_num], TRUE);
+	DrawGraph(900, 600, star_img[shoot_num], TRUE);*/
 	
 	/*DrawRotaGraphF(star_x[2], 100.0f, 1.0, PI / 180 * -star_cnt, star_img[2], TRUE);
 	DrawRotaGraphF(star_x[3], 100.0f, 1.0, PI / 180 * star_cnt, star_img[3], TRUE);
@@ -377,6 +390,9 @@ void TitleScene::Draw() const
 	{
 		DrawGraph(transition, 0, tran_img, TRUE);
 	}
+
+	SetFontSize(20);
+	DrawFormatString(0, 0, 0x000000, "%d", shoot_ran);
 }
 
 void TitleScene::Finalize()
@@ -483,6 +499,7 @@ void TitleScene::ShootStarAnim()
 
 		if (shoot_cnt >= 120)
 		{
+			SetStarPos();
 			star_flg = true;
 			shoot_cnt = 0;
 		}
@@ -506,5 +523,78 @@ void TitleScene::ShootStarAnim()
 				shoot_cnt = 0;
 			}
 		}
+	}
+}
+
+void TitleScene::SetStarPos()
+{
+	int next_num = 0;
+	
+	do
+	{
+		next_num = GetRand(11);
+	}while (shoot_ran == next_num);
+
+	shoot_ran = next_num;
+
+	switch (shoot_ran)
+	{
+	case 0:
+		shoot_x = 50;
+		shoot_y = 30;
+		break;
+
+	case 1:
+		shoot_x = 200;
+		shoot_y = 170;
+		break;
+
+	case 2:
+		shoot_x = 70;
+		shoot_y = 400;
+		break;
+
+	case 3:
+		shoot_x = 280;
+		shoot_y = 550;
+		break;
+
+	case 4:
+		shoot_x = 450;
+		shoot_y = 300;
+		break;
+
+	case 5:
+		shoot_x = 700;
+		shoot_y = 450;
+		break;
+
+	case 6:
+		shoot_x = 1100;
+		shoot_y = 30;
+		break;
+
+	case 7:
+		shoot_x = 850;
+		shoot_y = 20;
+		break;
+
+	case 8:
+		shoot_x = 1200;
+		shoot_y = 250;
+		break;
+
+	case 9:
+		shoot_x = 980;
+		shoot_y = 350;
+		break;
+
+	case 10:
+		shoot_x = 900;
+		shoot_y = 600;
+		break;
+
+	default:
+		break;
 	}
 }

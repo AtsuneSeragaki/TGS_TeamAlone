@@ -27,6 +27,7 @@ private:
 	int shoot_x;      // 流れ星のX座標
 	int shoot_y;      // 流れ星のY座標
 	int cnt;          // フレームカウント
+	int shoot_ran;    // 流れ星の表示位置をランダムに取る 
 
 public:
 	static int menu_cursor;  // カーソルがどこにあるか
@@ -69,4 +70,7 @@ public:
 
 	// 流れ星アニメーション
 	void ShootStarAnim();
+
+	// 流れ星の表示位置の設定
+	void SetStarPos();
 };
