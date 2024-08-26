@@ -31,7 +31,7 @@ HelpScene::~HelpScene()
 
 	for (int i = 0; i < 4; i++)
 	{
-		for (int j = 0; j < 5; j++)
+		for (int j = 0; j < 6; j++)
 		{
 			DeleteGraph(button_img[i][j]);
 		}
@@ -56,7 +56,7 @@ void HelpScene::Initialize()
 	back_img[4] = LoadGraph("Resource/images/help/line2.png");
 	back_img[5] = LoadGraph("Resource/images/help/ui.png");
 
-	button_img[0][0] = LoadGraph("Resource/images/main/button/Abotton0.png");
+	/*button_img[0][0] = LoadGraph("Resource/images/main/button/Abotton0.png");
 	button_img[0][1] = LoadGraph("Resource/images/main/button/Abotton5.png");
 	button_img[0][2] = LoadGraph("Resource/images/main/button/Abotton6.png");
 	button_img[0][3] = LoadGraph("Resource/images/main/button/Abotton7.png");
@@ -78,7 +78,35 @@ void HelpScene::Initialize()
 	button_img[3][1] = LoadGraph("Resource/images/main/button/Xbotton5.png");
 	button_img[3][2] = LoadGraph("Resource/images/main/button/Xbotton6.png");
 	button_img[3][3] = LoadGraph("Resource/images/main/button/Xbotton7.png");
-	button_img[3][4] = LoadGraph("Resource/images/main/button/Xbotton8.png");
+	button_img[3][4] = LoadGraph("Resource/images/main/button/Xbotton8.png");*/
+
+	button_img[0][0] = LoadGraph("Resource/images/main/button/a1.png");
+	button_img[0][1] = LoadGraph("Resource/images/main/button/a2.png");
+	button_img[0][2] = LoadGraph("Resource/images/main/button/a3.png");
+	button_img[0][3] = LoadGraph("Resource/images/main/button/a4.png");
+	button_img[0][4] = LoadGraph("Resource/images/main/button/a5.png");
+	button_img[0][5] = LoadGraph("Resource/images/main/button/a.png");
+
+	button_img[1][0] = LoadGraph("Resource/images/main/button/b1.png");
+	button_img[1][1] = LoadGraph("Resource/images/main/button/b2.png");
+	button_img[1][2] = LoadGraph("Resource/images/main/button/b3.png");
+	button_img[1][3] = LoadGraph("Resource/images/main/button/b4.png");
+	button_img[1][4] = LoadGraph("Resource/images/main/button/b5.png");
+	button_img[1][5] = LoadGraph("Resource/images/main/button/b.png");
+
+	button_img[2][0] = LoadGraph("Resource/images/main/button/y1.png");
+	button_img[2][1] = LoadGraph("Resource/images/main/button/y2.png");
+	button_img[2][2] = LoadGraph("Resource/images/main/button/y3.png");
+	button_img[2][3] = LoadGraph("Resource/images/main/button/y4.png");
+	button_img[2][4] = LoadGraph("Resource/images/main/button/y5.png");
+	button_img[2][5] = LoadGraph("Resource/images/main/button/y.png");
+
+	button_img[3][0] = LoadGraph("Resource/images/main/button/x1.png");
+	button_img[3][1] = LoadGraph("Resource/images/main/button/x2.png");
+	button_img[3][2] = LoadGraph("Resource/images/main/button/x3.png");
+	button_img[3][3] = LoadGraph("Resource/images/main/button/x4.png");
+	button_img[3][4] = LoadGraph("Resource/images/main/button/x5.png");
+	button_img[3][5] = LoadGraph("Resource/images/main/button/x.png");
 
 	star_img = LoadGraph("Resource/images/help/star.png");
 

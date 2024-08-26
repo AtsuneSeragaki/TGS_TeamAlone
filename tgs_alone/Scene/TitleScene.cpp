@@ -8,7 +8,7 @@
 int TitleScene::menu_cursor = 0;
 bool TitleScene::back_title = false;
 
-TitleScene::TitleScene() : back_img(0), bgm(0), star_cnt(0), transition(0), tran_img(0),tran_flg(false),rota_flg(false),logo_img(0),ope_img(0),star_flg(false),shoot_num(0),shoot_cnt(0),shoot_x(0),shoot_y(0),cloud_img(0),cnt(0),shoot_ran(0), shoot_x2(0), shoot_y2(0), shoot_ran2(0)
+TitleScene::TitleScene() : back_img(0), bgm(0), star_cnt(0), transition(0), tran_img(0),tran_flg(false),rota_flg(false),logo_img(0),ope_img(0),star_flg(false),shoot_num(0),shoot_cnt(0),shoot_x(0),shoot_y(0),cloud_img(0),cnt(0),shoot_ran(0), shoot_x2(0), shoot_y2(0), shoot_ran2(0),char_y(0),move_flg(false),pos_flg(false)
 {
 	se[0] = 0;
 	se[1] = 0;
@@ -23,7 +23,7 @@ TitleScene::TitleScene() : back_img(0), bgm(0), star_cnt(0), transition(0), tran
 		star_img[i] = 0;
 	}
 
-	for (int i = 0; i < 5; i++)
+	for (int i = 0; i < 6; i++)
 	{
 		deco_img[i] = 0;
 	}
@@ -44,7 +44,7 @@ TitleScene::~TitleScene()
 		DeleteGraph(star_img[i]);
 	}
 
-	for (int i = 0; i < 5; i++)
+	for (int i = 0; i < 6; i++)
 	{
 		DeleteGraph(deco_img[i]);
 	}
@@ -80,6 +80,7 @@ void TitleScene::Initialize()
 	deco_img[2] = LoadGraph("Resource/images/help/rainbow.png");
 	deco_img[3] = LoadGraph("Resource/images/help/candy.png");
 	deco_img[4] = LoadGraph("Resource/images/help/star.png");
+	deco_img[5] = LoadGraph("Resource/images/main/comment/char1-3.png");
 
 	star_img[0] = LoadGraph("Resource/images/title/line1.png");
 	star_img[1] = LoadGraph("Resource/images/title/line2.png");
@@ -123,7 +124,7 @@ void TitleScene::Initialize()
 		}
 	}
 
-	for (int i = 0; i < 5; i++)
+	for (int i = 0; i < 6; i++)
 	{
 		if (deco_img[i] == -1)
 		{
@@ -179,6 +180,9 @@ void TitleScene::Initialize()
 	shoot_y2 = 0;
 	shoot_ran2 = 0;
 	cnt = 0;
+	char_y = 600;
+	move_flg = true;
+	pos_flg = false;
 }
 
 eSceneType TitleScene::Update()
@@ -200,6 +204,8 @@ eSceneType TitleScene::Update()
 	StarAnim2();
 
 	ShootStarAnim();
+
+	SetCharY();
 
 	if (back_title == true)
 	{
@@ -356,6 +362,16 @@ void TitleScene::Draw() const
 
 	// タイトルロゴの描画
 	//DrawGraph(380, 5, logo_img, TRUE);
+
+	// キャラクターの描画
+	if (pos_flg == false)
+	{
+		DrawGraph(100, char_y, deco_img[5], TRUE);
+	}
+	else
+	{
+		DrawGraph(950, char_y, deco_img[5], TRUE);
+	}
 
 	// 雲の描画
 	DrawGraph(0, 0, cloud_img, TRUE);
@@ -656,5 +672,36 @@ void TitleScene::SetStarPos()
 
 	default:
 		break;
+	}
+}
+
+void TitleScene::SetCharY()
+{
+	if (move_flg == false)
+	{
+		char_y++;
+
+		if (char_y >= 620)
+		{
+			move_flg = true;
+
+			if (pos_flg == false)
+			{
+				pos_flg = true;
+			}
+			else
+			{
+				pos_flg = false;
+			}
+		}
+	}
+	else
+	{
+		char_y--;
+
+		if (char_y <= 400)
+		{
+			move_flg = false;
+		}
 	}
 }

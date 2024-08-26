@@ -13,7 +13,7 @@ private:
 	int menu_img[8];  // メニュー画像
 	int star_img[5];  // 星画像
 	int tran_img;     // トランジション画像
-	int deco_img[5];  // メニュー飾り画像
+	int deco_img[6];  // メニュー飾り画像
 	int cloud_img;    // 雲画像 
 	int se[2];        // 効果音
 	int bgm;          // BGM
@@ -27,10 +27,13 @@ private:
 	int shoot_cnt;    // 流れ星を表示するまでの時間をカウント
 	int shoot_x;      // 流れ星のX座標
 	int shoot_y;      // 流れ星のY座標
-	int shoot_x2;      // 流れ星2のX座標
-	int shoot_y2;      // 流れ星2のY座標
+	int shoot_x2;     // 流れ星2のX座標
+	int shoot_y2;     // 流れ星2のY座標
 	int shoot_ran;    // 流れ星の表示位置をランダムに取る 
-	int shoot_ran2;    // 流れ星2の表示位置をランダムに取る 
+	int shoot_ran2;   // 流れ星2の表示位置をランダムに取る 
+	int char_y;       // キャラクターのY座標
+	bool move_flg;    // キャラクターの移動 false:下 true:上
+	bool pos_flg;     // キャラクターの表示位置 false:左 true:右
 
 public:
 	static int menu_cursor;  // カーソルがどこにあるか
@@ -76,4 +79,7 @@ public:
 
 	// 流れ星の表示位置の設定
 	void SetStarPos();
+
+	// キャラクターのY座標変更
+	void SetCharY();
 };
