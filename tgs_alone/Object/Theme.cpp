@@ -24,10 +24,10 @@ void Theme::Initialize()
 	img[2] = LoadGraph("Resource/images/main/button/Ybotton0.png");
 	img[3] = LoadGraph("Resource/images/main/button/Xbotton0.png");*/
 
-	img[0] = LoadGraph("Resource/images/main/button/a1.png");
-	img[1] = LoadGraph("Resource/images/main/button/b1.png");
-	img[2] = LoadGraph("Resource/images/main/button/y1.png");
-	img[3] = LoadGraph("Resource/images/main/button/x1.png");
+	img[0] = LoadGraph("Resource/images/main/button/a.png");
+	img[1] = LoadGraph("Resource/images/main/button/b.png");
+	img[2] = LoadGraph("Resource/images/main/button/y.png");
+	img[3] = LoadGraph("Resource/images/main/button/x.png");
 
 	LoadDivGraph("Resource/images/main/number/level.png", 10, 5, 2, 50, 50, level_img);
 

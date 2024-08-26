@@ -8,7 +8,7 @@
 int TitleScene::menu_cursor = 0;
 bool TitleScene::back_title = false;
 
-TitleScene::TitleScene() : back_img(0), bgm(0), star_cnt(0), transition(0), tran_img(0),tran_flg(false),rota_flg(false),logo_img(0),ope_img(0),star_flg(false),shoot_num(0),shoot_cnt(0),shoot_x(0),shoot_y(0),cloud_img(0),cnt(0),shoot_ran(0)
+TitleScene::TitleScene() : back_img(0), bgm(0), star_cnt(0), transition(0), tran_img(0),tran_flg(false),rota_flg(false),logo_img(0),ope_img(0),star_flg(false),shoot_num(0),shoot_cnt(0),shoot_x(0),shoot_y(0),cloud_img(0),cnt(0),shoot_ran(0), shoot_x2(0), shoot_y2(0), shoot_ran2(0)
 {
 	se[0] = 0;
 	se[1] = 0;
@@ -175,6 +175,9 @@ void TitleScene::Initialize()
 	shoot_x = 0;
 	shoot_y = 0;
 	shoot_ran = 0;
+	shoot_x2 = 0;
+	shoot_y2 = 0;
+	shoot_ran2 = 0;
 	cnt = 0;
 }
 
@@ -311,6 +314,19 @@ void TitleScene::Draw() const
 	if (star_flg == true)
 	{
 		DrawGraph(shoot_x, shoot_y, star_img[shoot_num], TRUE);
+		/*DrawGraph(shoot_x2, shoot_y2, star_img[shoot_num], TRUE);*/
+
+		/*DrawGraph(50, 30, star_img[shoot_num], TRUE);
+		DrawGraph(200, 170, star_img[shoot_num], TRUE);
+		DrawGraph(70, 400, star_img[shoot_num], TRUE);
+		DrawGraph(280, 550, star_img[shoot_num], TRUE);
+		DrawGraph(450, 300, star_img[shoot_num], TRUE);
+		DrawGraph(700, 450, star_img[shoot_num], TRUE);
+		DrawGraph(1100, 30, star_img[shoot_num], TRUE);
+		DrawGraph(850, 200, star_img[shoot_num], TRUE);
+		DrawGraph(1200, 250, star_img[shoot_num], TRUE);
+		DrawGraph(980, 350, star_img[shoot_num], TRUE);
+		DrawGraph(900, 600, star_img[shoot_num], TRUE);*/
 	}
 
 	/*DrawGraph(50, 30, star_img[shoot_num], TRUE);
@@ -497,7 +513,7 @@ void TitleScene::ShootStarAnim()
 	{
 		shoot_cnt++;
 
-		if (shoot_cnt >= 120)
+		if (shoot_cnt >= 80)
 		{
 			SetStarPos();
 			star_flg = true;
@@ -508,7 +524,7 @@ void TitleScene::ShootStarAnim()
 	{
 		shoot_cnt++;
 
-		if (shoot_cnt > 2)
+		if (shoot_cnt > 3)
 		{
 			shoot_cnt = 0;
 
@@ -529,6 +545,7 @@ void TitleScene::ShootStarAnim()
 void TitleScene::SetStarPos()
 {
 	int next_num = 0;
+	int next_num2 = 0;
 	
 	do
 	{
@@ -536,6 +553,13 @@ void TitleScene::SetStarPos()
 	}while (shoot_ran == next_num);
 
 	shoot_ran = next_num;
+
+	do
+	{
+		next_num2 = GetRand(6);
+	} while (shoot_ran2 == next_num2);
+
+	shoot_ran2 = next_num2;
 
 	switch (shoot_ran)
 	{
@@ -576,7 +600,7 @@ void TitleScene::SetStarPos()
 
 	case 7:
 		shoot_x = 850;
-		shoot_y = 20;
+		shoot_y = 200;
 		break;
 
 	case 8:
@@ -592,6 +616,42 @@ void TitleScene::SetStarPos()
 	case 10:
 		shoot_x = 900;
 		shoot_y = 600;
+		break;
+
+	default:
+		break;
+	}
+
+	switch (shoot_ran2)
+	{
+	case 0:
+		shoot_x2 = 700;
+		shoot_y2 = 450;
+		break;
+
+	case 1:
+		shoot_x2 = 1100;
+		shoot_y2 = 30;
+		break;
+
+	case 2:
+		shoot_x2 = 850;
+		shoot_y2 = 200;
+		break;
+
+	case 3:
+		shoot_x2 = 1200;
+		shoot_y2 = 250;
+		break;
+
+	case 4:
+		shoot_x2 = 980;
+		shoot_y2 = 350;
+		break;
+
+	case 5:
+		shoot_x2 = 900;
+		shoot_y2 = 600;
 		break;
 
 	default:

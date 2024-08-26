@@ -22,12 +22,15 @@ private:
 	int transition;   // トランジションの値保存用
 	bool rota_flg;    // 回転変数 false:プラス true:マイナス
 	bool star_flg;    // 流れ星の表示 false:しない true:する
+	int cnt;          // フレームカウント
 	int shoot_num;    // 表示する流れ星画像の番号
 	int shoot_cnt;    // 流れ星を表示するまでの時間をカウント
 	int shoot_x;      // 流れ星のX座標
 	int shoot_y;      // 流れ星のY座標
-	int cnt;          // フレームカウント
+	int shoot_x2;      // 流れ星2のX座標
+	int shoot_y2;      // 流れ星2のY座標
 	int shoot_ran;    // 流れ星の表示位置をランダムに取る 
+	int shoot_ran2;    // 流れ星2の表示位置をランダムに取る 
 
 public:
 	static int menu_cursor;  // カーソルがどこにあるか
