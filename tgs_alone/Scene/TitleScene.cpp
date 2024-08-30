@@ -8,7 +8,7 @@
 int TitleScene::menu_cursor = 0;
 bool TitleScene::back_title = false;
 
-TitleScene::TitleScene() : back_img(0), bgm(0), star_cnt(0), transition(0), tran_img(0),tran_flg(false),rota_flg(false),logo_img(0),ope_img(0),star_flg(false),shoot_num(0),shoot_cnt(0),shoot_x(0),shoot_y(0),cloud_img(0),cnt(0),shoot_ran(0), shoot_x2(0), shoot_y2(0), shoot_ran2(0),char_y(0),move_flg(false),pos_flg(false)
+TitleScene::TitleScene() : back_img(0), bgm(0), star_cnt(0), transition(0), tran_img(0),tran_flg(false),rota_flg(false),logo_img(0),ope_img(0),star_flg(false),shoot_num(0),shoot_cnt(0),shoot_x(0),shoot_y(0),cloud_img(0),cnt(0),shoot_ran(0), shoot_x2(0), shoot_y2(0), shoot_ran2(0),char_y(0),move_flg(false),pos_flg(false),char_stay(0),star_cnt2(0)
 {
 	se[0] = 0;
 	se[1] = 0;
@@ -18,7 +18,7 @@ TitleScene::TitleScene() : back_img(0), bgm(0), star_cnt(0), transition(0), tran
 		menu_img[i] = 0;
 	}
 	
-	for (int i = 0; i < 5; i++)
+	for (int i = 0; i < 6; i++)
 	{
 		star_img[i] = 0;
 	}
@@ -39,7 +39,7 @@ TitleScene::~TitleScene()
 		DeleteGraph(menu_img[i]);
 	}
 
-	for (int i = 0; i < 5; i++)
+	for (int i = 0; i < 6; i++)
 	{
 		DeleteGraph(star_img[i]);
 	}
@@ -87,6 +87,7 @@ void TitleScene::Initialize()
 	star_img[2] = LoadGraph("Resource/images/title/line3.png");
 	star_img[3] = LoadGraph("Resource/images/title/line4.png");
 	star_img[4] = LoadGraph("Resource/images/title/line5.png");
+	star_img[5] = LoadGraph("Resource/images/help/star.png");
 
 	tran_img = LoadGraph("Resource/images/tansition/transition.png");
 
@@ -116,7 +117,7 @@ void TitleScene::Initialize()
 		}
 	}
 
-	for (int i = 0; i < 5; i++)
+	for (int i = 0; i < 6; i++)
 	{
 		if (star_img[i] == -1)
 		{
@@ -183,6 +184,8 @@ void TitleScene::Initialize()
 	char_y = 600;
 	move_flg = true;
 	pos_flg = false;
+	char_stay = 0;
+	star_cnt2 = 0;
 }
 
 eSceneType TitleScene::Update()
@@ -190,7 +193,7 @@ eSceneType TitleScene::Update()
 	// BGMの再生
 	PlaySoundMem(bgm, DX_PLAYTYPE_LOOP, FALSE);
 
-	//StarAnim();
+	StarAnim();
 
 	if (cnt >= 90)
 	{
@@ -307,32 +310,19 @@ void TitleScene::Draw() const
 	DrawGraph(0, 0, back_img, TRUE);
 
 	// 星の描画
-	/*DrawRotaGraph(80, 220,1.0,PI / 180 * (star_cnt * 2), star_img[4], TRUE);
-	DrawRotaGraph(430, 220,1.0,PI / 180 * (-star_cnt * 2), star_img[4], TRUE);
-	DrawRotaGraph(800, 220, 1.0,PI / 180 * (star_cnt * 2), star_img[4], TRUE);
-	DrawRotaGraph(1200, 220, 1.0,PI / 180 * (-star_cnt * 2), star_img[4], TRUE);
-	DrawRotaGraph(250, 380, 1.0,PI / 180 * (star_cnt * 2), star_img[4], TRUE);
-	DrawRotaGraph(950, 380, 1.0,PI / 180 * (star_cnt * 2), star_img[4], TRUE);
-	DrawRotaGraph(450, 600, 1.0,PI / 180 * (-star_cnt * 2), star_img[4], TRUE);
-	DrawRotaGraph(830, 600, 1.0,PI / 180 * (-star_cnt * 2), star_img[4], TRUE);*/
+	/*DrawRotaGraph(200, 90,1.0,PI / 180 * star_cnt2, star_img[5], TRUE);
+	DrawRotaGraph(1100, 100,1.0,PI / 180 * -star_cnt2, star_img[5], TRUE);
+	DrawRotaGraph(1000, 300, 1.0,PI / 180 * star_cnt2, star_img[5], TRUE);*/
+	/*DrawRotaGraph(1200, 220, 1.0,PI / 180 * -star_cnt2, star_img[5], TRUE);
+	DrawRotaGraph(250, 380, 1.0,PI / 180 * star_cnt2, star_img[5], TRUE);
+	DrawRotaGraph(950, 380, 1.0,PI / 180 * star_cnt2, star_img[5], TRUE);
+	DrawRotaGraph(450, 600, 1.0,PI / 180 * -star_cnt2, star_img[5], TRUE);
+	DrawRotaGraph(830, 600, 1.0,PI / 180 * -star_cnt2, star_img[5], TRUE);*/
 
 	// 流れ星の描画
 	if (star_flg == true)
 	{
 		DrawGraph(shoot_x, shoot_y, star_img[shoot_num], TRUE);
-		/*DrawGraph(shoot_x2, shoot_y2, star_img[shoot_num], TRUE);*/
-
-		/*DrawGraph(50, 30, star_img[shoot_num], TRUE);
-		DrawGraph(200, 170, star_img[shoot_num], TRUE);
-		DrawGraph(70, 400, star_img[shoot_num], TRUE);
-		DrawGraph(280, 550, star_img[shoot_num], TRUE);
-		DrawGraph(450, 300, star_img[shoot_num], TRUE);
-		DrawGraph(700, 450, star_img[shoot_num], TRUE);
-		DrawGraph(1100, 30, star_img[shoot_num], TRUE);
-		DrawGraph(850, 200, star_img[shoot_num], TRUE);
-		DrawGraph(1200, 250, star_img[shoot_num], TRUE);
-		DrawGraph(980, 350, star_img[shoot_num], TRUE);
-		DrawGraph(900, 600, star_img[shoot_num], TRUE);*/
 	}
 
 	/*DrawGraph(50, 30, star_img[shoot_num], TRUE);
@@ -366,11 +356,26 @@ void TitleScene::Draw() const
 	// キャラクターの描画
 	if (pos_flg == false)
 	{
-		DrawGraph(100, char_y, deco_img[5], TRUE);
+		//DrawGraph(100 + sin(PI * 2 / 90 * cnt) * 20, char_y, deco_img[5], TRUE);
+
+		DrawGraph(100 + char_y, char_y, deco_img[5], TRUE);
+
+		/*if (char_stay == 0)
+		{
+			DrawGraph(100 + sin(PI * 2 / 90 * cnt) * 10, char_y, deco_img[5], TRUE);
+		}
+		else
+		{
+			DrawGraph(100, char_y, deco_img[5], TRUE);
+		}*/
+
+		//DrawRotaGraph2(100, char_y, 95, 110, 1.0f, PI / 180 * 30, deco_img[5], TRUE);
 	}
 	else
 	{
-		DrawGraph(950, char_y, deco_img[5], TRUE);
+		//DrawGraph(940 + sin(PI * 2 / 90 * cnt) * 6, char_y , deco_img[5], TRUE);
+
+		DrawGraph(940 + char_y, char_y, deco_img[5], TRUE);
 	}
 
 	// 雲の描画
@@ -424,7 +429,7 @@ void TitleScene::Draw() const
 	}
 
 	SetFontSize(20);
-	DrawFormatString(0, 0, 0x000000, "%d", shoot_ran);
+	DrawFormatString(0, 0, 0x000000, "%d", char_stay);
 }
 
 void TitleScene::Finalize()
@@ -439,28 +444,22 @@ eSceneType TitleScene::GetNowScene() const
 
 void TitleScene::StarAnim()
 {
-	//star_cnt++;
+	star_cnt2++;
 
-	//// 180より大きくなったら0にする
-	//if (star_cnt > 180)
-	//{
-	//	star_cnt = 0;
-	//}
-
-	//star_cnt++;
-
-	//// 180より大きくなったら0にする
-	//if (star_cnt > 90)
-	//{
-	//	star_cnt = 0;
-	//}
-
-	star_cnt++;
-
-	if (star_cnt > 25)
+	// 180より大きくなったら0にする
+	if (star_cnt2 > 180)
 	{
-		rota_flg = true;
+		star_cnt2 = 0;
 	}
+
+	star_cnt2++;
+
+	// 180より大きくなったら0にする
+	if (star_cnt2> 90)
+	{
+		star_cnt2 = 0;
+	}
+
 }
 
 void TitleScene::StarAnim2()
@@ -679,19 +678,32 @@ void TitleScene::SetCharY()
 {
 	if (move_flg == false)
 	{
-		char_y++;
-
-		if (char_y >= 620)
+		if (char_stay != 0)
 		{
-			move_flg = true;
+			char_stay++;
 
-			if (pos_flg == false)
+			if (char_stay >= 120)
 			{
-				pos_flg = true;
+				char_stay = 0;
 			}
-			else
+		}
+		else
+		{
+			char_y++;
+
+			if (char_y >= 620)
 			{
-				pos_flg = false;
+				move_flg = true;
+
+
+				if (pos_flg == false)
+				{
+					pos_flg = true;
+				}
+				else
+				{
+					pos_flg = false;
+				}
 			}
 		}
 	}
@@ -702,6 +714,7 @@ void TitleScene::SetCharY()
 		if (char_y <= 400)
 		{
 			move_flg = false;
+			char_stay = 1;
 		}
 	}
 }

@@ -11,13 +11,14 @@ private:
 	int logo_img;     // タイトルロゴ画像
 	int ope_img;      // 操作説明画像
 	int menu_img[8];  // メニュー画像
-	int star_img[5];  // 星画像
+	int star_img[6];  // 星画像
 	int tran_img;     // トランジション画像
 	int deco_img[6];  // メニュー飾り画像
 	int cloud_img;    // 雲画像 
 	int se[2];        // 効果音
 	int bgm;          // BGM
 	int star_cnt;     // 星の回転用
+	int star_cnt2;     // 星の回転用
 	bool tran_flg;    // 画面遷移 false:しない true:する
 	int transition;   // トランジションの値保存用
 	bool rota_flg;    // 回転変数 false:プラス true:マイナス
@@ -34,6 +35,7 @@ private:
 	int char_y;       // キャラクターのY座標
 	bool move_flg;    // キャラクターの移動 false:下 true:上
 	bool pos_flg;     // キャラクターの表示位置 false:左 true:右
+	int char_stay;    // キャラクターをある位置で止める
 
 public:
 	static int menu_cursor;  // カーソルがどこにあるか
