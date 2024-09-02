@@ -254,7 +254,7 @@ void RankingScene::Draw() const
 
 		for (int j = 0; j < name_num; j++)
 		{
-			DrawGraph((450 - (name_num - 1) * 23) + j * 43, 242 + i * 115 + 20, font_img[(int)name[j] - 65], TRUE);
+			DrawGraph((450 - (name_num - 1) * 23) + j * 53, 242 + i * 115 + 20, font_img[(int)name[j] - 65], TRUE);
 		}
 		
 		//DrawFormatString(0, 0 + i * 20, 0x000000, "%d", name_num);

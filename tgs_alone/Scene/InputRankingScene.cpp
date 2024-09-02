@@ -126,7 +126,7 @@ void InputRankingScene::Initialize()
 	ranking->Initialize();
 
 	// 変数の初期化
-	level = Theme::theme_num - 3;
+	level = Theme::theme_num - 2;
 	combo = Player::combo;
 	no_name = true;
 	name_num = -1;
@@ -248,7 +248,7 @@ void InputRankingScene::Draw() const
 		{	
 			for (int i = 0; i <= name_num; i++)
 			{
-				DrawGraph((605 - (name_num * 27))+ i * 60, 63, font_img[(int)name[i] - 65], TRUE);
+				DrawGraph((605 - (name_num * 27))+ i * 70, 63, font_img[(int)name[i] - 65], TRUE);
 			}
 			
 			//DrawFormatStringToHandle(630 - name_num * 30, 63, 0x000000, font, "%s", name);
@@ -257,7 +257,7 @@ void InputRankingScene::Draw() const
 		{
 			for (int i = 0; i < name_num; i++)
 			{
-				DrawGraph((605 - ((name_num - 1) * 27)) + i * 60, 63, font_img[(int)name[i] - 65], TRUE);
+				DrawGraph((605 - ((name_num - 1) * 27)) + i * 70, 63, font_img[(int)name[i] - 65], TRUE);
 			}
 
 			//DrawFormatStringToHandle(630 - (name_num - 1) * 30, 63, 0x000000, font, "%s", name);

@@ -358,7 +358,7 @@ void TitleScene::Draw() const
 	{
 		//DrawGraph(100 + sin(PI * 2 / 90 * cnt) * 20, char_y, deco_img[5], TRUE);
 
-		DrawGraph(100 + char_y, char_y, deco_img[5], TRUE);
+		//DrawGraph(100 + char_y, char_y, deco_img[5], TRUE);
 
 		/*if (char_stay == 0)
 		{
@@ -429,7 +429,7 @@ void TitleScene::Draw() const
 	}
 
 	SetFontSize(20);
-	DrawFormatString(0, 0, 0x000000, "%d", char_stay);
+	//DrawFormatString(0, 0, 0x000000, "%d", char_stay);
 }
 
 void TitleScene::Finalize()

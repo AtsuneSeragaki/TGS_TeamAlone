@@ -61,7 +61,7 @@ void ResultScene::Initialize()
 	/*back_img[0] = LoadGraph("Resource/images/result/result.png");
 	back_img[1] = LoadGraph("Resource/images/result/result2.png");*/
 
-	back_img[0] = LoadGraph("Resource/images/result/result4.png");
+	back_img[0] = LoadGraph("Resource/images/result/result5.png");
 	back_img[1] = LoadGraph("Resource/images/result/result3.png");
 	LoadDivGraph("Resource/images/result/result_num1.png", 10, 5, 2, 50, 50, num_img);
 	rank_img[0] = LoadGraph("Resource/images/result/rank1.png");
@@ -201,13 +201,13 @@ eSceneType ResultScene::Update()
 			// BGMの再生を止める
 			StopSoundMem(bgm);
 
-			if (level[2] < Theme::theme_num - 3)
+			if (level[2] < Theme::theme_num - 2)
 			{// ランキングに載る成績なら、名前入力画面に遷移
 				TitleScene::back_title = false;
 				tran_flg = true;
 				transition = -1943;
 			}
-			else if (level[2] == Theme::theme_num - 3 && combo[2] < Player::combo)
+			else if (level[2] == Theme::theme_num - 2 && combo[2] < Player::combo)
 			{// ランキングに載る成績なら、名前入力画面に遷移
 				TitleScene::back_title = false;
 				tran_flg = true;
@@ -228,7 +228,7 @@ eSceneType ResultScene::Update()
 void ResultScene::Draw() const
 {
 	// 比較用のデータを格納
-	int i = Theme::theme_num - 3;
+	int i = Theme::theme_num - 2;
 	int j = Player::combo;
 	int k = Player::all_mis;
 

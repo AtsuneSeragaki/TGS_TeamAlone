@@ -7,7 +7,7 @@ bool HelpScene::game_start = false;
 
 HelpScene::HelpScene():cnt(0),anim(0),cnt_flg(false),se(0),bgm(0), star_img(0),star_cnt(0), transition(0), tran_img(0), tran_flg(false)
 {
-	for (int i = 0; i < 6; i++)
+	for (int i = 0; i < 7; i++)
 	{
 		back_img[i] = 0;
 	}
@@ -24,7 +24,7 @@ HelpScene::HelpScene():cnt(0),anim(0),cnt_flg(false),se(0),bgm(0), star_img(0),s
 HelpScene::~HelpScene()
 {
 	// 画像データの削除
-	for (int i = 0; i < 6; i++)
+	for (int i = 0; i < 7; i++)
 	{
 		DeleteGraph(back_img[i]);
 	}
@@ -49,12 +49,14 @@ HelpScene::~HelpScene()
 void HelpScene::Initialize()
 {
 	// 画像データの読み込み
-	back_img[0] = LoadGraph("Resource/images/help/help.png");
-	back_img[1] = LoadGraph("Resource/images/help/help1.png");
-	back_img[2] = LoadGraph("Resource/images/help/helpm.png");
+	//back_img[0] = LoadGraph("Resource/images/help/help.png");
+	back_img[0] = LoadGraph("Resource/images/help/help2.png");
+	back_img[1] = LoadGraph("Resource/images/help/start-title4.png");
+	back_img[2] = LoadGraph("Resource/images/help/x.png");
 	back_img[3] = LoadGraph("Resource/images/help/star2.png");
 	back_img[4] = LoadGraph("Resource/images/help/line2.png");
 	back_img[5] = LoadGraph("Resource/images/help/ui.png");
+	back_img[6] = LoadGraph("Resource/images/help/b.png");
 
 	/*button_img[0][0] = LoadGraph("Resource/images/main/button/Abotton0.png");
 	button_img[0][1] = LoadGraph("Resource/images/main/button/Abotton5.png");
@@ -117,7 +119,7 @@ void HelpScene::Initialize()
 	bgm = LoadSoundMem("Resource/sounds/title/bgm2.mp3");
 
 	// エラーチェック
-	for (int i = 0; i < 6; i++)
+	for (int i = 0; i < 7; i++)
 	{
 		if (back_img[i] == -1)
 		{
@@ -252,15 +254,18 @@ void HelpScene::Draw() const
 	DrawGraph(0, 0, back_img[0], FALSE);
 
 	// 星の描画
-	DrawRotaGraph(50, 50, 1.0, PI / 180 * (star_cnt * 2), star_img, TRUE);
-	DrawRotaGraph(1230, 50, 1.0, PI / 180 * (-star_cnt * 2), star_img, TRUE);
-	DrawRotaGraph(50, 670, 1.0, PI / 180 * (-star_cnt * 2), star_img, TRUE);
-	DrawRotaGraph(1230, 670, 1.0, PI / 180 * (star_cnt * 2), star_img, TRUE);
+	DrawRotaGraph(435, 90, 1.0, PI / 180 * (star_cnt * 2), star_img, TRUE);
+	DrawRotaGraph(835, 90, 1.0, PI / 180 * (-star_cnt * 2), star_img, TRUE);
+	//DrawRotaGraph(50, 670, 1.0, PI / 180 * (-star_cnt * 2), star_img, TRUE);
+	//DrawRotaGraph(1230, 670, 1.0, PI / 180 * (star_cnt * 2), star_img, TRUE);
 
 	// 説明の描画
 	//DrawGraph(0, 0, back_img[1], TRUE);
-	DrawGraph(0, 0, back_img[2], TRUE);
-	DrawGraph(470, 600, back_img[5], TRUE);
+	//DrawGraph(0, 0, back_img[2], TRUE);
+	DrawGraph(400, 600, back_img[1], TRUE);
+	DrawGraph(425, 600, back_img[2], TRUE);
+	DrawGraph(680, 600, back_img[6], TRUE);
+
 
 	// ボタンの描画(お題)
 	// 画像を薄く表示
