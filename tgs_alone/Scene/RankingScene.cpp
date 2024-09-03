@@ -213,7 +213,7 @@ void RankingScene::Draw() const
 
 	// 操作説明の描画
 	DrawGraph(640, 610, ope_img[1], TRUE);
-	DrawGraph(565, 610 + sin(PI * 2 / 90 * cnt) * 6, ope_img[2], TRUE);
+	DrawGraph(568, 610 + sin(PI * 2 / 90 * cnt) * 6, ope_img[2], TRUE);
 
 	// 星の描画
 	//SetDrawBlendMode(DX_BLENDMODE_ALPHA, transparency);

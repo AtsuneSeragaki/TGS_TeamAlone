@@ -197,7 +197,7 @@ eSceneType TitleScene::Update()
 
 	StarAnim();
 
-	StarAnim2();
+	CursorAnim();
 
 	ShootStarAnim();
 
@@ -346,31 +346,6 @@ void TitleScene::Draw() const
 	// タイトルロゴの描画
 	//DrawGraph(380, 5, logo_img, TRUE);
 
-	// キャラクターの描画
-	if (pos_flg == false)
-	{
-		//DrawGraph(100 + sin(PI * 2 / 90 * cnt) * 20, char_y, deco_img[5], TRUE);
-
-		//DrawGraph(100 + char_y, char_y, deco_img[5], TRUE);
-
-		/*if (char_stay == 0)
-		{
-			DrawGraph(100 + sin(PI * 2 / 90 * cnt) * 10, char_y, deco_img[5], TRUE);
-		}
-		else
-		{
-			DrawGraph(100, char_y, deco_img[5], TRUE);
-		}*/
-
-		//DrawRotaGraph2(100, char_y, 95, 110, 1.0f, PI / 180 * 30, deco_img[5], TRUE);
-	}
-	else
-	{
-		//DrawGraph(940 + sin(PI * 2 / 90 * cnt) * 6, char_y , deco_img[5], TRUE);
-
-		DrawGraph(940 + char_y, char_y, deco_img[5], TRUE);
-	}
-
 	// 雲の描画
 	DrawGraph(0, 0, cloud_img, TRUE);
 
@@ -416,13 +391,11 @@ void TitleScene::Draw() const
 		break;
 	}
 
+	// トランジション画像の描画
 	if (tran_flg == true)
 	{
 		DrawGraph(transition, 0, tran_img, TRUE);
 	}
-
-	SetFontSize(20);
-	//DrawFormatString(0, 0, 0x000000, "%d", char_stay);
 }
 
 void TitleScene::Finalize()
@@ -455,7 +428,7 @@ void TitleScene::StarAnim()
 
 }
 
-void TitleScene::StarAnim2()
+void TitleScene::CursorAnim()
 {
 	if (rota_flg == false)
 	{

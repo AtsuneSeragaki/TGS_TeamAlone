@@ -2,9 +2,10 @@
 #include "../Utility/InputControl.h"
 #include "TitleScene.h"
 #include "ResultScene.h"
+#include <math.h>
 #include "DxLib.h"
 
-GameMainScene::GameMainScene() :player(nullptr), time(nullptr), theme(nullptr),comment(nullptr), begin_time(0),begin_cnt(0),draw_cnt(0),timeup_flg(false),timeup_cnt(0),pause(false),pause_cursor(0), transition(0), tran_img(0), tran_flg(false),restart(false)
+GameMainScene::GameMainScene() :player(nullptr), time(nullptr), theme(nullptr),comment(nullptr), begin_time(0),begin_cnt(0),draw_cnt(0),timeup_flg(false),timeup_cnt(0),pause(false),pause_cursor(0), transition(0), tran_img(0), tran_flg(false),restart(false),cnt(0)
 {
 	se[0] = 0;
 	se[1] = 0;
@@ -62,7 +63,7 @@ void GameMainScene::Initialize()
 	pause_img[4] = LoadGraph("Resource/images/pause/restart.png");
 	pause_img[5] = LoadGraph("Resource/images/pause/backb.png");
 	pause_img[6] = LoadGraph("Resource/images/pause/back.png");
-	pause_img[7] = LoadGraph("Resource/images/pause/updownUI.png");
+	pause_img[7] = LoadGraph("Resource/images/title/up-down-select.png");
 
 	tran_img = LoadGraph("Resource/images/tansition/transition.png");
 
@@ -125,6 +126,7 @@ void GameMainScene::Initialize()
 	pause_cursor = 0;
 	transition = -93;
 	tran_flg = true;
+	cnt = 0;
 
 	// オブジェクトの生成
 	player = new Player;
@@ -191,6 +193,8 @@ eSceneType GameMainScene::Update()
 
 			// BGMの再生を止める
 			StopSoundMem(sound[0]);
+
+			OpeAnim();
 
 			if (InputControl::GetButtonDown(XINPUT_BUTTON_A) == true)
 			{
@@ -527,19 +531,19 @@ void GameMainScene::Draw() const
 		switch (pause_cursor)
 		{
 		case 0:
-			DrawGraph(538, 255, pause_img[1], TRUE);
+			DrawGraph(538, 255 + sin(PI * 2 / 90 * cnt) * 6, pause_img[1], TRUE);
 			DrawGraph(545, 347, pause_img[4], TRUE);
 			DrawGraph(470, 440, pause_img[6], TRUE);
 			break;
 		case 1:
 			DrawGraph(538, 255, pause_img[2], TRUE);
-			DrawGraph(545, 347, pause_img[3], TRUE);
+			DrawGraph(545, 347 + sin(PI * 2 / 90 * cnt) * 6, pause_img[3], TRUE);
 			DrawGraph(470, 440, pause_img[6], TRUE);
 			break;
 		case 2:
 			DrawGraph(538, 255, pause_img[2], TRUE);
 			DrawGraph(545, 347, pause_img[4], TRUE);
-			DrawGraph(470, 440, pause_img[5], TRUE);
+			DrawGraph(470, 440 + sin(PI * 2 / 90 * cnt) * 6, pause_img[5], TRUE);
 			break;
 		default:
 			break;
@@ -597,5 +601,17 @@ void GameMainScene::Transition()
 	if (transition <= 1934)
 	{
 		transition += 50;
+	}
+}
+
+void GameMainScene::OpeAnim()
+{
+	if (cnt >= 90)
+	{
+		cnt = 0;
+	}
+	else
+	{
+		cnt++;
 	}
 }

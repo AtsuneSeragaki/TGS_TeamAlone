@@ -282,7 +282,7 @@ void ResultScene::Draw() const
 
 	// 星の描画
 	DrawRotaGraph(400, 100, 1.0, PI / 180 * (star_cnt * 2), star_img, TRUE);
-	DrawRotaGraph(910, 100, 1.0, PI / 180 * (-star_cnt * 2), star_img, TRUE);
+	DrawRotaGraph(910, 100, 1.0, PI / 180 * (star_cnt * 2), star_img, TRUE);
 	/*DrawRotaGraph(120, 640, 1.0, PI / 180 * (-star_cnt * 2), star_img, TRUE);
 	DrawRotaGraph(1160, 640, 1.0, PI / 180 * (star_cnt * 2), star_img, TRUE);*/
 

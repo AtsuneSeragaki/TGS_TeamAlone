@@ -2,8 +2,8 @@
 
 #include "SceneBase.h"
 
-#define BUTTON_X 420  // ボタンのX座標
-#define BUTTON_Y 340  // ボタンのY座標
+#define BUTTON_X 430  // ボタンのX座標
+#define BUTTON_Y 360  // ボタンのY座標
 
 #define PI    3.1415926535897932384626433832795f
 
@@ -14,6 +14,7 @@ private:
 	int button_img[4][6]; // ボタン画像
 	int star_img;         // 星画像
 	int tran_img;         // トランジション画像
+	int cbutton_img[8];   // コントローラーのボタンの変化用画像
 	int se;               // 効果音
 	int bgm;              // BGM用
 	int bcnt;             // ボタンアニメーションカウント用
@@ -23,6 +24,7 @@ private:
 	bool tran_flg;        // 画面遷移 false:しない true:する
 	int transition;       // トランジションの値保存用
 	int cnt;              // フレームカウント
+	int cbutton_num;      // コントローラーのボタンの変化用
 
 public:
 	static bool game_start;

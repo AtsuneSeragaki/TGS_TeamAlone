@@ -67,8 +67,8 @@ public:
 	// 星の回転処理
 	void StarAnim();
 
-	// 星とかの動き
-	void StarAnim2();
+	// メニューカーソルの横にある画像の動き
+	void CursorAnim();
 
 	// 星の移動処理
 	void StarMove();

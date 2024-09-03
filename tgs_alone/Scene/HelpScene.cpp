@@ -6,11 +6,16 @@
 
 bool HelpScene::game_start = false;
 
-HelpScene::HelpScene():bcnt(0),anim(0),cnt_flg(false),se(0),bgm(0), star_img(0),star_cnt(0), transition(0), tran_img(0), tran_flg(false),cnt(0)
+HelpScene::HelpScene():bcnt(0),anim(0),cnt_flg(false),se(0),bgm(0), star_img(0),star_cnt(0), transition(0), tran_img(0), tran_flg(false),cnt(0), cbutton_num(0)
 {
 	for (int i = 0; i < 7; i++)
 	{
 		back_img[i] = 0;
+	}
+
+	for (int i = 0; i < 8; i++)
+	{
+		cbutton_img[i] = 0;
 	}
 
 	for (int i = 0; i < 4; i++)
@@ -38,6 +43,11 @@ HelpScene::~HelpScene()
 		}
 	}
 
+	for (int i = 0; i < 8; i++)
+	{
+		DeleteGraph(cbutton_img[i]);
+	}
+
 	DeleteGraph(star_img);
 
 	DeleteGraph(tran_img);
@@ -51,7 +61,7 @@ void HelpScene::Initialize()
 {
 	// 画像データの読み込み
 	//back_img[0] = LoadGraph("Resource/images/help/help.png");
-	back_img[0] = LoadGraph("Resource/images/help/help2.png");
+	back_img[0] = LoadGraph("Resource/images/help/help3.png");
 	back_img[1] = LoadGraph("Resource/images/help/start-title4.png");
 	back_img[2] = LoadGraph("Resource/images/help/x.png");
 	back_img[3] = LoadGraph("Resource/images/help/star2.png");
@@ -112,8 +122,17 @@ void HelpScene::Initialize()
 	button_img[3][5] = LoadGraph("Resource/images/main/button/x.png");
 
 	star_img = LoadGraph("Resource/images/help/star.png");
-
 	tran_img = LoadGraph("Resource/images/tansition/transition.png");
+
+	cbutton_img[0] = LoadGraph("Resource/images/help/a1.png");
+	cbutton_img[1] = LoadGraph("Resource/images/help/a2.png");
+	cbutton_img[2] = LoadGraph("Resource/images/help/b1.png");
+	cbutton_img[3] = LoadGraph("Resource/images/help/b2.png");
+	cbutton_img[4] = LoadGraph("Resource/images/help/y1.png");
+	cbutton_img[5] = LoadGraph("Resource/images/help/y2.png");
+	cbutton_img[6] = LoadGraph("Resource/images/help/x1.png");
+	cbutton_img[7] = LoadGraph("Resource/images/help/x2.png");
+
 
 	// 音データの読み込み
 	se = LoadSoundMem("Resource/sounds/title/ok.mp3");
@@ -136,6 +155,14 @@ void HelpScene::Initialize()
 			{
 				throw("button_img[%d][%d]がありません", i,j);
 			}
+		}
+	}
+
+	for (int i = 0; i < 8; i++)
+	{
+		if (cbutton_img[i] == -1)
+		{
+			throw("cbutton_img[%d]がありません", i);
 		}
 	}
 
@@ -167,6 +194,7 @@ void HelpScene::Initialize()
 	transition = -93;
 	tran_flg = true;
 	game_start = false;
+	cbutton_num = 0;
 }
 
 eSceneType HelpScene::Update()
@@ -259,17 +287,56 @@ void HelpScene::Draw() const
 
 	// 星の描画
 	DrawRotaGraph(450, 90, 1.0, PI / 180 * (star_cnt * 2), star_img, TRUE);
-	DrawRotaGraph(850, 90, 1.0, PI / 180 * (-star_cnt * 2), star_img, TRUE);
+	DrawRotaGraph(850, 90, 1.0, PI / 180 * (star_cnt * 2), star_img, TRUE);
 	//DrawRotaGraph(50, 670, 1.0, PI / 180 * (-star_cnt * 2), star_img, TRUE);
 	//DrawRotaGraph(1230, 670, 1.0, PI / 180 * (star_cnt * 2), star_img, TRUE);
 
-	// 説明の描画
-	//DrawGraph(0, 0, back_img[1], TRUE);
-	//DrawGraph(0, 0, back_img[2], TRUE);
+	// 操作説明の描画
 	DrawGraph(410, 600, back_img[1], TRUE);
 	DrawGraph(435, 600 + sin(PI * 2 / 90 * cnt) * 6, back_img[2], TRUE);
 	DrawGraph(675, 600 + sin(PI * 2 / 90 * cnt) * 6, back_img[6], TRUE);
 
+	// 操作説明(コントローラーのボタン)の描画
+	switch (cbutton_num)
+	{
+	case 0:
+		DrawGraph(1040, 492, cbutton_img[0], TRUE);
+		DrawGraph(1000, 452, cbutton_img[2], TRUE);
+		DrawGraph(1040, 415, cbutton_img[4], TRUE);
+		DrawGraph(1080, 452, cbutton_img[6], TRUE);
+		break;
+
+	case 1:
+		DrawGraph(1040, 492, cbutton_img[1], TRUE);
+		DrawGraph(1000, 452, cbutton_img[2], TRUE);
+		DrawGraph(1040, 415, cbutton_img[4], TRUE);
+		DrawGraph(1080, 452, cbutton_img[6], TRUE);
+		break;
+
+	case 2:
+		DrawGraph(1040, 492, cbutton_img[0], TRUE);
+		DrawGraph(1000, 452, cbutton_img[3], TRUE);
+		DrawGraph(1040, 415, cbutton_img[4], TRUE);
+		DrawGraph(1080, 452, cbutton_img[6], TRUE);
+		break;
+
+	case 3:
+		DrawGraph(1040, 492, cbutton_img[0], TRUE);
+		DrawGraph(1000, 452, cbutton_img[2], TRUE);
+		DrawGraph(1040, 415, cbutton_img[5], TRUE);
+		DrawGraph(1080, 452, cbutton_img[6], TRUE);
+		break;
+
+	case 4:
+		DrawGraph(1040, 492, cbutton_img[0], TRUE);
+		DrawGraph(1000, 452, cbutton_img[2], TRUE);
+		DrawGraph(1040, 415, cbutton_img[4], TRUE);
+		DrawGraph(1080, 452, cbutton_img[7], TRUE);
+		break;
+
+	default:
+		break;
+	}
 
 	// ボタンの描画(お題)
 	// 画像を薄く表示
@@ -420,6 +487,7 @@ void HelpScene::ButtonAnim()
 		{
 			bcnt = 0;
 			anim++;
+			cbutton_num = 1;
 			cnt_flg = false;
 		}
 	}
@@ -429,11 +497,25 @@ void HelpScene::ButtonAnim()
 	{
 		anim++;
 
+		if (anim == 15)
+		{
+			cbutton_num = 2;
+		}
+		else if (anim == 29)
+		{
+			cbutton_num = 3;
+		}
+		else if (anim == 43)
+		{
+			cbutton_num = 4;
+		}
+
 		// animが100より大きかったら
 		if (anim > 100)
 		{
 			anim = 0;
 			cnt_flg = true;
+			cbutton_num = 0;
 		}
 	}
 }

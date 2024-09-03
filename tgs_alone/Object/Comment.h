@@ -20,6 +20,7 @@ private:
 	int t_num;        // お題の数
 	int cnt;          // 表示時間カウント用
 	int transparency; // 画像の透明度を保存用
+	bool fade_flg;    // フェードアウト false:しない true:する
 	int char_num;     // 表示するキャラクターの番号（番号によって画像の大きさが変わる）
 	bool char_flg;    // 拡大画像表示 false:まだ true:し終わった 
 
@@ -55,6 +56,6 @@ public:
 	// どのコメントを出すか決める
 	void SetComNum();  
 
-	// フェードアウトとフェードインさせる（false:フェードイン true:フェードアウト ）
-	void FadeInOut(bool flg);
+	// フェードアウトさせる（false:フェードイン true:フェードアウト ）
+	void FadeOut();
 };

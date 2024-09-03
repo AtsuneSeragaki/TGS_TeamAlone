@@ -3,7 +3,7 @@
 #include "Theme.h"
 #include "DxLib.h"
 
-Comment::Comment():disp_flg(false),com_num(0),p_num(0),t_num(0),cnt(0),font(0),font2(0), transparency(0),char_num(0),char_flg(false)
+Comment::Comment():disp_flg(false),com_num(0),p_num(0),t_num(0),cnt(0),font(0),font2(0), transparency(0),char_num(0),char_flg(false),fade_flg(false)
 {
 	for (int i = 0; i < 5; i++)
 	{
@@ -125,6 +125,7 @@ void Comment::Initialize()
 	transparency = 255;
 	char_num = 0;
 	char_flg = false;
+	fade_flg = false;
 }
 
 void Comment::Update()
@@ -151,30 +152,23 @@ void Comment::Update()
 			}
 		}
 
-		// cntが50より大きかったら
-		if (cnt > 71)
+		if (cnt > 61 && fade_flg == false)
 		{
-			cnt = 0;
-			disp_flg = false;
-			char_flg = false;
-			char_num = 0;
+			fade_flg = true;
+		}
+
+		if (fade_flg == true)
+		{
+			FadeOut();
 		}
 	}
-	/*else
-	{
-		if (transparency != 0)
-		{
-			transparency = 0;
-		}
-	}*/
 }
 
 void Comment::Draw()
 {
 	if (disp_flg == true)
 	{
-		//DrawBox(80, 280, 1200, 650, 0xffffff, TRUE);
-		//SetDrawBlendMode(DX_BLENDMODE_ALPHA, transparency);
+		SetDrawBlendMode(DX_BLENDMODE_ALPHA, transparency);
 
 		// 吹き出しを描画
 		if (char_flg == true && char_num == 6)
@@ -239,10 +233,8 @@ void Comment::Draw()
 			break;
 		}
 
-		//SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+		SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 	}
-
-	//DrawFormatString(0, 0, 0x000000, "%d", char_num);
 }
 
 void Comment::Finalize()
@@ -734,28 +726,17 @@ void Comment::SetComNum()
 	
 }
 
-void Comment::FadeInOut(bool flg)
+void Comment::FadeOut()
 {
-	if (flg == false)
+	transparency -= 20;
+
+	if (transparency <= 0)
 	{
-		if (transparency <= 230)
-		{
-			transparency += 25;
-		}
-		else
-		{
-			transparency = 255;
-		}
-	}
-	else
-	{
-		if (transparency >= 13)
-		{
-			transparency -= 13;
-		}
-		else
-		{
-			transparency = 0;
-		}
+		fade_flg = false;
+		disp_flg = false;
+		char_flg = false;
+		char_num = 0;
+		transparency = 255;
+		cnt = 0;
 	}
 }
