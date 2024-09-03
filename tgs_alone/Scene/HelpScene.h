@@ -5,6 +5,8 @@
 #define BUTTON_X 420  // ボタンのX座標
 #define BUTTON_Y 340  // ボタンのY座標
 
+#define PI    3.1415926535897932384626433832795f
+
 class HelpScene : public SceneBase
 {
 private:
@@ -14,12 +16,13 @@ private:
 	int tran_img;         // トランジション画像
 	int se;               // 効果音
 	int bgm;              // BGM用
-	int cnt;              // ボタンアニメーションカウント用
+	int bcnt;             // ボタンアニメーションカウント用
 	bool cnt_flg;         // ボタンアニメーションのカウントをするかしないかフラグ
 	int anim;             // ボタンの動き用
 	int star_cnt;         // 星の回転用
 	bool tran_flg;        // 画面遷移 false:しない true:する
-	int transition;     // トランジションの値保存用
+	int transition;       // トランジションの値保存用
+	int cnt;              // フレームカウント
 
 public:
 	static bool game_start;
@@ -53,4 +56,7 @@ public:
 
 	// 画面切り替えアニメーション
 	void Transition();
+
+	// 操作説明のボタンのアニメーション
+	void OpeAnim();
 };

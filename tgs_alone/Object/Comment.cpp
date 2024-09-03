@@ -274,18 +274,20 @@ void Comment::SetComNum()
 	{
 	case 3:
 
-		if (p_num == 0)
+		com_num = 4;
+
+		/*if (p_num == 0)
 		{
-			com_num = 1;
+			com_num = 4;
 		}
 		else if (p_num < 3)
 		{
-			com_num = 2;
+			com_num = 4;
 		}
 		else
 		{
 			com_num = 4;
-		}
+		}*/
 
 		break;
 
@@ -293,16 +295,25 @@ void Comment::SetComNum()
 
 		if (p_num == 0)
 		{
-			com_num = 1;
-		}
-		else if (p_num < 3)
-		{
-			com_num = 2;
+			com_num = 3;
 		}
 		else
 		{
 			com_num = 4;
 		}
+
+		/*if (p_num == 0)
+		{
+			com_num = 3;
+		}
+		else if (p_num < 3)
+		{
+			com_num = 4;
+		}
+		else
+		{
+			com_num = 4;
+		}*/
 
 		break;
 
@@ -310,13 +321,9 @@ void Comment::SetComNum()
 
 		if (p_num == 0)
 		{
-			com_num = 1;
-		}
-		else if (p_num < 2)
-		{
 			com_num = 2;
 		}
-		else if (p_num < 5)
+		else if (p_num < 2)
 		{
 			com_num = 3;
 		}
@@ -324,6 +331,23 @@ void Comment::SetComNum()
 		{
 			com_num = 4;
 		}
+
+		/*if (p_num == 0)
+		{
+			com_num = 2;
+		}
+		else if (p_num < 2)
+		{
+			com_num = 3;
+		}
+		else if (p_num < 5)
+		{
+			com_num = 4;
+		}
+		else
+		{
+			com_num = 4;
+		}*/
 
 		break;
 
@@ -331,13 +355,9 @@ void Comment::SetComNum()
 
 		if (p_num == 0)
 		{
-			com_num = 1;
-		}
-		else if (p_num < 4)
-		{
 			com_num = 2;
 		}
-		else if (p_num < 6)
+		else if (p_num < 4)
 		{
 			com_num = 3;
 		}
@@ -345,6 +365,23 @@ void Comment::SetComNum()
 		{
 			com_num = 4;
 		}
+
+		/*if (p_num == 0)
+		{
+			com_num = 2;
+		}
+		else if (p_num < 4)
+		{
+			com_num = 3;
+		}
+		else if (p_num < 6)
+		{
+			com_num = 4;
+		}
+		else
+		{
+			com_num = 4;
+		}*/
 
 		break;
 
@@ -352,13 +389,9 @@ void Comment::SetComNum()
 
 		if (p_num == 0)
 		{
-			com_num = 1;
-		}
-		else if (p_num < 5)
-		{
 			com_num = 2;
 		}
-		else if (p_num < 7)
+		else if (p_num < 5)
 		{
 			com_num = 3;
 		}
@@ -366,6 +399,23 @@ void Comment::SetComNum()
 		{
 			com_num = 4;
 		}
+
+		/*if (p_num == 0)
+		{
+			com_num = 2;
+		}
+		else if (p_num < 5)
+		{
+			com_num = 3;
+		}
+		else if (p_num < 7)
+		{
+			com_num = 4;
+		}
+		else
+		{
+			com_num = 4;
+		}*/
 
 		break;
 
@@ -415,10 +465,6 @@ void Comment::SetComNum()
 
 		if (p_num == 0)
 		{
-			com_num = 0;
-		}
-		else if (p_num < 5)
-		{
 			com_num = 1;
 		}
 		else if (p_num < 8)
@@ -439,10 +485,6 @@ void Comment::SetComNum()
 	case 11:
 
 		if (p_num == 0)
-		{
-			com_num = 0;
-		}
-		else if (p_num < 4)
 		{
 			com_num = 1;
 		}

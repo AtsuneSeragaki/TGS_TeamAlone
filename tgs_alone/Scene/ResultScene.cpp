@@ -3,11 +3,12 @@
 #include "../Object/Theme.h"
 #include "../Utility/InputControl.h"
 #include "TitleScene.h"
+#include <math.h>
 #include "DxLib.h"
 
 bool ResultScene::result_tran = false;
 
-ResultScene::ResultScene():back_img{0},bgm(0),se(0), star_img(0), star_cnt(0), transition(0), tran_img(0), tran_flg(false)
+ResultScene::ResultScene():back_img{0},bgm(0),se(0), star_img(0), star_cnt(0), transition(0), tran_img(0), tran_flg(false),cnt(0)
 {
 	for (int i = 0; i < 10; i++)
 	{
@@ -24,6 +25,7 @@ ResultScene::ResultScene():back_img{0},bgm(0),se(0), star_img(0), star_cnt(0), t
 		level[i] = NULL;
 		rank[i] = NULL;
 		combo[i] = NULL;
+		button_img[i] = 0;
 
 		for (int j = 0; j < 10; j++)
 		{
@@ -48,6 +50,11 @@ ResultScene::~ResultScene()
 		DeleteGraph(rank_img[i]);
 	}
 
+	for (int i = 0; i < 3; i++)
+	{
+		DeleteGraph(button_img[i]);
+	}
+
 	DeleteGraph(tran_img);
 
 	// 音データの削除
@@ -61,7 +68,7 @@ void ResultScene::Initialize()
 	/*back_img[0] = LoadGraph("Resource/images/result/result.png");
 	back_img[1] = LoadGraph("Resource/images/result/result2.png");*/
 
-	back_img[0] = LoadGraph("Resource/images/result/result5.png");
+	back_img[0] = LoadGraph("Resource/images/result/result4.png");
 	back_img[1] = LoadGraph("Resource/images/result/result3.png");
 	LoadDivGraph("Resource/images/result/result_num1.png", 10, 5, 2, 50, 50, num_img);
 	rank_img[0] = LoadGraph("Resource/images/result/rank1.png");
@@ -74,8 +81,10 @@ void ResultScene::Initialize()
 	rank_img[7] = LoadGraph("Resource/images/result/rank3.png");
 	rank_img[8] = LoadGraph("Resource/images/result/rank3.png");
 	star_img = LoadGraph("Resource/images/help/star.png");
-
 	tran_img = LoadGraph("Resource/images/tansition/transition.png");
+	button_img[0] = LoadGraph("Resource/images/result/b.png");
+	button_img[1] = LoadGraph("Resource/images/result/enter-name1.png");
+	button_img[2] = LoadGraph("Resource/images/result/title1.png");
 
 	// 音データの読み込み
 	se = LoadSoundMem("Resource/sounds/title/ok.mp3");
@@ -121,6 +130,11 @@ void ResultScene::Initialize()
 		{
 			throw("rank_img[%d]がありません", i);
 		}
+
+		if (button_img[i] == -1)
+		{
+			throw("button_img[%d]がありません", i);
+		}
 	}
 
 	// BGMの音量設定
@@ -158,6 +172,15 @@ eSceneType ResultScene::Update()
 {
 	// BGMの再生
 	PlaySoundMem(bgm, DX_PLAYTYPE_LOOP, FALSE);
+
+	if (cnt >= 90)
+	{
+		cnt = 0;
+	}
+	else
+	{
+		cnt++;
+	}
 
 	// 星を回転させる
 	StarAnim();
@@ -228,34 +251,40 @@ eSceneType ResultScene::Update()
 void ResultScene::Draw() const
 {
 	// 比較用のデータを格納
-	int i = Theme::theme_num - 2;
+	/*int i = Theme::theme_num - 2;
 	int j = Player::combo;
-	int k = Player::all_mis;
+	int k = Player::all_mis;*/
 
-	/*int i = 12;
+	int i = 12;
 	int j = 200;
-	int k = 200;*/
+	int k = 200;
 
-	// 背景画像表示
+	// 背景の描画
+	DrawGraph(0, 0, back_img[0], TRUE);
+
+	// 操作説明の描画
 	// 名前入力画面に行くか行かないかで変える
 	if (level[2] < i)
 	{
-		DrawGraph(0, 0, back_img[1], TRUE);
+		DrawGraph(470, 600 + sin(PI * 2 / 90 * cnt) * 6, button_img[0], TRUE);
+		DrawGraph(460, 600, button_img[1], TRUE);
 	}
 	else if (level[2] == i && combo[2] < j)
 	{
-		DrawGraph(0, 0, back_img[1], TRUE);
+		DrawGraph(470, 600 + sin(PI * 2 / 90 * cnt) * 6, button_img[0], TRUE);
+		DrawGraph(460, 600, button_img[1], TRUE);
 	}
 	else
 	{
-		DrawGraph(0, 0, back_img[0], TRUE);
+		DrawGraph(550, 600 + sin(PI * 2 / 90 * cnt) * 6, button_img[0], TRUE);
+		DrawGraph(550, 600, button_img[2], TRUE);
 	}
 
 	// 星の描画
-	DrawRotaGraph(120, 80, 1.0, PI / 180 * (star_cnt * 2), star_img, TRUE);
-	DrawRotaGraph(1160, 80, 1.0, PI / 180 * (-star_cnt * 2), star_img, TRUE);
-	DrawRotaGraph(120, 640, 1.0, PI / 180 * (-star_cnt * 2), star_img, TRUE);
-	DrawRotaGraph(1160, 640, 1.0, PI / 180 * (star_cnt * 2), star_img, TRUE);
+	DrawRotaGraph(400, 100, 1.0, PI / 180 * (star_cnt * 2), star_img, TRUE);
+	DrawRotaGraph(910, 100, 1.0, PI / 180 * (-star_cnt * 2), star_img, TRUE);
+	/*DrawRotaGraph(120, 640, 1.0, PI / 180 * (-star_cnt * 2), star_img, TRUE);
+	DrawRotaGraph(1160, 640, 1.0, PI / 180 * (star_cnt * 2), star_img, TRUE);*/
 
 	SetFontSize(110);
 

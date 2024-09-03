@@ -21,7 +21,7 @@ private:
 	bool tran_flg;    // 画面遷移 false:しない true:する
 	int transition;   // トランジションの値保存用
 	int ope_num;      // 操作説明画像の表示する番号
-	int ope_x;      // 操作説明の画像のx座標 
+	int cnt;          // フレームカウント
 	bool ope_flg;     // false:上に移動 true:下に移動
 	RankingData* ranking; // ランキングデータのオブジェクト
 
@@ -56,6 +56,6 @@ public:
 	// 画面切り替えアニメーション
 	void Transition();
 
-	// 操作説明の画像を動かす
-	void OpeMove();
+	// 操作説明のボタンのアニメーション
+	void OpeAnim();
 };

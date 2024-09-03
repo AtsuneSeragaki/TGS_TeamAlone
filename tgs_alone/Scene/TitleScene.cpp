@@ -193,16 +193,9 @@ eSceneType TitleScene::Update()
 	// BGMの再生
 	PlaySoundMem(bgm, DX_PLAYTYPE_LOOP, FALSE);
 
-	StarAnim();
+	OpeAnim();
 
-	if (cnt >= 90)
-	{
-		cnt = 0;
-	}
-	else
-	{
-		cnt++;
-	}
+	StarAnim();
 
 	StarAnim2();
 
@@ -716,5 +709,17 @@ void TitleScene::SetCharY()
 			move_flg = false;
 			char_stay = 1;
 		}
+	}
+}
+
+void TitleScene::OpeAnim()
+{
+	if (cnt >= 90)
+	{
+		cnt = 0;
+	}
+	else
+	{
+		cnt++;
 	}
 }

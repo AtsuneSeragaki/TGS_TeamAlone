@@ -7,7 +7,7 @@
 
 bool RankingScene::to_ranking = false;
 
-RankingScene::RankingScene():back_img(0),ranking(nullptr),font(0),bgm(0), star_img(0), star_cnt(0), transition(0), tran_img(0), tran_flg(false),ope_num(0),ope_x(0),ope_flg(false)
+RankingScene::RankingScene():back_img(0),ranking(nullptr),font(0),bgm(0), star_img(0), star_cnt(0), transition(0), tran_img(0), tran_flg(false),ope_num(0),cnt(0),ope_flg(false)
 {
 	se[0] = 0;
 	se[1] = 0;
@@ -143,7 +143,7 @@ void RankingScene::Initialize()
 	transition = -93;
 	tran_flg = true;
 	ope_num = 0;
-	ope_x = 0;
+	cnt = 0;
 	ope_flg = 0;
 }
 
@@ -152,20 +152,11 @@ eSceneType RankingScene::Update()
 	// BGMの再生
 	PlaySoundMem(bgm, DX_PLAYTYPE_LOOP, FALSE);
 
+	// 操作説明のボタンのアニメーション
+	OpeAnim();
+
 	// 星を回転させる
 	StarAnim();
-
-	//OpeMove();
-
-	if (ope_x >= 70)
-	{
-		ope_x = 0;
-	}
-	else
-	{
-		ope_x++;
-	}
-	
 
 	if (tran_flg == true)
 	{
@@ -222,9 +213,7 @@ void RankingScene::Draw() const
 
 	// 操作説明の描画
 	DrawGraph(640, 610, ope_img[1], TRUE);
-	DrawGraph(565, 610 + sin(PI * 2 / 70 * ope_x) * 3, ope_img[2], TRUE);
-
-	//DrawFormatString(0, 0, 0x000000, "%d", sin(PI * 2 / 60 * ope_x));
+	DrawGraph(565, 610 + sin(PI * 2 / 90 * cnt) * 6, ope_img[2], TRUE);
 
 	// 星の描画
 	//SetDrawBlendMode(DX_BLENDMODE_ALPHA, transparency);
@@ -305,24 +294,14 @@ void RankingScene::Transition()
 	transition += 50;
 }
 
-void RankingScene::OpeMove()
+void RankingScene::OpeAnim()
 {
-	if (ope_flg == false)
+	if (cnt >= 90)
 	{
-		ope_x -= 0.6f;
-
-		if (ope_x <= -20.0f)
-		{
-			ope_flg = true;
-		}
+		cnt = 0;
 	}
 	else
 	{
-		ope_x += 0.6f;
-
-		if (ope_x >= 0.0f)
-		{
-			ope_flg = false;
-		}
+		cnt++;
 	}
 }

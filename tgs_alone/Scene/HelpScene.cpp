@@ -1,11 +1,12 @@
 ﻿#include "HelpScene.h"
 #include "../Utility/InputControl.h"
 #include "TitleScene.h"
+#include <math.h>
 #include "DxLib.h"
 
 bool HelpScene::game_start = false;
 
-HelpScene::HelpScene():cnt(0),anim(0),cnt_flg(false),se(0),bgm(0), star_img(0),star_cnt(0), transition(0), tran_img(0), tran_flg(false)
+HelpScene::HelpScene():bcnt(0),anim(0),cnt_flg(false),se(0),bgm(0), star_img(0),star_cnt(0), transition(0), tran_img(0), tran_flg(false),cnt(0)
 {
 	for (int i = 0; i < 7; i++)
 	{
@@ -159,7 +160,7 @@ void HelpScene::Initialize()
 	ChangeVolumeSoundMem(100, bgm);
 
 	// 変数の初期化
-	cnt = 0;
+	bcnt = 0;
 	cnt_flg = false;
 	anim = 1;
 	star_cnt = 0;
@@ -170,6 +171,9 @@ void HelpScene::Initialize()
 
 eSceneType HelpScene::Update()
 {
+	// 操作説明のボタンのアニメーション
+	OpeAnim();
+
 	// 星を回転させる
 	StarAnim();
 
@@ -254,17 +258,17 @@ void HelpScene::Draw() const
 	DrawGraph(0, 0, back_img[0], FALSE);
 
 	// 星の描画
-	DrawRotaGraph(435, 90, 1.0, PI / 180 * (star_cnt * 2), star_img, TRUE);
-	DrawRotaGraph(835, 90, 1.0, PI / 180 * (-star_cnt * 2), star_img, TRUE);
+	DrawRotaGraph(450, 90, 1.0, PI / 180 * (star_cnt * 2), star_img, TRUE);
+	DrawRotaGraph(850, 90, 1.0, PI / 180 * (-star_cnt * 2), star_img, TRUE);
 	//DrawRotaGraph(50, 670, 1.0, PI / 180 * (-star_cnt * 2), star_img, TRUE);
 	//DrawRotaGraph(1230, 670, 1.0, PI / 180 * (star_cnt * 2), star_img, TRUE);
 
 	// 説明の描画
 	//DrawGraph(0, 0, back_img[1], TRUE);
 	//DrawGraph(0, 0, back_img[2], TRUE);
-	DrawGraph(400, 600, back_img[1], TRUE);
-	DrawGraph(425, 600, back_img[2], TRUE);
-	DrawGraph(680, 600, back_img[6], TRUE);
+	DrawGraph(410, 600, back_img[1], TRUE);
+	DrawGraph(435, 600 + sin(PI * 2 / 90 * cnt) * 6, back_img[2], TRUE);
+	DrawGraph(675, 600 + sin(PI * 2 / 90 * cnt) * 6, back_img[6], TRUE);
 
 
 	// ボタンの描画(お題)
@@ -409,12 +413,12 @@ void HelpScene::ButtonAnim()
 	// ボタンアニメーションフラグがtrueだったら
 	if (cnt_flg == true)
 	{
-		cnt++;
+		bcnt++;
 
 		// cntが140より大きかったら
-		if (cnt > 140)
+		if (bcnt > 140)
 		{
-			cnt = 0;
+			bcnt = 0;
 			anim++;
 			cnt_flg = false;
 		}
@@ -448,4 +452,16 @@ void HelpScene::StarAnim()
 void HelpScene::Transition()
 {
 	transition += 50;
+}
+
+void HelpScene::OpeAnim()
+{
+	if (cnt >= 90)
+	{
+		cnt = 0;
+	}
+	else
+	{
+		cnt++;
+	}
 }

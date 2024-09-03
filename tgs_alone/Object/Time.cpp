@@ -2,12 +2,17 @@
 #include "DxLib.h"
 #include <tgmath.h>
 
-Time::Time() :time(0),time_flg(false), time2(0),time3(0.0f),add_flg(false),add_time(0),add_cnt(0), transparency(0),plus_img(0)
+Time::Time() :time(0),time_flg(false), time2(0),time3(0.0f),add_flg(false),add_time(0),add_cnt(0), transparency(0)
 {
 	for (int i = 0; i < 10; i++)
 	{
 		img_b[i] = 0;
 		img_r[i] = 0;
+	}
+
+	for (int i = 0; i < 3; i++)
+	{
+		plus_img[i] = 0;
 	}
 }
 
@@ -24,7 +29,9 @@ void Time::Initialize()
 	LoadDivGraph("Resource/images/main/number/numberr.png", 10, 5, 2, 75, 75, img_r);
 	img_r[10] = LoadGraph("Resource/images/main/number/periodr.png");
 
-	plus_img = LoadGraph("Resource/images/main/number/plus.png");
+	plus_img[0] = LoadGraph("Resource/images/main/number/plus1.png");
+	plus_img[1] = LoadGraph("Resource/images/main/number/plus2.png");
+	plus_img[2] = LoadGraph("Resource/images/main/number/plus3.png");
 
 	// エラーチェック
 	for (int i = 0; i < 11; i++)
@@ -39,9 +46,12 @@ void Time::Initialize()
 		}
 	}
 
-	if (plus_img == -1)
+	for (int i = 0; i < 3; i++)
 	{
-		throw("plus_imgがありません\n");
+		if (plus_img[i] == -1)
+		{
+			throw("plus_img[%d]がありません\n",i);
+		}
 	}
 
 	// 制限時間の初期化
@@ -177,7 +187,7 @@ void Time::Draw()
 	{
 		SetFontSize(30);
 		SetDrawBlendMode(DX_BLENDMODE_ALPHA, transparency);
-		DrawGraph(705, 217, plus_img, TRUE);
+		DrawGraph(703, 215, plus_img[add_time - 1], TRUE);
 		//DrawFormatString(700, 215, 0xff0000, "+%d", add_time);
 		SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 

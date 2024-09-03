@@ -84,4 +84,7 @@ public:
 
 	// キャラクターのY座標変更
 	void SetCharY();
+
+	// 操作説明のボタンのアニメーション
+	void OpeAnim();
 };
