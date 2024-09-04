@@ -509,6 +509,10 @@ void HelpScene::ButtonAnim()
 		{
 			cbutton_num = 4;
 		}
+		else if (anim == 51)
+		{
+			cbutton_num = 0;
+		}
 
 		// animが100より大きかったら
 		if (anim > 100)

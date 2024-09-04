@@ -5,7 +5,7 @@
 #include "RankingScene.h"
 #include "DxLib.h"
 
-InputRankingScene::InputRankingScene():ranking(nullptr),level(0),combo(0),cursor_x(0),cursor_y(0),no_name(false),name_num(0),font(0),bgm(0), star_img(0), star_cnt(0),input_end(false), transition(0), tran_img(0), tran_flg(false)
+InputRankingScene::InputRankingScene():ranking(nullptr),level(0),combo(0),cursor_x(0),cursor_y(0),no_name(false),name_num(0),font(0),bgm(0), star_img(0), star_cnt(0),input_end(false), transition(0), tran_img(0), tran_flg(false),cnt(0)
 {
 	memset(name, NULL, (sizeof(char) * 6));
 
@@ -134,6 +134,7 @@ void InputRankingScene::Initialize()
 	input_end = false;
 	transition = -93;
 	tran_flg = true;
+	cnt = 0;
 }
 
 eSceneType InputRankingScene::Update()
@@ -143,6 +144,25 @@ eSceneType InputRankingScene::Update()
 
 	// 星を回転させる
 	StarAnim();
+
+	if (no_name == true)
+	{
+		cnt++;
+
+		if (cnt >= 70)
+		{
+			cnt = 0;
+		}
+	}
+	else/* if (no_name == false && input_end == false)*/
+	{
+		cnt++;
+
+		if (cnt >= 60)
+		{
+			cnt = 0;
+		}
+	}
 
 	// 画面遷移用フラグ
 	bool is_change = false;
@@ -225,9 +245,12 @@ void InputRankingScene::Draw() const
 	if (no_name == true)
 	{// 名前が入力されていないとき
 
-		// 名前を入力してくださいの文字を描画
-		DrawGraph(0, -37, img[4], TRUE);
-
+		if (cnt <= 35)
+		{
+			// 名前を入力してくださいの文字を描画
+			DrawGraph(0, -37, img[4], TRUE);
+		}
+		
 		/*DrawGraph(530 - 35, 63, font_img[0], TRUE);
 		DrawGraph(590 - 35, 63, font_img[1], TRUE);
 		DrawGraph(650 - 35, 63, font_img[2], TRUE);
@@ -248,9 +271,15 @@ void InputRankingScene::Draw() const
 		{	
 			for (int i = 0; i <= name_num; i++)
 			{
-				DrawGraph((605 - (name_num * 27))+ i * 70, 63, font_img[(int)name[i] - 65], TRUE);
+				DrawGraph((605 - (name_num * 30))+ i * 70, 63, font_img[(int)name[i] - 65], TRUE);
 			}
 			
+			if (name_num < 4 && cnt <= 30)
+			{
+				/*DrawLine((605 - (name_num * 30)) + name_num * 70 + 75, 67, (605 - (name_num * 30)) + name_num * 70 + 75, 130, 0x000000);*/
+				DrawBox((605 - (name_num * 30)) + name_num * 70 + 75, 67, (605 - (name_num * 30)) + name_num * 70 + 77, 130, 0x000000,TRUE);
+			}
+
 			//DrawFormatStringToHandle(630 - name_num * 30, 63, 0x000000, font, "%s", name);
 		}
 		else
@@ -370,6 +399,8 @@ bool InputRankingScene::InputName()
 				
 				// 名前を格納
 				name[++name_num] = 'A' + cursor_x + (cursor_y * 9);
+
+				cnt = 0;
 			}
 		}
 		else if (cursor_y == 3)
@@ -402,6 +433,8 @@ bool InputRankingScene::InputName()
 
 				// 入力された名前をひとつ消す
 				name[name_num--] = NULL;
+
+				cnt = 0;
 
 				// 名前が入力されていなかったら
 				if (name[0] == NULL)

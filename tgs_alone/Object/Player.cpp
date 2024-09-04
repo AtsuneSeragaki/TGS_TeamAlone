@@ -453,24 +453,24 @@ void Player::Draw()
 				{
 					if (mis_draw[i] == true)
 					{
-						DrawGraph(225 + i * 110 + 15, 315 - 30, comment[1], TRUE);
-						DrawGraph((225 - mis_anim[i] * 28) + i * 110, mis_y[i] - mis_anim[i] * 23 - 30, mis_img[mis_data[i]], TRUE);
+						DrawGraph(225 + i * 110 + 15, 315 - 20, comment[1], TRUE);
+						DrawGraph((225 - mis_anim[i] * 28) + i * 110, mis_y[i] - mis_anim[i] * 23 - 20, mis_img[mis_data[i]], TRUE);
 					}
 					else
 					{
-						DrawGraph((225 - mis_anim[i] * 28) + i * 110, mis_y[i] - mis_anim[i] * 23 - 30, img[mis_data[i]][mis_anim[i]], TRUE);
+						DrawGraph((225 - mis_anim[i] * 28) + i * 110, mis_y[i] - mis_anim[i] * 23 - 20, img[mis_data[i]][mis_anim[i]], TRUE);
 					}
 				}
 				else
 				{
 					if (mis_draw[i] == true)
 					{
-						DrawGraph((100 - 54 * (Theme::theme_num - 2)) + i * 110 + 15, 460 - 30, comment[1], TRUE);
-						DrawGraph(((100 - mis_anim[i] * 28) - 54 * (Theme::theme_num - 2)) + i * 110, mis_y[i] - mis_anim[i] * 23 - 30, mis_img[mis_data[i]], TRUE);
+						DrawGraph((100 - 54 * (Theme::theme_num - 2)) + i * 110 + 15, 460 - 20, comment[1], TRUE);
+						DrawGraph(((100 - mis_anim[i] * 28) - 54 * (Theme::theme_num - 2)) + i * 110, mis_y[i] - mis_anim[i] * 23 - 20, mis_img[mis_data[i]], TRUE);
 					}
 					else
 					{
-						DrawGraph(((100 - mis_anim[i] * 28) - 54 * (Theme::theme_num - 2)) + i * 110, mis_y[i] - mis_anim[i] * 23 - 30, img[mis_data[i]][mis_anim[i]], TRUE);
+						DrawGraph(((100 - mis_anim[i] * 28) - 54 * (Theme::theme_num - 2)) + i * 110, mis_y[i] - mis_anim[i] * 23 - 20, img[mis_data[i]][mis_anim[i]], TRUE);
 					}
 				}
 			}
@@ -480,24 +480,24 @@ void Player::Draw()
 				{
 					if (mis_draw[i] == true)
 					{
-						DrawGraph(225 + i * 110 + 15, 315 - 30, comment[1], TRUE);
-						DrawGraph((225 - mis_anim[i] * 28) + i * 110, mis_y[i] - mis_anim[i] * 23 - 30, mis_img[mis_data[i]], TRUE);
+						DrawGraph(225 + i * 110 + 15, 315 - 20, comment[1], TRUE);
+						DrawGraph((225 - mis_anim[i] * 28) + i * 110, mis_y[i] - mis_anim[i] * 23 - 20, mis_img[mis_data[i]], TRUE);
 					}
 					else
 					{
-						DrawGraph((225 - mis_anim[i] * 28) + i * 110, mis_y[i] - mis_anim[i] * 23 - 30, img[mis_data[i]][mis_anim[i]], TRUE);
+						DrawGraph((225 - mis_anim[i] * 28) + i * 110, mis_y[i] - mis_anim[i] * 23 - 20, img[mis_data[i]][mis_anim[i]], TRUE);
 					}
 				}
 				else
 				{
 					if (mis_draw[i] == true)
 					{
-						DrawGraph(225 + (i - 8) * 110 + 15, 460 - 30, comment[1], TRUE);
-						DrawGraph((225 - mis_anim[i] * 28) + (i - 8) * 110, mis_y[i] - mis_anim[i] * 23 - 30, mis_img[mis_data[i]], TRUE);
+						DrawGraph(225 + (i - 8) * 110 + 15, 460 - 20, comment[1], TRUE);
+						DrawGraph((225 - mis_anim[i] * 28) + (i - 8) * 110, mis_y[i] - mis_anim[i] * 23 - 20, mis_img[mis_data[i]], TRUE);
 					}
 					else
 					{
-						DrawGraph((225 - mis_anim[i] * 28) + (i - 8) * 110, mis_y[i] - mis_anim[i] * 23 - 30, img[mis_data[i]][mis_anim[i]], TRUE);
+						DrawGraph((225 - mis_anim[i] * 28) + (i - 8) * 110, mis_y[i] - mis_anim[i] * 23 - 20, img[mis_data[i]][mis_anim[i]], TRUE);
 					}
 				}
 			}
@@ -507,24 +507,24 @@ void Player::Draw()
 				{
 					if (mis_draw[i] == true)
 					{
-						DrawGraph(160 + i * 110 + 15, 315 - 30, comment[1], TRUE);
-						DrawGraph((160 - mis_anim[i] * 28) + i * 110, mis_y[i] - mis_anim[i] * 23 - 30, mis_img[mis_data[i]], TRUE);
+						DrawGraph(160 + i * 110 + 15, 315 - 20, comment[1], TRUE);
+						DrawGraph((160 - mis_anim[i] * 28) + i * 110, mis_y[i] - mis_anim[i] * 23 - 20, mis_img[mis_data[i]], TRUE);
 					}
 					else
 					{
-						DrawGraph((160 - mis_anim[i] * 28) + i * 110, mis_y[i] - mis_anim[i] * 23 - 30, img[mis_data[i]][mis_anim[i]], TRUE);
+						DrawGraph((160 - mis_anim[i] * 28) + i * 110, mis_y[i] - mis_anim[i] * 23 - 20, img[mis_data[i]][mis_anim[i]], TRUE);
 					}
 				}
 				else
 				{
 					if (mis_draw[i] == true)
 					{
-						DrawGraph(215 + (i - 9) * 110 + 15, 460 - 30, comment[1], TRUE);
-						DrawGraph((215 - mis_anim[i] * 28) + (i - 9) * 110, mis_y[i] - mis_anim[i] * 23 - 30, mis_img[mis_data[i]], TRUE);
+						DrawGraph(215 + (i - 9) * 110 + 15, 460 - 20, comment[1], TRUE);
+						DrawGraph((215 - mis_anim[i] * 28) + (i - 9) * 110, mis_y[i] - mis_anim[i] * 23 - 20, mis_img[mis_data[i]], TRUE);
 					}
 					else
 					{
-						DrawGraph((215 - mis_anim[i] * 28) + (i - 9) * 110, mis_y[i] - mis_anim[i] * 23 - 30, img[mis_data[i]][mis_anim[i]], TRUE);
+						DrawGraph((215 - mis_anim[i] * 28) + (i - 9) * 110, mis_y[i] - mis_anim[i] * 23 - 20, img[mis_data[i]][mis_anim[i]], TRUE);
 					}
 				}
 			}
@@ -534,24 +534,24 @@ void Player::Draw()
 				{
 					if (mis_draw[i] == true)
 					{
-						DrawGraph(160 + i * 110 + 15, 315 - 30, comment[1], TRUE);
-						DrawGraph((160 - mis_anim[i] * 28) + i * 110, mis_y[i] - mis_anim[i] * 23 - 30, mis_img[mis_data[i]], TRUE);
+						DrawGraph(160 + i * 110 + 15, 315 - 20, comment[1], TRUE);
+						DrawGraph((160 - mis_anim[i] * 28) + i * 110, mis_y[i] - mis_anim[i] * 23 - 20, mis_img[mis_data[i]], TRUE);
 					}
 					else
 					{
-						DrawGraph((160 - mis_anim[i] * 28) + i * 110, mis_y[i] - mis_anim[i] * 23 - 30, img[mis_data[i]][mis_anim[i]], TRUE);
+						DrawGraph((160 - mis_anim[i] * 28) + i * 110, mis_y[i] - mis_anim[i] * 23 - 20, img[mis_data[i]][mis_anim[i]], TRUE);
 					}					
 				}
 				else
 				{
 					if (mis_draw[i] == true)
 					{
-						DrawGraph(160 + (i - 9) * 110 + 15, 460 - 30, comment[1], TRUE);
-						DrawGraph((160 - mis_anim[i] * 28) + (i - 9) * 110, mis_y[i] - mis_anim[i] * 23 - 30, mis_img[mis_data[i]], TRUE);
+						DrawGraph(160 + (i - 9) * 110 + 15, 460 - 20, comment[1], TRUE);
+						DrawGraph((160 - mis_anim[i] * 28) + (i - 9) * 110, mis_y[i] - mis_anim[i] * 23 - 20, mis_img[mis_data[i]], TRUE);
 					}
 					else
 					{
-						DrawGraph((160 - mis_anim[i] * 28) + (i - 9) * 110, mis_y[i] - mis_anim[i] * 23 - 30, img[mis_data[i]][mis_anim[i]], TRUE);
+						DrawGraph((160 - mis_anim[i] * 28) + (i - 9) * 110, mis_y[i] - mis_anim[i] * 23 - 20, img[mis_data[i]][mis_anim[i]], TRUE);
 					}
 				}
 			}
@@ -561,24 +561,24 @@ void Player::Draw()
 				{
 					if (mis_draw[i] == true)
 					{
-						DrawGraph(90 + i * 110 + 15, 315 - 30, comment[1], TRUE);
-						DrawGraph((90 - mis_anim[i] * 28) + i * 110, mis_y[i] - mis_anim[i] * 23 - 30, mis_img[mis_data[i]], TRUE);
+						DrawGraph(90 + i * 110 + 15, 315 - 20, comment[1], TRUE);
+						DrawGraph((90 - mis_anim[i] * 28) + i * 110, mis_y[i] - mis_anim[i] * 23 - 20, mis_img[mis_data[i]], TRUE);
 					}
 					else
 					{
-						DrawGraph((90 - mis_anim[i] * 28) + i * 110, mis_y[i] - mis_anim[i] * 23 - 30, img[mis_data[i]][mis_anim[i]], TRUE);
+						DrawGraph((90 - mis_anim[i] * 28) + i * 110, mis_y[i] - mis_anim[i] * 23 - 20, img[mis_data[i]][mis_anim[i]], TRUE);
 					}
 				}
 				else
 				{
 					if (mis_draw[i] == true)
 					{
-						DrawGraph(160 + (i - 10) * 110 + 15, 460 - 30, comment[1], TRUE);
-						DrawGraph((160 - mis_anim[i] * 28) + (i - 10) * 110, mis_y[i] - mis_anim[i] * 23 - 30, mis_img[mis_data[i]], TRUE);
+						DrawGraph(160 + (i - 10) * 110 + 15, 460 - 20, comment[1], TRUE);
+						DrawGraph((160 - mis_anim[i] * 28) + (i - 10) * 110, mis_y[i] - mis_anim[i] * 23 - 20, mis_img[mis_data[i]], TRUE);
 					}
 					else
 					{
-						DrawGraph((160 - mis_anim[i] * 28) + (i - 10) * 110, mis_y[i] - mis_anim[i] * 23 - 30, img[mis_data[i]][mis_anim[i]], TRUE);
+						DrawGraph((160 - mis_anim[i] * 28) + (i - 10) * 110, mis_y[i] - mis_anim[i] * 23 - 20, img[mis_data[i]][mis_anim[i]], TRUE);
 					}
 				}
 			}
@@ -588,24 +588,24 @@ void Player::Draw()
 				{
 					if (mis_draw[i] == true)
 					{
-						DrawGraph(90 + i * 110 + 15, 315 - 30, comment[1], TRUE);
-						DrawGraph((90 - mis_anim[i] * 28) + i * 110, mis_y[i] - mis_anim[i] * 23 - 30, mis_img[mis_data[i]], TRUE);
+						DrawGraph(90 + i * 110 + 15, 315 - 20, comment[1], TRUE);
+						DrawGraph((90 - mis_anim[i] * 28) + i * 110, mis_y[i] - mis_anim[i] * 23 - 20, mis_img[mis_data[i]], TRUE);
 					}
 					else
 					{
-						DrawGraph((90 - mis_anim[i] * 28) + i * 110, mis_y[i] - mis_anim[i] * 23 - 30, img[mis_data[i]][mis_anim[i]], TRUE);
+						DrawGraph((90 - mis_anim[i] * 28) + i * 110, mis_y[i] - mis_anim[i] * 23 - 20, img[mis_data[i]][mis_anim[i]], TRUE);
 					}
 				}
 				else
 				{
 					if (mis_draw[i] == true)
 					{
-						DrawGraph(90 + (i - 10) * 110 + 15, 460 - 30, comment[1], TRUE);
-						DrawGraph((90 - mis_anim[i] * 28) + (i - 10) * 110, mis_y[i] - mis_anim[i] * 23 - 30, mis_img[mis_data[i]], TRUE);
+						DrawGraph(90 + (i - 10) * 110 + 15, 460 - 20, comment[1], TRUE);
+						DrawGraph((90 - mis_anim[i] * 28) + (i - 10) * 110, mis_y[i] - mis_anim[i] * 23 - 20, mis_img[mis_data[i]], TRUE);
 					}
 					else
 					{
-						DrawGraph((90 - mis_anim[i] * 28) + (i - 10) * 110, mis_y[i] - mis_anim[i] * 23 - 30, img[mis_data[i]][mis_anim[i]], TRUE);
+						DrawGraph((90 - mis_anim[i] * 28) + (i - 10) * 110, mis_y[i] - mis_anim[i] * 23 - 20, img[mis_data[i]][mis_anim[i]], TRUE);
 					}
 				}
 			}
@@ -656,15 +656,15 @@ void Player::Draw()
 					{
 						if (com_cnt[i] != 0)
 						{
-							DrawGraph(225 + i * 110, 315 - 30, comment[0], TRUE);
-							DrawGraph(225 + i * 110 - 13, 355 - 10 - 30, effect_img[effect[i]], TRUE);
+							DrawGraph(225 + i * 110, 315 - 20, comment[0], TRUE);
+							DrawGraph(225 + i * 110 - 13, 355 - 10 - 20, effect_img[effect[i]], TRUE);
 						}
 
-						DrawGraph(225 + i * 110, 355 - 30, img[input[i]][0], TRUE);
+						DrawGraph(225 + i * 110, 355 - 20, img[input[i]][0], TRUE);
 					}
 					else
 					{
-						DrawGraph((225 - player_anim[i] * 28) + i * 110, 355 - player_anim[i] * 23 - 30, img[input[i]][player_anim[i]], TRUE);
+						DrawGraph((225 - player_anim[i] * 28) + i * 110, 355 - player_anim[i] * 23 - 20, img[input[i]][player_anim[i]], TRUE);
 
 					}
 				}
@@ -674,15 +674,15 @@ void Player::Draw()
 					{
 						if (com_cnt[i] != 0)
 						{
-							DrawGraph((100 - 54 * (Theme::theme_num - 2)) + i * 110, 460 - 30, comment[0], TRUE);
-							DrawGraph((100 - 54 * (Theme::theme_num - 2)) + i * 110 - 13, 500 - 10 - 30, effect_img[effect[i]], TRUE);
+							DrawGraph((100 - 54 * (Theme::theme_num - 2)) + i * 110, 460 - 20, comment[0], TRUE);
+							DrawGraph((100 - 54 * (Theme::theme_num - 2)) + i * 110 - 13, 500 - 10 - 20, effect_img[effect[i]], TRUE);
 						}
 
-						DrawGraph((100 - 54 * (Theme::theme_num - 2)) + i * 110, 500 - 30, img[input[i]][0], TRUE);
+						DrawGraph((100 - 54 * (Theme::theme_num - 2)) + i * 110, 500 - 20, img[input[i]][0], TRUE);
 					}
 					else
 					{
-						DrawGraph(((100 - player_anim[i] * 28) - 54 * (Theme::theme_num - 2)) + i * 110, 500 - player_anim[i] * 23 - 30, img[input[i]][player_anim[i]], TRUE);
+						DrawGraph(((100 - player_anim[i] * 28) - 54 * (Theme::theme_num - 2)) + i * 110, 500 - player_anim[i] * 23 - 20, img[input[i]][player_anim[i]], TRUE);
 					}
 				}
 			}
@@ -694,15 +694,15 @@ void Player::Draw()
 					{
 						if (com_cnt[i] != 0)
 						{
-							DrawGraph(225 + i * 110, 315 - 30, comment[0], TRUE);
-							DrawGraph(225 + i * 110 - 13, 355 - 10 - 30, effect_img[effect[i]], TRUE);
+							DrawGraph(225 + i * 110, 315 - 20, comment[0], TRUE);
+							DrawGraph(225 + i * 110 - 13, 355 - 10 - 20, effect_img[effect[i]], TRUE);
 						}
 
-						DrawGraph(225 + i * 110, 355 - 30, img[input[i]][0], TRUE);
+						DrawGraph(225 + i * 110, 355 - 20, img[input[i]][0], TRUE);
 					}
 					else
 					{
-						DrawGraph((225 - player_anim[i] * 28) + i * 110, 355 - player_anim[i] * 23 - 30, img[input[i]][player_anim[i]], TRUE);
+						DrawGraph((225 - player_anim[i] * 28) + i * 110, 355 - player_anim[i] * 23 - 20, img[input[i]][player_anim[i]], TRUE);
 					}
 				}
 				else
@@ -711,15 +711,15 @@ void Player::Draw()
 					{
 						if (com_cnt[i] != 0)
 						{
-							DrawGraph(225 + (i - 8) * 110, 460 - 30, comment[0], TRUE);
-							DrawGraph(225 + (i - 8) * 110 - 13, 500 - 10 - 30, effect_img[effect[i]], TRUE);
+							DrawGraph(225 + (i - 8) * 110, 460 - 20, comment[0], TRUE);
+							DrawGraph(225 + (i - 8) * 110 - 13, 500 - 10 - 20, effect_img[effect[i]], TRUE);
 						}
 
-						DrawGraph(225 + (i - 8) * 110, 500 - 30, img[input[i]][0], TRUE);
+						DrawGraph(225 + (i - 8) * 110, 500 - 20, img[input[i]][0], TRUE);
 					}
 					else
 					{
-						DrawGraph((225 - player_anim[i] * 28) + (i - 8) * 110, 500 - player_anim[i] * 23 - 30, img[input[i]][player_anim[i]], TRUE);
+						DrawGraph((225 - player_anim[i] * 28) + (i - 8) * 110, 500 - player_anim[i] * 23 - 20, img[input[i]][player_anim[i]], TRUE);
 					}
 				}
 			}
@@ -731,15 +731,15 @@ void Player::Draw()
 					{
 						if (com_cnt[i] != 0)
 						{
-							DrawGraph(160 + i * 110, 315 - 30, comment[0], TRUE);
-							DrawGraph(160 + i * 110 - 13, 355 - 10 - 30, effect_img[effect[i]], TRUE);
+							DrawGraph(160 + i * 110, 315 - 20, comment[0], TRUE);
+							DrawGraph(160 + i * 110 - 13, 355 - 10 - 20, effect_img[effect[i]], TRUE);
 						}
 
-						DrawGraph(160 + i * 110, 355 - 30, img[input[i]][0], TRUE);
+						DrawGraph(160 + i * 110, 355 - 20, img[input[i]][0], TRUE);
 					}
 					else
 					{
-						DrawGraph((160 - player_anim[i] * 28) + i * 110, 355 - player_anim[i] * 23 - 30, img[input[i]][player_anim[i]], TRUE);
+						DrawGraph((160 - player_anim[i] * 28) + i * 110, 355 - player_anim[i] * 23 - 20, img[input[i]][player_anim[i]], TRUE);
 					}
 				}
 				else
@@ -748,15 +748,15 @@ void Player::Draw()
 					{
 						if (com_cnt[i] != 0)
 						{
-							DrawGraph(215 + (i - 9) * 110, 460 - 30, comment[0], TRUE);
-							DrawGraph(215 + (i - 9) * 110 - 13, 500 - 10 - 30, effect_img[effect[i]], TRUE);
+							DrawGraph(215 + (i - 9) * 110, 460 - 20, comment[0], TRUE);
+							DrawGraph(215 + (i - 9) * 110 - 13, 500 - 10 - 20, effect_img[effect[i]], TRUE);
 						}
 
-						DrawGraph(215 + (i - 9) * 110, 500 - 30, img[input[i]][0], TRUE);
+						DrawGraph(215 + (i - 9) * 110, 500 - 20, img[input[i]][0], TRUE);
 					}
 					else
 					{
-						DrawGraph((215 - player_anim[i] * 28) + (i - 9) * 110, 500 - player_anim[i] * 23 - 30, img[input[i]][player_anim[i]], TRUE);
+						DrawGraph((215 - player_anim[i] * 28) + (i - 9) * 110, 500 - player_anim[i] * 23 - 20, img[input[i]][player_anim[i]], TRUE);
 					}
 				}
 			}
@@ -768,15 +768,15 @@ void Player::Draw()
 					{
 						if (com_cnt[i] != 0)
 						{
-							DrawGraph(160 + i * 110, 315 - 30, comment[0], TRUE);
-							DrawGraph(160 + i * 110 - 13, 355 - 10 - 30, effect_img[effect[i]], TRUE);
+							DrawGraph(160 + i * 110, 315 - 20, comment[0], TRUE);
+							DrawGraph(160 + i * 110 - 13, 355 - 10 - 20, effect_img[effect[i]], TRUE);
 						}
 
-						DrawGraph(160 + i * 110, 355 - 30, img[input[i]][0], TRUE);
+						DrawGraph(160 + i * 110, 355 - 20, img[input[i]][0], TRUE);
 					}
 					else
 					{
-						DrawGraph((160 - player_anim[i] * 28) + i * 110, 355 - player_anim[i] * 23 - 30, img[input[i]][player_anim[i]], TRUE);
+						DrawGraph((160 - player_anim[i] * 28) + i * 110, 355 - player_anim[i] * 23 - 20, img[input[i]][player_anim[i]], TRUE);
 					}
 				}
 				else
@@ -785,15 +785,15 @@ void Player::Draw()
 					{
 						if (com_cnt[i] != 0)
 						{
-							DrawGraph(160 + (i - 9) * 110, 460 - 30, comment[0], TRUE);
-							DrawGraph(160 + (i - 9) * 110 - 13, 500 - 10 - 30, effect_img[effect[i]], TRUE);
+							DrawGraph(160 + (i - 9) * 110, 460 - 20, comment[0], TRUE);
+							DrawGraph(160 + (i - 9) * 110 - 13, 500 - 10 - 20, effect_img[effect[i]], TRUE);
 						}
 
-						DrawGraph(160 + (i - 9) * 110, 500 - 30, img[input[i]][0], TRUE);
+						DrawGraph(160 + (i - 9) * 110, 500 - 20, img[input[i]][0], TRUE);
 					}
 					else
 					{
-						DrawGraph((160 - player_anim[i] * 28) + (i - 9) * 110, 500 - player_anim[i] * 23 - 30, img[input[i]][player_anim[i]], TRUE);
+						DrawGraph((160 - player_anim[i] * 28) + (i - 9) * 110, 500 - player_anim[i] * 23 - 20, img[input[i]][player_anim[i]], TRUE);
 					}
 				}
 			}
@@ -805,15 +805,15 @@ void Player::Draw()
 					{
 						if (com_cnt[i] != 0)
 						{
-							DrawGraph(90 + i * 110, 315 - 30, comment[0], TRUE);
-							DrawGraph(90 + i * 110 - 13, 355 - 10 - 30, effect_img[effect[i]], TRUE);
+							DrawGraph(90 + i * 110, 315 - 20, comment[0], TRUE);
+							DrawGraph(90 + i * 110 - 13, 355 - 10 - 20, effect_img[effect[i]], TRUE);
 						}
 
-						DrawGraph(90 + i * 110, 355 - 30, img[input[i]][0], TRUE);
+						DrawGraph(90 + i * 110, 355 - 20, img[input[i]][0], TRUE);
 					}
 					else
 					{
-						DrawGraph((90 - player_anim[i] * 28) + i * 110, 355 - player_anim[i] * 23 - 30, img[input[i]][player_anim[i]], TRUE);
+						DrawGraph((90 - player_anim[i] * 28) + i * 110, 355 - player_anim[i] * 23 - 20, img[input[i]][player_anim[i]], TRUE);
 					}
 				}
 				else
@@ -822,15 +822,15 @@ void Player::Draw()
 					{
 						if (com_cnt[i] != 0)
 						{
-							DrawGraph(160 + (i - 10) * 110, 460 - 30, comment[0], TRUE);
-							DrawGraph(160 + (i - 10) * 110 - 13, 500 - 10 - 30, effect_img[effect[i]], TRUE);
+							DrawGraph(160 + (i - 10) * 110, 460 - 20, comment[0], TRUE);
+							DrawGraph(160 + (i - 10) * 110 - 13, 500 - 10 - 20, effect_img[effect[i]], TRUE);
 						}
 
-						DrawGraph(160 + (i - 10) * 110, 500 - 30, img[input[i]][0], TRUE);
+						DrawGraph(160 + (i - 10) * 110, 500 - 20, img[input[i]][0], TRUE);
 					}
 					else
 					{
-						DrawGraph((160 - player_anim[i] * 28) + (i - 10) * 110, 500 - player_anim[i] * 23 - 30, img[input[i]][player_anim[i]], TRUE);
+						DrawGraph((160 - player_anim[i] * 28) + (i - 10) * 110, 500 - player_anim[i] * 23 - 20, img[input[i]][player_anim[i]], TRUE);
 					}
 				}
 			}
@@ -842,15 +842,15 @@ void Player::Draw()
 					{
 						if (com_cnt[i] != 0)
 						{
-							DrawGraph(90 + i * 110, 315 - 30, comment[0], TRUE);
-							DrawGraph(90 + i * 110 - 13, 355 - 10 - 30, effect_img[effect[i]], TRUE);
+							DrawGraph(90 + i * 110, 315 - 20, comment[0], TRUE);
+							DrawGraph(90 + i * 110 - 13, 355 - 10 - 20, effect_img[effect[i]], TRUE);
 						}
 
-						DrawGraph(90 + i * 110, 355 - 30, img[input[i]][0], TRUE);
+						DrawGraph(90 + i * 110, 355 - 20, img[input[i]][0], TRUE);
 					}
 					else
 					{
-						DrawGraph((90 - player_anim[i] * 28) + i * 110, 355 - player_anim[i] * 23 - 30, img[input[i]][player_anim[i]], TRUE);
+						DrawGraph((90 - player_anim[i] * 28) + i * 110, 355 - player_anim[i] * 23 - 20, img[input[i]][player_anim[i]], TRUE);
 					}
 				}
 				else
@@ -859,15 +859,15 @@ void Player::Draw()
 					{
 						if (com_cnt[i] != 0)
 						{
-							DrawGraph(90 + (i - 10) * 110, 460 - 30, comment[0], TRUE);
-							DrawGraph(90 + (i - 10) * 110 - 13, 500 - 10 - 30, effect_img[effect[i]], TRUE);
+							DrawGraph(90 + (i - 10) * 110, 460 - 20, comment[0], TRUE);
+							DrawGraph(90 + (i - 10) * 110 - 13, 500 - 10 - 20, effect_img[effect[i]], TRUE);
 						}
 
-						DrawGraph(90 + (i - 10) * 110, 500 - 30, img[input[i]][0], TRUE);
+						DrawGraph(90 + (i - 10) * 110, 500 - 20, img[input[i]][0], TRUE);
 					}
 					else
 					{
-						DrawGraph((90 - player_anim[i] * 28) + (i - 10) * 110, 500 - player_anim[i] * 23 - 30, img[input[i]][player_anim[i]], TRUE);
+						DrawGraph((90 - player_anim[i] * 28) + (i - 10) * 110, 500 - player_anim[i] * 23 - 20, img[input[i]][player_anim[i]], TRUE);
 					}
 				}
 			}

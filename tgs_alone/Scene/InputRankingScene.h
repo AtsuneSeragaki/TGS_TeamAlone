@@ -24,6 +24,7 @@ private:
 	bool input_end;   // 名前入力終了フラグ
 	bool tran_flg;    // 画面遷移 false:しない true:する
 	int transition;   // トランジションの値保存用
+	int cnt;          // 文字点滅用カウント
 
 	RankingData* ranking; // ランキング情報
 

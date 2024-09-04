@@ -125,11 +125,11 @@ void Theme::Draw()
 		{
 			if (i < 8)
 			{
-				DrawGraph(225 + i * 110, 355 - 30, img[theme[i]], TRUE);
+				DrawGraph(225 + i * 110, 355 - 20, img[theme[i]], TRUE);
 			}
 			else
 			{
-				DrawGraph((100 - 54 * (theme_num - 2)) + i * 110, 500 - 30, img[theme[i]], TRUE);
+				DrawGraph((100 - 54 * (theme_num - 2)) + i * 110, 500 - 20, img[theme[i]], TRUE);
 			}
 		}
 	}
@@ -139,11 +139,11 @@ void Theme::Draw()
 		{
 			if (i < 8)
 			{
-				DrawGraph(225 + i * 110, 355 - 30, img[theme[i]], TRUE);
+				DrawGraph(225 + i * 110, 355 - 20, img[theme[i]], TRUE);
 			}
 			else
 			{
-				DrawGraph(225 + (i - 8) * 110, 500 - 30, img[theme[i]], TRUE);
+				DrawGraph(225 + (i - 8) * 110, 500 - 20, img[theme[i]], TRUE);
 			}
 		}
 	}
@@ -153,11 +153,11 @@ void Theme::Draw()
 		{
 			if (i < 9)
 			{
-				DrawGraph(160 + i * 110, 355 - 30, img[theme[i]], TRUE);
+				DrawGraph(160 + i * 110, 355 - 20, img[theme[i]], TRUE);
 			}
 			else
 			{
-				DrawGraph(215 + (i - 9) * 110, 500 - 30, img[theme[i]], TRUE);
+				DrawGraph(215 + (i - 9) * 110, 500 - 20, img[theme[i]], TRUE);
 			}
 		}
 	}
@@ -167,11 +167,11 @@ void Theme::Draw()
 		{
 			if (i < 9)
 			{
-				DrawGraph(160 + i * 110, 355 - 30, img[theme[i]], TRUE);
+				DrawGraph(160 + i * 110, 355 - 20, img[theme[i]], TRUE);
 			}
 			else
 			{
-				DrawGraph(160 + (i - 9) * 110, 500 - 30, img[theme[i]], TRUE);
+				DrawGraph(160 + (i - 9) * 110, 500 - 20, img[theme[i]], TRUE);
 			}
 		}
 	}
@@ -181,11 +181,11 @@ void Theme::Draw()
 		{
 			if (i < 10)
 			{
-				DrawGraph(90 + i * 110, 355 - 30, img[theme[i]], TRUE);
+				DrawGraph(90 + i * 110, 355 - 20, img[theme[i]], TRUE);
 			}
 			else
 			{
-				DrawGraph(160 + (i - 10) * 110, 500 - 30, img[theme[i]], TRUE);
+				DrawGraph(160 + (i - 10) * 110, 500 - 20, img[theme[i]], TRUE);
 			}
 		}
 	}
@@ -195,11 +195,11 @@ void Theme::Draw()
 		{
 			if (i < 10)
 			{
-				DrawGraph(90 + i * 110, 355 - 30, img[theme[i]], TRUE);
+				DrawGraph(90 + i * 110, 355 - 20, img[theme[i]], TRUE);
 			}
 			else
 			{
-				DrawGraph(90 + (i - 10) * 110, 500 - 30, img[theme[i]], TRUE);
+				DrawGraph(90 + (i - 10) * 110, 500 - 20, img[theme[i]], TRUE);
 			}
 		}
 	}

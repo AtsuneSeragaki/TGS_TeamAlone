@@ -251,13 +251,13 @@ eSceneType ResultScene::Update()
 void ResultScene::Draw() const
 {
 	// 比較用のデータを格納
-	/*int i = Theme::theme_num - 2;
+	int i = Theme::theme_num - 2;
 	int j = Player::combo;
-	int k = Player::all_mis;*/
+	int k = Player::all_mis;
 
-	int i = 12;
+	/*int i = 12;
 	int j = 200;
-	int k = 200;
+	int k = 200;*/
 
 	// 背景の描画
 	DrawGraph(0, 0, back_img[0], TRUE);
