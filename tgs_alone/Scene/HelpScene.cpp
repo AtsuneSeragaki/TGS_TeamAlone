@@ -126,12 +126,12 @@ void HelpScene::Initialize()
 
 	cbutton_img[0] = LoadGraph("Resource/images/help/a1.png");
 	cbutton_img[1] = LoadGraph("Resource/images/help/a2.png");
-	cbutton_img[2] = LoadGraph("Resource/images/help/b1.png");
-	cbutton_img[3] = LoadGraph("Resource/images/help/b2.png");
+	cbutton_img[2] = LoadGraph("Resource/images/help/x1.png");
+	cbutton_img[3] = LoadGraph("Resource/images/help/x2.png");
 	cbutton_img[4] = LoadGraph("Resource/images/help/y1.png");
 	cbutton_img[5] = LoadGraph("Resource/images/help/y2.png");
-	cbutton_img[6] = LoadGraph("Resource/images/help/x1.png");
-	cbutton_img[7] = LoadGraph("Resource/images/help/x2.png");
+	cbutton_img[6] = LoadGraph("Resource/images/help/b1.png");
+	cbutton_img[7] = LoadGraph("Resource/images/help/b2.png");
 
 
 	// 音データの読み込み
@@ -315,9 +315,9 @@ void HelpScene::Draw() const
 
 	case 2:
 		DrawGraph(1040, 492, cbutton_img[0], TRUE);
-		DrawGraph(1000, 452, cbutton_img[3], TRUE);
+		DrawGraph(1000, 452, cbutton_img[2], TRUE);
 		DrawGraph(1040, 415, cbutton_img[4], TRUE);
-		DrawGraph(1080, 452, cbutton_img[6], TRUE);
+		DrawGraph(1080, 452, cbutton_img[7], TRUE);
 		break;
 
 	case 3:
@@ -329,9 +329,9 @@ void HelpScene::Draw() const
 
 	case 4:
 		DrawGraph(1040, 492, cbutton_img[0], TRUE);
-		DrawGraph(1000, 452, cbutton_img[2], TRUE);
+		DrawGraph(1000, 452, cbutton_img[3], TRUE);
 		DrawGraph(1040, 415, cbutton_img[4], TRUE);
-		DrawGraph(1080, 452, cbutton_img[7], TRUE);
+		DrawGraph(1080, 452, cbutton_img[6], TRUE);
 		break;
 
 	default:
