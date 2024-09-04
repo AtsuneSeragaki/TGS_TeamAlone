@@ -16,7 +16,7 @@ GameMainScene::GameMainScene() :player(nullptr), time(nullptr), theme(nullptr),c
 		
 	}
 
-	for (int i = 0; i < 7; i++)
+	for (int i = 0; i < 8; i++)
 	{
 		img[i] = 0;
 	}
@@ -36,7 +36,7 @@ GameMainScene::~GameMainScene()
 	}
 
 	// 画像データの削除
-	for (int i = 0; i < 7; i++)
+	for (int i = 0; i < 8; i++)
 	{
 		DeleteGraph(img[i]);
 	}
@@ -55,6 +55,7 @@ void GameMainScene::Initialize()
 	img[4] = LoadGraph("Resource/images/main/main5.png");
 	img[5] = LoadGraph("Resource/images/main/string/timeup.png");
 	img[6] = LoadGraph("Resource/images/main/string/perfect.png");
+	img[7] = LoadGraph("Resource/images/main/count.png");
 
 	pause_img[0] = LoadGraph("Resource/images/pause/pausewin.png");
 	pause_img[1] = LoadGraph("Resource/images/pause/resumeb.png");
@@ -72,13 +73,13 @@ void GameMainScene::Initialize()
 	sound[1] = LoadSoundMem("Resource/sounds/main/se/countdown.mp3");
 	sound[2] = LoadSoundMem("Resource/sounds/main/se/start.mp3");
 	sound[3] = LoadSoundMem("Resource/sounds/main/se/game_end.mp3");
-	sound[4] = LoadSoundMem("Resource/sounds/main/se/stop.mp3");
+	sound[4] = LoadSoundMem("Resource/sounds/main/se/timeup2.mp3");
 
 	se[0] = LoadSoundMem("Resource/sounds/title/move.mp3");
 	se[1] = LoadSoundMem("Resource/sounds/title/ok.mp3");
 
 	// エラーチェック
-	for (int i = 0; i < 7; i++)
+	for (int i = 0; i < 8; i++)
 	{
 		if (img[i] == -1)
 		{
@@ -117,7 +118,7 @@ void GameMainScene::Initialize()
 	}
 
 	// 変数の初期化
-	begin_time = 3;
+	begin_time = 4;
 	begin_cnt = 0;
 	draw_cnt = 0;
 	timeup_flg = false;
@@ -266,11 +267,11 @@ eSceneType GameMainScene::Update()
 			// 開始のカウントダウン
 			if (begin_time != -1)
 			{
-				if (begin_time == 3 && begin_cnt == 0)
-				{
-					// 効果音の再生
-					PlaySoundMem(sound[1], DX_PLAYTYPE_BACK, TRUE);
-				}
+				//if (begin_time == 4 && begin_cnt == 0)
+				//{
+				//	// 効果音の再生
+				//	PlaySoundMem(sound[1], DX_PLAYTYPE_BACK, TRUE);
+				//}
 
 				begin_cnt++;
 
@@ -471,6 +472,10 @@ void GameMainScene::Draw() const
 	{
 		// ゲーム開始の描画
 		DrawGraph(0, 0, img[0], TRUE);
+	}
+	else if (begin_time == 4)
+	{
+		DrawGraph(0, 0, img[7], TRUE);
 	}
 	else
 	{

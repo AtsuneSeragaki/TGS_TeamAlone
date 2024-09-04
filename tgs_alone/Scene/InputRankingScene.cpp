@@ -57,7 +57,7 @@ void InputRankingScene::Initialize()
 	img[0] = LoadGraph("Resource/images/ranking/button1.png");
 	img[1] = LoadGraph("Resource/images/ranking/button2.png");
 	img[2] = LoadGraph("Resource/images/ranking/button3.png");
-	img[3] = LoadGraph("Resource/images/ranking/input.png");
+	img[3] = LoadGraph("Resource/images/ranking/input2.png");
 	img[4] = LoadGraph("Resource/images/ranking/noname.png");
 	img[5] = LoadGraph("Resource/images/ranking/moji.png");
 	img[6] = LoadGraph("Resource/images/ranking/cursor.png");
@@ -240,7 +240,7 @@ void InputRankingScene::Draw() const
 	}
 
 	// 文字(キーボード？)の描画
-	DrawGraph(320, 250, img[5], TRUE);
+	//DrawGraph(320, 250, img[5], TRUE);
 
 	if (no_name == true)
 	{// 名前が入力されていないとき

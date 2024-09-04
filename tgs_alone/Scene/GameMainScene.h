@@ -11,7 +11,7 @@
 class GameMainScene : public SceneBase
 {
 private:
-	int img[7];       // 画像データ
+	int img[8];       // 画像データ
 	int pause_img[8]; // ポーズ画面の画像
 	int tran_img;     // トランジション画像
 	int sound[5];     // 音データ
