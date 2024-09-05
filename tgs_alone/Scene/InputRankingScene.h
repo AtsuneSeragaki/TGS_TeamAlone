@@ -3,13 +3,17 @@
 #include "SceneBase.h"
 #include "../Object/RankingData.h"
 
+#define PI    3.1415926535897932384626433832795f
+
 class InputRankingScene : public SceneBase
 {
 private:
-	int img[7];       // 背景画像
+	int img[9];       // 背景画像
 	int star_img;     // 星画像
 	int tran_img;     // トランジション画像
 	int font_img[27]; // フォント画像
+	int font_img2[27]; // フォント画像大きめ
+	int button[4];    
 	int font;         // フォントデータ
 	int se[2];        // 効果音データ
 	int bgm;          // BGMデータ
@@ -25,6 +29,7 @@ private:
 	bool tran_flg;    // 画面遷移 false:しない true:する
 	int transition;   // トランジションの値保存用
 	int cnt;          // 文字点滅用カウント
+	int cnt2;          // フレームカウント
 
 	RankingData* ranking; // ランキング情報
 
@@ -59,4 +64,7 @@ public:
 
 	// 画面切り替えアニメーション
 	void Transition();
+
+	// 操作説明のボタンのアニメーション
+	void OpeAnim();
 };

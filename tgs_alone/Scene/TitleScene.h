@@ -9,12 +9,12 @@ class TitleScene : public SceneBase
 private:
 	int back_img;     // 背景画像 
 	int logo_img;     // タイトルロゴ画像
-	int ope_img;      // 操作説明画像
+	int ope_img[4];   // 操作説明画像
 	int menu_img[8];  // メニュー画像
 	int star_img[6];  // 星画像
 	int tran_img;     // トランジション画像
 	int deco_img[6];  // メニュー飾り画像
-	int cloud_img;    // 雲画像 
+	int cloud_img;    // 雲画像
 	int se[2];        // 効果音
 	int bgm;          // BGM
 	int star_cnt;     // 星の回転用

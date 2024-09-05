@@ -8,7 +8,7 @@
 int TitleScene::menu_cursor = 0;
 bool TitleScene::back_title = false;
 
-TitleScene::TitleScene() : back_img(0), bgm(0), star_cnt(0), transition(0), tran_img(0),tran_flg(false),rota_flg(false),logo_img(0),ope_img(0),star_flg(false),shoot_num(0),shoot_cnt(0),shoot_x(0),shoot_y(0),cloud_img(0),cnt(0),shoot_ran(0), shoot_x2(0), shoot_y2(0), shoot_ran2(0),char_y(0),move_flg(false),pos_flg(false),char_stay(0),star_cnt2(0)
+TitleScene::TitleScene() : back_img(0), bgm(0), star_cnt(0), transition(0), tran_img(0),tran_flg(false),rota_flg(false),logo_img(0),star_flg(false),shoot_num(0),shoot_cnt(0),shoot_x(0),shoot_y(0),cloud_img(0),cnt(0),shoot_ran(0), shoot_x2(0), shoot_y2(0), shoot_ran2(0),char_y(0),move_flg(false),pos_flg(false),char_stay(0),star_cnt2(0)
 {
 	se[0] = 0;
 	se[1] = 0;
@@ -26,6 +26,11 @@ TitleScene::TitleScene() : back_img(0), bgm(0), star_cnt(0), transition(0), tran
 	for (int i = 0; i < 6; i++)
 	{
 		deco_img[i] = 0;
+	}
+
+	for (int i = 0; i < 4; i++)
+	{
+		ope_img[i] = 0;
 	}
 }
 
@@ -49,9 +54,13 @@ TitleScene::~TitleScene()
 		DeleteGraph(deco_img[i]);
 	}
 
+	for (int i = 0; i < 4; i++)
+	{
+		DeleteGraph(ope_img[i]);
+	}
+
 	DeleteGraph(tran_img);
 	DeleteGraph(logo_img);
-	DeleteGraph(ope_img);
 	DeleteGraph(cloud_img);
 
 	// 音データの削除
@@ -93,7 +102,11 @@ void TitleScene::Initialize()
 
 	logo_img = LoadGraph("Resource/images/title/logo.png");
 
-	ope_img = LoadGraph("Resource/images/title/up-down-select.png");
+	ope_img[0] = LoadGraph("Resource/images/title/up-down-select.png");
+	ope_img[1] = LoadGraph("Resource/images/ranking/a.png");
+	ope_img[2] = LoadGraph("Resource/images/ranking/y.png");
+	ope_img[3] = LoadGraph("Resource/images/ranking/b.png");
+
 
 	cloud_img = LoadGraph("Resource/images/title/cloud1.png");
 
@@ -133,6 +146,15 @@ void TitleScene::Initialize()
 		}
 	}
 
+
+	for (int i = 0; i < 4; i++)
+	{
+		if (ope_img[i] == -1)
+		{
+			throw("ope_img[%d]がありません", i);
+		}
+	}
+
 	if (tran_img == -1)
 	{
 		throw("Resource/images/tansition/transition.pngがありません");
@@ -140,10 +162,6 @@ void TitleScene::Initialize()
 	if (logo_img == -1)
 	{
 		throw("Resource/images/title/logo.pngがありません");
-	}
-	if (ope_img == -1)
-	{
-		throw("Resource/images/title/ui.pngがありません");
 	}
 	if (cloud_img == -1)
 	{
@@ -350,7 +368,11 @@ void TitleScene::Draw() const
 	DrawGraph(0, 0, cloud_img, TRUE);
 
 	// 操作説明の描画
-	DrawGraph(800, 650, ope_img, TRUE);
+	DrawGraph(800, 650, ope_img[0], TRUE);
+	DrawGraph(922, 650 + sin(PI * 2 / 90 * cnt) * 6, ope_img[1], TRUE);
+	DrawGraph(1092, 650 + sin(PI * 2 / 90 * cnt) * 6, ope_img[3], TRUE);
+	DrawGraph(805, 650 + sin(PI * 2 / 90 * cnt) * 6, ope_img[2], TRUE);
+
 	
 	// メニューの描画
 	switch (menu_cursor)

@@ -16,6 +16,11 @@ GameMainScene::GameMainScene() :player(nullptr), time(nullptr), theme(nullptr),c
 		
 	}
 
+	for (int i = 0; i < 3; i++)
+	{
+		button[i] = 0;
+	}
+
 	for (int i = 0; i < 8; i++)
 	{
 		img[i] = 0;
@@ -68,6 +73,10 @@ void GameMainScene::Initialize()
 
 	tran_img = LoadGraph("Resource/images/tansition/transition.png");
 
+	button[0] = LoadGraph("Resource/images/ranking/a.png");
+	button[1] = LoadGraph("Resource/images/ranking/y.png");
+	button[2] = LoadGraph("Resource/images/ranking/b.png");
+
 	// サウンド読み込み
 	sound[0] = LoadSoundMem("Resource/sounds/main/maou_bgm_cyber44.mp3");
 	sound[1] = LoadSoundMem("Resource/sounds/main/se/countdown.mp3");
@@ -84,6 +93,14 @@ void GameMainScene::Initialize()
 		if (img[i] == -1)
 		{
 			throw("img[%d]がありません\n", i);
+		}
+	}
+
+	for (int i = 0; i < 3; i++)
+	{
+		if (button[i] == -1)
+		{
+			throw("button[%d]がありません\n", i);
 		}
 	}
 
@@ -531,6 +548,9 @@ void GameMainScene::Draw() const
 
 		DrawGraph(348, 140, pause_img[0], TRUE);
 		DrawGraph(800, 600, pause_img[7], TRUE);
+		DrawGraph(803, 600 + sin(PI * 2 / 90 * cnt) * 6, button[1], TRUE);
+		DrawGraph(921, 600 + sin(PI * 2 / 90 * cnt) * 6, button[0], TRUE);
+		DrawGraph(1092, 600 + sin(PI * 2 / 90 * cnt) * 6, button[2], TRUE);
 
 		// メニューの描画
 		switch (pause_cursor)
