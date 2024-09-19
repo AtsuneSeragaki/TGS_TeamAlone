@@ -61,7 +61,7 @@ void HelpScene::Initialize()
 {
 	// 画像データの読み込み
 	//back_img[0] = LoadGraph("Resource/images/help/help.png");
-	back_img[0] = LoadGraph("Resource/images/help/help3.png");
+	back_img[0] = LoadGraph("Resource/images/help/help4.png");
 	back_img[1] = LoadGraph("Resource/images/help/start-title4.png");
 	back_img[2] = LoadGraph("Resource/images/help/x.png");
 	back_img[3] = LoadGraph("Resource/images/help/star2.png");
@@ -286,15 +286,15 @@ void HelpScene::Draw() const
 	DrawGraph(0, 0, back_img[0], FALSE);
 
 	// 星の描画
-	DrawRotaGraph(450, 90, 1.0, PI / 180 * (star_cnt * 2), star_img, TRUE);
-	DrawRotaGraph(850, 90, 1.0, PI / 180 * (star_cnt * 2), star_img, TRUE);
+	//DrawRotaGraph(450, 90, 1.0, PI / 180 * (star_cnt * 2), star_img, TRUE);
+	//DrawRotaGraph(850, 90, 1.0, PI / 180 * (star_cnt * 2), star_img, TRUE);
 	//DrawRotaGraph(50, 670, 1.0, PI / 180 * (-star_cnt * 2), star_img, TRUE);
 	//DrawRotaGraph(1230, 670, 1.0, PI / 180 * (star_cnt * 2), star_img, TRUE);
 
 	// 操作説明の描画
-	DrawGraph(410, 600, back_img[1], TRUE);
-	DrawGraph(435, 600 + sin(PI * 2 / 90 * cnt) * 6, back_img[2], TRUE);
-	DrawGraph(675, 600 + sin(PI * 2 / 90 * cnt) * 6, back_img[6], TRUE);
+	DrawGraph(400, 580, back_img[1], TRUE);
+	DrawGraph(425, 580 + sin(PI * 2 / 90 * cnt) * 6, back_img[2], TRUE);
+	DrawGraph(665, 580 + sin(PI * 2 / 90 * cnt) * 6, back_img[6], TRUE);
 
 	// 操作説明(コントローラーのボタン)の描画
 	switch (cbutton_num)

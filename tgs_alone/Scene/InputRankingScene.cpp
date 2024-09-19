@@ -212,6 +212,7 @@ eSceneType InputRankingScene::Update()
 		}
 		else if (RankingScene::to_ranking == true && transition > -120)
 		{
+			RankingScene::to_ranking = false;
 			// ランキングに遷移
 			return eSceneType::E_RANKING;
 		}

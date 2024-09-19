@@ -2,8 +2,8 @@
 
 #include "SceneBase.h"
 
-#define BUTTON_X 430  // ボタンのX座標
-#define BUTTON_Y 360  // ボタンのY座標
+#define BUTTON_X 420  // ボタンのX座標
+#define BUTTON_Y 340  // ボタンのY座標
 
 #define PI    3.1415926535897932384626433832795f
 
