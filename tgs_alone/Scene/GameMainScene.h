@@ -15,7 +15,7 @@ private:
 	int pause_img[8]; // ポーズ画面の画像
 	int tran_img;     // トランジション画像
 	int button[3];    // 操作説明画像
-	int sound[5];     // 音データ
+	int sound[6];     // 音データ
 	int se[2];        // 効果音
 	int begin_time;   // 開始までのカウントダウン
 	int begin_cnt;    // カウントダウンまでのカウントダウン
@@ -28,6 +28,7 @@ private:
 	int transition;   // トランジションの値保存用
 	bool restart;     // やり直し false:しない true:する
 	int cnt;          // フレームカウント
+	bool goal;        // すべてクリア false:してない true: した
 	
     Player* player;   // プレイヤーのオブジェクト
 	Time* time;       // 制限時間のオブジェクト

@@ -1,11 +1,26 @@
 #pragma once
 
-#define SB_X 680   // 吹き出しのX座標(SB:Speech Bubble)
-#define SB_Y 310   // 吹き出しのY座標
-#define CM_X 770   // 吹き出しのX座標
-#define CM_Y 400   // 吹き出しのY座標
-#define CH_X 330   // 吹き出しのX座標
+//#define SB_X 680   // 吹き出しのX座標(SB:Speech Bubble)
+//#define SB_Y 310   // 吹き出しのY座標
+//#define CM_X 770   // 吹き出しのX座標
+//#define CM_Y 400   // 吹き出しのY座標
+//#define CH_X 330   // 吹き出しのX座標
+//#define CH_Y 340   // 吹き出しのY座標
+
+//#define SB_X 890   // 吹き出しのX座標(SB:Speech Bubble)
+//#define SB_Y 400   // 吹き出しのY座標
+//#define CM_X 980   // 吹き出しのX座標
+//#define CM_Y 490   // 吹き出しのY座標
+//#define CH_X 595   // 吹き出しのX座標
+//#define CH_Y 400   // 吹き出しのY座標
+
+#define SB_X 640   // 吹き出しのX座標(SB:Speech Bubble)
+#define SB_Y 340   // 吹き出しのY座標
+#define CM_X 730   // 吹き出しのX座標
+#define CM_Y 430   // 吹き出しのY座標
+#define CH_X 345   // 吹き出しのX座標
 #define CH_Y 340   // 吹き出しのY座標
+
 
 class Comment
 {

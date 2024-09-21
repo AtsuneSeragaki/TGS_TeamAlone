@@ -60,7 +60,7 @@ RankingScene::~RankingScene()
 void RankingScene::Initialize()
 {
 	// 画像データの読み込み
-	back_img = LoadGraph("Resource/images/ranking/ranking2.png");
+	back_img = LoadGraph("Resource/images/ranking/ranking3.png");
 	star_img = LoadGraph("Resource/images/help/star.png");
 	tran_img = LoadGraph("Resource/images/tansition/transition.png");
 	ope_img[0] = LoadGraph("Resource/images/result/title1.png");
@@ -212,8 +212,8 @@ void RankingScene::Draw() const
 	DrawGraph(0, 0, back_img, TRUE);
 
 	// 操作説明の描画
-	DrawGraph(640, 610, ope_img[1], TRUE);
-	DrawGraph(568, 610 + sin(PI * 2 / 90 * cnt) * 6, ope_img[2], TRUE);
+	//DrawGraph(640, 610, ope_img[1], TRUE);
+	DrawGraph(570, 618 + sin(PI * 2 / 90 * cnt) * 6, ope_img[2], TRUE);
 
 	// 星の描画
 	//SetDrawBlendMode(DX_BLENDMODE_ALPHA, transparency);
@@ -243,21 +243,21 @@ void RankingScene::Draw() const
 
 		for (int j = 0; j < name_num; j++)
 		{
-			DrawGraph((450 - (name_num - 1) * 26) + j * 53, 242 + i * 115 + 20, font_img[(int)name[j] - 65], TRUE);
+			DrawGraph((450 - (name_num - 1) * 26) + j * 53, 242 + i * 115 + 35, font_img[(int)name[j] - 65], TRUE);
 		}
 		
 		//DrawFormatString(0, 0 + i * 20, 0x000000, "%d", name_num);
 
 		// レベルの描画
 		//DrawFormatStringToHandle(810, 242 + i * 100, 0x000000, font, "%02d", ranking->GetLevel(i));
-		DrawGraph(789, 242 + i * 115 + 20, num_img[level / 10], TRUE);
-		DrawGraph(835, 242 + i * 115 + 20, num_img[level % 10], TRUE);
+		DrawGraph(789, 242 + i * 115 + 35, num_img[level / 10], TRUE);
+		DrawGraph(835, 242 + i * 115 + 35, num_img[level % 10], TRUE);
 
 		// コンボの描画
 		//DrawFormatStringToHandle(1028, 242 + i * 100, 0x000000, font, "%03d", ranking->GetCombo(i));
-		DrawGraph(1000, 242 + i * 115 + 20, num_img[combo / 100], TRUE);
-		DrawGraph(1045, 242 + i * 115 + 20, num_img[(combo - combo / 100 * 100) / 10], TRUE);
-		DrawGraph(1090, 242 + i * 115 + 20, num_img[combo % 10], TRUE);
+		DrawGraph(1000, 242 + i * 115 + 35, num_img[combo / 100], TRUE);
+		DrawGraph(1045, 242 + i * 115 + 35, num_img[(combo - combo / 100 * 100) / 10], TRUE);
+		DrawGraph(1090, 242 + i * 115 + 35, num_img[combo % 10], TRUE);
 	}
 
 	if (tran_flg == true)

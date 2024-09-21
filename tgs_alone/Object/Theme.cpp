@@ -89,12 +89,12 @@ void Theme::Draw()
 	// レベルの表示
 	if ((theme_num - 2) < 10)
 	{
-		DrawGraph(150, 90, level_img[(theme_num - 2) % 10], TRUE);
+		DrawGraph(150 - 10, 90, level_img[(theme_num - 2) % 10], TRUE);
 	}
 	else
 	{
-		DrawGraph(125, 90, level_img[(theme_num - 2) / 10], TRUE);
-		DrawGraph(168, 90, level_img[(theme_num - 2) % 10], TRUE);
+		DrawGraph(125 - 8, 90, level_img[(theme_num - 2) / 10], TRUE);
+		DrawGraph(168 - 8, 90, level_img[(theme_num - 2) % 10], TRUE);
 	}
 
 	//SetFontSize(75);

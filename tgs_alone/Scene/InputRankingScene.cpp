@@ -380,7 +380,7 @@ void InputRankingScene::Draw() const
 
 	DrawGraph(635, 543 + sin(PI * 2 / 90 * cnt2) * 6, button[0], TRUE); // a
 	DrawGraph(470, 543 + sin(PI * 2 / 90 * cnt2) * 6, button[1], TRUE); // b
-	DrawGraph(810, 543 + sin(PI * 2 / 90 * cnt2) * 6, button[2], TRUE); // y
+	DrawGraph(800, 543 + sin(PI * 2 / 90 * cnt2) * 6, button[2], TRUE); // y
 	DrawGraph(328, 543 + sin(PI * 2 / 90 * cnt2) * 6, button[3], TRUE); // x
 
 	//DrawFormatStringToHandle(0, 0, 0x000000, font, "%s", name);

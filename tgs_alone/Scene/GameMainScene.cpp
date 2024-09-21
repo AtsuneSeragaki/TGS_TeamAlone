@@ -5,12 +5,12 @@
 #include <math.h>
 #include "DxLib.h"
 
-GameMainScene::GameMainScene() :player(nullptr), time(nullptr), theme(nullptr),comment(nullptr), begin_time(0),begin_cnt(0),draw_cnt(0),timeup_flg(false),timeup_cnt(0),pause(false),pause_cursor(0), transition(0), tran_img(0), tran_flg(false),restart(false),cnt(0)
+GameMainScene::GameMainScene() :player(nullptr), time(nullptr), theme(nullptr),comment(nullptr), begin_time(0),begin_cnt(0),draw_cnt(0),timeup_flg(false),timeup_cnt(0),pause(false),pause_cursor(0), transition(0), tran_img(0), tran_flg(false),restart(false),cnt(0),goal(false)
 {
 	se[0] = 0;
 	se[1] = 0;
 
-	for (int i = 0; i < 5; i++)
+	for (int i = 0; i < 6; i++)
 	{
 		sound[i] = 0;
 		
@@ -35,7 +35,7 @@ GameMainScene::GameMainScene() :player(nullptr), time(nullptr), theme(nullptr),c
 GameMainScene::~GameMainScene()
 {
 	// 音データの削除
-	for (int i = 0; i < 5; i++)
+	for (int i = 0; i < 6; i++)
 	{
 		DeleteSoundMem(sound[i]);
 	}
@@ -62,13 +62,13 @@ void GameMainScene::Initialize()
 	img[6] = LoadGraph("Resource/images/main/string/perfect.png");
 	img[7] = LoadGraph("Resource/images/main/count.png");
 
-	pause_img[0] = LoadGraph("Resource/images/pause/pausewin.png");
-	pause_img[1] = LoadGraph("Resource/images/pause/resumeb.png");
-	pause_img[2] = LoadGraph("Resource/images/pause/resume.png");
-	pause_img[3] = LoadGraph("Resource/images/pause/restartb.png");
-	pause_img[4] = LoadGraph("Resource/images/pause/restart.png");
-	pause_img[5] = LoadGraph("Resource/images/pause/backb.png");
-	pause_img[6] = LoadGraph("Resource/images/pause/back.png");
+	pause_img[0] = LoadGraph("Resource/images/pause/pause.png");
+	pause_img[1] = LoadGraph("Resource/images/pause/resume_choice.png");
+	pause_img[2] = LoadGraph("Resource/images/pause/resume_basic.png");
+	pause_img[3] = LoadGraph("Resource/images/pause/restart_choice.png");
+	pause_img[4] = LoadGraph("Resource/images/pause/restart_basic.png");
+	pause_img[5] = LoadGraph("Resource/images/pause/backtotitle_choice.png");
+	pause_img[6] = LoadGraph("Resource/images/pause/backtotitle_basic.png");
 	pause_img[7] = LoadGraph("Resource/images/title/up-down-select.png");
 
 	tran_img = LoadGraph("Resource/images/tansition/transition.png");
@@ -83,6 +83,7 @@ void GameMainScene::Initialize()
 	sound[2] = LoadSoundMem("Resource/sounds/main/se/start.mp3");
 	sound[3] = LoadSoundMem("Resource/sounds/main/se/game_end.mp3");
 	sound[4] = LoadSoundMem("Resource/sounds/main/se/timeup2.mp3");
+	sound[5] = LoadSoundMem("Resource/sounds/main/se/goal.mp3");
 
 	se[0] = LoadSoundMem("Resource/sounds/title/move.mp3");
 	se[1] = LoadSoundMem("Resource/sounds/title/ok.mp3");
@@ -117,7 +118,7 @@ void GameMainScene::Initialize()
 		throw("Resource/images/tansition/transition.pngがありません");
 	}
 
-	for (int i = 0; i < 5; i++)
+	for (int i = 0; i < 6; i++)
 	{
 		if (sound[i] == -1)
 		{
@@ -145,6 +146,7 @@ void GameMainScene::Initialize()
 	transition = -93;
 	tran_flg = true;
 	cnt = 0;
+	goal = false;
 
 	// オブジェクトの生成
 	player = new Player;
@@ -312,9 +314,8 @@ eSceneType GameMainScene::Update()
 			// カウントダウン後に開始
 			if (begin_time == -1)
 			{
-				//制限時間が0になったら
 				if (time->GetTime() <= 0.0f)
-				{
+				{//制限時間が0になったら
 					if (Player::correct_num == theme->GetThemeNum())
 					{
 						Player::correct_num++;
@@ -367,9 +368,37 @@ eSceneType GameMainScene::Update()
 					// コメントの更新処理
 					comment->Update();
 
-					// プレイヤーがお題を全てクリアしたら次のお題へ
-					if (Player::correct_num == Theme::theme_num && player->GetInputDraw(Player::correct_num - 1) == true)
+					if (Player::correct_num == Theme::theme_num && Theme::theme_num == THEME_MAX)
 					{
+						goal = true;
+
+						player->SetPlayerAnim();
+
+						time->SetTimeFlg(false);
+
+						// BGMを止める
+						StopSoundMem(sound[0]);
+
+						// 終了の表示
+						TimeupAnim();
+
+						// 終了の表示後、リザルト画面へ
+						if (timeup_flg == true)
+						{
+							goal = false;
+
+							if (draw_cnt != 0)
+							{
+								draw_cnt = 0;
+							}
+
+							tran_flg = true;
+							ResultScene::result_tran = true;
+							transition = -1943;
+						}
+					}
+					else if (Player::correct_num == Theme::theme_num && player->GetInputDraw(Player::correct_num - 1) == true)
+					{// プレイヤーがお題を全てクリアしたら次のお題へ
 						player->SetPlayerInput(true);
 						comment->SetNum(Player::mis_num, Theme::theme_num);
 						comment->SetComNum();
@@ -430,31 +459,6 @@ eSceneType GameMainScene::Update()
 						else
 						{
 							draw_cnt++;
-						}
-					}
-					else if (Player::correct_num == Theme::theme_num && Theme::theme_num == THEME_MAX)
-					{
-						player->SetPlayerAnim();
-
-						time->SetTimeFlg(false);
-
-						// BGMを止める
-						StopSoundMem(sound[0]);
-
-						// 終了の表示
-						TimeupAnim();
-
-						// 終了の表示後、リザルト画面へ
-						if (timeup_flg == true)
-						{
-							if (draw_cnt != 0)
-							{
-								draw_cnt = 0;
-							}
-
-							tran_flg = true;
-							ResultScene::result_tran = true;
-							transition = -1943;
 						}
 					}
 				}
@@ -546,7 +550,7 @@ void GameMainScene::Draw() const
 		DrawBox(0, 0, 1280, 720, 0xffffff, TRUE);
 		SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 
-		DrawGraph(348, 140, pause_img[0], TRUE);
+		DrawGraph(348, 100, pause_img[0], TRUE);
 		DrawGraph(800, 600, pause_img[7], TRUE);
 		DrawGraph(803, 600 + sin(PI * 2 / 90 * cnt) * 6, button[1], TRUE);
 		DrawGraph(921, 600 + sin(PI * 2 / 90 * cnt) * 6, button[0], TRUE);
@@ -556,19 +560,19 @@ void GameMainScene::Draw() const
 		switch (pause_cursor)
 		{
 		case 0:
-			DrawGraph(538, 255 + sin(PI * 2 / 90 * cnt) * 6, pause_img[1], TRUE);
-			DrawGraph(545, 347, pause_img[4], TRUE);
-			DrawGraph(470, 440, pause_img[6], TRUE);
+			DrawGraph(538, 215 + sin(PI * 2 / 90 * cnt) * 6, pause_img[1], TRUE);
+			DrawGraph(545, 317, pause_img[4], TRUE);
+			DrawGraph(480, 430, pause_img[6], TRUE);
 			break;
 		case 1:
-			DrawGraph(538, 255, pause_img[2], TRUE);
-			DrawGraph(545, 347 + sin(PI * 2 / 90 * cnt) * 6, pause_img[3], TRUE);
-			DrawGraph(470, 440, pause_img[6], TRUE);
+			DrawGraph(538, 215, pause_img[2], TRUE);
+			DrawGraph(545, 317 + sin(PI * 2 / 90 * cnt) * 6, pause_img[3], TRUE);
+			DrawGraph(480, 430, pause_img[6], TRUE);
 			break;
 		case 2:
-			DrawGraph(538, 255, pause_img[2], TRUE);
-			DrawGraph(545, 347, pause_img[4], TRUE);
-			DrawGraph(470, 440 + sin(PI * 2 / 90 * cnt) * 6, pause_img[5], TRUE);
+			DrawGraph(538, 215, pause_img[2], TRUE);
+			DrawGraph(545, 317, pause_img[4], TRUE);
+			DrawGraph(480, 430 + sin(PI * 2 / 90 * cnt) * 6, pause_img[5], TRUE);
 			break;
 		default:
 			break;
@@ -612,7 +616,14 @@ void GameMainScene::TimeupAnim()
 	if (timeup_cnt == 50)
 	{
 		// サウンドの再生
-		PlaySoundMem(sound[4], DX_PLAYTYPE_BACK, TRUE);
+		if (goal == true)
+		{
+			PlaySoundMem(sound[5], DX_PLAYTYPE_BACK, TRUE);
+		}
+		else
+		{
+			PlaySoundMem(sound[4], DX_PLAYTYPE_BACK, TRUE);
+		}
 	}
 
 	if (timeup_cnt == 200)

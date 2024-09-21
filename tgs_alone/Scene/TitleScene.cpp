@@ -75,14 +75,14 @@ void TitleScene::Initialize()
 	//back_img = LoadGraph("Resource/images/title/back2.png");
 	back_img = LoadGraph("Resource/images/title/title2.png");
 	
-	menu_img[0] = LoadGraph("Resource/images/title/starty.png");
-	menu_img[1] = LoadGraph("Resource/images/title/start.png");
-	menu_img[2] = LoadGraph("Resource/images/title/helpy.png");
-	menu_img[3] = LoadGraph("Resource/images/title/help.png");
-	menu_img[4] = LoadGraph("Resource/images/title/rankingy.png");
-	menu_img[5] = LoadGraph("Resource/images/title/ranking.png");
-	menu_img[6] = LoadGraph("Resource/images/title/endy.png");
-	menu_img[7] = LoadGraph("Resource/images/title/end.png");
+	menu_img[0] = LoadGraph("Resource/images/title/start_choice.png");
+	menu_img[1] = LoadGraph("Resource/images/title/start_basic.png");
+	menu_img[2] = LoadGraph("Resource/images/title/help_choice.png");
+	menu_img[3] = LoadGraph("Resource/images/title/help_basic.png");
+	menu_img[4] = LoadGraph("Resource/images/title/Ranking_choice.png");
+	menu_img[5] = LoadGraph("Resource/images/title/Ranking_basic.png");
+	menu_img[6] = LoadGraph("Resource/images/title/end_choice.png");
+	menu_img[7] = LoadGraph("Resource/images/title/end_basic.png");
 	
 	deco_img[0] = LoadGraph("Resource/images/help/star2.png");
 	deco_img[1] = LoadGraph("Resource/images/help/cloud.png");
@@ -369,45 +369,45 @@ void TitleScene::Draw() const
 
 	// 操作説明の描画
 	DrawGraph(800, 650, ope_img[0], TRUE);
-	DrawGraph(922, 650 + sin(PI * 2 / 90 * cnt) * 6, ope_img[1], TRUE);
-	DrawGraph(1092, 650 + sin(PI * 2 / 90 * cnt) * 6, ope_img[3], TRUE);
-	DrawGraph(805, 650 + sin(PI * 2 / 90 * cnt) * 6, ope_img[2], TRUE);
+	DrawGraph(920, 650 + sin(PI * 2 / 90 * cnt) * 6, ope_img[1], TRUE); // a
+	DrawGraph(1092, 650 + sin(PI * 2 / 90 * cnt) * 6, ope_img[3], TRUE); // b
+	DrawGraph(802, 650 + sin(PI * 2 / 90 * cnt) * 6, ope_img[2], TRUE); // y
 
 	
 	// メニューの描画
 	switch (menu_cursor)
 	{
 	case 0:
-		DrawGraph(555, 240 + 20 + sin(PI * 2 / 90 * cnt) * 6, menu_img[0], TRUE);
-		DrawGraph(575, 340 + 20, menu_img[3], TRUE);
-		DrawGraph(510, 443 + 20, menu_img[5], TRUE);
-		DrawGraph(585, 540 + 20, menu_img[7], TRUE);
-		DrawRotaGraphF(522, 270.0f + 20.0f + (float)sin(PI * 2 / 100 * cnt) * 5, 1.0, PI / 180 * -star_cnt, deco_img[0], TRUE);
-		DrawRotaGraphF(780, 270.0f + 20.0f + (float)sin(PI * 2 / 100 * cnt) * 5, 1.0, PI / 180 * star_cnt, deco_img[0], TRUE);
+		DrawGraph(555, 240 + 30 + sin(PI * 2 / 90 * cnt) * 6, menu_img[0], TRUE);
+		DrawGraph(575, 340 + 30, menu_img[3], TRUE);
+		DrawGraph(510, 443 + 30, menu_img[5], TRUE);
+		DrawGraph(585, 540 + 40, menu_img[7], TRUE);
+		DrawGraph(493, 280/*+ (float)sin(PI * 2 / 100 * cnt) * 5*/, star_img[5], TRUE);
+		DrawGraph(760, 280 /*+ (float)sin(PI * 2 / 100 * cnt) * 5*/, star_img[5], TRUE);
 		break;
 	case 1:
-		DrawGraph(555, 240 + 20, menu_img[1], TRUE);
-		DrawGraph(575, 340 + 20 + sin(PI * 2 / 90 * cnt) * 6, menu_img[2], TRUE);
-		DrawGraph(510, 443 + 20, menu_img[5], TRUE);
-		DrawGraph(585, 540 + 20, menu_img[7], TRUE);
-		DrawRotaGraphF(537, 370.0f + 20.0f + (float)sin(PI * 2 / 90 * cnt) * 6, 1.0, PI / 180 * -star_cnt, deco_img[1], TRUE);
-		DrawRotaGraphF(765, 370.0f + 20.0f + (float)sin(PI * 2 / 90 * cnt) * 6, 1.0, PI / 180 * star_cnt, deco_img[1], TRUE);
+		DrawGraph(555, 240 + 30, menu_img[1], TRUE);
+		DrawGraph(575, 340 + 30 + sin(PI * 2 / 90 * cnt) * 6, menu_img[2], TRUE);
+		DrawGraph(510, 443 + 30, menu_img[5], TRUE);
+		DrawGraph(585, 540 + 40, menu_img[7], TRUE);
+		DrawGraph(510, 378 /*+ (float)sin(PI * 2 / 90 * cnt) * 6*/, star_img[5], TRUE);
+		DrawGraph(750, 378 /*+ (float)sin(PI * 2 / 90 * cnt) * 6*/, star_img[5], TRUE);
 		break;
 	case 2:
-		DrawGraph(555, 240 + 20, menu_img[1], TRUE);
-		DrawGraph(575, 340 + 20, menu_img[3], TRUE);
-		DrawGraph(510, 443 + 20 + sin(PI * 2 / 90 * cnt) * 6, menu_img[4], TRUE);
-		DrawGraph(585, 540 + 20, menu_img[7], TRUE);
-		DrawRotaGraphF(475, 473.0f + 20.0f + (float)sin(PI * 2 / 90 * cnt) * 6, 1.0, PI / 180 * -star_cnt, deco_img[2], TRUE);
-		DrawRotaGraphF(845, 473.0f + 20.0f + (float)sin(PI * 2 / 90 * cnt) * 6, 1.0, PI / 180 * star_cnt, deco_img[2], TRUE);
+		DrawGraph(555, 240 + 30, menu_img[1], TRUE);
+		DrawGraph(575, 340 + 30, menu_img[3], TRUE);
+		DrawGraph(510, 443 + 30 + sin(PI * 2 / 90 * cnt) * 6, menu_img[4], TRUE);
+		DrawGraph(585, 540 + 40, menu_img[7], TRUE);
+		DrawGraph(450, 490 /*+ (float)sin(PI * 2 / 90 * cnt) * 6*/, star_img[5], TRUE);
+		DrawGraph(820, 490 /*+ (float)sin(PI * 2 / 90 * cnt) * 6*/, star_img[5], TRUE);
 		break;
 	case 3:
-		DrawGraph(555, 240 + 20, menu_img[1], TRUE);
-		DrawGraph(575, 340 + 20, menu_img[3], TRUE);
-		DrawGraph(510, 443 + 20, menu_img[5], TRUE);
-		DrawGraph(585, 540 + 20 + sin(PI * 2 / 90 * cnt) * 6, menu_img[6], TRUE);
-		DrawRotaGraphF(548, 575.0f + 20.0f + (float)sin(PI * 2 / 90 * cnt) * 6, 1.0, PI / 180 * -star_cnt, deco_img[3], TRUE);
-		DrawRotaGraphF(760, 575.0f + 20.0f + (float)sin(PI * 2 / 90 * cnt) * 6, 1.0, PI / 180 * star_cnt, deco_img[3], TRUE);
+		DrawGraph(555, 240 + 30, menu_img[1], TRUE);
+		DrawGraph(575, 340 + 30, menu_img[3], TRUE);
+		DrawGraph(510, 443 + 30, menu_img[5], TRUE);
+		DrawGraph(585, 540 + 40 + sin(PI * 2 / 90 * cnt) * 6, menu_img[6], TRUE);
+		DrawGraph(520, 585 /*+ (float)sin(PI * 2 / 90 * cnt) * 6*/, star_img[5], TRUE);
+		DrawGraph(735, 585 /*+ (float)sin(PI * 2 / 90 * cnt) * 6*/, star_img[5], TRUE);
 		break;
 	default:
 		break;

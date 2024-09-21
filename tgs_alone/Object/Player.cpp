@@ -367,35 +367,35 @@ void Player::Draw()
 	// コンボ数表示
 	if (combo < 10)
 	{
-		DrawGraph(325, 90, combo_img[combo % 10], TRUE);
+		DrawGraph(325 + 12, 90, combo_img[combo % 10], TRUE);
 	}
 	else if (combo < 100)
 	{
-		DrawGraph(300, 90, combo_img[combo / 10], TRUE);
-		DrawGraph(343, 90, combo_img[combo % 10], TRUE);
+		DrawGraph(300 + 15, 90, combo_img[combo / 10], TRUE);
+		DrawGraph(343 + 15, 90, combo_img[combo % 10], TRUE);
 	}
 	else
 	{
-		DrawGraph(278, 90, combo_img[combo / 100], TRUE);
-		DrawGraph(320, 90, combo_img[(combo - combo / 100 * 100) / 10], TRUE);
-		DrawGraph(364, 90, combo_img[combo % 10], TRUE);
+		DrawGraph(278 + 15, 90, combo_img[combo / 100], TRUE);
+		DrawGraph(320 + 15, 90, combo_img[(combo - combo / 100 * 100) / 10], TRUE);
+		DrawGraph(364 + 15, 90, combo_img[combo % 10], TRUE);
 	}
 
 	// 間違えた数の表示
 	if (all_mis < 10)
 	{
-		DrawGraph(500, 90, combo_img[all_mis % 10], TRUE);
+		DrawGraph(500 + 33, 90, combo_img[all_mis % 10], TRUE);
 	}
 	else if (all_mis < 100)
 	{
-		DrawGraph(475, 90, combo_img[all_mis / 10], TRUE);
-		DrawGraph(518, 90, combo_img[all_mis % 10], TRUE);
+		DrawGraph(475 + 35, 90, combo_img[all_mis / 10], TRUE);
+		DrawGraph(518 + 35, 90, combo_img[all_mis % 10], TRUE);
 	}
 	else
 	{
-		DrawGraph(453, 90, combo_img[all_mis / 100], TRUE);
-		DrawGraph(495, 90, combo_img[(all_mis - all_mis / 100 * 100) / 10], TRUE);
-		DrawGraph(539, 90, combo_img[all_mis % 10], TRUE);
+		DrawGraph(453 + 37, 90, combo_img[all_mis / 100], TRUE);
+		DrawGraph(495 + 37, 90, combo_img[(all_mis - all_mis / 100 * 100) / 10], TRUE);
+		DrawGraph(539 + 37, 90, combo_img[all_mis % 10], TRUE);
 	}
 
 	// コンボ数の表示

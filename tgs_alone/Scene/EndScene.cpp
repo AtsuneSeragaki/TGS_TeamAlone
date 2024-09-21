@@ -17,7 +17,7 @@ EndScene::~EndScene()
 void EndScene::Initialize()
 {
 	// 画像データの読み込み
-	back_img = LoadGraph("Resource/images/end/end.png");
+	back_img = LoadGraph("Resource/images/end/end1.png");
 	star_img = LoadGraph("Resource/images/help/star.png");
 	tran_img = LoadGraph("Resource/images/tansition/transition.png");
 
@@ -73,16 +73,16 @@ void EndScene::Draw() const
 	DrawGraph(0, 0, back_img,TRUE);
 
 	// 星の描画
-	DrawRotaGraph(350, 60, 1.0, PI / 180 * (star_cnt * 2), star_img, TRUE);
-	DrawRotaGraph(800, 60, 1.0, PI / 180 * (-star_cnt * 2), star_img, TRUE);
-	DrawRotaGraph(1200, 60, 1.0, PI / 180 * (star_cnt * 2), star_img, TRUE);
+	DrawRotaGraph(80, 210, 1.0, PI / 180 * (star_cnt * 2), star_img, TRUE);
+	DrawRotaGraph(1200, 220, 1.0, PI / 180 * (-star_cnt * 2), star_img, TRUE);
+	/*DrawRotaGraph(1200, 60, 1.0, PI / 180 * (star_cnt * 2), star_img, TRUE);
 	DrawRotaGraph(70, 290, 1.0, PI / 180 * (-star_cnt * 2), star_img, TRUE);
 	DrawRotaGraph(650, 290, 1.0, PI / 180 * (star_cnt * 2), star_img, TRUE);
 	DrawRotaGraph(1060, 290, 1.0, PI / 180 * (-star_cnt * 2), star_img, TRUE);
 	DrawRotaGraph(350, 390, 1.0, PI / 180 * (-star_cnt * 2), star_img, TRUE);
 	DrawRotaGraph(900, 500, 1.0, PI / 180 * (star_cnt * 2), star_img, TRUE);
 	DrawRotaGraph(480, 600, 1.0, PI / 180 * (star_cnt * 2), star_img, TRUE);
-	DrawRotaGraph(750, 660, 1.0, PI / 180 * (-star_cnt * 2), star_img, TRUE);
+	DrawRotaGraph(750, 660, 1.0, PI / 180 * (-star_cnt * 2), star_img, TRUE);*/
 
 	if (tran_flg == true)
 	{

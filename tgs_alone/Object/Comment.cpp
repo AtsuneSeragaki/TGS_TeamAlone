@@ -139,14 +139,14 @@ void Comment::Update()
 		{
 			char_num++;
 
-			if (char_num == 8)
+			if (char_num == 5)
 			{
 				char_flg = true;
 			}
 		}
 		else if(cnt % 2 == 0 && char_flg == true)
 		{
-			if (char_num == 8 || char_num == 7)
+			if (char_num > 3)
 			{
 				char_num--;
 			}
@@ -171,7 +171,7 @@ void Comment::Draw()
 		SetDrawBlendMode(DX_BLENDMODE_ALPHA, transparency);
 
 		// 吹き出しを描画
-		if (char_flg == true && char_num == 6)
+		if (char_flg == true && char_num == 3)
 		{
 			//DrawGraph(SB_X, SB_Y, com_img, TRUE);
 
@@ -187,7 +187,7 @@ void Comment::Draw()
 		case 0:
 			DrawGraph(CH_X + (150 - char_num * 20), CH_Y + (100 - char_num * 30), char_img[4][char_num], TRUE);
 
-			if (char_flg == true && char_num == 6)
+			if (char_flg == true && char_num == 3)
 			{
 				DrawStringToHandle(SB_X + 75, SB_Y + 52, "Genius!", 0x000000, font);
 			}
@@ -196,7 +196,7 @@ void Comment::Draw()
 		case 1:
 			DrawGraph(CH_X + (150 - char_num * 20), CH_Y + (100 - char_num * 30), char_img[3][char_num], TRUE);
 
-			if (char_flg == true && char_num == 6)
+			if (char_flg == true && char_num == 3)
 			{
 				DrawStringToHandle(SB_X + 55, SB_Y + 55, "Excellent!", 0x000000, font);
 			}
@@ -205,7 +205,7 @@ void Comment::Draw()
 		case 2:
 			DrawGraph(CH_X + (150 - char_num * 20), CH_Y + (100 - char_num * 30), char_img[2][char_num], TRUE);
 
-			if (char_flg == true && char_num == 6)
+			if (char_flg == true && char_num == 3)
 			{
 				DrawStringToHandle(SB_X + 85, SB_Y + 52, "Great!", 0x000000, font);
 			}
@@ -214,7 +214,7 @@ void Comment::Draw()
 		case 3:
 			DrawGraph(CH_X + (150 - char_num * 20), CH_Y + (100 - char_num * 30), char_img[1][char_num], TRUE);
 
-			if (char_flg == true && char_num == 6)
+			if (char_flg == true && char_num == 3)
 			{
 				DrawStringToHandle(SB_X + 100, SB_Y + 52, "Nice!", 0x000000, font);
 			}
@@ -223,7 +223,7 @@ void Comment::Draw()
 		case 4:
 			DrawGraph(CH_X + (150 - char_num * 20), CH_Y + (100 - char_num * 30), char_img[0][char_num], TRUE);
 
-			if (char_flg == true && char_num == 6)
+			if (char_flg == true && char_num == 3)
 			{
 				DrawStringToHandle(SB_X + 47, SB_Y + 58, "You can do it!", 0x000000, font2);
 			}

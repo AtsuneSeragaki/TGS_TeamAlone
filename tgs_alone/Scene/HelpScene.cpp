@@ -292,46 +292,46 @@ void HelpScene::Draw() const
 	//DrawRotaGraph(1230, 670, 1.0, PI / 180 * (star_cnt * 2), star_img, TRUE);
 
 	// 操作説明の描画
-	DrawGraph(400, 580, back_img[1], TRUE);
-	DrawGraph(425, 580 + sin(PI * 2 / 90 * cnt) * 6, back_img[2], TRUE);
-	DrawGraph(665, 580 + sin(PI * 2 / 90 * cnt) * 6, back_img[6], TRUE);
+	//DrawGraph(400, 580, back_img[1], TRUE);
+	DrawGraph(425, 578 + sin(PI * 2 / 90 * cnt) * 6, back_img[2], TRUE); // xbutton
+	DrawGraph(673, 578 + sin(PI * 2 / 90 * cnt) * 6, back_img[6], TRUE); // bbutton
 
 	// 操作説明(コントローラーのボタン)の描画
 	switch (cbutton_num)
 	{
 	case 0:
-		DrawGraph(1040, 492, cbutton_img[0], TRUE);
-		DrawGraph(1000, 452, cbutton_img[2], TRUE);
-		DrawGraph(1040, 415, cbutton_img[4], TRUE);
-		DrawGraph(1080, 452, cbutton_img[6], TRUE);
+		DrawGraph(964, 505, cbutton_img[0], TRUE);
+		DrawGraph(932, 475, cbutton_img[2], TRUE);
+		DrawGraph(964, 446, cbutton_img[4], TRUE);
+		DrawGraph(993, 475, cbutton_img[6], TRUE);
 		break;
 
 	case 1:
-		DrawGraph(1040, 492, cbutton_img[1], TRUE);
-		DrawGraph(1000, 452, cbutton_img[2], TRUE);
-		DrawGraph(1040, 415, cbutton_img[4], TRUE);
-		DrawGraph(1080, 452, cbutton_img[6], TRUE);
+		DrawGraph(964, 505, cbutton_img[1], TRUE);
+		DrawGraph(932, 475, cbutton_img[2], TRUE);
+		DrawGraph(964, 446, cbutton_img[4], TRUE);
+		DrawGraph(993, 475, cbutton_img[6], TRUE);
 		break;
 
 	case 2:
-		DrawGraph(1040, 492, cbutton_img[0], TRUE);
-		DrawGraph(1000, 452, cbutton_img[2], TRUE);
-		DrawGraph(1040, 415, cbutton_img[4], TRUE);
-		DrawGraph(1080, 452, cbutton_img[7], TRUE);
+		DrawGraph(964, 505, cbutton_img[0], TRUE);
+		DrawGraph(932, 475, cbutton_img[2], TRUE);
+		DrawGraph(964, 446, cbutton_img[4], TRUE);
+		DrawGraph(993, 475, cbutton_img[7], TRUE);
 		break;
 
 	case 3:
-		DrawGraph(1040, 492, cbutton_img[0], TRUE);
-		DrawGraph(1000, 452, cbutton_img[2], TRUE);
-		DrawGraph(1040, 415, cbutton_img[5], TRUE);
-		DrawGraph(1080, 452, cbutton_img[6], TRUE);
+		DrawGraph(964, 505, cbutton_img[0], TRUE);
+		DrawGraph(932, 475, cbutton_img[2], TRUE);
+		DrawGraph(964, 446, cbutton_img[5], TRUE);
+		DrawGraph(993, 475, cbutton_img[6], TRUE);
 		break;
 
 	case 4:
-		DrawGraph(1040, 492, cbutton_img[0], TRUE);
-		DrawGraph(1000, 452, cbutton_img[3], TRUE);
-		DrawGraph(1040, 415, cbutton_img[4], TRUE);
-		DrawGraph(1080, 452, cbutton_img[6], TRUE);
+		DrawGraph(964, 505, cbutton_img[0], TRUE);
+		DrawGraph(932, 475, cbutton_img[3], TRUE);
+		DrawGraph(964, 446, cbutton_img[4], TRUE);
+		DrawGraph(993, 475, cbutton_img[6], TRUE);
 		break;
 
 	default:

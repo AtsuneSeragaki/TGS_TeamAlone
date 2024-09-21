@@ -2,9 +2,9 @@
 
 #include "SceneBase.h"
 
-#define NUM_Y 430
+#define NUM_Y 415
 #define RANK_X 730
-#define RANK_Y 235
+#define RANK_Y 230
 
 #define PI    3.1415926535897932384626433832795f
 

@@ -2,7 +2,7 @@
 #include "DxLib.h"
 #include <tgmath.h>
 
-Time::Time() :time(0),time_flg(false), time2(0),time3(0.0f),add_flg(false),add_time(0),add_cnt(0), transparency(0)
+Time::Time() :time(0),time_flg(false), time2(0),time3(0.0f),add_flg(false),add_time(0),add_cnt(0), transparency(0), bar_img(0)
 {
 	for (int i = 0; i < 10; i++)
 	{
@@ -33,6 +33,8 @@ void Time::Initialize()
 	plus_img[1] = LoadGraph("Resource/images/main/number/plus2.png");
 	plus_img[2] = LoadGraph("Resource/images/main/number/plus3.png");
 
+	bar_img = LoadGraph("Resource/images/main/time_bar.png");
+
 	// エラーチェック
 	for (int i = 0; i < 11; i++)
 	{
@@ -52,6 +54,11 @@ void Time::Initialize()
 		{
 			throw("plus_img[%d]がありません\n",i);
 		}
+	}
+
+	if (bar_img == -1)
+	{
+		throw("bar_imgがありません\n");
 	}
 
 	// 制限時間の初期化
@@ -179,7 +186,7 @@ void Time::Draw()
 	}
 	else if(time > 0)
 	{
-		DrawBoxAA(340.0f, 260.0f, 990.0f - time3, 275.0f, 0xff0000, TRUE);
+		DrawBoxAA(340.0f, 260.0f, 990.0f - time3, 275.0f, 0xff9c9c, TRUE);
 	}
 
 	// 足す時間の描画
@@ -187,22 +194,27 @@ void Time::Draw()
 	{
 		SetFontSize(30);
 		SetDrawBlendMode(DX_BLENDMODE_ALPHA, transparency);
-		DrawGraph(703, 215, plus_img[add_time - 1], TRUE);
+		DrawGraph(705, 205, plus_img[add_time - 1], TRUE);
 		//DrawFormatString(700, 215, 0xff0000, "+%d", add_time);
 		SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 
 		if (time3 <= 0.0f)
 		{
-			DrawBoxAA(970.0f, 260.0f, 990.0f, 275.0f, 0x7fbfff, TRUE);
+			DrawBoxAA(970.0f, 260.0f, 990.0f, 275.0f, 0xb7e5ff, TRUE);
 		}
 		else
 		{
-			DrawBoxAA(990.0f - time3, 260.0f, (990.0f - time3) - (16.2f * (float)add_time), 275.0f, 0x7fbfff, TRUE);
+			DrawBoxAA(990.0f - time3, 260.0f, (990.0f - time3) - (16.2f * (float)add_time), 275.0f, 0xb7e5ff, TRUE);
 		}
 	}
 
 	// 時間枠の描画
-	DrawBox(340, 260, 990, 275, 0x000000, FALSE);
+	DrawBox(340, 260, 990, 275, 0xcbc0db, FALSE);
+	DrawBox(339, 259, 991, 276, 0xcbc0db, FALSE);
+	DrawBox(338, 258, 992, 277, 0xcbc0db, FALSE);
+
+
+	//DrawGraph(340, 260, bar_img,TRUE);
 
 	//DrawFormatString(700, 215, 0xff0000, "%d", transparency);
 }
