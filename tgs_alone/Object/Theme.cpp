@@ -29,7 +29,7 @@ void Theme::Initialize()
 	img[2] = LoadGraph("Resource/images/main/button/y1.png");
 	img[3] = LoadGraph("Resource/images/main/button/x1.png");
 
-	LoadDivGraph("Resource/images/main/number/level.png", 10, 5, 2, 50, 50, level_img);
+	LoadDivGraph("Resource/images/ranking/rank_num1.png", 10, 5, 2, 50, 50, level_img);
 
 	// サウンド読み込み
 	sound = LoadSoundMem("Resource/sounds/main/se/theme.mp3");
@@ -90,6 +90,11 @@ void Theme::Draw()
 	if ((theme_num - 2) < 10)
 	{
 		DrawGraph(150 - 10, 90, level_img[(theme_num - 2) % 10], TRUE);
+	}
+	else if ((theme_num - 2) >= 10 && (theme_num - 2) < 20)
+	{
+		DrawGraph(125 - 12, 90, level_img[(theme_num - 2) / 10], TRUE);
+		DrawGraph(168 - 12, 90, level_img[(theme_num - 2) % 10], TRUE);
 	}
 	else
 	{

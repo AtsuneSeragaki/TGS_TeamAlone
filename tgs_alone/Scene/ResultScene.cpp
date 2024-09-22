@@ -70,7 +70,7 @@ void ResultScene::Initialize()
 
 	back_img[0] = LoadGraph("Resource/images/result/result5.png");
 	back_img[1] = LoadGraph("Resource/images/result/result3.png");
-	LoadDivGraph("Resource/images/result/result_num1.png", 10, 5, 2, 50, 50, num_img);
+	LoadDivGraph("Resource/images/ranking/rank_num1.png", 10, 5, 2, 50, 50, num_img);
 	rank_img[0] = LoadGraph("Resource/images/result/D.png");
 	rank_img[1] = LoadGraph("Resource/images/result/C.png");
 	rank_img[2] = LoadGraph("Resource/images/result/B_r.png");
@@ -255,9 +255,9 @@ void ResultScene::Draw() const
 	int j = Player::combo;
 	int k = Player::all_mis;
 
-	/*int i = 9;
-	int j = 2;
-	int k = 2;*/
+	/*int i = 20;
+	int j = 19;
+	int k = 19;*/
 
 	// 背景の描画
 	DrawGraph(0, 0, back_img[0], TRUE);
@@ -351,10 +351,21 @@ void ResultScene::Draw() const
 	{
 		DrawGraph(645 + 5, NUM_Y, num_img[j % 10], TRUE);
 	}
+	else if (j >= 10 && j < 20)
+	{
+		DrawGraph(622, NUM_Y, num_img[j / 10], TRUE);
+		DrawGraph(667, NUM_Y, num_img[j % 10], TRUE);
+	}
 	else if (j < 100)
 	{
 		DrawGraph(622 + 5, NUM_Y, num_img[j / 10], TRUE);
 		DrawGraph(667 + 5, NUM_Y, num_img[j % 10], TRUE);
+	}
+	else if(j >= 100 && j < 200)
+	{
+		DrawGraph(599, NUM_Y, num_img[j / 100], TRUE);
+		DrawGraph(645, NUM_Y, num_img[(j - j / 100 * 100) / 10], TRUE);
+		DrawGraph(691, NUM_Y, num_img[j % 10], TRUE);
 	}
 	else
 	{
@@ -368,16 +379,27 @@ void ResultScene::Draw() const
 	{
 		DrawGraph(980 + 35, NUM_Y, num_img[k % 10], TRUE);
 	}
+	else if (k >= 10 && k < 20)
+	{
+		DrawGraph(963 + 30, NUM_Y, num_img[k / 10], TRUE);
+		DrawGraph(1008 + 30, NUM_Y, num_img[k % 10], TRUE);
+	}
 	else if (k < 100)
 	{
 		DrawGraph(963 + 35, NUM_Y, num_img[k / 10], TRUE);
 		DrawGraph(1008 + 35, NUM_Y, num_img[k % 10], TRUE);
 	}
+	else if(k >= 100 && k < 200)
+	{
+		DrawGraph(937 + 30, NUM_Y, num_img[k / 100], TRUE);
+		DrawGraph(983 + 30, NUM_Y, num_img[(k - k / 100 * 100) / 10], TRUE);
+		DrawGraph(1029 + 30, NUM_Y, num_img[k % 10], TRUE);
+	}
 	else
 	{
-		DrawGraph(937 + 35, NUM_Y, num_img[k / 100], TRUE);
-		DrawGraph(983 + 35, NUM_Y, num_img[(k - k / 100 * 100) / 10], TRUE);
-		DrawGraph(1029 + 35, NUM_Y, num_img[k % 10], TRUE);
+		DrawGraph(937 + 37, NUM_Y, num_img[k / 100], TRUE);
+		DrawGraph(983 + 37, NUM_Y, num_img[(k - k / 100 * 100) / 10], TRUE);
+		DrawGraph(1029 + 37, NUM_Y, num_img[k % 10], TRUE);
 	}
 
 	if (tran_flg == true)

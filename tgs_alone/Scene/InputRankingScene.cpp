@@ -71,7 +71,7 @@ void InputRankingScene::Initialize()
 	img[1] = LoadGraph("Resource/images/ranking/button2.png");
 	img[2] = LoadGraph("Resource/images/ranking/button3.png");
 	img[3] = LoadGraph("Resource/images/ranking/input2.png");
-	img[4] = LoadGraph("Resource/images/ranking/noname.png");
+	img[4] = LoadGraph("Resource/images/ranking/noname1.png");
 	img[5] = LoadGraph("Resource/images/ranking/moji.png");
 	img[6] = LoadGraph("Resource/images/ranking/select.png");
 	img[7] = LoadGraph("Resource/images/ranking/cursor1.png");
@@ -81,8 +81,36 @@ void InputRankingScene::Initialize()
 
 	tran_img = LoadGraph("Resource/images/tansition/transition.png");
 
-	LoadDivGraph("Resource/images/ranking/moji.png", 27, 9, 3, 73, 73, font_img);
-	LoadDivGraph("Resource/images/ranking/moji2.png", 27, 9, 3, 110, 110, font_img2);
+	font_img[0] = LoadGraph("Resource/images/ranking/font/a.png");
+	font_img[1] = LoadGraph("Resource/images/ranking/font/b.png");
+	font_img[2] = LoadGraph("Resource/images/ranking/font/c.png");
+	font_img[3] = LoadGraph("Resource/images/ranking/font/d.png");
+	font_img[4] = LoadGraph("Resource/images/ranking/font/e.png");
+	font_img[5] = LoadGraph("Resource/images/ranking/font/f.png");
+	font_img[6] = LoadGraph("Resource/images/ranking/font/g.png");
+	font_img[7] = LoadGraph("Resource/images/ranking/font/H.png");
+	font_img[8] = LoadGraph("Resource/images/ranking/font/I.png");
+	font_img[9] = LoadGraph("Resource/images/ranking/font/j.png");
+	font_img[10] = LoadGraph("Resource/images/ranking/font/k.png");
+	font_img[11] = LoadGraph("Resource/images/ranking/font/l.png");
+	font_img[12] = LoadGraph("Resource/images/ranking/font/m.png");
+	font_img[13] = LoadGraph("Resource/images/ranking/font/n.png");
+	font_img[14] = LoadGraph("Resource/images/ranking/font/o.png");
+	font_img[15] = LoadGraph("Resource/images/ranking/font/p.png");
+	font_img[16] = LoadGraph("Resource/images/ranking/font/q.png");
+	font_img[17] = LoadGraph("Resource/images/ranking/font/r.png");
+	font_img[18] = LoadGraph("Resource/images/ranking/font/s.png");
+	font_img[19] = LoadGraph("Resource/images/ranking/font/t.png");
+	font_img[20] = LoadGraph("Resource/images/ranking/font/u.png");
+	font_img[21] = LoadGraph("Resource/images/ranking/font/v.png");
+	font_img[22] = LoadGraph("Resource/images/ranking/font/w.png");
+	font_img[23] = LoadGraph("Resource/images/ranking/font/x.png");
+	font_img[24] = LoadGraph("Resource/images/ranking/font/y.png");
+	font_img[25] = LoadGraph("Resource/images/ranking/font/z.png");
+	font_img[26] = LoadGraph("Resource/images/ranking/font/z.png");
+
+	//LoadDivGraph("Resource/images/ranking/moji4.png", 27, 9, 3, 73, 73, font_img);
+	LoadDivGraph("Resource/images/ranking/moji5.png", 27, 9, 3, 110, 110, font_img2);
 
 	button[0] = LoadGraph("Resource/images/ranking/a.png");
 	button[1] = LoadGraph("Resource/images/ranking/b.png");
@@ -290,7 +318,7 @@ void InputRankingScene::Draw() const
 	{
 		DrawGraph(410, 370, img[1], TRUE);
 
-		DrawGraph(585, 340, font_img2[0], TRUE);
+		DrawGraph(585, 345, font_img2[0], TRUE);
 
 		DrawGraph(780, 360, font_img[1], TRUE);
 	}
@@ -306,7 +334,7 @@ void InputRankingScene::Draw() const
 	{
 		DrawGraph(430, 360, font_img[24], TRUE);
 
-		DrawGraph(585, 340, font_img2[25], TRUE);
+		DrawGraph(585, 345, font_img2[25], TRUE);
 
 		DrawGraph(790, 370, img[1], TRUE);
 	}
@@ -314,7 +342,7 @@ void InputRankingScene::Draw() const
 	{
 		DrawGraph(430, 360, font_img[cursor_x - 1], TRUE);
 
-		DrawGraph(585, 340, font_img2[cursor_x], TRUE);
+		DrawGraph(585, 345, font_img2[cursor_x], TRUE);
 
 		DrawGraph(780, 360, font_img[cursor_x + 1], TRUE);
 	}
@@ -326,7 +354,7 @@ void InputRankingScene::Draw() const
 		if (cnt <= 35)
 		{
 			// 名前を入力してくださいの文字を描画
-			DrawGraph(420, 155, img[4], TRUE);
+			DrawGraph(400, 160, img[4], TRUE);
 		}
 		
 		/*DrawGraph(530 - 35, 63, font_img[0], TRUE);
@@ -349,13 +377,13 @@ void InputRankingScene::Draw() const
 		{	
 			for (int i = 0; i <= name_num; i++)
 			{
-				DrawGraph((590 - (name_num * 30))+ i * 70, 145, font_img[(int)name[i] - 65], TRUE);
+				DrawGraph((590 - (name_num * 30))+ i * 73, 145, font_img[(int)name[i] - 65], TRUE);
 			}
 			
 			if (name_num < 4 && cnt <= 30)
 			{
 				/*DrawLine((605 - (name_num * 30)) + name_num * 70 + 75, 67, (605 - (name_num * 30)) + name_num * 70 + 75, 130, 0x000000);*/
-				DrawBox((590 - (name_num * 30)) + name_num * 70 + 75, 150, (590 - (name_num * 30)) + name_num * 70 + 77, 212, 0x000000,TRUE);
+				DrawBox((590 - (name_num * 30)) + name_num * 72 + 80, 150, (590 - (name_num * 30)) + name_num * 72 + 83, 212, 0xcbc0db,TRUE);
 			}
 
 			//DrawFormatStringToHandle(630 - name_num * 30, 63, 0x000000, font, "%s", name);
@@ -364,7 +392,7 @@ void InputRankingScene::Draw() const
 		{
 			for (int i = 0; i < name_num; i++)
 			{
-				DrawGraph((590 - ((name_num - 1) * 30)) + i * 70, 145, font_img[(int)name[i] - 65], TRUE);
+				DrawGraph((590 - ((name_num - 1) * 30)) + i * 73, 145, font_img[(int)name[i] - 65], TRUE);
 			}
 		}
 	}
@@ -536,15 +564,18 @@ bool InputRankingScene::InputName()
 		// 効果音を再生
 		PlaySoundMem(se[1], DX_PLAYTYPE_BACK, TRUE);
 
-		// 入力された名前をひとつ消す
-		name[name_num--] = NULL;
-
-		cnt = 0;
-
-		// 名前が入力されていなかったら
-		if (name[0] == NULL)
+		if (no_name == false)
 		{
-			no_name = true;
+			// 入力された名前をひとつ消す
+			name[name_num--] = NULL;
+
+			cnt = 0;
+
+			// 名前が入力されていなかったら
+			if (name[0] == NULL)
+			{
+				no_name = true;
+			}
 		}
 	}
 

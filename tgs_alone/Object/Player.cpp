@@ -118,7 +118,7 @@ void Player::Initialize()
 	mis_img[2] = LoadGraph("Resource/images/main/button/misy.png");
 	mis_img[3] = LoadGraph("Resource/images/main/button/misx.png");
 
-	LoadDivGraph("Resource/images/main/number/level.png", 10, 5, 2, 50, 50, combo_img);
+	LoadDivGraph("Resource/images/ranking/rank_num1.png", 10, 5, 2, 50, 50, combo_img);
 
 	comment[0] = LoadGraph("Resource/images/main/string/great.png");
 	comment[1] = LoadGraph("Resource/images/main/string/bad.png");
@@ -369,10 +369,21 @@ void Player::Draw()
 	{
 		DrawGraph(325 + 12, 90, combo_img[combo % 10], TRUE);
 	}
+	else if (combo >= 10 && combo < 20)
+	{
+		DrawGraph(300 + 8, 90, combo_img[combo / 10], TRUE);
+		DrawGraph(343 + 8, 90, combo_img[combo % 10], TRUE);
+	}
 	else if (combo < 100)
 	{
-		DrawGraph(300 + 15, 90, combo_img[combo / 10], TRUE);
-		DrawGraph(343 + 15, 90, combo_img[combo % 10], TRUE);
+		DrawGraph(300 + 16, 90, combo_img[combo / 10], TRUE);
+		DrawGraph(343 + 16, 90, combo_img[combo % 10], TRUE);
+	}
+	else if(combo >= 100 && combo < 200)
+	{
+		DrawGraph(278 + 10, 90, combo_img[combo / 100], TRUE);
+		DrawGraph(320 + 10, 90, combo_img[(combo - combo / 100 * 100) / 10], TRUE);
+		DrawGraph(364 + 10, 90, combo_img[combo % 10], TRUE);
 	}
 	else
 	{
@@ -386,10 +397,21 @@ void Player::Draw()
 	{
 		DrawGraph(500 + 33, 90, combo_img[all_mis % 10], TRUE);
 	}
+	else if (all_mis >= 10 && all_mis < 20)
+	{
+		DrawGraph(475 + 30, 90, combo_img[all_mis / 10], TRUE);
+		DrawGraph(518 + 30, 90, combo_img[all_mis % 10], TRUE);
+	}
 	else if (all_mis < 100)
 	{
-		DrawGraph(475 + 35, 90, combo_img[all_mis / 10], TRUE);
-		DrawGraph(518 + 35, 90, combo_img[all_mis % 10], TRUE);
+		DrawGraph(475 + 38, 90, combo_img[all_mis / 10], TRUE);
+		DrawGraph(518 + 38, 90, combo_img[all_mis % 10], TRUE);
+	}
+	else if (all_mis >= 100 && all_mis < 200)
+	{
+		DrawGraph(453 + 32, 90, combo_img[all_mis / 100], TRUE);
+		DrawGraph(495 + 32, 90, combo_img[(all_mis - all_mis / 100 * 100) / 10], TRUE);
+		DrawGraph(539 + 32, 90, combo_img[all_mis % 10], TRUE);
 	}
 	else
 	{
