@@ -305,6 +305,15 @@ eSceneType InputRankingScene::Update()
 			cursor_x = 26;
 		}
 		
+		if (plus_lx != 0)
+		{
+			LeftAnim();
+		}
+
+		if (plus_rx != 0)
+		{
+			RightAnim();
+		}
 
 		// シーン変更は可能か？
 		if (is_change)
@@ -387,7 +396,6 @@ void InputRankingScene::Draw() const
 
 		DrawGraph(780, 360, font_img[cursor_x + 1], TRUE);
 	}
-	
 
 	if (no_name == true)
 	{// 名前が入力されていないとき
@@ -442,24 +450,18 @@ void InputRankingScene::Draw() const
 	DrawGraph(540, 315, img[6], TRUE);
 
 	// 左矢印の描画
-	if (lmove == true)
-	{
-		DrawGraph(330 - sin(PI * 2 / 90 * cnt2) * 6, 365, img[7], TRUE);
-	}
-	else
-	{
-		DrawGraph(330, 365, img[7], TRUE);
-	}
-
+	DrawGraph(330 - plus_lx, 365, img[7], TRUE);
+	
 	// 右矢印の描画
-	DrawGraph(920 + sin(PI * 2 / 90 * cnt2) * 6, 365, img[8], TRUE);
-
+	DrawGraph(920 + plus_rx, 365, img[8], TRUE);
+	
 	DrawGraph(635, 543 + sin(PI * 2 / 90 * cnt2) * 6, button[0], TRUE); // a
 	DrawGraph(470, 543 + sin(PI * 2 / 90 * cnt2) * 6, button[1], TRUE); // b
 	DrawGraph(800, 543 + sin(PI * 2 / 90 * cnt2) * 6, button[2], TRUE); // y
 	DrawGraph(328, 543 + sin(PI * 2 / 90 * cnt2) * 6, button[3], TRUE); // x
 
-	//DrawFormatStringToHandle(0, 0, 0x000000, font, "%s", name);
+	/*SetFontSize(30);
+	DrawFormatString(0, 0, 0x000000, "%d,%d",plus_lx,plus_rx);*/
 
 	if (tran_flg == true)
 	{
@@ -496,7 +498,10 @@ bool InputRankingScene::InputName()
 		{
 			cursor_x = 26;
 		}
-		
+
+		lmove = true;
+		LeftAnim();
+
 		//if (cursor_y == 0 && cursor_x == 0)
 		//{// 1列目の一番最初にカーソルがある場合、4列目の最後の位置に移動
 		//	cursor_y = 3;
@@ -535,6 +540,9 @@ bool InputRankingScene::InputName()
 		{
 			cursor_x = 0;
 		}
+
+		rmove = true;
+		RightAnim();
 
 		//if (cursor_y == 0 && cursor_x == 8)
 		//{// 1列目の一番最後にカーソルがある場合、2列目の最初の位置に移動
@@ -661,8 +669,44 @@ void InputRankingScene::OpeAnim()
 
 void InputRankingScene::LeftAnim()
 {
+	if (lmove == true)
+	{
+		plus_lx++;
+
+		if (plus_lx >= 10)
+		{
+			lmove = false;
+		}
+	}
+	else
+	{
+		plus_lx--;
+
+		if (plus_lx < 0)
+		{
+			plus_lx = 0;
+		}
+	}
 }
 
 void InputRankingScene::RightAnim()
 {
+	if (rmove == true)
+	{
+		plus_rx++;
+
+		if (plus_rx >= 10)
+		{
+			rmove = false;
+		}
+	}
+	else
+	{
+		plus_rx--;
+
+		if (plus_rx < 0)
+		{
+			plus_rx = 0;
+		}
+	}
 }
