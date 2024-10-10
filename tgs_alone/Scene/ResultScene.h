@@ -13,7 +13,7 @@ class ResultScene : public SceneBase
 private:
 	int back_img[2];   // 背景画像 
 	int num_img[10];   // 数字画像
-	int rank_img[9];   // ランク画像
+	int rank_img[9][5];   // ランク画像
 	int star_img;      // 星画像
 	int tran_img;      // トランジション画像
 	int button_img[3]; // 操作ガイド画像
@@ -27,6 +27,15 @@ private:
 	bool tran_flg;     // 画面遷移 false:しない true:する
 	int transition;    // トランジションの値保存用
 	int cnt;           // フレームカウント
+	int rank_num;      // ランクのアニメーション用
+	int rank_cnt;      // rank_numを増やす時間カウントダウン
+	int level_max;     // プレイヤーのMAXレベル数
+	int combo_max;     // プレイヤーのMAXコンボ数
+	int mis_max;       // プレイヤーのMAXミス数
+	int level_num;     // 表示するプレイヤーのMAXレベル数
+	int combo_num;     // 表示するプレイヤーのMAXコンボ数
+	int mis_num;       // 表示するプレイヤーのMAXミス数
+	int numanim_cnt;   // NumAnim()を実行するまでのカウント
 
 public:
 
@@ -58,4 +67,10 @@ public:
 
 	// 画面切り替えアニメーション
 	void Transition();
+
+	// ランクアニメーション処理
+	void RankAnim();
+
+	// レベル数、コンボ数、ミス数のアニメーション
+	void NumAnim();
 };

@@ -8,7 +8,7 @@
 
 bool ResultScene::result_tran = false;
 
-ResultScene::ResultScene():back_img{0},bgm(0),se(0), star_img(0), star_cnt(0), transition(0), tran_img(0), tran_flg(false),cnt(0)
+ResultScene::ResultScene():back_img{0},bgm(0),se(0), star_img(0), star_cnt(0), transition(0), tran_img(0), tran_flg(false),cnt(0),rank_num(0),rank_cnt(0),level_max(0),level_num(0),combo_max(0),combo_num(0),mis_max(0),mis_num(0),numanim_cnt(0)
 {
 	for (int i = 0; i < 10; i++)
 	{
@@ -17,7 +17,10 @@ ResultScene::ResultScene():back_img{0},bgm(0),se(0), star_img(0), star_cnt(0), t
 
 	for (int i = 0; i < 9; i++)
 	{
-		rank_img[i] = 0;
+		for (int j = 0; j < 5; j++)
+		{
+			rank_img[i][j] = 0;
+		}
 	}
 
 	for (int i = 0; i < 3; i++)
@@ -47,7 +50,10 @@ ResultScene::~ResultScene()
 
 	for (int i = 0; i < 9; i++)
 	{
-		DeleteGraph(rank_img[i]);
+		for (int j = 0; j < 5; j++)
+		{
+			DeleteGraph(rank_img[i][j]);
+		}
 	}
 
 	for (int i = 0; i < 3; i++)
@@ -71,15 +77,60 @@ void ResultScene::Initialize()
 	back_img[0] = LoadGraph("Resource/images/result/result5.png");
 	back_img[1] = LoadGraph("Resource/images/result/result3.png");
 	LoadDivGraph("Resource/images/ranking/rank_num1.png", 10, 5, 2, 50, 50, num_img);
-	rank_img[0] = LoadGraph("Resource/images/result/D.png");
-	rank_img[1] = LoadGraph("Resource/images/result/C.png");
-	rank_img[2] = LoadGraph("Resource/images/result/B_r.png");
-	rank_img[3] = LoadGraph("Resource/images/result/A.png");
-	rank_img[4] = LoadGraph("Resource/images/result/S.png");
-	rank_img[5] = LoadGraph("Resource/images/result/fairy.png");
-	rank_img[6] = LoadGraph("Resource/images/result/Princess.png");
-	rank_img[7] = LoadGraph("Resource/images/result/mermaid.png");
-	rank_img[8] = LoadGraph("Resource/images/result/Angel.png");
+	rank_img[0][0] = LoadGraph("Resource/images/result/D1.png");
+	rank_img[0][1] = LoadGraph("Resource/images/result/D2.png");
+	rank_img[0][2] = LoadGraph("Resource/images/result/D3.png");
+	rank_img[0][3] = LoadGraph("Resource/images/result/D4.png");
+	rank_img[0][4] = LoadGraph("Resource/images/result/D.png");
+
+	rank_img[1][0] = LoadGraph("Resource/images/result/C1.png");
+	rank_img[1][1] = LoadGraph("Resource/images/result/C2.png");
+	rank_img[1][2] = LoadGraph("Resource/images/result/C3.png");
+	rank_img[1][3] = LoadGraph("Resource/images/result/C4.png");
+	rank_img[1][4] = LoadGraph("Resource/images/result/C.png");
+
+	rank_img[2][0] = LoadGraph("Resource/images/result/B_r1.png");
+	rank_img[2][1] = LoadGraph("Resource/images/result/B_r2.png");
+	rank_img[2][2] = LoadGraph("Resource/images/result/B_r3.png");
+	rank_img[2][3] = LoadGraph("Resource/images/result/B_r4.png");
+	rank_img[2][4] = LoadGraph("Resource/images/result/B_r.png");
+
+	rank_img[3][0] = LoadGraph("Resource/images/result/A1.png");
+	rank_img[3][1] = LoadGraph("Resource/images/result/A2.png");
+	rank_img[3][2] = LoadGraph("Resource/images/result/A3.png");
+	rank_img[3][3] = LoadGraph("Resource/images/result/A4.png");
+	rank_img[3][4] = LoadGraph("Resource/images/result/A.png");
+
+	rank_img[4][0] = LoadGraph("Resource/images/result/S1.png");
+	rank_img[4][1] = LoadGraph("Resource/images/result/S2.png");
+	rank_img[4][2] = LoadGraph("Resource/images/result/S3.png");
+	rank_img[4][3] = LoadGraph("Resource/images/result/S4.png");
+	rank_img[4][4] = LoadGraph("Resource/images/result/S.png");
+
+	rank_img[5][0] = LoadGraph("Resource/images/result/fairy1.png");
+	rank_img[5][1] = LoadGraph("Resource/images/result/fairy2.png");
+	rank_img[5][2] = LoadGraph("Resource/images/result/fairy3.png");
+	rank_img[5][3] = LoadGraph("Resource/images/result/fairy4.png");
+	rank_img[5][4] = LoadGraph("Resource/images/result/fairy.png");
+
+	rank_img[6][0] = LoadGraph("Resource/images/result/Princess1.png");
+	rank_img[6][1] = LoadGraph("Resource/images/result/Princess2.png");
+	rank_img[6][2] = LoadGraph("Resource/images/result/Princess3.png");
+	rank_img[6][3] = LoadGraph("Resource/images/result/Princess4.png");
+	rank_img[6][4] = LoadGraph("Resource/images/result/Princess.png");
+
+	rank_img[7][0] = LoadGraph("Resource/images/result/mermaid1.png");
+	rank_img[7][1] = LoadGraph("Resource/images/result/mermaid2.png");
+	rank_img[7][2] = LoadGraph("Resource/images/result/mermaid3.png");
+	rank_img[7][3] = LoadGraph("Resource/images/result/mermaid4.png");
+	rank_img[7][4] = LoadGraph("Resource/images/result/mermaid.png");
+
+	rank_img[8][0] = LoadGraph("Resource/images/result/Angel1.png");
+	rank_img[8][1] = LoadGraph("Resource/images/result/Angel2.png");
+	rank_img[8][2] = LoadGraph("Resource/images/result/Angel3.png");
+	rank_img[8][3] = LoadGraph("Resource/images/result/Angel4.png");
+	rank_img[8][4] = LoadGraph("Resource/images/result/Angel.png");
+
 	star_img = LoadGraph("Resource/images/help/star.png");
 	tran_img = LoadGraph("Resource/images/tansition/transition.png");
 	button_img[0] = LoadGraph("Resource/images/result/b.png");
@@ -126,9 +177,12 @@ void ResultScene::Initialize()
 
 	for (int i = 0; i < 3; i++)
 	{
-		if (rank_img[i] == -1)
+		for (int j = 0; j < 5; j++)
 		{
-			throw("rank_img[%d]がありません", i);
+			if (rank_img[i][j] == -1)
+			{
+				throw("rank_img[%d][%d]がありません", i,j);
+			}
 		}
 
 		if (button_img[i] == -1)
@@ -166,6 +220,17 @@ void ResultScene::Initialize()
 	transition = -93;
 	tran_flg = true;
 	result_tran = true;
+	rank_num = -1;
+	rank_cnt = 0;
+	level_max = Theme::theme_num - 2;
+	combo_max = Player::combo;
+	mis_max = Player::all_mis;
+	/*level_max = 12;
+	combo_max = 55;
+	mis_max = 162;*/
+	level_num = 0;
+	combo_num = 0;
+	mis_num = 0;
 }
 
 eSceneType ResultScene::Update()
@@ -215,6 +280,44 @@ eSceneType ResultScene::Update()
 	}
 	else
 	{
+		// ランクアニメーション
+		if (rank_num != 4)
+		{
+			if (rank_cnt == 0)
+			{
+				RankAnim();
+				rank_cnt++;
+			}
+			else if (rank_cnt % 2 == 0)
+			{
+				RankAnim();
+				rank_cnt++;
+			}
+			else
+			{
+				rank_cnt++;
+			}
+		}
+		
+
+		if (level_num != level_max || combo_num != combo_max || mis_num != mis_max)
+		{
+			if (numanim_cnt == 0)
+			{
+				NumAnim();
+				numanim_cnt++;
+			}
+			else if (numanim_cnt % 3 == 0)
+			{
+				NumAnim();
+				numanim_cnt++;
+			}
+			else
+			{
+				numanim_cnt++;
+			}
+		}
+
 		// Bボタンを押したとき
 		if (InputControl::GetButtonDown(XINPUT_BUTTON_B))
 		{
@@ -251,11 +354,11 @@ eSceneType ResultScene::Update()
 void ResultScene::Draw() const
 {
 	// 比較用のデータを格納
-	int i = Theme::theme_num - 2;
+	/*int i = Theme::theme_num - 2;
 	int j = Player::combo;
-	int k = Player::all_mis;
+	int k = Player::all_mis;*/
 
-	/*int i = 20;
+	/*int i = 12;
 	int j = 19;
 	int k = 19;*/
 
@@ -264,12 +367,12 @@ void ResultScene::Draw() const
 
 	// 操作説明の描画
 	// 名前入力画面に行くか行かないかで変える
-	if (level[2] < i)
+	if (level[2] < level_max)
 	{
 		DrawGraph(480, 615 + sin(PI * 2 / 90 * cnt) * 6, button_img[0], TRUE);
 		DrawGraph(460, 610, button_img[1], TRUE);
 	}
-	else if (level[2] == i && combo[2] < j)
+	else if (level[2] == level_max && combo[2] < combo_max)
 	{
 		DrawGraph(480, 615 + sin(PI * 2 / 90 * cnt) * 6, button_img[0], TRUE);
 		DrawGraph(460, 610, button_img[1], TRUE);
@@ -288,118 +391,147 @@ void ResultScene::Draw() const
 
 	SetFontSize(110);
 
-	// ランクの表示
-	if (i <= 1)
-	{// D
-		DrawGraph(RANK_X, RANK_Y, rank_img[0], TRUE);
-		//DrawString(RANK_X, RANK_Y, "D", 0x000000);
-	}
-	else if (i <= 3)
-	{// C
-		DrawGraph(RANK_X, RANK_Y, rank_img[1], TRUE);
-		//DrawString(RANK_X, RANK_Y, "C", 0x000000);
-	}
-	else if (i <= 5)
-	{// B
-		DrawGraph(RANK_X, RANK_Y, rank_img[2], TRUE);
-		//DrawString(RANK_X, RANK_Y, "B", 0x000000);
-	}
-	else if (i <= 7)
-	{// A
-		DrawGraph(RANK_X - 20, RANK_Y, rank_img[3], TRUE);
-		//DrawString(RANK_X, RANK_Y, "A", 0x000000);
-	}
-	else if (i <= 9)
-	{// S
-		DrawGraph(RANK_X, RANK_Y, rank_img[4], TRUE);
-		//DrawString(RANK_X, RANK_Y, "S", 0x000000);
-	}
-	else if (i == 10)
-	{// Fairy
-		DrawGraph(630, RANK_Y + 5, rank_img[5], TRUE);
-		//DrawString(625, RANK_Y, "Fairy", 0x000000);
-	}
-	else if (i == 11)
-	{// Princess
-		DrawGraph(545, RANK_Y + 20, rank_img[6], TRUE);
-		//DrawString(555, RANK_Y, "Princess", 0x000000);
-	}
-	else if (i == 12)
-	{// Mermaid
-		DrawGraph(535, RANK_Y + 20, rank_img[7], TRUE);
-		//DrawString(580, RANK_Y, "Mermaid", 0x000000);
-	}
-	else
-	{// Angel
-		DrawGraph(550, RANK_Y + 5, rank_img[8], TRUE);
-		//DrawString(625, RANK_Y, "Angel", 0x000000);
+	if (rank_num != -1)
+	{
+		// ランクの表示
+		if (level_max <= 1)
+		{// D
+			DrawGraph(RANK_X - (4 - rank_num) * 28, RANK_Y - (4 - rank_num) * 23, rank_img[0][rank_num], TRUE);
+			//DrawString(RANK_X, RANK_Y, "D", 0x000000);
+		}
+		else if (level_max <= 3)
+		{// C
+			DrawGraph(RANK_X - (4 - rank_num) * 28, RANK_Y - (4 - rank_num) * 23, rank_img[1][rank_num], TRUE);
+			//DrawString(RANK_X, RANK_Y, "C", 0x000000);
+		}
+		else if (level_max <= 5)
+		{// B
+			DrawGraph(RANK_X - (4 - rank_num) * 28, RANK_Y - (4 - rank_num) * 23, rank_img[2][rank_num], TRUE);
+			//DrawString(RANK_X, RANK_Y, "B", 0x000000);
+		}
+		else if (level_max <= 7)
+		{// A
+			DrawGraph(RANK_X - (4 - rank_num) * 28, RANK_Y - (4 - rank_num) * 23, rank_img[3][rank_num], TRUE);
+			//DrawString(RANK_X, RANK_Y, "A", 0x000000);
+		}
+		else if (level_max <= 9)
+		{// S
+			DrawGraph(RANK_X - (4 - rank_num) * 28, RANK_Y - (4 - rank_num) * 23, rank_img[4][rank_num], TRUE);
+			//DrawString(RANK_X, RANK_Y, "S", 0x000000);
+		}
+		else if (level_max == 10)
+		{// Fairy
+			DrawGraph(630 - (4 - rank_num) * 70, RANK_Y + 5 - (4 - rank_num) * 23, rank_img[5][rank_num], TRUE);
+			//DrawString(625, RANK_Y, "Fairy", 0x000000);
+		}
+		else if (level_max == 11)
+		{// Princess
+			DrawGraph(545 - (4 - rank_num) * 130, RANK_Y + 20 - (4 - rank_num) * 23, rank_img[6][rank_num], TRUE);
+			//DrawString(555, RANK_Y, "Princess", 0x000000);
+		}
+		else if (level_max == 12)
+		{// Mermaid
+			DrawGraph(535 - (4 - rank_num) * 138, RANK_Y + 20 - (4 - rank_num) * 23, rank_img[7][rank_num], TRUE);
+			//DrawString(580, RANK_Y, "Mermaid", 0x000000);
+		}
+		else
+		{// Angel
+			DrawGraph(550 - (4 - rank_num) * 90, RANK_Y + 5 - (4 - rank_num) * 23, rank_img[8][rank_num], TRUE);
+			//DrawString(625, RANK_Y, "Angel", 0x000000);
+		}
 	}
 
 	// クリアした最大レベルを表示
-	if (i < 10)
+	if (level_max < 10)
 	{
-		DrawGraph(335, NUM_Y, num_img[i % 10], TRUE);
+		/*DrawGraph(335, NUM_Y, num_img[i % 10], TRUE);*/
+		DrawGraph(335, NUM_Y, num_img[level_num % 10], TRUE);
 	}
 	else
 	{
-		DrawGraph(315, NUM_Y, num_img[i / 10], TRUE);
-		DrawGraph(360, NUM_Y, num_img[i % 10], TRUE);
+		/*DrawGraph(315, NUM_Y, num_img[i / 10], TRUE);
+		DrawGraph(360, NUM_Y, num_img[i % 10], TRUE);*/
+		DrawGraph(315, NUM_Y, num_img[level_num / 10], TRUE);
+		DrawGraph(360, NUM_Y, num_img[level_num % 10], TRUE);
 	}
 
 	// 最終的なコンボの表示
-	if (j < 10)
+	if (combo_max < 10)
 	{
-		DrawGraph(645 + 5, NUM_Y, num_img[j % 10], TRUE);
+		/*DrawGraph(645 + 5, NUM_Y, num_img[j % 10], TRUE);*/
+		DrawGraph(645 + 5, NUM_Y, num_img[combo_num % 10], TRUE);
+
 	}
-	else if (j >= 10 && j < 20)
+	else if (combo_max >= 10 && combo_max < 20)
 	{
-		DrawGraph(622, NUM_Y, num_img[j / 10], TRUE);
-		DrawGraph(667, NUM_Y, num_img[j % 10], TRUE);
+		/*DrawGraph(622, NUM_Y, num_img[j / 10], TRUE);
+		DrawGraph(667, NUM_Y, num_img[j % 10], TRUE);*/
+		DrawGraph(622, NUM_Y, num_img[combo_num / 10], TRUE);
+		DrawGraph(667, NUM_Y, num_img[combo_num % 10], TRUE);
 	}
-	else if (j < 100)
+	else if (combo_max < 100)
 	{
-		DrawGraph(622 + 5, NUM_Y, num_img[j / 10], TRUE);
-		DrawGraph(667 + 5, NUM_Y, num_img[j % 10], TRUE);
+		/*DrawGraph(622 + 5, NUM_Y, num_img[j / 10], TRUE);
+		DrawGraph(667 + 5, NUM_Y, num_img[j % 10], TRUE);*/
+		DrawGraph(622 + 5, NUM_Y, num_img[combo_num / 10], TRUE);
+		DrawGraph(667 + 5, NUM_Y, num_img[combo_num % 10], TRUE);
 	}
-	else if(j >= 100 && j < 200)
+	else if(combo_max >= 100 && combo_max < 200)
 	{
-		DrawGraph(599, NUM_Y, num_img[j / 100], TRUE);
+		/*DrawGraph(599, NUM_Y, num_img[j / 100], TRUE);
 		DrawGraph(645, NUM_Y, num_img[(j - j / 100 * 100) / 10], TRUE);
-		DrawGraph(691, NUM_Y, num_img[j % 10], TRUE);
+		DrawGraph(691, NUM_Y, num_img[j % 10], TRUE);*/
+		DrawGraph(599, NUM_Y, num_img[combo_num / 100], TRUE);
+		DrawGraph(645, NUM_Y, num_img[(combo_num - combo_num / 100 * 100) / 10], TRUE);
+		DrawGraph(691, NUM_Y, num_img[combo_num % 10], TRUE);
 	}
 	else
 	{
-		DrawGraph(599 + 5, NUM_Y, num_img[j / 100], TRUE);
+		/*DrawGraph(599 + 5, NUM_Y, num_img[j / 100], TRUE);
 		DrawGraph(645 + 5, NUM_Y, num_img[(j - j / 100 * 100) / 10], TRUE);
-		DrawGraph(691 + 5, NUM_Y, num_img[j % 10], TRUE);
+		DrawGraph(691 + 5, NUM_Y, num_img[j % 10], TRUE);*/
+		DrawGraph(599 + 5, NUM_Y, num_img[combo_num / 100], TRUE);
+		DrawGraph(645 + 5, NUM_Y, num_img[(combo_num - combo_num / 100 * 100) / 10], TRUE);
+		DrawGraph(691 + 5, NUM_Y, num_img[combo_num % 10], TRUE);
 	}
 
 	// 最終的な間違えた数の表示
-	if (k < 10)
+	if (mis_max < 10)
 	{
-		DrawGraph(980 + 35, NUM_Y, num_img[k % 10], TRUE);
+		/*DrawGraph(980 + 35, NUM_Y, num_img[k % 10], TRUE);*/
+		DrawGraph(980 + 35, NUM_Y, num_img[mis_num % 10], TRUE);
 	}
-	else if (k >= 10 && k < 20)
+	else if (mis_max >= 10 && mis_max < 20)
 	{
-		DrawGraph(963 + 30, NUM_Y, num_img[k / 10], TRUE);
-		DrawGraph(1008 + 30, NUM_Y, num_img[k % 10], TRUE);
+		/*DrawGraph(963 + 30, NUM_Y, num_img[k / 10], TRUE);
+		DrawGraph(1008 + 30, NUM_Y, num_img[k % 10], TRUE);*/
+		DrawGraph(963 + 30, NUM_Y, num_img[mis_num / 10], TRUE);
+		DrawGraph(1008 + 30, NUM_Y, num_img[mis_num % 10], TRUE);
 	}
-	else if (k < 100)
+	else if (mis_max < 100)
 	{
-		DrawGraph(963 + 35, NUM_Y, num_img[k / 10], TRUE);
-		DrawGraph(1008 + 35, NUM_Y, num_img[k % 10], TRUE);
+		/*DrawGraph(963 + 35, NUM_Y, num_img[k / 10], TRUE);
+		DrawGraph(1008 + 35, NUM_Y, num_img[k % 10], TRUE);*/
+		DrawGraph(963 + 35, NUM_Y, num_img[mis_num / 10], TRUE);
+		DrawGraph(1008 + 35, NUM_Y, num_img[mis_num % 10], TRUE);
 	}
-	else if(k >= 100 && k < 200)
+	else if(mis_max >= 100 && mis_max < 200)
 	{
-		DrawGraph(937 + 30, NUM_Y, num_img[k / 100], TRUE);
+		/*DrawGraph(937 + 30, NUM_Y, num_img[k / 100], TRUE);
 		DrawGraph(983 + 30, NUM_Y, num_img[(k - k / 100 * 100) / 10], TRUE);
-		DrawGraph(1029 + 30, NUM_Y, num_img[k % 10], TRUE);
+		DrawGraph(1029 + 30, NUM_Y, num_img[k % 10], TRUE);*/
+		DrawGraph(937 + 30, NUM_Y, num_img[mis_num / 100], TRUE);
+		DrawGraph(983 + 30, NUM_Y, num_img[(mis_num - mis_num / 100 * 100) / 10], TRUE);
+		DrawGraph(1029 + 30, NUM_Y, num_img[mis_num % 10], TRUE);
 	}
 	else
 	{
-		DrawGraph(937 + 37, NUM_Y, num_img[k / 100], TRUE);
+		/*DrawGraph(937 + 37, NUM_Y, num_img[k / 100], TRUE);
 		DrawGraph(983 + 37, NUM_Y, num_img[(k - k / 100 * 100) / 10], TRUE);
-		DrawGraph(1029 + 37, NUM_Y, num_img[k % 10], TRUE);
+		DrawGraph(1029 + 37, NUM_Y, num_img[k % 10], TRUE);*/
+		DrawGraph(937 + 37, NUM_Y, num_img[mis_num / 100], TRUE);
+		DrawGraph(983 + 37, NUM_Y, num_img[(mis_num - mis_num / 100 * 100) / 10], TRUE);
+		DrawGraph(1029 + 37, NUM_Y, num_img[mis_num % 10], TRUE);
 	}
 
 	if (tran_flg == true)
@@ -431,4 +563,74 @@ void ResultScene::StarAnim()
 void ResultScene::Transition()
 {
 	transition += 50;
+}
+
+void ResultScene::RankAnim()
+{
+	if (rank_num < 4)
+	{
+		rank_num++;
+	}
+	else
+	{
+		rank_num = 4;
+	}
+}
+
+void ResultScene::NumAnim()
+{
+	if (level_num < level_max)
+	{
+		level_num++;
+	}
+	else
+	{
+		level_num = level_max;
+	}
+
+	if (level_num == level_max)
+	{
+		if (combo_num < combo_max)
+		{
+			if (combo_max >= 100)
+			{
+				combo_num += 15;
+			}
+			else if (combo_max >= 30)
+			{
+				combo_num += 7;
+			}
+			else
+			{
+				combo_num++;
+			}
+		}
+		else
+		{
+			combo_num = combo_max;
+		}
+	}
+
+	if (level_num == level_max && combo_num == combo_max)
+	{
+		if (mis_num < mis_max)
+		{
+			if (mis_max >= 100)
+			{
+				mis_num += 15;
+			}
+			else if (mis_max >= 30)
+			{
+				mis_num += 7;
+			}
+			else
+			{
+				mis_num++;
+			}
+		}
+		else
+		{
+			mis_num = mis_max;
+		}
+	}
 }
