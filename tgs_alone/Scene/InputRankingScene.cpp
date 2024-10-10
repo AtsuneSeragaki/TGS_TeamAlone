@@ -6,7 +6,7 @@
 #include <math.h>
 #include "DxLib.h"
 
-InputRankingScene::InputRankingScene():ranking(nullptr),level(0),combo(0),cursor_x(0),cursor_y(0),no_name(false),name_num(0),font(0),bgm(0), star_img(0), star_cnt(0),input_end(false), transition(0), tran_img(0), tran_flg(false),cnt(0),cnt2(0)
+InputRankingScene::InputRankingScene():ranking(nullptr),level(0),combo(0),cursor_x(0),cursor_y(0),no_name(false),name_num(0),font(0),bgm(0), star_img(0), star_cnt(0),input_end(false), transition(0), tran_img(0), tran_flg(false),cnt(0),cnt2(0),lcnt(0),rcnt(0),plus_lx(0),plus_rx(0),lmove(false),rmove(false)
 {
 	memset(name, NULL, (sizeof(char) * 6));
 
@@ -19,6 +19,7 @@ InputRankingScene::InputRankingScene():ranking(nullptr),level(0),combo(0),cursor
 	{
 		font_img[i] = 0;
 		font_img2[i] = 0;
+		font_img3[i] = 0;
 	}
 
 	for (int i = 0; i < 2; i++)
@@ -49,6 +50,7 @@ InputRankingScene::~InputRankingScene()
 	{
 		DeleteGraph(font_img[i]);
 		DeleteGraph(font_img2[i]);
+		DeleteGraph(font_img3[i]);
 	}
 
 	for (int i = 0; i < 4; i++)
@@ -109,6 +111,34 @@ void InputRankingScene::Initialize()
 	font_img[25] = LoadGraph("Resource/images/ranking/font/z.png");
 	font_img[26] = LoadGraph("Resource/images/ranking/font/z.png");
 
+	font_img3[0] = LoadGraph("Resource/images/ranking/font2/A.png");
+	font_img3[1] = LoadGraph("Resource/images/ranking/font2/B.png");
+	font_img3[2] = LoadGraph("Resource/images/ranking/font2/C.png");
+	font_img3[3] = LoadGraph("Resource/images/ranking/font2/D.png");
+	font_img3[4] = LoadGraph("Resource/images/ranking/font2/E.png");
+	font_img3[5] = LoadGraph("Resource/images/ranking/font2/F.png");
+	font_img3[6] = LoadGraph("Resource/images/ranking/font2/G.png");
+	font_img3[7] = LoadGraph("Resource/images/ranking/font2/H.png");
+	font_img3[8] = LoadGraph("Resource/images/ranking/font2/I.png");
+	font_img3[9] = LoadGraph("Resource/images/ranking/font2/J.png");
+	font_img3[10] = LoadGraph("Resource/images/ranking/font2/K.png");
+	font_img3[11] = LoadGraph("Resource/images/ranking/font2/L.png");
+	font_img3[12] = LoadGraph("Resource/images/ranking/font2/M.png");
+	font_img3[13] = LoadGraph("Resource/images/ranking/font2/N.png");
+	font_img3[14] = LoadGraph("Resource/images/ranking/font2/O.png");
+	font_img3[15] = LoadGraph("Resource/images/ranking/font2/P.png");
+	font_img3[16] = LoadGraph("Resource/images/ranking/font2/Q.png");
+	font_img3[17] = LoadGraph("Resource/images/ranking/font2/R.png");
+	font_img3[18] = LoadGraph("Resource/images/ranking/font2/S.png");
+	font_img3[19] = LoadGraph("Resource/images/ranking/font2/T.png");
+	font_img3[20] = LoadGraph("Resource/images/ranking/font2/U.png");
+	font_img3[21] = LoadGraph("Resource/images/ranking/font2/V.png");
+	font_img3[22] = LoadGraph("Resource/images/ranking/font2/W.png");
+	font_img3[23] = LoadGraph("Resource/images/ranking/font2/X.png");
+	font_img3[24] = LoadGraph("Resource/images/ranking/font2/Y.png");
+	font_img3[25] = LoadGraph("Resource/images/ranking/font2/Z.png");
+	font_img3[26] = LoadGraph("Resource/images/ranking/font2/Z.png");
+
 	//LoadDivGraph("Resource/images/ranking/moji4.png", 27, 9, 3, 73, 73, font_img);
 	LoadDivGraph("Resource/images/ranking/moji5.png", 27, 9, 3, 110, 110, font_img2);
 
@@ -152,6 +182,11 @@ void InputRankingScene::Initialize()
 		if (font_img2[i] == -1)
 		{
 			throw("font_img2[%d]がありません", i);
+		}
+
+		if (font_img3[i] == -1)
+		{
+			throw("font_img3[%d]がありません", i);
 		}
 	}
 
@@ -198,6 +233,12 @@ void InputRankingScene::Initialize()
 	tran_flg = true;
 	cnt = 0;
 	cnt2 = 0;
+	lcnt = 0;
+	rcnt = 0;
+	plus_lx = 0;
+	plus_rx = 0;
+	lmove = false;
+	rmove = false;
 }
 
 eSceneType InputRankingScene::Update()
@@ -377,7 +418,7 @@ void InputRankingScene::Draw() const
 		{	
 			for (int i = 0; i <= name_num; i++)
 			{
-				DrawGraph((590 - (name_num * 30))+ i * 73, 145, font_img[(int)name[i] - 65], TRUE);
+				DrawGraph((590 - (name_num * 30))+ i * 73, 145, font_img3[(int)name[i] - 65], TRUE);
 			}
 			
 			if (name_num < 4 && cnt <= 30)
@@ -392,7 +433,7 @@ void InputRankingScene::Draw() const
 		{
 			for (int i = 0; i < name_num; i++)
 			{
-				DrawGraph((590 - ((name_num - 1) * 30)) + i * 73, 145, font_img[(int)name[i] - 65], TRUE);
+				DrawGraph((590 - ((name_num - 1) * 30)) + i * 73, 145, font_img3[(int)name[i] - 65], TRUE);
 			}
 		}
 	}
@@ -401,10 +442,17 @@ void InputRankingScene::Draw() const
 	DrawGraph(540, 315, img[6], TRUE);
 
 	// 左矢印の描画
-	DrawGraph(330, 365, img[7], TRUE);
+	if (lmove == true)
+	{
+		DrawGraph(330 - sin(PI * 2 / 90 * cnt2) * 6, 365, img[7], TRUE);
+	}
+	else
+	{
+		DrawGraph(330, 365, img[7], TRUE);
+	}
 
 	// 右矢印の描画
-	DrawGraph(920, 365, img[8], TRUE);
+	DrawGraph(920 + sin(PI * 2 / 90 * cnt2) * 6, 365, img[8], TRUE);
 
 	DrawGraph(635, 543 + sin(PI * 2 / 90 * cnt2) * 6, button[0], TRUE); // a
 	DrawGraph(470, 543 + sin(PI * 2 / 90 * cnt2) * 6, button[1], TRUE); // b
@@ -448,7 +496,7 @@ bool InputRankingScene::InputName()
 		{
 			cursor_x = 26;
 		}
-
+		
 		//if (cursor_y == 0 && cursor_x == 0)
 		//{// 1列目の一番最初にカーソルがある場合、4列目の最後の位置に移動
 		//	cursor_y = 3;
@@ -609,4 +657,12 @@ void InputRankingScene::OpeAnim()
 	{
 		cnt2++;
 	}
+}
+
+void InputRankingScene::LeftAnim()
+{
+}
+
+void InputRankingScene::RightAnim()
+{
 }

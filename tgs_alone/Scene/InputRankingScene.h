@@ -11,8 +11,9 @@ private:
 	int img[9];       // 背景画像
 	int star_img;     // 星画像
 	int tran_img;     // トランジション画像
-	int font_img[27]; // フォント画像
+	int font_img[27]; // フォント画像（黒）
 	int font_img2[27]; // フォント画像大きめ
+	int font_img3[27]; // フォント画像（カラー）
 	int button[4];    
 	int font;         // フォントデータ
 	int se[2];        // 効果音データ
@@ -29,7 +30,13 @@ private:
 	bool tran_flg;    // 画面遷移 false:しない true:する
 	int transition;   // トランジションの値保存用
 	int cnt;          // 文字点滅用カウント
-	int cnt2;          // フレームカウント
+	int cnt2;         // フレームカウント
+	int lcnt;         // LeftAnim()で使うカウント
+	int rcnt;         // RightAnim()で使うカウント
+	int plus_lx;      // 左の矢印のX座標に足す数
+	int plus_rx;      // 右の矢印のX座標に足す数
+	bool lmove;
+	bool rmove;
 
 	RankingData* ranking; // ランキング情報
 
@@ -67,4 +74,10 @@ public:
 
 	// 操作説明のボタンのアニメーション
 	void OpeAnim();
+
+	// Xボタンが押された時の矢印アニメーション
+	void LeftAnim();
+
+	// Bボタンが押された時の矢印アニメーション
+	void RightAnim();
 };
