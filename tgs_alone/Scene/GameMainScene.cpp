@@ -5,7 +5,7 @@
 #include <math.h>
 #include "DxLib.h"
 
-GameMainScene::GameMainScene() :player(nullptr), time(nullptr), theme(nullptr),comment(nullptr), begin_time(0),begin_cnt(0),draw_cnt(0),timeup_flg(false),timeup_cnt(0),pause(false),pause_cursor(0), transition(0), tran_img(0), tran_flg(false),restart(false),cnt(0),goal(false)
+GameMainScene::GameMainScene() :player(nullptr), time(nullptr), theme(nullptr),comment(nullptr), begin_time(0),begin_cnt(0),draw_cnt(0),timeup_flg(false),timeup_cnt(0),pause(false),pause_cursor(0), transition(0), tran_img(0), tran_flg(false),restart(false),cnt(0),goal(false), star_flg(false), shoot_num(0), shoot_cnt(0), shoot_x(0), shoot_y(0),shoot_ran(0), shoot_x2(0), shoot_y2(0), shoot_ran2(0)
 {
 	se[0] = 0;
 	se[1] = 0;
@@ -30,6 +30,12 @@ GameMainScene::GameMainScene() :player(nullptr), time(nullptr), theme(nullptr),c
 	{
 		pause_img[i] = 0;
 	}
+
+	for (int i = 0; i < 5; i++)
+	{
+		star_img[i] = 0;
+	}
+
 }
 
 GameMainScene::~GameMainScene()
@@ -44,6 +50,11 @@ GameMainScene::~GameMainScene()
 	for (int i = 0; i < 8; i++)
 	{
 		DeleteGraph(img[i]);
+	}
+
+	for (int i = 0; i < 5; i++)
+	{
+		DeleteGraph(star_img[i]);
 	}
 
 	DeleteGraph(tran_img);
@@ -76,6 +87,12 @@ void GameMainScene::Initialize()
 	button[0] = LoadGraph("Resource/images/ranking/a.png");
 	button[1] = LoadGraph("Resource/images/ranking/y.png");
 	button[2] = LoadGraph("Resource/images/ranking/b.png");
+
+	star_img[0] = LoadGraph("Resource/images/title/line1.png");
+	star_img[1] = LoadGraph("Resource/images/title/line2.png");
+	star_img[2] = LoadGraph("Resource/images/title/line3.png");
+	star_img[3] = LoadGraph("Resource/images/title/line4.png");
+	star_img[4] = LoadGraph("Resource/images/title/line5.png");
 
 	// サウンド読み込み
 	sound[0] = LoadSoundMem("Resource/sounds/main/maou_bgm_cyber44.mp3");
@@ -113,6 +130,14 @@ void GameMainScene::Initialize()
 		}
 	}
 
+	for (int i = 0; i < 5; i++)
+	{
+		if (star_img[i] == -1)
+		{
+			throw("star_img[%d]がありません", i);
+		}
+	}
+
 	if (tran_img == -1)
 	{
 		throw("Resource/images/tansition/transition.pngがありません");
@@ -147,6 +172,15 @@ void GameMainScene::Initialize()
 	tran_flg = true;
 	cnt = 0;
 	goal = false;
+	star_flg = false;
+	shoot_num = 0;
+	shoot_cnt = 0;
+	shoot_x = 0;
+	shoot_y = 0;
+	shoot_ran = 0;
+	shoot_x2 = 0;
+	shoot_y2 = 0;
+	shoot_ran2 = 0;
 
 	// オブジェクトの生成
 	player = new Player;
@@ -286,6 +320,8 @@ eSceneType GameMainScene::Update()
 			// 開始のカウントダウン
 			if (begin_time != -1)
 			{
+				ShootStarAnim();
+
 				//if (begin_time == 4 && begin_cnt == 0)
 				//{
 				//	// 効果音の再生
@@ -504,6 +540,15 @@ void GameMainScene::Draw() const
 		DrawGraph(0, 0, img[begin_time], TRUE);
 	}
 
+	if (begin_time != -1)
+	{
+		// 流れ星の描画
+		if (star_flg == true)
+		{
+			DrawGraph(shoot_x, shoot_y, star_img[shoot_num], TRUE);
+		}
+	}
+
 	if (timeup_cnt != 0)
 	{
 		if (Player::correct_num == Theme::theme_num && Theme::theme_num == THEME_MAX)
@@ -649,5 +694,157 @@ void GameMainScene::OpeAnim()
 	else
 	{
 		cnt++;
+	}
+}
+
+void GameMainScene::ShootStarAnim()
+{
+	if (star_flg == false)
+	{
+		shoot_cnt++;
+
+		if (shoot_cnt >= 80)
+		{
+			SetStarPos();
+			star_flg = true;
+			shoot_cnt = 0;
+		}
+	}
+	else
+	{
+		shoot_cnt++;
+
+		if (shoot_cnt > 3)
+		{
+			shoot_cnt = 0;
+
+			if (shoot_num < 4)
+			{
+				shoot_num++;
+			}
+			else
+			{
+				star_flg = false;
+				shoot_num = 0;
+				shoot_cnt = 0;
+			}
+		}
+	}
+}
+
+void GameMainScene::SetStarPos()
+{
+	int next_num = 0;
+	int next_num2 = 0;
+
+	do
+	{
+		next_num = GetRand(11);
+	} while (shoot_ran == next_num);
+
+	shoot_ran = next_num;
+
+	do
+	{
+		next_num2 = GetRand(6);
+	} while (shoot_ran2 == next_num2);
+
+	shoot_ran2 = next_num2;
+
+	switch (shoot_ran)
+	{
+	case 0:
+		shoot_x = 50;
+		shoot_y = 30;
+		break;
+
+	case 1:
+		shoot_x = 200;
+		shoot_y = 170;
+		break;
+
+	case 2:
+		shoot_x = 70;
+		shoot_y = 400;
+		break;
+
+	case 3:
+		shoot_x = 280;
+		shoot_y = 550;
+		break;
+
+	case 4:
+		shoot_x = 350;
+		shoot_y = 300;
+		break;
+
+	case 5:
+		shoot_x = 700;
+		shoot_y = 450;
+		break;
+
+	case 6:
+		shoot_x = 1100;
+		shoot_y = 30;
+		break;
+
+	case 7:
+		shoot_x = 850;
+		shoot_y = 200;
+		break;
+
+	case 8:
+		shoot_x = 1200;
+		shoot_y = 250;
+		break;
+
+	case 9:
+		shoot_x = 980;
+		shoot_y = 350;
+		break;
+
+	case 10:
+		shoot_x = 900;
+		shoot_y = 600;
+		break;
+
+	default:
+		break;
+	}
+
+	switch (shoot_ran2)
+	{
+	case 0:
+		shoot_x2 = 700;
+		shoot_y2 = 450;
+		break;
+
+	case 1:
+		shoot_x2 = 1100;
+		shoot_y2 = 30;
+		break;
+
+	case 2:
+		shoot_x2 = 850;
+		shoot_y2 = 200;
+		break;
+
+	case 3:
+		shoot_x2 = 1200;
+		shoot_y2 = 250;
+		break;
+
+	case 4:
+		shoot_x2 = 980;
+		shoot_y2 = 350;
+		break;
+
+	case 5:
+		shoot_x2 = 900;
+		shoot_y2 = 600;
+		break;
+
+	default:
+		break;
 	}
 }

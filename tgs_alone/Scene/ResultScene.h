@@ -11,7 +11,7 @@
 class ResultScene : public SceneBase
 {
 private:
-	int back_img[2];   // 背景画像 
+	int back_img;   // 背景画像 
 	int num_img[10];   // 数字画像
 	int rank_img[9][5];   // ランク画像
 	int star_img;      // 星画像

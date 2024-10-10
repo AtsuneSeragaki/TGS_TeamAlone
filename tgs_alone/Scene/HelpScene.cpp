@@ -8,11 +8,6 @@ bool HelpScene::game_start = false;
 
 HelpScene::HelpScene():bcnt(0),anim(0),cnt_flg(false),se(0),bgm(0), star_img(0),star_cnt(0), transition(0), tran_img(0), tran_flg(false),cnt(0), cbutton_num(0)
 {
-	for (int i = 0; i < 7; i++)
-	{
-		back_img[i] = 0;
-	}
-
 	for (int i = 0; i < 8; i++)
 	{
 		cbutton_img[i] = 0;
@@ -20,6 +15,8 @@ HelpScene::HelpScene():bcnt(0),anim(0),cnt_flg(false),se(0),bgm(0), star_img(0),
 
 	for (int i = 0; i < 4; i++)
 	{
+		back_img[i] = 0;
+
 		for (int j = 0; j < 5; j++)
 		{
 			button_img[i][j] = 0;
@@ -30,7 +27,7 @@ HelpScene::HelpScene():bcnt(0),anim(0),cnt_flg(false),se(0),bgm(0), star_img(0),
 HelpScene::~HelpScene()
 {
 	// 画像データの削除
-	for (int i = 0; i < 7; i++)
+	for (int i = 0; i < 4; i++)
 	{
 		DeleteGraph(back_img[i]);
 	}
@@ -60,38 +57,10 @@ HelpScene::~HelpScene()
 void HelpScene::Initialize()
 {
 	// 画像データの読み込み
-	//back_img[0] = LoadGraph("Resource/images/help/help.png");
 	back_img[0] = LoadGraph("Resource/images/help/help4.png");
 	back_img[1] = LoadGraph("Resource/images/help/start-title4.png");
 	back_img[2] = LoadGraph("Resource/images/help/x.png");
-	back_img[3] = LoadGraph("Resource/images/help/star2.png");
-	back_img[4] = LoadGraph("Resource/images/help/line2.png");
-	back_img[5] = LoadGraph("Resource/images/help/ui.png");
-	back_img[6] = LoadGraph("Resource/images/help/b.png");
-
-	/*button_img[0][0] = LoadGraph("Resource/images/main/button/Abotton0.png");
-	button_img[0][1] = LoadGraph("Resource/images/main/button/Abotton5.png");
-	button_img[0][2] = LoadGraph("Resource/images/main/button/Abotton6.png");
-	button_img[0][3] = LoadGraph("Resource/images/main/button/Abotton7.png");
-	button_img[0][4] = LoadGraph("Resource/images/main/button/Abotton8.png");
-
-	button_img[1][0] = LoadGraph("Resource/images/main/button/Bbotton0.png");
-	button_img[1][1] = LoadGraph("Resource/images/main/button/Bbotton5.png");
-	button_img[1][2] = LoadGraph("Resource/images/main/button/Bbotton6.png");
-	button_img[1][3] = LoadGraph("Resource/images/main/button/Bbotton7.png");
-	button_img[1][4] = LoadGraph("Resource/images/main/button/Bbotton8.png");
-
-	button_img[2][0] = LoadGraph("Resource/images/main/button/Ybotton0.png");
-	button_img[2][1] = LoadGraph("Resource/images/main/button/Ybotton5.png");
-	button_img[2][2] = LoadGraph("Resource/images/main/button/Ybotton6.png");
-	button_img[2][3] = LoadGraph("Resource/images/main/button/Ybotton7.png");
-	button_img[2][4] = LoadGraph("Resource/images/main/button/Ybotton8.png");
-
-	button_img[3][0] = LoadGraph("Resource/images/main/button/Xbotton0.png");
-	button_img[3][1] = LoadGraph("Resource/images/main/button/Xbotton5.png");
-	button_img[3][2] = LoadGraph("Resource/images/main/button/Xbotton6.png");
-	button_img[3][3] = LoadGraph("Resource/images/main/button/Xbotton7.png");
-	button_img[3][4] = LoadGraph("Resource/images/main/button/Xbotton8.png");*/
+	back_img[3] = LoadGraph("Resource/images/help/b.png");
 
 	button_img[0][0] = LoadGraph("Resource/images/main/button/a1.png");
 	button_img[0][1] = LoadGraph("Resource/images/main/button/a2.png");
@@ -138,17 +107,13 @@ void HelpScene::Initialize()
 	se = LoadSoundMem("Resource/sounds/title/ok.mp3");
 	bgm = LoadSoundMem("Resource/sounds/title/bgm2.mp3");
 
-	// エラーチェック
-	for (int i = 0; i < 7; i++)
+	for (int i = 0; i < 4; i++)
 	{
 		if (back_img[i] == -1)
 		{
 			throw("back_img[%d]がありません", i);
 		}
-	}
 
-	for (int i = 0; i < 4; i++)
-	{
 		for (int j = 0; j < 5; j++)
 		{
 			if (button_img[i][j] == -1)
@@ -294,7 +259,7 @@ void HelpScene::Draw() const
 	// 操作説明の描画
 	//DrawGraph(400, 580, back_img[1], TRUE);
 	DrawGraph(425, 578 + sin(PI * 2 / 90 * cnt) * 6, back_img[2], TRUE); // xbutton
-	DrawGraph(673, 578 + sin(PI * 2 / 90 * cnt) * 6, back_img[6], TRUE); // bbutton
+	DrawGraph(673, 578 + sin(PI * 2 / 90 * cnt) * 6, back_img[3], TRUE); // bbutton
 
 	// 操作説明(コントローラーのボタン)の描画
 	switch (cbutton_num)

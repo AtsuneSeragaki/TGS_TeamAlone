@@ -10,7 +10,7 @@ InputRankingScene::InputRankingScene():ranking(nullptr),level(0),combo(0),cursor
 {
 	memset(name, NULL, (sizeof(char) * 6));
 
-	for (int i = 0; i < 9; i++)
+	for (int i = 0; i < 7; i++)
 	{
 		img[i] = 0;
 	}
@@ -41,7 +41,7 @@ InputRankingScene::~InputRankingScene()
 	// 画像データの削除
 	DeleteGraph(star_img);
 
-	for (int i = 0; i < 9; i++)
+	for (int i = 0; i < 7; i++)
 	{
 		DeleteGraph(img[i]);
 	}
@@ -71,13 +71,11 @@ void InputRankingScene::Initialize()
 	// 画像データの読み込み
 	img[0] = LoadGraph("Resource/images/ranking/ok2.png");
 	img[1] = LoadGraph("Resource/images/ranking/button2.png");
-	img[2] = LoadGraph("Resource/images/ranking/button3.png");
-	img[3] = LoadGraph("Resource/images/ranking/input2.png");
-	img[4] = LoadGraph("Resource/images/ranking/noname1.png");
-	img[5] = LoadGraph("Resource/images/ranking/moji.png");
-	img[6] = LoadGraph("Resource/images/ranking/select.png");
-	img[7] = LoadGraph("Resource/images/ranking/cursor1.png");
-	img[8] = LoadGraph("Resource/images/ranking/cursor2.png");
+	img[2] = LoadGraph("Resource/images/ranking/input2.png");
+	img[3] = LoadGraph("Resource/images/ranking/noname1.png");
+	img[4] = LoadGraph("Resource/images/ranking/select.png");
+	img[5] = LoadGraph("Resource/images/ranking/cursor1.png");
+	img[6] = LoadGraph("Resource/images/ranking/cursor2.png");
 
 	star_img = LoadGraph("Resource/images/help/star.png");
 
@@ -156,7 +154,7 @@ void InputRankingScene::Initialize()
 	font = CreateFontToHandle("Segoe UI", 70, 7, DX_FONTTYPE_ANTIALIASING);
 
 	// エラーチェック
-	for (int i = 0; i < 9; i++)
+	for (int i = 0; i < 7; i++)
 	{
 		if (img[i] == -1)
 		{
@@ -332,7 +330,7 @@ eSceneType InputRankingScene::Update()
 void InputRankingScene::Draw() const
 {
 	// 背景の描画
-	DrawGraph(0, 0, img[3], TRUE);
+	DrawGraph(0, 0, img[2], TRUE);
 
 	// 星の描画
 	DrawRotaGraph(100, 70, 1.0, PI / 180 * (star_cnt * 2), star_img, TRUE);
@@ -403,7 +401,7 @@ void InputRankingScene::Draw() const
 		if (cnt <= 35)
 		{
 			// 名前を入力してくださいの文字を描画
-			DrawGraph(400, 160, img[4], TRUE);
+			DrawGraph(400, 160, img[3], TRUE);
 		}
 		
 		/*DrawGraph(530 - 35, 63, font_img[0], TRUE);
@@ -447,13 +445,13 @@ void InputRankingScene::Draw() const
 	}
 
 	// 選択枠の描画
-	DrawGraph(540, 315, img[6], TRUE);
+	DrawGraph(540, 315, img[4], TRUE);
 
 	// 左矢印の描画
-	DrawGraph(330 - plus_lx, 365, img[7], TRUE);
+	DrawGraph(330 - plus_lx, 365, img[5], TRUE);
 	
 	// 右矢印の描画
-	DrawGraph(920 + plus_rx, 365, img[8], TRUE);
+	DrawGraph(920 + plus_rx, 365, img[6], TRUE);
 	
 	DrawGraph(635, 543 + sin(PI * 2 / 90 * cnt2) * 6, button[0], TRUE); // a
 	DrawGraph(470, 543 + sin(PI * 2 / 90 * cnt2) * 6, button[1], TRUE); // b

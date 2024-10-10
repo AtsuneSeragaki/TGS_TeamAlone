@@ -64,7 +64,7 @@ void RankingScene::Initialize()
 	star_img = LoadGraph("Resource/images/help/star.png");
 	tran_img = LoadGraph("Resource/images/tansition/transition.png");
 	ope_img[0] = LoadGraph("Resource/images/result/title1.png");
-	ope_img[1] = LoadGraph("Resource/images/result/title3.png");
+	ope_img[1] = LoadGraph("Resource/images/ranking/title3.png");
 	ope_img[2] = LoadGraph("Resource/images/result/b.png");
 	LoadDivGraph("Resource/images/ranking/moji6.png", 27, 9, 3, 50, 50, font_img);
 	LoadDivGraph("Resource/images/ranking/rank_num1.png", 10, 5, 2, 50, 50, num_img);

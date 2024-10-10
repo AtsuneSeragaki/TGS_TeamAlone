@@ -8,7 +8,7 @@
 class InputRankingScene : public SceneBase
 {
 private:
-	int img[9];       // 背景画像
+	int img[7];       // 背景画像
 	int star_img;     // 星画像
 	int tran_img;     // トランジション画像
 	int font_img[27]; // フォント画像（黒）

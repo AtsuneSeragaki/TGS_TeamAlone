@@ -8,7 +8,7 @@
 int TitleScene::menu_cursor = 0;
 bool TitleScene::back_title = false;
 
-TitleScene::TitleScene() : back_img(0), bgm(0), star_cnt(0), transition(0), tran_img(0),tran_flg(false),rota_flg(false),logo_img(0),star_flg(false),shoot_num(0),shoot_cnt(0),shoot_x(0),shoot_y(0),cloud_img(0),cnt(0),shoot_ran(0), shoot_x2(0), shoot_y2(0), shoot_ran2(0),char_y(0),move_flg(false),pos_flg(false),char_stay(0),star_cnt2(0)
+TitleScene::TitleScene() : back_img(0), bgm(0), star_cnt(0), transition(0), tran_img(0),tran_flg(false),rota_flg(false),star_flg(false),shoot_num(0),shoot_cnt(0),shoot_x(0),shoot_y(0),cloud_img(0),cnt(0),shoot_ran(0), shoot_x2(0), shoot_y2(0), shoot_ran2(0),char_y(0),move_flg(false),pos_flg(false),char_stay(0),star_cnt2(0)
 {
 	se[0] = 0;
 	se[1] = 0;
@@ -21,11 +21,6 @@ TitleScene::TitleScene() : back_img(0), bgm(0), star_cnt(0), transition(0), tran
 	for (int i = 0; i < 6; i++)
 	{
 		star_img[i] = 0;
-	}
-
-	for (int i = 0; i < 6; i++)
-	{
-		deco_img[i] = 0;
 	}
 
 	for (int i = 0; i < 4; i++)
@@ -49,18 +44,12 @@ TitleScene::~TitleScene()
 		DeleteGraph(star_img[i]);
 	}
 
-	for (int i = 0; i < 6; i++)
-	{
-		DeleteGraph(deco_img[i]);
-	}
-
 	for (int i = 0; i < 4; i++)
 	{
 		DeleteGraph(ope_img[i]);
 	}
 
 	DeleteGraph(tran_img);
-	DeleteGraph(logo_img);
 	DeleteGraph(cloud_img);
 
 	// 音データの削除
@@ -83,13 +72,6 @@ void TitleScene::Initialize()
 	menu_img[5] = LoadGraph("Resource/images/title/Ranking_basic.png");
 	menu_img[6] = LoadGraph("Resource/images/title/end_choice.png");
 	menu_img[7] = LoadGraph("Resource/images/title/end_basic.png");
-	
-	deco_img[0] = LoadGraph("Resource/images/help/star2.png");
-	deco_img[1] = LoadGraph("Resource/images/help/cloud.png");
-	deco_img[2] = LoadGraph("Resource/images/help/rainbow.png");
-	deco_img[3] = LoadGraph("Resource/images/help/candy.png");
-	deco_img[4] = LoadGraph("Resource/images/help/star.png");
-	deco_img[5] = LoadGraph("Resource/images/main/comment/char1-3.png");
 
 	star_img[0] = LoadGraph("Resource/images/title/line1.png");
 	star_img[1] = LoadGraph("Resource/images/title/line2.png");
@@ -99,8 +81,6 @@ void TitleScene::Initialize()
 	star_img[5] = LoadGraph("Resource/images/help/star.png");
 
 	tran_img = LoadGraph("Resource/images/tansition/transition.png");
-
-	logo_img = LoadGraph("Resource/images/title/logo.png");
 
 	ope_img[0] = LoadGraph("Resource/images/title/up-down-select.png");
 	ope_img[1] = LoadGraph("Resource/images/ranking/a.png");
@@ -138,15 +118,6 @@ void TitleScene::Initialize()
 		}
 	}
 
-	for (int i = 0; i < 6; i++)
-	{
-		if (deco_img[i] == -1)
-		{
-			throw("star_img[%d]がありません", i);
-		}
-	}
-
-
 	for (int i = 0; i < 4; i++)
 	{
 		if (ope_img[i] == -1)
@@ -158,10 +129,6 @@ void TitleScene::Initialize()
 	if (tran_img == -1)
 	{
 		throw("Resource/images/tansition/transition.pngがありません");
-	}
-	if (logo_img == -1)
-	{
-		throw("Resource/images/title/logo.pngがありません");
 	}
 	if (cloud_img == -1)
 	{

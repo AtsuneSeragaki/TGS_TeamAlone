@@ -7,8 +7,6 @@ class Time
 {
 private:
 	bool time_flg;     // 1秒減らすタイミングをカウント
-	int img_b[11];     // 画像データ
-	int img_r[11];     // 画像データ
 	int plus_img[3];   // 時間プラス画像
 	int bar_img;       // バーの画像 
 	bool add_flg;      // 追加する時間表示（false:しない true:する）

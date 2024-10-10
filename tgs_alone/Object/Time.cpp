@@ -4,12 +4,6 @@
 
 Time::Time() :time(0),time_flg(false), time2(0),time3(0.0f),add_flg(false),add_time(0),add_cnt(0), transparency(0), bar_img(0)
 {
-	for (int i = 0; i < 10; i++)
-	{
-		img_b[i] = 0;
-		img_r[i] = 0;
-	}
-
 	for (int i = 0; i < 3; i++)
 	{
 		plus_img[i] = 0;
@@ -24,11 +18,6 @@ Time::~Time()
 void Time::Initialize()
 {
 	// 画像データの読み込み
-	LoadDivGraph("Resource/images/main/number/numberb.png", 10, 5, 2, 75, 75, img_b);
-	img_b[10] = LoadGraph("Resource/images/main/number/period.png");
-	LoadDivGraph("Resource/images/main/number/numberr.png", 10, 5, 2, 75, 75, img_r);
-	img_r[10] = LoadGraph("Resource/images/main/number/periodr.png");
-
 	plus_img[0] = LoadGraph("Resource/images/main/number/plus1.png");
 	plus_img[1] = LoadGraph("Resource/images/main/number/plus2.png");
 	plus_img[2] = LoadGraph("Resource/images/main/number/plus3.png");
@@ -36,18 +25,6 @@ void Time::Initialize()
 	bar_img = LoadGraph("Resource/images/main/time_bar.png");
 
 	// エラーチェック
-	for (int i = 0; i < 11; i++)
-	{
-		if (img_b[i] == -1)
-		{
-			throw("img_b[%d]がありません\n",i);
-		}
-		if (img_r[i] == -1)
-		{
-			throw("img_r[%d]がありません\n", i);
-		}
-	}
-
 	for (int i = 0; i < 3; i++)
 	{
 		if (plus_img[i] == -1)
@@ -221,12 +198,6 @@ void Time::Draw()
 
 void Time::Finalize()
 {
-	// 画像データの削除
-	for (int i = 0; i < 11; i++)
-	{
-		DeleteGraph(img_b[i]);
-		DeleteGraph(img_r[i]);
-	}
 }
 
 void Time::SetAddTime(bool flg, int num)

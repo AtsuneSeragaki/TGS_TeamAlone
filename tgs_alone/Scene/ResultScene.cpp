@@ -8,7 +8,7 @@
 
 bool ResultScene::result_tran = false;
 
-ResultScene::ResultScene():back_img{0},bgm(0),se(0), star_img(0), star_cnt(0), transition(0), tran_img(0), tran_flg(false),cnt(0),rank_num(0),rank_cnt(0),level_max(0),level_num(0),combo_max(0),combo_num(0),mis_max(0),mis_num(0),numanim_cnt(0)
+ResultScene::ResultScene():back_img(0), bgm(0), se(0), star_img(0), star_cnt(0), transition(0), tran_img(0), tran_flg(false), cnt(0), rank_num(0), rank_cnt(0), level_max(0), level_num(0), combo_max(0), combo_num(0), mis_max(0), mis_num(0), numanim_cnt(0)
 {
 	for (int i = 0; i < 10; i++)
 	{
@@ -40,8 +40,7 @@ ResultScene::ResultScene():back_img{0},bgm(0),se(0), star_img(0), star_cnt(0), t
 ResultScene::~ResultScene()
 {
 	// 画像データの削除
-	DeleteGraph(back_img[0]);
-	DeleteGraph(back_img[1]);
+	DeleteGraph(back_img);
 
 	for (int i = 0; i < 10; i++)
 	{
@@ -74,8 +73,7 @@ void ResultScene::Initialize()
 	/*back_img[0] = LoadGraph("Resource/images/result/result.png");
 	back_img[1] = LoadGraph("Resource/images/result/result2.png");*/
 
-	back_img[0] = LoadGraph("Resource/images/result/result5.png");
-	back_img[1] = LoadGraph("Resource/images/result/result3.png");
+	back_img = LoadGraph("Resource/images/result/result5.png");
 	LoadDivGraph("Resource/images/ranking/rank_num1.png", 10, 5, 2, 50, 50, num_img);
 	rank_img[0][0] = LoadGraph("Resource/images/result/D1.png");
 	rank_img[0][1] = LoadGraph("Resource/images/result/D2.png");
@@ -142,13 +140,9 @@ void ResultScene::Initialize()
 	bgm = LoadSoundMem("Resource/sounds/title/bgm.mp3");
 
 	// エラーチェック
-	if (back_img[0] == -1)
+	if (back_img == -1)
 	{
-		throw("Resource/images/result.pngがありません");
-	}
-	if (back_img[1] == -1)
-	{
-		throw("Resource/images/result.pngがありません");
+		throw("Resource/images/result5.pngがありません");
 	}
 	if (star_img == -1)
 	{
@@ -363,7 +357,7 @@ void ResultScene::Draw() const
 	int k = 19;*/
 
 	// 背景の描画
-	DrawGraph(0, 0, back_img[0], TRUE);
+	DrawGraph(0, 0, back_img, TRUE);
 
 	// 操作説明の描画
 	// 名前入力画面に行くか行かないかで変える
