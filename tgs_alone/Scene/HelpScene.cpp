@@ -6,7 +6,7 @@
 
 bool HelpScene::game_start = false;
 
-HelpScene::HelpScene():bcnt(0),anim(0),cnt_flg(false),se(0),bgm(0), star_img(0),star_cnt(0), transition(0), tran_img(0), tran_flg(false),cnt(0), cbutton_num(0)
+HelpScene::HelpScene():bcnt(0),anim(0),cnt_flg(false),se(0),bgm(0), star_img(0), transition(0), tran_img(0), tran_flg(false),cnt(0), cbutton_num(0)
 {
 	for (int i = 0; i < 8; i++)
 	{
@@ -102,7 +102,6 @@ void HelpScene::Initialize()
 	cbutton_img[6] = LoadGraph("Resource/images/help/b1.png");
 	cbutton_img[7] = LoadGraph("Resource/images/help/b2.png");
 
-
 	// 音データの読み込み
 	se = LoadSoundMem("Resource/sounds/title/ok.mp3");
 	bgm = LoadSoundMem("Resource/sounds/title/bgm2.mp3");
@@ -155,7 +154,6 @@ void HelpScene::Initialize()
 	bcnt = 0;
 	cnt_flg = false;
 	anim = 1;
-	star_cnt = 0;
 	transition = -93;
 	tran_flg = true;
 	game_start = false;
@@ -167,17 +165,14 @@ eSceneType HelpScene::Update()
 	// 操作説明のボタンのアニメーション
 	OpeAnim();
 
-	// 星を回転させる
-	StarAnim();
-
 	// ボタンのアニメーション
 	ButtonAnim();
 
 	if (tran_flg == true)
 	{
+		// トランジション処理
 		if (TitleScene::back_title == true && transition <= -120)
 		{
-			// トランジション
 			Transition();
 		}
 		else if (TitleScene::back_title == true && transition > -120)
@@ -187,7 +182,6 @@ eSceneType HelpScene::Update()
 		}
 		else if (game_start == true && transition <= -120)
 		{
-			// トランジション
 			Transition();
 		}
 		else if (game_start == true && transition > -120)
@@ -197,7 +191,6 @@ eSceneType HelpScene::Update()
 		}
 		else if (TitleScene::back_title == false && game_start == false && transition <= 1943)
 		{
-			// トランジション
 			Transition();
 		}
 		else
@@ -250,16 +243,9 @@ void HelpScene::Draw() const
 	// 背景の描画
 	DrawGraph(0, 0, back_img[0], FALSE);
 
-	// 星の描画
-	//DrawRotaGraph(450, 90, 1.0, PI / 180 * (star_cnt * 2), star_img, TRUE);
-	//DrawRotaGraph(850, 90, 1.0, PI / 180 * (star_cnt * 2), star_img, TRUE);
-	//DrawRotaGraph(50, 670, 1.0, PI / 180 * (-star_cnt * 2), star_img, TRUE);
-	//DrawRotaGraph(1230, 670, 1.0, PI / 180 * (star_cnt * 2), star_img, TRUE);
-
 	// 操作説明の描画
-	//DrawGraph(400, 580, back_img[1], TRUE);
-	DrawGraph(425, 578 + sin(PI * 2 / 90 * cnt) * 6, back_img[2], TRUE); // xbutton
-	DrawGraph(673, 578 + sin(PI * 2 / 90 * cnt) * 6, back_img[3], TRUE); // bbutton
+	DrawGraph(425, 578 + sin(PI * 2 / 90 * cnt) * 6, back_img[2], TRUE); // xボタン
+	DrawGraph(673, 578 + sin(PI * 2 / 90 * cnt) * 6, back_img[3], TRUE); // bボタン
 
 	// 操作説明(コントローラーのボタン)の描画
 	switch (cbutton_num)
@@ -442,12 +428,10 @@ eSceneType HelpScene::GetNowScene() const
 
 void HelpScene::ButtonAnim()
 {
-	// ボタンアニメーションフラグがtrueだったら
 	if (cnt_flg == true)
 	{
 		bcnt++;
 
-		// cntが140より大きかったら
 		if (bcnt > 140)
 		{
 			bcnt = 0;
@@ -457,7 +441,6 @@ void HelpScene::ButtonAnim()
 		}
 	}
 	
-	// animの値が0より大きかったら
 	if (anim > 0)
 	{
 		anim++;
@@ -479,24 +462,12 @@ void HelpScene::ButtonAnim()
 			cbutton_num = 0;
 		}
 
-		// animが100より大きかったら
 		if (anim > 100)
 		{
 			anim = 0;
 			cnt_flg = true;
 			cbutton_num = 0;
 		}
-	}
-}
-
-void HelpScene::StarAnim()
-{
-	star_cnt++;
-
-	// 180より大きくなったら0にする
-	if (star_cnt > 180)
-	{
-		star_cnt = 0;
 	}
 }
 

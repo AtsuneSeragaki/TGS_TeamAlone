@@ -19,11 +19,6 @@ Theme::~Theme()
 void Theme::Initialize()
 {
 	// 画像の読み込み
-	/*img[0] = LoadGraph("Resource/images/main/button/Abotton0.png");
-	img[1] = LoadGraph("Resource/images/main/button/Bbotton0.png");
-	img[2] = LoadGraph("Resource/images/main/button/Ybotton0.png");
-	img[3] = LoadGraph("Resource/images/main/button/Xbotton0.png");*/
-
 	img[0] = LoadGraph("Resource/images/main/button/a1.png");
 	img[1] = LoadGraph("Resource/images/main/button/b1.png");
 	img[2] = LoadGraph("Resource/images/main/button/y1.png");
@@ -101,9 +96,6 @@ void Theme::Draw()
 		DrawGraph(125 - 8, 90, level_img[(theme_num - 2) / 10], TRUE);
 		DrawGraph(168 - 8, 90, level_img[(theme_num - 2) % 10], TRUE);
 	}
-
-	//SetFontSize(75);
-	//DrawFormatString(150, 85, 0x000000, "%d", theme_num - 2);
 
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 110);
 

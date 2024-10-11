@@ -20,7 +20,6 @@ private:
 	int bcnt;             // ボタンアニメーションカウント用
 	bool cnt_flg;         // ボタンアニメーションのカウントをするかしないかフラグ
 	int anim;             // ボタンの動き用
-	int star_cnt;         // 星の回転用
 	bool tran_flg;        // 画面遷移 false:しない true:する
 	int transition;       // トランジションの値保存用
 	int cnt;              // フレームカウント
@@ -52,9 +51,6 @@ public:
 
 	// ボタンのアニメーション処理
 	void ButtonAnim();
-
-	// 星の回転処理
-	void StarAnim();
 
 	// 画面切り替えアニメーション
 	void Transition();

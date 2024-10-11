@@ -81,73 +81,6 @@ void Time::Update()
 
 void Time::Draw()
 {
-	// 制限時間表示
-	//if (time < 11)
-	//{// 制限時間が10秒以下になったら赤い文字
-
-	//	// ピリオド表示
-	//	DrawGraph(TIME_X + 78, TIME_Y, img_r[10], TRUE);
-
-	//	if (time < 10)
-	//	{
-	//		// 時間(秒)表示
-	//		DrawGraph(TIME_X, TIME_Y, img_r[0], TRUE);
-	//		DrawGraph(TIME_X + 50, TIME_Y, img_r[time % 10], TRUE);
-
-	//		// 時間(ミリ秒)表示
-	//		if (time2 < 10)
-	//		{
-	//			DrawGraph(TIME_X + 120, TIME_Y, img_r[0], TRUE);
-	//			DrawGraph(TIME_X + 170, TIME_Y, img_r[time2 % 10], TRUE);
-	//		}
-	//		else
-	//		{
-	//			//DrawFormatString(650, 110, 0x000000, "%d", time2);
-	//			DrawGraph(TIME_X + 120, TIME_Y, img_r[time2 / 10], TRUE);
-	//			DrawGraph(TIME_X + 170, TIME_Y, img_r[time2 % 10], TRUE);
-	//		}
-	//	}
-	//	else
-	//	{
-	//		// 時間(秒)表示
-	//		DrawGraph(TIME_X, TIME_Y, img_r[time / 10], TRUE);
-	//		DrawGraph(TIME_X + 50, TIME_Y, img_r[time % 10], TRUE);
-
-	//		// 時間(ミリ秒)表示
-	//		if (time2 < 10)
-	//		{
-	//			DrawGraph(TIME_X + 120, TIME_Y, img_r[0], TRUE);
-	//			DrawGraph(TIME_X + 170, TIME_Y, img_r[time2 % 10], TRUE);
-	//		}
-	//		else
-	//		{
-	//			DrawGraph(TIME_X + 120, TIME_Y, img_r[time2 / 10], TRUE);
-	//			DrawGraph(TIME_X + 170, TIME_Y, img_r[time2 % 10], TRUE);
-	//		}
-	//	}
-	//}
-	//else
-	//{
-	//	// 時間(秒)表示
-	//	DrawGraph(TIME_X, TIME_Y, img_b[time / 10], TRUE);
-	//	DrawGraph(TIME_X + 50, TIME_Y, img_b[time % 10], TRUE);
-
-	//	// ピリオド表示
-	//	DrawGraph(TIME_X + 78,TIME_Y, img_b[10], TRUE);
-
-	//	// 時間(ミリ秒)表示
-	//	if (time2 < 10)
-	//	{
-	//		DrawGraph(TIME_X + 122, TIME_Y, img_b[0], TRUE);
-	//		DrawGraph(TIME_X + 172, TIME_Y, img_b[time2 % 10], TRUE);
-	//	}
-	//	else
-	//	{
-	//		DrawGraph(TIME_X + 122, TIME_Y, img_b[time2 / 10], TRUE);
-	//		DrawGraph(TIME_X + 172, TIME_Y, img_b[time2 % 10], TRUE);
-	//	}
-	//}
-
 	// 減る時間の描画
 	if (time > 5)
 	{
@@ -172,7 +105,6 @@ void Time::Draw()
 		SetFontSize(30);
 		SetDrawBlendMode(DX_BLENDMODE_ALPHA, transparency);
 		DrawGraph(705, 205, plus_img[add_time - 1], TRUE);
-		//DrawFormatString(700, 215, 0xff0000, "+%d", add_time);
 		SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 
 		if (time3 <= 0.0f)
@@ -189,11 +121,6 @@ void Time::Draw()
 	DrawBox(340, 260, 990, 275, 0xcbc0db, FALSE);
 	DrawBox(339, 259, 991, 276, 0xcbc0db, FALSE);
 	DrawBox(338, 258, 992, 277, 0xcbc0db, FALSE);
-
-
-	//DrawGraph(340, 260, bar_img,TRUE);
-
-	//DrawFormatString(700, 215, 0xff0000, "%d", transparency);
 }
 
 void Time::Finalize()

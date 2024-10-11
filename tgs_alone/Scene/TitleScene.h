@@ -15,13 +15,10 @@ private:
 	int cloud_img;    // 雲画像
 	int se[2];        // 効果音
 	int bgm;          // BGM
-	int star_cnt;     // 星の回転用
-	int star_cnt2;     // 星の回転用
 	bool tran_flg;    // 画面遷移 false:しない true:する
 	int transition;   // トランジションの値保存用
-	bool rota_flg;    // 回転変数 false:プラス true:マイナス
-	bool star_flg;    // 流れ星の表示 false:しない true:する
 	int cnt;          // フレームカウント
+	bool star_flg;    // 流れ星の表示 false:しない true:する
 	int shoot_num;    // 表示する流れ星画像の番号
 	int shoot_cnt;    // 流れ星を表示するまでの時間をカウント
 	int shoot_x;      // 流れ星のX座標
@@ -30,10 +27,6 @@ private:
 	int shoot_y2;     // 流れ星2のY座標
 	int shoot_ran;    // 流れ星の表示位置をランダムに取る 
 	int shoot_ran2;   // 流れ星2の表示位置をランダムに取る 
-	int char_y;       // キャラクターのY座標
-	bool move_flg;    // キャラクターの移動 false:下 true:上
-	bool pos_flg;     // キャラクターの表示位置 false:左 true:右
-	int char_stay;    // キャラクターをある位置で止める
 
 public:
 	static int menu_cursor;  // カーソルがどこにあるか
@@ -62,27 +55,15 @@ public:
 	// 現在のシーンを取得
 	virtual eSceneType GetNowScene() const override;
 
-	// 星の回転処理
-	void StarAnim();
-
-	// メニューカーソルの横にある画像の動き
-	void CursorAnim();
-
-	// 星の移動処理
-	void StarMove();
-
-	// 画面切り替えアニメーション
+	// 画面切り替えアニメーション処理
 	void Transition();
 
-	// 流れ星アニメーション
+	// 流れ星アニメーション処理
 	void ShootStarAnim();
 
-	// 流れ星の表示位置の設定
+	// 流れ星の表示位置の設定処理
 	void SetStarPos();
 
-	// キャラクターのY座標変更
-	void SetCharY();
-
-	// 操作説明のボタンのアニメーション
+	// 操作説明のボタンのアニメーション処理
 	void OpeAnim();
 };

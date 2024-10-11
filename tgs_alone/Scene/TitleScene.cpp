@@ -8,7 +8,7 @@
 int TitleScene::menu_cursor = 0;
 bool TitleScene::back_title = false;
 
-TitleScene::TitleScene() : back_img(0), bgm(0), star_cnt(0), transition(0), tran_img(0),tran_flg(false),rota_flg(false),star_flg(false),shoot_num(0),shoot_cnt(0),shoot_x(0),shoot_y(0),cloud_img(0),cnt(0),shoot_ran(0), shoot_x2(0), shoot_y2(0), shoot_ran2(0),char_y(0),move_flg(false),pos_flg(false),char_stay(0),star_cnt2(0)
+TitleScene::TitleScene() : back_img(0), bgm(0), transition(0), tran_img(0),tran_flg(false),star_flg(false),shoot_num(0),shoot_cnt(0),shoot_x(0),shoot_y(0),cloud_img(0),cnt(0),shoot_ran(0), shoot_x2(0), shoot_y2(0), shoot_ran2(0)
 {
 	se[0] = 0;
 	se[1] = 0;
@@ -151,11 +151,8 @@ void TitleScene::Initialize()
 	ChangeVolumeSoundMem(100, bgm);
 
 	// 変数の初期化
-	star_cnt = 0;
 	transition = -1943;
 	tran_flg = false;
-	rota_flg = false;
-
 	star_flg = false;
 	shoot_num = 0;
 	shoot_cnt = 0;
@@ -166,11 +163,6 @@ void TitleScene::Initialize()
 	shoot_y2 = 0;
 	shoot_ran2 = 0;
 	cnt = 0;
-	char_y = 600;
-	move_flg = true;
-	pos_flg = false;
-	char_stay = 0;
-	star_cnt2 = 0;
 }
 
 eSceneType TitleScene::Update()
@@ -180,13 +172,7 @@ eSceneType TitleScene::Update()
 
 	OpeAnim();
 
-	StarAnim();
-
-	CursorAnim();
-
 	ShootStarAnim();
-
-	SetCharY();
 
 	if (back_title == true)
 	{
@@ -287,94 +273,55 @@ void TitleScene::Draw() const
 	// 背景の描画
 	DrawGraph(0, 0, back_img, TRUE);
 
-	// 星の描画
-	/*DrawRotaGraph(200, 90,1.0,PI / 180 * star_cnt2, star_img[5], TRUE);
-	DrawRotaGraph(1100, 100,1.0,PI / 180 * -star_cnt2, star_img[5], TRUE);
-	DrawRotaGraph(1000, 300, 1.0,PI / 180 * star_cnt2, star_img[5], TRUE);*/
-	/*DrawRotaGraph(1200, 220, 1.0,PI / 180 * -star_cnt2, star_img[5], TRUE);
-	DrawRotaGraph(250, 380, 1.0,PI / 180 * star_cnt2, star_img[5], TRUE);
-	DrawRotaGraph(950, 380, 1.0,PI / 180 * star_cnt2, star_img[5], TRUE);
-	DrawRotaGraph(450, 600, 1.0,PI / 180 * -star_cnt2, star_img[5], TRUE);
-	DrawRotaGraph(830, 600, 1.0,PI / 180 * -star_cnt2, star_img[5], TRUE);*/
-
 	// 流れ星の描画
 	if (star_flg == true)
 	{
 		DrawGraph(shoot_x, shoot_y, star_img[shoot_num], TRUE);
 	}
 
-	/*DrawGraph(50, 30, star_img[shoot_num], TRUE);
-	DrawGraph(200, 170, star_img[shoot_num], TRUE);
-	DrawGraph(70, 400, star_img[shoot_num], TRUE);
-	DrawGraph(280, 550, star_img[shoot_num], TRUE);
-	DrawGraph(450, 300, star_img[shoot_num], TRUE);
-	DrawGraph(700, 450, star_img[shoot_num], TRUE);
-	DrawGraph(1100, 30, star_img[shoot_num], TRUE);
-	DrawGraph(850, 200, star_img[shoot_num], TRUE);
-	DrawGraph(1200, 250, star_img[shoot_num], TRUE);
-	DrawGraph(980, 350, star_img[shoot_num], TRUE);
-	DrawGraph(900, 600, star_img[shoot_num], TRUE);*/
-	
-	/*DrawRotaGraphF(star_x[2], 100.0f, 1.0, PI / 180 * -star_cnt, star_img[2], TRUE);
-	DrawRotaGraphF(star_x[3], 100.0f, 1.0, PI / 180 * star_cnt, star_img[3], TRUE);
-
-	DrawRotaGraphF(star_x[4], 370.0f, 1.0, PI / 180 * star_cnt, star_img[3], TRUE);
-	DrawRotaGraphF(star_x[5], 370.0f, 1.0, PI / 180 * -star_cnt, star_img[2], TRUE);
-	DrawRotaGraphF(star_x[6], 370.0f, 1.0, PI / 180 * star_cnt, star_img[1], TRUE);
-	DrawRotaGraphF(star_x[7], 370.0f, 1.0, PI / 180 * -star_cnt, star_img[0], TRUE);
-
-	DrawRotaGraphF(star_x[8], 650.0f, 1.0, PI / 180 * star_cnt, star_img[2], TRUE);
-	DrawRotaGraphF(star_x[9], 650.0f, 1.0, PI / 180 * -star_cnt, star_img[0], TRUE);
-	DrawRotaGraphF(star_x[10], 650.0f, 1.0, PI / 180 * star_cnt, star_img[3], TRUE);
-	DrawRotaGraphF(star_x[11], 650.0f, 1.0, PI / 180 * -star_cnt, star_img[1], TRUE);*/
-
-	// タイトルロゴの描画
-	//DrawGraph(380, 5, logo_img, TRUE);
-
-	// 雲の描画
+	// 背景(雲)の描画
 	DrawGraph(0, 0, cloud_img, TRUE);
 
 	// 操作説明の描画
-	DrawGraph(800, 650, ope_img[0], TRUE);
-	DrawGraph(920, 650 + sin(PI * 2 / 90 * cnt) * 6, ope_img[1], TRUE); // a
-	DrawGraph(1092, 650 + sin(PI * 2 / 90 * cnt) * 6, ope_img[3], TRUE); // b
-	DrawGraph(802, 650 + sin(PI * 2 / 90 * cnt) * 6, ope_img[2], TRUE); // y
-
+	DrawGraph(800, 650, ope_img[0], TRUE); // 説明文字画像
+	DrawGraph(920, 650 + sin(PI * 2 / 90 * cnt) * 6, ope_img[1], TRUE);  // aボタン
+	DrawGraph(1092, 650 + sin(PI * 2 / 90 * cnt) * 6, ope_img[3], TRUE); // bボタン
+	DrawGraph(802, 650 + sin(PI * 2 / 90 * cnt) * 6, ope_img[2], TRUE);  // yボタン
 	
 	// メニューの描画
 	switch (menu_cursor)
 	{
 	case 0:
-		DrawGraph(555, 240 + 30 + sin(PI * 2 / 90 * cnt) * 6, menu_img[0], TRUE);
-		DrawGraph(575, 340 + 30, menu_img[3], TRUE);
-		DrawGraph(510, 443 + 30, menu_img[5], TRUE);
-		DrawGraph(585, 540 + 40, menu_img[7], TRUE);
-		DrawGraph(493, 280/*+ (float)sin(PI * 2 / 100 * cnt) * 5*/, star_img[5], TRUE);
-		DrawGraph(760, 280 /*+ (float)sin(PI * 2 / 100 * cnt) * 5*/, star_img[5], TRUE);
+		DrawGraph(555, 240 + 30 + sin(PI * 2 / 90 * cnt) * 6, menu_img[0], TRUE); // start
+		DrawGraph(575, 340 + 30, menu_img[3], TRUE); // help
+		DrawGraph(510, 443 + 30, menu_img[5], TRUE); // ranking
+		DrawGraph(585, 540 + 40, menu_img[7], TRUE); // end
+		DrawGraph(493, 280, star_img[5], TRUE); // 星(左)
+		DrawGraph(760, 280, star_img[5], TRUE); // 星(右)
 		break;
 	case 1:
 		DrawGraph(555, 240 + 30, menu_img[1], TRUE);
 		DrawGraph(575, 340 + 30 + sin(PI * 2 / 90 * cnt) * 6, menu_img[2], TRUE);
 		DrawGraph(510, 443 + 30, menu_img[5], TRUE);
 		DrawGraph(585, 540 + 40, menu_img[7], TRUE);
-		DrawGraph(510, 378 /*+ (float)sin(PI * 2 / 90 * cnt) * 6*/, star_img[5], TRUE);
-		DrawGraph(750, 378 /*+ (float)sin(PI * 2 / 90 * cnt) * 6*/, star_img[5], TRUE);
+		DrawGraph(510, 378, star_img[5], TRUE);
+		DrawGraph(750, 378, star_img[5], TRUE);
 		break;
 	case 2:
 		DrawGraph(555, 240 + 30, menu_img[1], TRUE);
 		DrawGraph(575, 340 + 30, menu_img[3], TRUE);
 		DrawGraph(510, 443 + 30 + sin(PI * 2 / 90 * cnt) * 6, menu_img[4], TRUE);
 		DrawGraph(585, 540 + 40, menu_img[7], TRUE);
-		DrawGraph(450, 490 /*+ (float)sin(PI * 2 / 90 * cnt) * 6*/, star_img[5], TRUE);
-		DrawGraph(820, 490 /*+ (float)sin(PI * 2 / 90 * cnt) * 6*/, star_img[5], TRUE);
+		DrawGraph(450, 490, star_img[5], TRUE);
+		DrawGraph(820, 490, star_img[5], TRUE);
 		break;
 	case 3:
 		DrawGraph(555, 240 + 30, menu_img[1], TRUE);
 		DrawGraph(575, 340 + 30, menu_img[3], TRUE);
 		DrawGraph(510, 443 + 30, menu_img[5], TRUE);
 		DrawGraph(585, 540 + 40 + sin(PI * 2 / 90 * cnt) * 6, menu_img[6], TRUE);
-		DrawGraph(520, 585 /*+ (float)sin(PI * 2 / 90 * cnt) * 6*/, star_img[5], TRUE);
-		DrawGraph(735, 585 /*+ (float)sin(PI * 2 / 90 * cnt) * 6*/, star_img[5], TRUE);
+		DrawGraph(520, 585, star_img[5], TRUE);
+		DrawGraph(735, 585, star_img[5], TRUE);
 		break;
 	default:
 		break;
@@ -397,84 +344,9 @@ eSceneType TitleScene::GetNowScene() const
 	return eSceneType::E_TITLE;
 }
 
-void TitleScene::StarAnim()
-{
-	star_cnt2++;
-
-	// 180より大きくなったら0にする
-	if (star_cnt2 > 180)
-	{
-		star_cnt2 = 0;
-	}
-
-	star_cnt2++;
-
-	// 180より大きくなったら0にする
-	if (star_cnt2> 90)
-	{
-		star_cnt2 = 0;
-	}
-
-}
-
-void TitleScene::CursorAnim()
-{
-	if (rota_flg == false)
-	{
-		star_cnt++;
-
-		if (star_cnt > 20)
-		{
-			rota_flg = true;
-		}
-	}
-	else
-	{
-		star_cnt--;
-
-		if (star_cnt <= -15)
-		{
-			rota_flg = false;
-		}
-	}
-}
-
 void TitleScene::Transition()
 {
 	transition += 50;
-}
-
-void TitleScene::StarMove()
-{
-	/*for (int i = 0; i < 4; i++)
-	{
-		star_x[i] -= 0.3f;
-
-		if (star_x[i] <= -335.0f)
-		{
-			star_x[i] = 1330.0f;
-		}
-	}
-
-	for (int i = 4; i < 8; i++)
-	{
-		star_x[i] += 0.3f;
-
-		if (star_x[i] >= 1330.0f)
-		{
-			star_x[i] = -335.0f;
-		}
-	}
-
-	for (int i = 8; i < 12; i++)
-	{
-		star_x[i] -= 0.3f;
-
-		if (star_x[i] <= -335.0f)
-		{
-			star_x[i] = 1330.0f;
-		}
-	}*/
 }
 
 void TitleScene::ShootStarAnim()
@@ -626,51 +498,6 @@ void TitleScene::SetStarPos()
 
 	default:
 		break;
-	}
-}
-
-void TitleScene::SetCharY()
-{
-	if (move_flg == false)
-	{
-		if (char_stay != 0)
-		{
-			char_stay++;
-
-			if (char_stay >= 120)
-			{
-				char_stay = 0;
-			}
-		}
-		else
-		{
-			char_y++;
-
-			if (char_y >= 620)
-			{
-				move_flg = true;
-
-
-				if (pos_flg == false)
-				{
-					pos_flg = true;
-				}
-				else
-				{
-					pos_flg = false;
-				}
-			}
-		}
-	}
-	else
-	{
-		char_y--;
-
-		if (char_y <= 400)
-		{
-			move_flg = false;
-			char_stay = 1;
-		}
 	}
 }
 
