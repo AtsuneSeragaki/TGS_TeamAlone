@@ -16,7 +16,7 @@ private:
 	int correct[INPUT_MAX];     // 正解したデータを保存
 	int player_anim[INPUT_MAX]; // 正解した時のアニメーション用
 	int cnt;                    // 正解した時のアニメーションカウント
-	int mis_anim[INPUT_MAX];    // 間違えたデータを保存
+	int mis_anim[INPUT_MAX];    // 間違えたデータのアニメーションを保存
 	int mis_data[INPUT_MAX];    // プレイヤーが間違えたものを保存
 	int mistake_cnt;            // 間違えた時のアニメーションカウント
 	int mis_anim2[INPUT_MAX];   // 間違えた時のアニメーション用
